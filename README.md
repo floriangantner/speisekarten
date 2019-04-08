@@ -10,5 +10,6 @@ https://unibamberg-my.sharepoint.com/:p:/g/personal/florian-klaus_gantner_stud_u
 
 
 Installationsanleitung  
-(Wenn Code da ist: index.html ausführen)
+(Wenn Code da ist: zip runterladen oder mit dem git-Programm clonen:  index.html ausführen)
 
+ 
