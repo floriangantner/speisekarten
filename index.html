@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Tripadviswurst</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Florian Gantner">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" sizes="192x192" href="assets/app_192x192.png">
+  <!-- https://material.io/static/images/simple-lp/favicons/components-192x192.png -->
+  <link rel="shortcut icon" href="https://material.io/static/images/simple-lp/favicons/components-72x72.png">
+  <!-- include stylesheets -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!--<link rel="stylesheet" href="css/material-components-web.min.css">-->
+  <link rel="stylesheet" href="css/app.css">
+  <!-- include map stylesheets -->
+  <link rel="stylesheet" href="js/leaflet/css/leaflet.css">
+
+
+  <!-- include jquery-library -->
+  <script src="js/jquery/jquery-3.3.1.min.js"></script>
+  <!-- include pouchDB -->
+  <script src ="js/pouchdb/pouchdb-7.0.0.min.js"></script>
+  <script src="js/DB/DB.js"></script>
+  <!-- include Application logic -->
+  <!--<script type="text/javascript" src="js/.js"></script>
+  <script type="text/javascript" src="js/.js"></script>
+  <script type="text/javascript" src="js/.js"></script>
+  -->
+</head>
+<body class="mdc-typography">
+  <aside class="mdc-drawer mdc-drawer--modal mdc-drawer" id="nav-drawer">
+    <div class="mdc-drawer__header">
+    <h3 class="mdc-drawer__title">Oskar von Miller</h3>
+    <h6 class="mdc-drawer__subtitle">Restaurantkritiker </h6></div>
+    <div class="mdc-drawer__content">
+      <nav class="mdc-list">
+        <a class="mdc-list-item mdc-list-item--activated" id="nav-pubs-list" href="#" tabindex="0" aria-selected="true"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>Gasthäuser</a>
+        <a class="mdc-list-item" href="#" tabindex="-1" id="nav-map"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">star</i>Karte</a>
+        <a class="mdc-list-item" href="#" tabindex="-1" id="nav-dishes"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">send</i>Alle Gerichte</a>
+        <a class="mdc-list-item" href="#" tabindex="-1" id="nav-dishes-you"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>Deine Gerichte</a>
+        <hr class="mdc-list-divider">
+        <h6 class="mdc-list-group__subheader">Labels</h6>
+        <a class="mdc-list-item" href="#" tabindex="-1" id="nav-about-you"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">bookmark</i>Über dich</a>
+        <a class="mdc-list-item" href="#" tabindex="-1" id="nav-about-us">
+          <i class="material-icons mdc-list-item__graphic" aria-hidden="true" >bookmark</i>Über uns</a>
+          <a class="mdc-list-item" href="#" tabindex="-1"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">bookmark</i>Lesezeichen</a>
+          <hr class="mdc-list-divider">
+            <a class="mdc-list-item" href="#" tabindex="-1" id="nav-tutorial"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">announcement</i>Help &amp; feedback</a>
+          </nav></div>
+            </aside>
+
+              <div class="mdc-drawer-scrim"></div>
+        <div class="drawer-frame-app-content">
+          <header class="mdc-top-app-bar--short drawer-top-app-bar--short"><div class="mdc-top-app-bar__row"><section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+          <button class="material-icons mdc-top-app-bar__navigation-icon mdc-ripple-upgraded--unbounded mdc-ripple-upgraded" style="--mdc-ripple-fg-size:28px; --mdc-ripple-fg-scale:1.7142857142857142; --mdc-ripple-left:10px; --mdc-ripple-top:10px;" id="menu">menu</button>
+          <span class="mdc-top-app-bar__title">Tripadviswurst</span></section></div></header>
+        </div>
+<!-- Liste von Model Cards-->
+
+<main class="maincard" id="card-intro">
+  <div class="mdc-card demo-card">
+    <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+      <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>
+      <div class="demo-card__primary">
+        <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Tripadviswurst</h2>
+        <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">by Kurt Wagner</h3>
+      </div>
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Willkommen bei Tripadviswurst</div>
+    </div>
+    <div class="mdc-card__actions">
+      <div class="mdc-card__action-buttons">
+        <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-intro-go">Leinen los</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<main class="maincard" id="card-tutorial">
+  <div class="mdc-card demo-card">
+    <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+      <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>
+      <div class="demo-card__primary">
+        <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Tutorialseite</h2>
+        <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">by Kurt Wagner</h3>
+      </div>
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Soll laut dem Games-Workshop erst am Ende gemacht werden. Erweiterbar auf mehrere Seiten.
+        Außerdem ist ein Hilfe-Popup möglich, welche bei neuen Funktionen einmalig erscheint.
+    </div>
+    <div class="mdc-card__actions">
+      <div class="mdc-card__action-buttons">
+        <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-tutorial-go">Taking Off</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+          <main class="maincard" id="card-pubs-list">
+          <div class="mdc-card demo-card">
+            <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+              <div class="demo-card__primary">
+                <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Liste von Gaststätten</h2>
+              </div>
+              <div class="demo-card__secondary mdc-typography mdc-typography--body2">
+                <ul class="mdc-list mdc-list--two-line pubs-list">
+  <li class="mdc-list-item" tabindex="0">
+    <span class="mdc-list-item__text">
+      <span class="mdc-list-item__primary-text">Gasthaus 1</span>
+      <span class="mdc-list-item__secondary-text">X Gerichte, Position unbekannt</span>
+    </span>
+  </li>
+  <li class="mdc-list-item">
+    <span class="mdc-list-item__text">
+      <span class="mdc-list-item__primary-text">Gasthaus 2</span>
+      <span class="mdc-list-item__secondary-text">X Gerichte, Position bekannt</span>
+    </span>
+  </li>
+  <li class="mdc-list-item">
+    <span class="mdc-list-item__text">
+      <span class="mdc-list-item__primary-text">Gasthaus 3</span>
+      <span class="mdc-list-item__secondary-text">X Gerichte, alles erschlossen</span>
+    </span>
+  </li>
+</ul>
+</div>
+            </div>
+          </div>
+          </main>
+
+<!-- Liste von model cards -->
+
+<main class="maincard" id="card-map">
+  <div class="mdc-card demo-card">
+    <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+      <div class="demo-card__primary">
+        <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Karte</h2>
+        <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">by leaflet</h3>
+      </div>
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Gerichte räumlich entdecken</div>
+    </div>
+    <div class="mdc-card__actions">
+      <div class="mdc-card__action-buttons">
+        <button class="mdc-button mdc-card__action mdc-card__action--button">Gasthaus geomarkieren</button>
+      </div>
+      <div class="mdc-card__action-icons">
+        <button class="mdc-icon-button mdc-card__action mdc-card__action--icon--unbounded" aria-pressed="false" aria-label="Add to favorites" title="Add to favorites">
+          <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">favorite</i>
+          <i class="material-icons mdc-icon-button__icon">favorite_border</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<main class="maincard" id="card-identity">
+<div class="mdc-card demo-card">
+  <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+    <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>
+    <div class="demo-card__primary">
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Wähle eine Identität aus</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">by Dt. Museum</h3>
+    </div>
+    <div class="demo-card__secondary mdc-typography mdc-typography--body2">Infos.</div>
+  </div>
+  <div class="mdc-card__actions">
+    <div class="mdc-card__action-buttons">
+      <button class="mdc-button mdc-card__action mdc-card__action--button">Read</button>
+      <button class="mdc-button mdc-card__action mdc-card__action--button">Bookmark</button>
+    </div>
+  </div>
+</div>
+</main>
+
+<main class="maincard" id="card-pubs-dishes-list">
+<div class="mdc-card demo-card">
+  <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+    <div class="demo-card__primary">
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Liste von Gerichten</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">in diesem Gasthaus</h3>
+    </div>
+    <div class="demo-card__secondary mdc-typography mdc-typography--body2">
+      <ul class="mdc-list demo-list mdc-list--two-line dishes-list">
+      <li class="mdc-list-item" tabindex="0">
+        <span class="mdc-list-item__text">
+          <span class="mdc-list-item__primary-text">Gericht 1</span>
+          <span class="mdc-list-item__secondary-text">Info</span>
+        </span>
+      </li>
+      <li class="mdc-list-item">
+        <span class="mdc-list-item__text">
+          <span class="mdc-list-item__primary-text">Gericht 2</span>
+          <span class="mdc-list-item__secondary-text">Info</span>
+        </span>
+      </li>
+      <li class="mdc-list-item">
+        <span class="mdc-list-item__text">
+          <span class="mdc-list-item__primary-text">Gericht 3</span>
+          <span class="mdc-list-item__secondary-text">Info</span>
+        </span>
+      </li>
+    </ul>
+    </div>
+  </div>
+</div>
+</main>
+<main class="maincard" id="card-pubs-detail">
+  <div class="mdc-card demo-card demo-basic-with-header">
+    <div class="demo-card__primary">
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Gasthaus 1</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">by Kurt Wagner</h3>
+    </div>
+    <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+      <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Infos, Öffnungszeiten</div>
+    </div>
+    <div class="mdc-card__actions">
+      <div class="mdc-card__action-buttons">
+        <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-pubs-menu">Speisekarte</button>
+        <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-dishes">Gerichte</button>
+      </div>
+      <div class="mdc-card__action-icons">
+        <button class="mdc-icon-button mdc-card__action mdc-card__action--icon--unbounded" aria-pressed="false" aria-label="Add to favorites" title="Add to favorites">
+          <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">favorite</i>
+          <i class="material-icons mdc-icon-button__icon">favorite_border</i>
+        </button>
+        <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" title="Share" data-mdc-ripple-is-unbounded="true">share</button>
+        <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" title="More options" data-mdc-ripple-is-unbounded="true">more_vert</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+<main class="maincard" id="card-pubs-menu-list">
+  <div class="mdc-card demo-card demo-basic-with-header">
+    <div class="demo-card__primary">
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Gasthaus 1</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">Karten, dargestellt in einer Bilderliste (Minivorschau)</h3>
+    </div>
+    <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2">
+        <ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list pubs-menu-list">
+    <li class="mdc-image-list__item">
+      <img class="mdc-image-list__image" src="...">
+      <div class="mdc-image-list__supporting">
+        <span class="mdc-image-list__label">Froschkarte 1320</span>
+      </div>
+    </li>
+    <li class="mdc-image-list__item">
+      <img class="mdc-image-list__image" src="...">
+      <div class="mdc-image-list__supporting">
+        <span class="mdc-image-list__label">Drinkkarte 1960</span>
+      </div>
+    </li>
+    <li class="mdc-image-list__item">
+      <img class="mdc-image-list__image" src="...">
+      <div class="mdc-image-list__supporting">
+        <span class="mdc-image-list__label">Spreiselkarte 1900</span>
+      </div>
+    </li>
+
+  </ul>
+</div>
+    </div>
+    <div class="mdc-card__actions">
+      <div class="mdc-card__action-buttons">
+        <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-pubs-back">zum Gasthaus</button>
+      </div>
+      <div class="mdc-card__action-icons">
+        <button class="mdc-icon-button mdc-card__action mdc-card__action--icon--unbounded" aria-pressed="false" aria-label="Add to favorites" title="Add to favorites">
+          <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">favorite</i>
+          <i class="material-icons mdc-icon-button__icon">favorite_border</i>
+        </button>
+        <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" title="Share" data-mdc-ripple-is-unbounded="true">share</button>
+        <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" title="More options" data-mdc-ripple-is-unbounded="true">more_vert</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+<main class="maincard" id="card-menu-detail">
+  <div class="mdc-card demo-card demo-basic-with-header">
+    <div class="demo-card__primary">
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Speißekarte 1</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">Weitere Gerichte suchen</h3>
+    </div>
+    <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2">
+        Hier wird die Speißekarte nochmal angezeigt, alle Blätter.
+        Spieler kann sich eines der Blätter aussuchen
+</div>
+    </div>
+    <div class="mdc-card__actions">
+      <div class="mdc-card__action-buttons">
+        <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-pubs-menu-back">zum Gasthaus</button>
+        <button class="mdc-button mdc-card__action mdc-card__action--button">Gerichte</button>
+          <button class="mdc-button mdc-card__action mdc-card__action--button">neu durchsuchen</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<main class="maincard" id="card-dishes-detail">
+  <div class="mdc-card demo-card demo-basic-with-header">
+    <div class="demo-card__primary">
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Gericht 1</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">Gaststätte, Jahr</h3>
+    </div>
+    <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Infos, Preis, Wikipedia-Link</div>
+      <ul class="mdc-list mdc-list--two-line">
+  <li class="mdc-list-item" tabindex="0">
+    <span class="mdc-list-item__text">
+      <span class="mdc-list-item__primary-text">Bewertungstext</span>
+      <span class="mdc-list-item__secondary-text">Röntgen, vor 3 Tagen</span>
+    </span>
+  </li>
+  <li class="mdc-list-item">
+    <span class="mdc-list-item__text">
+      <span class="mdc-list-item__primary-text">Bewertungstext</span>
+      <span class="mdc-list-item__secondary-text">Marie Curie, vor 2 Tagen</span>
+    </span>
+  </li>
+</ul>
+    </div>
+    <div class="mdc-card__actions">
+      <div class="mdc-card__action-buttons">
+        <button class="mdc-button mdc-card__action mdc-card__action--button">Bewertungen</button>
+        <button class="mdc-button mdc-card__action mdc-card__action--button">Gerichte</button>
+      </div>
+      <div class="mdc-card__action-icons">
+        <button class="mdc-icon-button mdc-card__action mdc-card__action--icon--unbounded" aria-pressed="false" aria-label="Add to favorites" title="Add to favorites">
+          <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">favorite</i>
+          <i class="material-icons mdc-icon-button__icon">favorite_border</i>
+        </button>
+        <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" title="Share" data-mdc-ripple-is-unbounded="true">share</button>
+        <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" title="More options" data-mdc-ripple-is-unbounded="true">more_vert</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<main class="maincard" id="card-about-us">
+  <div class="mdc-card demo-card demo-basic-with-header">
+    <div class="demo-card__primary">
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Über uns</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">Coding da Vinci Süd 2019</h3>
+    </div>
+    <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Datensätze</div>
+    </div>
+    <div class="mdc-card__actions">
+      <div class="mdc-card__action-buttons">
+        <button class="mdc-button mdc-card__action mdc-card__action--button">Mehr darüber</button>
+      </div>
+      <div class="mdc-card__action-icons">
+        <button class="mdc-icon-button mdc-card__action mdc-card__action--icon--unbounded" aria-pressed="false" aria-label="Add to favorites" title="Add to favorites">
+          <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">favorite</i>
+          <i class="material-icons mdc-icon-button__icon">favorite_border</i>
+        </button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<main class="maincard" id="card-about-you">
+  <div class="mdc-card demo-card demo-basic-with-header">
+    <div class="demo-card__primary">
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Über dich</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">Name, Vorname, Portrait</h3>
+    </div>
+    <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Infos aus der GND und anderen Datenbanken</div>
+    </div>
+  </div>
+</main>
+
+<main class="maincard" id="card-dishes-you">
+<div class="mdc-card demo-card">
+  <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+    <div class="demo-card__primary">
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Liste von Gerichten</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">die du bereits probiert hast</h3>
+    </div>
+    <div class="demo-card__secondary mdc-typography mdc-typography--body2">
+      <ul class="mdc-list demo-list mdc-list--two-line dishes-list">
+      <li class="mdc-list-item" tabindex="0">
+        <span class="mdc-list-item__text">
+          <span class="mdc-list-item__primary-text">Gericht 1</span>
+          <span class="mdc-list-item__secondary-text">Info</span>
+        </span>
+      </li>
+      <li class="mdc-list-item">
+        <span class="mdc-list-item__text">
+          <span class="mdc-list-item__primary-text">Gericht 2</span>
+          <span class="mdc-list-item__secondary-text">Info</span>
+        </span>
+      </li>
+      <li class="mdc-list-item">
+        <span class="mdc-list-item__text">
+          <span class="mdc-list-item__primary-text">Gericht 3</span>
+          <span class="mdc-list-item__secondary-text">Info</span>
+        </span>
+      </li>
+    </ul>
+    </div>
+  </div>
+</div>
+</main>
+
+<!-- Popups -->
+
+
+
+<!--  Snackbar -->
+<div class="mdc-snackbar app__snackbar" aria-live="assertive" aria-atomic="true" aria-hidden="true">
+  <div class="mdc-snackbar__text"></div>
+  <div class="mdc-snackbar__action-wrapper">
+    <button type="button" class="mdc-snackbar__action-button"></button>
+  </div>
+</div>
+
+
+
+<!-- load more content -->
+<!--<script src="js/MCW/material-components-web.min.js" charset="utf-8"></script> -->
+
+<script src="js/functions.js"></script>
+<script src="js/handler.js"></script>
+
+<!-- include js for map -->
+<script src="js/leaflet/leaflet.js"></script>
+<!-- initiate map -->
+<!--<script src="js/leaflet/map_init.js"></script> -->
+
+<!-- Snackbar and serviceWorker -->
+
+<!--<script src="js/snackbar.js"></script>-->
+<!--<script src="js/sw.js"></script>-->
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+<script>
+//##############################################################################
+
+/*
+console.log(spotList);
+// Dialog for scanning "scanner"
+var dialog_tour = new mdc.dialog.MDCDialog(document.querySelector('#dialog-tour'));
+var dialog_help = new mdc.dialog.MDCDialog(document.querySelector('#dialog-help'));
+var dialog_intro = new mdc.dialog.MDCDialog(document.querySelector('#dialog-intro'));
+var dialog_scan = new mdc.dialog.MDCDialog(document.querySelector('#dialog-scan'));
+var dialog_spot = new mdc.dialog.MDCDialog(document.querySelector('#dialog-spot'));
+var toolbar = new mdc.toolbar.MDCToolbar.attachTo(document.querySelector('.mdc-toolbar'));
+//ripple effect to buttons for map
+mdc.ripple.MDCRipple.attachTo(document.querySelector('#map-locate'));
+mdc.ripple.MDCRipple.attachTo(document.querySelector('#map-zoomin'));
+mdc.ripple.MDCRipple.attachTo(document.querySelector('#map-zoomout'));
+//ripple effects for navi-buttons
+mdc.ripple.MDCRipple.attachTo(document.querySelector('.navi-button  '));
+console.log(mdc.menu);
+
+//Tab Scroller
+var dashTabBar = window.dynamicTabBar = new mdc.tabs.MDCTabBar(document.querySelector('#dash-tab-bar'));
+var dash_panels = document.querySelector('.dash-panels');
+
+dashTabBar.tabs.forEach(function(tab) {
+  tab.preventDefaultOnClick = true;
+});
+
+function updatePanel(index) {
+  var activePanel = dash_panels.querySelector('.dash-panel.active');
+  if (activePanel) {
+    activePanel.classList.remove('active');
+  }
+  var newActivePanel = dash_panels.querySelector('.dash-panel:nth-child(' + (index + 1) + ')');
+  if (newActivePanel) {
+    newActivePanel.classList.add('active');
+  }
+}
+dashTabBar.listen('MDCTabBar:change', function ({detail: tabs}) {
+  var nthChildIndex = tabs.activeTabIndex;
+
+  updatePanel(nthChildIndex);
+  });
+
+$(document).ready(function() {
+//when DOM is ready --> when all elements are loaded
+//init game_state()
+mdc.autoInit();
+//call function init_game();
+//only one function should be called here
+gameState_check();
+console.log(spotList);
+
+});
+*/
+
+var drawerEl = document.querySelector('#nav-drawer');
+      var MDCTemporaryDrawer = mdc.drawer.MDCDrawer;
+      var drawer = new MDCTemporaryDrawer(drawerEl);
+      $(document).ready(function() {
+
+mdc.autoInit();
+drawer.open = false;
+});
+</script>
+</body>
+</html>
