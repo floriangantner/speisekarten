@@ -17,19 +17,17 @@
   <!--<link rel="stylesheet" href="css/material-components-web.min.css">-->
   <link rel="stylesheet" href="css/app.css">
   <!-- include map stylesheets -->
-  <link rel="stylesheet" href="js/leaflet/css/leaflet.css">
-
-
+  <link rel="stylesheet" href="css/leaflet.css">
   <!-- include jquery-library -->
   <script src="js/jquery/jquery-3.3.1.min.js"></script>
   <!-- include pouchDB -->
   <script src ="js/pouchdb/pouchdb-7.0.0.min.js"></script>
   <script src="js/DB/DB.js"></script>
   <!-- include Application logic -->
-  <!--<script type="text/javascript" src="js/.js"></script>
-  <script type="text/javascript" src="js/.js"></script>
-  <script type="text/javascript" src="js/.js"></script>
-  -->
+  <script type="text/javascript" src="js/data/data_structure.js"></script>
+  <script type="text/javascript" src="js/data/data_sample.js"></script>
+  <script type="text/javascript" src="js/data/data_consistency.js"></script>
+<script type="text/javascript" src="js/data/ApplicationService.js"></script>
 </head>
 <body class="mdc-typography">
   <aside class="mdc-drawer mdc-drawer--modal mdc-drawer" id="nav-drawer">
@@ -105,22 +103,16 @@
                 <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Liste von Gaststätten</h2>
               </div>
               <div class="demo-card__secondary mdc-typography mdc-typography--body2">
-                <ul class="mdc-list mdc-list--two-line pubs-list">
+                <ul class="mdc-list mdc-list--two-line pubs-list"  >
   <li class="mdc-list-item" tabindex="0">
     <span class="mdc-list-item__text">
-      <span class="mdc-list-item__primary-text">Gasthaus 1</span>
+      <span class="mdc-list-item__primary-text"></span>
       <span class="mdc-list-item__secondary-text">X Gerichte, Position unbekannt</span>
     </span>
   </li>
   <li class="mdc-list-item">
     <span class="mdc-list-item__text">
-      <span class="mdc-list-item__primary-text">Gasthaus 2</span>
-      <span class="mdc-list-item__secondary-text">X Gerichte, Position bekannt</span>
-    </span>
-  </li>
-  <li class="mdc-list-item">
-    <span class="mdc-list-item__text">
-      <span class="mdc-list-item__primary-text">Gasthaus 3</span>
+      <span class="mdc-list-item__primary-text">Gasthaus 3, steht statisch in der Liste</span>
       <span class="mdc-list-item__secondary-text">X Gerichte, alles erschlossen</span>
     </span>
   </li>
@@ -139,7 +131,8 @@
         <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Karte</h2>
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">by leaflet</h3>
       </div>
-      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Gerichte räumlich entdecken</div>
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Gerichte räumlich entdecken
+      <div id="mapid"></div></div>
     </div>
     <div class="mdc-card__actions">
       <div class="mdc-card__action-buttons">
@@ -435,7 +428,6 @@
 <!-- include js for map -->
 <script src="js/leaflet/leaflet.js"></script>
 <!-- initiate map -->
-<!--<script src="js/leaflet/map_init.js"></script> -->
 
 <!-- Snackbar and serviceWorker -->
 
@@ -443,8 +435,10 @@
 <!--<script src="js/sw.js"></script>-->
   <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
   <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  <script src="js/leaflet/map_init.js"></script>
 
 <script>
+
 //##############################################################################
 
 /*
@@ -504,9 +498,11 @@ var drawerEl = document.querySelector('#nav-drawer');
       var MDCTemporaryDrawer = mdc.drawer.MDCDrawer;
       var drawer = new MDCTemporaryDrawer(drawerEl);
       $(document).ready(function() {
-
+dataStructure_check()
 mdc.autoInit();
 drawer.open = false;
+
+
 });
 </script>
 </body>

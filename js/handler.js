@@ -17,16 +17,38 @@ $("#menu").click(function(evt){
 $("#nav-pubs-list").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
+  $.when( getListOfPubs() ).then(function(data) {
+    console.log(data);
+    var card_html = '';
+    for (var i=0; i<data.length; i++) {
+    console.log(data[i].value);
+    }
+    $.each(data, function (index, value) {
+      console.log(value);
+          card_html += `<li class="mdc-list-item" data-id="${value.id}">${value}</li>`;
+          console.log(card_html);
+      });
+      return card_html;
+          }).then(function(data){
+            $('.pubs-list').html(data);
+
+      });
+  //populate Liste
+  //This could be simple be rendered at beginning
   drawer.open = false;
   $( "#card-pubs-list" ).show();
 });
 
 
+
 $("#nav-map").click(function(evt){
+  map.invalidateSize();
   evt.preventDefault();
   $( "main" ).hide();
   drawer.open = false;
   $( "#card-map" ).show();
+   map.invalidateSize();
+
 });
 
 $("#nav-dishes-you").click(function(evt){
@@ -79,6 +101,7 @@ $("#button-tutorial-go").click(function(evt){
 });
 
 $(".pubs-list .mdc-list-item").click(function(evt){
+  console.log("click")
   evt.preventDefault();
   $( "#card-pubs-list" ).hide();
   $( "#card-pubs-detail" ).show();

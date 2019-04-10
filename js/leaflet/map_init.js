@@ -8,99 +8,36 @@
 
 //#### Map
 //Define the map feature
-/*	var map = L.map('mapid',  {  zoomControl: false,
+var map = L.map('mapid',  {  zoomControl: true,
 		//minZoom: 13,
 	//maxZoom: 19,
 	attributionControl: false
-}).setView([49.8989, 10.8864], 14);*/
+}).setView([48.14376146470259, 11.59856379032135], 18);
 
 //#### Tile Layer
 //var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-//var osmUrl = 'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png';
+var osmUrl = 'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png';
 	//define some maximal bounds for the map
-//var boundsMap = new L.LatLngBounds(new L.LatLng(49.863550442243, 10.8333778381347), new L.LatLng(49.936858784171, 10.9542274475097));
+var boundsMap = new L.LatLngBounds(new L.LatLng(48.03264168282481, 11.419601440429688), new L.LatLng(48.24251013172835,  11.766357421875));
 //var boundsMap = new L.LatLngBounds(new L.LatLng(49.862554540037856, 10.842304229736326), new L.LatLng(49.926803449543186,10.94186782836914));
-//var osmLayer = new L.TileLayer(osmUrl, {
-	//minZoom: 13,
-    //maxZoom: 19,
-		//bounds : boundsMap,
-    //attribution: 'Map data © OpenStreetMap contributors'
-//		attributionControl: false,
-	//});
-	//L.control.attribution({position: 'topright'}).addTo(map);
+var osmLayer = new L.TileLayer(osmUrl, {
+	minZoom: 12,
+    maxZoom: 19,
+		bounds : boundsMap,
+    attribution: 'Map data © OpenStreetMap contributors',
+		attributionControl: false
+	});
+	L.control.attribution({position: 'topright'}).addTo(map);
 	//add Tile Layer to map
-	//map.addLayer(osmLayer);
+	map.addLayer(osmLayer);
+
+
 
 //#### Layers
 //define (no control) and layers
 //var playerPositionLayer = L.featureGroup(),
 	//  GOTOplacesLayer = L.layerGroup();
 
-//#### Geolocation
-//locates user at beginning --> disabled
-//map.locate({setView: true, maxZoom: 14, zoomControl: false, enableHighAccuracy: true});
-//locate: continous watching of position possible with watch : true; enableHighAccuracy for detail position
-
-//general eventhandler on map
-//map.on('locationerror', onLocationError);
-//map.on('locationfound', onLocationFound);
-
-//function onLocationError(e) {
-  //  console.log("location error:" + e);
-//}
-/*
-function onLocationFound(e) {
- console.log(e);
-	showTextOnSnackbar("Position found", 5000);
-	//draw circle around actual position
-	map.removeLayer(playerPositionLayer);
-	playerPositionLayer = L.layerGroup();
-  var radius = e.accuracy / 2;
-	var loclatlng = L.latLng(e.latitude, e.longitude);
-  var posCircle = L.circle(e.latlng, radius, {
-            color: 'black',
-				fillColor: 'yellow',
-            fillOpacity: 0.5
-         });
-	posCircle.bindPopup("<p>Probably your position</p>");
-  posCircle.addTo(playerPositionLayer);
-	playerPositionLayer.addTo(map);
-*/
-	//display player
-	//enable QR as locationmethod
-	//posCircle.addTo(playerPositionLayer);
-	//playerPositionLayer.addTo(map);
- 	//mapGOTOadd();
-
-//}
-
-//checks from a given position latlng a certain List of Tasks, if any GOTO-Task is near
-/*function checkNearGOTOTask(latlng, List){
-	for(var i = 0; i < List.length ; i++){
-	var obj = List[i];
-	var pos, distance, checker = 0, container_check_check = false;
-	//if taskType is GOTO and not yet Done
-	//check if container is active; otherwise a blind taskchecking would also be possible
-	if(TCAllList[obj.taskcontainer] != undefined && TCAllList[obj.taskcontainer].getActive()){
-		container_check = true;
-	}else if(episodeList[obj.taskcontainer] != undefined && episodeList[obj.taskcontainer].getActive()){
-		container_check = true;
-	}
-	if((container_check == true) &&(obj instanceof GOTOTask) && (object.valid = "GPS") && obj.getDone() == false && obj.checkPrec() ){
-
-		pos = L.latLng(obj.coord[1], obj.coord[0]);
-		distance = pos.distanceTo(latlng);
-			if(distance < 35){ // uses the haversine formula?
-				obj.setDone();
-				var message = obj.name + " completed" ;
-				showTextOnSnackbar(message, 3000, "OK");
-				checker++;
-				}
-			}
-		}
-return checker;
-}
-*/
 //##############################################################################
 //##############################################################################
 //shows the map on a specific location

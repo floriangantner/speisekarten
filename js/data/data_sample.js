@@ -4,6 +4,17 @@
 
 
 //TODO: create one JSON-File for processing in game_State etc...
+
+var data_pubs = [{
+  "_id" : "1",
+  "id" : "1",
+  "name" : "Gasthaus from json1"
+}, {
+  "_id" : "2",
+  "id" : "2",
+  "name" : "Gasthaus from json2"
+}];
+
 /*
 var data_tour = [{
   "_id" : "1",
@@ -160,4 +171,3 @@ var data_game = [{
 
 }];
 */
-
