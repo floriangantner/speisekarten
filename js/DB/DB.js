@@ -3,15 +3,15 @@
 
 //DBupd
 //DBadd
-/*
-const DBspot = new PouchDB('DBspot');
-const DBtour = new PouchDB('DBtour');
-const DBlocation = new PouchDB('DBlocation');
-const DBhelp = new PouchDB('DBhelp');
+const DBpubs = new PouchDB('pubs');
+const DBmenu = new PouchDB('menu');
+const DBdishes = new PouchDB('dishes');
+const DBrating = new PouchDB('rating');
 var doc;
 
 //adds a String to a specific DB
 //data = String, DB = pouchDB-database
+
 function DBadd(data,DB){
   DB.put(data, function callback(err, result) {
     if (!err) { console.log('Successfully added ' + data.id + ' to ' + DB + ' data:' + data.name);
@@ -39,5 +39,3 @@ DB.get(data.id, function(err, doc) {
     });
   });
 }
-
-*/

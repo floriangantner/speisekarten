@@ -1,9 +1,17 @@
+/*  */
+#mapid {
+  width: 80%;
+  height: 80%;
+  min-width: 300px;
+  min-height:300px;
+  }
+
 /* stylelint-disable
 CSS
 TODO: Adapt, if needed. Else delete
 
-*/
-/*
+
+
 
 html, body {
   height: 100%;
@@ -122,15 +130,8 @@ main {
 */
 
 /*Map-Details*/
-/*
-#mapid {
-  min-width: 300px;
-  min-height: 450px;
-  /*height: 80%;*/
-  /*width: 80%;*/
-	/*
-	}
 
+/*
 #map-locate {
   background-color: yellow;
   color: black;
@@ -171,4 +172,3 @@ background-color: lightgrey;
 color: darkgrey;
 }
 */
-
