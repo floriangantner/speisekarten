@@ -15,6 +15,55 @@ var data_pubs = [{
   "name" : "Gasthaus from json2"
 }];
 
+var data_menu = [{
+"_id" : "101",
+"id" : "101",
+"name" : "Speißekarte 1",
+"date" : "1900",
+"pub" : "1",
+"menupages" : [{
+  "_id" : "101a",
+  "id" : "101a",
+  "file" : "file1.jpeg",
+  "category" : "",
+  "desc" : "Test-Beschreibung 1 Speisekarte",
+},{
+    "_id" : "101b",
+    "id" : "101b",
+    "file" : "file2.jpeg",
+    "category" : "",
+    "desc" : "Test-Beschreibung 2 Speisekarte",
+},{
+    "_id" : "101c",
+    "id" : "101c",
+    "file" : "file3.jpeg",
+    "category" : "",
+    "desc" : "Test-Beschreibung 3 Speisekarte",
+}]
+}];
+
+var data_dishes = [{
+  "_id" : "1001",
+  "id" : "1001",
+  "name" : "Spätzle",
+  "menupage" : "101a",
+  "price" : "10DM"
+},{
+    "_id" : "1002",
+    "id" : "1002",
+    "name" : "Schnitzel",
+    "menupage" : "101b",
+    "price" : "5€"
+},{
+    "_id" : "1003",
+    "id" : "1003",
+    "name" : "Steak",
+    "menupage" : "101b",
+    "price" : "23 Goldtaler"
+}];
+
+
+
 /*
 var data_tour = [{
   "_id" : "1",

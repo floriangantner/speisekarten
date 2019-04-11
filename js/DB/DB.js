@@ -19,6 +19,14 @@ function DBadd(data,DB){
   });
 }
 
+function DBaddnew(data,DB){
+  DB.post(data, function callback(err, result) {
+    if (!err) { console.log('Successfully added data without id to ' + DB + ' data:' + data.name);
+  }else{ console.log('error' + err + DB); }
+  });
+}
+
+
 //updates a entry in the pouchDB
 function DBupd(data, DB){
 //data = String, DB = pouchDB-database
