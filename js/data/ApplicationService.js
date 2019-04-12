@@ -192,6 +192,39 @@ function newPubsDishesListElement(data){
  return card_html;
 }
 
+function redrawRandomIdentityChoice(){
+  //performant? or other function in PouchDB
+  DBhist_persons.info().then(function(response) {
+
+    let max = response.doc_count;
+    let min = 1;
+    let rand = Math.floor(Math.random() * (max - min + 1)) + min;
+    DBhist_persons.find({
+       selector: {_id: {$gte : '1'}},
+       limit : 1,
+       skip : rand-1,
+    },function(err, doc){
+      console.log(doc);
+      newIdentityInfo(doc.docs);
+
+      });
+});
+}
+
+function newIdentityInfo(data){
+  console.log(data);
+  if(!data[0]){
+    $("#person-selector > div > h2").html("Keine Person gefunden. Versuch es nochmal.");
+    $("#person-selector > * > img").attr('src',``);
+    $("#person-selector").attr('data-id',``);
+    
+  }else{
+    $("#person-selector > div > h2").html("");
+  $("#person-selector > * > img").attr('src',`assets/${data[0].file}`);
+  $("#person-selector").attr('data-id',`${data[0]._id}`);
+  }
+  //$("#person-selector").show();
+}
 
   /*
 DBdishes.allDocs({

@@ -70,6 +70,16 @@
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">by Kurt Wagner</h3>
       </div>
       <div class="demo-card__secondary mdc-typography mdc-typography--body2">Willkommen bei Tripadviswurst, deinem Kraut Saußing-Tool zum Entdecken neuer, skuriller und alltäglicher Gerichte aus fernen Zeiten.</div>
+      <div role="progressbar" class="mdc-linear-progress" id="progress-loader">
+        <div class="mdc-linear-progress__buffering-dots"></div>
+        <div class="mdc-linear-progress__buffer"></div>
+        <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+          <span class="mdc-linear-progress__bar-inner"></span>
+        </div>
+        <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+          <span class="mdc-linear-progress__bar-inner"></span>
+        </div>
+      </div>
     </div>
     <div class="mdc-card__actions">
       <div class="mdc-card__action-buttons">
@@ -118,8 +128,25 @@
     <canvas id="video-selector-canvas" width="640px" height="480px"></canvas>
 
     </div>
-    <div class="demo-card__secondary mdc-typography mdc-typography--body2">Visit ten places on our planet that are undergoing the biggest changes today. Crop the image: <i class="material-icons" aria-hidden="true">crop</i></div>
+    <div id="person-selector">
+    <div class="demo-card__primary">
+      <h2></h2>
+      <img src="" width="50%" height="50%"></img>
+    </div>
+    <div class="demo-card__secondary mdc-typography mdc-typography--body2">
+      Crop the image: <i class="material-icons" aria-hidden="true">crop</i></div>
   </div>
+  <div role="progressbar" class="mdc-linear-progress" id="progress-identify-face">
+  <div class="mdc-linear-progress__buffering-dots"></div>
+  <div class="mdc-linear-progress__buffer"></div>
+  <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+    <span class="mdc-linear-progress__bar-inner"></span>
+  </div>
+  <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+    <span class="mdc-linear-progress__bar-inner"></span>
+  </div>
+</div>
+</div>
   <div class="mdc-card__actions">
     <div class="mdc-card__action-buttons">
       <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-identity-confirm" disabled="true">Nehmen</button>
@@ -761,7 +788,8 @@ console.log(mdc);
       const annotation_openinghours_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-openinghours-popup'));
       const annotation_announcement_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-announcement-popup'));
       const annotation_geolocation_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-geolocation-popup'));
-
+      const progress_loader = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#progress-loader'));
+      const progress_identify_face = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#progress-identify-face'));
 var textField = new mdc.textField.MDCTextField(document.querySelector('#dialog-dishes-price'));
 var textField2 = new mdc.textField.MDCTextField(document.querySelector('#dialog-dishes-name'));
 var textField3 = new mdc.textField.MDCTextField(document.querySelector('#dialog-dishes-price'));
@@ -772,9 +800,14 @@ var textField7 = new mdc.textField.MDCTextField(document.querySelector('#dialog-
 var textField8 = new mdc.textField.MDCTextField(document.querySelector('#dialog-openinghours-name'));
 var textField9 = new mdc.textField.MDCTextField(document.querySelector('#dialog-announcement-name'));
       $(document).ready(function() {
+progress_loader.open();
+progress_loader.progress = 0.1;
+progress_loader.progress = 0.5;
+
 dataStructure_check()
 mdc.autoInit();
 drawer.open = false;
+
 
 });
 </script>

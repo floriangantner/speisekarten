@@ -9,7 +9,8 @@ const DBdishes = new PouchDB('dishes');
 const DBrating = new PouchDB('rating');
 const DBopeninghours = new PouchDB('openinghours');
 const DBgeo = new PouchDB('geo_adresses');
-const DBanno_other = new PouchDB('anno_other'); 
+const DBanno_other = new PouchDB('anno_other');
+const DBhist_persons = new PouchDB('persons_hist');
 var doc;
 
 //adds a String to a specific DB

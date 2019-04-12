@@ -64,22 +64,24 @@ var data_dishes = [{
 }];
 
 var data_hist_persons = [{
+  "id" : "1",
 "name" : "Max",
 "firstname" : "Mustermann",
 "job" : "Restaurantkenner",
 "file" : "person1.jpeg"
 },{
+  "id" : "2",
   "name" : "Max",
   "firstname" : "Musterfrau",
   "job" : "Restaurantkennerin",
   "file" : "person2.jpeg"
-},
-,{
+},{
+  "id" : "3",
   "name" : "Albert",
   "firstname" : "Einstein",
   "job" : "Physik-Kenner",
   "file" : "person3.jpeg"
-}]
+}];
 
 
 

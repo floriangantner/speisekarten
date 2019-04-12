@@ -53,7 +53,13 @@ console.log("Menu data written to PouchDB");
 }).catch(function (err) {
   console.log(err);
 });
+DBhist_persons.bulkDocs(data_hist_persons).then(function (result) {
+console.log("Historic Person data written to PouchDB");
+}).catch(function (err) {
+  console.log(err);
+});
 
+progress_loader.progress = 0.7;
 //Create Index for searching
 DBmenu.createIndex({
   index: {
@@ -73,7 +79,8 @@ DBdishes.createIndex({
   console.log(result);
   // handle result
 });
-
+progress_loader.progress = 1;
+progress.close(); 
 
 }
 /*

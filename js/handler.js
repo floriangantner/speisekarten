@@ -8,6 +8,8 @@
 $( "main" ).hide(); //hide by default in css code
 $("#card-intro").show();
 
+//loading data etc...
+
 //show main intro
 $("#menu").click(function(evt){
   drawer.open = true;
@@ -281,13 +283,24 @@ $("#card-tutorial").show();
 });
 
 $("#button-identity-random").click(function(evt){
-// select random person
+  progress_identify_face.open();
+  progress_identify_face.determinate = false;
+  // select random person
 $("#button-identity-confirm").attr("disabled", false);
-alert(Math.random());
+setTimeout(
+  function()
+  {
+    //do something special
+    redrawRandomIdentityChoice();
+    $("#person-selector").show();
+    progress_identify_face.determinate = true;
+  progress_identify_face.close();
+  }, 3000);
 });
 
 $("#button-identity-camera").click(function(evt){
 var video = document.getElementById('video-selector-video');
+$("#person-selector").hide();
 $("#video-selector-video").show();
 $("#video-selector-enhance").show();
 $("#button-identity-camera").attr("disabled", true);
@@ -300,8 +313,8 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         video.play();
 });
 
-//register event handler for random person button click
-$("#button-identity-random").click(function(evt){
+
+var button_random_handler = function(evt){
   //close video and
   $("#video-selector").hide();
   let tracks = video.srcObject.getTracks()
@@ -311,7 +324,12 @@ $("#button-identity-random").click(function(evt){
   video.srcObject = null;
   video.mozSrcObject=null;
   $("#button-identity-camera").attr("disabled", false);
-})
+
+//redrawRandomIdentityChoice();
+}
+
+//register event handler for random person button click
+$("#button-identity-random").one("click", button_random_handler);
 
 $("#video-selector-canvas").hide();
 $("#video-selector-retry").hide();
@@ -348,6 +366,8 @@ $("#video-selector-enhance").hide();
 
 
 $("#video-selector-submit").click(function(evt){
+  progress_identify_face.open()
+  progress_identify_face.determinate = false;
 //TODO: select similiar photos from collection
 //FIX: random selection
 //close camera
@@ -361,8 +381,20 @@ video.mozSrcObject=null;
 alert("ähnliche Person wird gesucht. naja eigentlich noch nicht!");
 $("#button-identity-camera").attr("disabled", false);
 $("#button-identity-submit").attr("disabled", false);
+//TODO: Select Code for for selection
+redrawRandomIdentityChoice();
+// select random person
+$("#button-identity-confirm").attr("disabled", false);
+setTimeout( function(){
+  //do something special
+  redrawRandomIdentityChoice();
+  progress_identify_face.determinate = true;
+progress_identify_face.close();
+$("#person-selector").show();
+
+}, 3000);
+
 });
 
 }
-
 });
