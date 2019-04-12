@@ -45,6 +45,7 @@ var data_menu = [{
 var data_dishes = [{
   "_id" : "1001",
   "id" : "1001",
+  "pubid" : "1",
   "name" : "Spätzle",
   "menupage" : "101a",
   "price" : "10DM"
@@ -61,6 +62,24 @@ var data_dishes = [{
     "menupage" : "101b",
     "price" : "23 Goldtaler"
 }];
+
+var data_hist_persons = [{
+"name" : "Max",
+"firstname" : "Mustermann",
+"job" : "Restaurantkenner",
+"file" : "person1.jpeg"
+},{
+  "name" : "Max",
+  "firstname" : "Musterfrau",
+  "job" : "Restaurantkennerin",
+  "file" : "person2.jpeg"
+},
+,{
+  "name" : "Albert",
+  "firstname" : "Einstein",
+  "job" : "Physik-Kenner",
+  "file" : "person3.jpeg"
+}]
 
 
 

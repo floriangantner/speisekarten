@@ -64,6 +64,15 @@ DBmenu.createIndex({
   console.log(result);
   // handle result
 });
+DBdishes.createIndex({
+  index: {
+    fields: ['pubid']
+  }
+}, function (err, result) {
+  if (err) { return console.log(err); }
+  console.log(result);
+  // handle result
+});
 
 
 }

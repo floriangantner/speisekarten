@@ -166,6 +166,55 @@ function newMenuCard(data){
      //TODO: hange son menu card
 }
 
+function redrawPubsDishesList(pubid){
+  DBdishes.find({
+    selector: {pubid : pubid},
+  }, function (err, result) {
+    if (err) { return console.log(err); }
+    var list = newPubsDishesListElement(result);
+    console.log(list)
+    $("#pubs-dishes-list").html('');
+    $("#pubs-dishes-list").append(list);
+    // handle result
+  });
+}
+
+function newPubsDishesListElement(data){
+  var card_html = '';
+ $.each(data.docs, function (index, value) {
+   console.log(value)
+   card_html +=`<li class="mdc-list-item" tabindex="0" data-id="${value._id}">
+     <span class="mdc-list-item__text">
+       <span class="mdc-list-item__primary-text">${value.name}</span>
+       <span class="mdc-list-item__secondary-text">${value.price}</span>
+     </span>`
+ });
+ return card_html;
+}
+
+
+  /*
+DBdishes.allDocs({
+    include_docs: true
+  },function(err, doc){
+    $("#dishes-all-list").html('');
+    var list = newPubDishesListElement(doc.rows);
+    console.log(list);
+    $("#dishes-all-list").append(list);
+    });
+  };
+
+function newPubDishesListElement(data){
+var card_html = '';
+$.each(data, function (index, value) {
+ console.log(value)
+ card_html += `<li class="mdc-list-item" data-id="${value.id}">${value.doc.name}</li>`;
+});
+return card_html;
+}
+
+
+
 /*
   then(function (result) {
     var docs = result.rows.map(function (row) {
