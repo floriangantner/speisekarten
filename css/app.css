@@ -5,6 +5,19 @@
   min-width: 300px;
   min-height:300px;
   }
+#video-selector > #video-selector-video{
+  border-radius: 40px;
+  }
+
+#video-overlay{
+  position: absolute;
+float: left;
+width: 640px;
+align-content: center;
+z-index: 300000;
+bottom: 10px;
+left: 50%;
+  }
 
 /* stylelint-disable
 CSS

@@ -37,11 +37,50 @@ function dataStructure_loadData(){
 //adds JSON-Data into pouchDB, using ajax load
 
 DBpubs.bulkDocs(data_pubs).then(function (result) {
-
-console.log("Game data written to PouchDB");
+console.log("Pubs data written to PouchDB");
 }).catch(function (err) {
   console.log(err);
 });
+
+DBdishes.bulkDocs(data_dishes).then(function (result) {
+console.log("Dishes data written to PouchDB");
+}).catch(function (err) {
+  console.log(err);
+});
+
+DBmenu.bulkDocs(data_menu).then(function (result) {
+console.log("Menu data written to PouchDB");
+}).catch(function (err) {
+  console.log(err);
+});
+DBhist_persons.bulkDocs(data_hist_persons).then(function (result) {
+console.log("Historic Person data written to PouchDB");
+}).catch(function (err) {
+  console.log(err);
+});
+
+progress_loader.progress = 0.7;
+//Create Index for searching
+DBmenu.createIndex({
+  index: {
+    fields: ['menupages']
+  }
+}, function (err, result) {
+  if (err) { return console.log(err); }
+  console.log(result);
+  // handle result
+});
+DBdishes.createIndex({
+  index: {
+    fields: ['pubid']
+  }
+}, function (err, result) {
+  if (err) { return console.log(err); }
+  console.log(result);
+  // handle result
+});
+progress_loader.progress = 1;
+progress.close(); 
 
 }
 /*

@@ -7,6 +7,10 @@ const DBpubs = new PouchDB('pubs');
 const DBmenu = new PouchDB('menu');
 const DBdishes = new PouchDB('dishes');
 const DBrating = new PouchDB('rating');
+const DBopeninghours = new PouchDB('openinghours');
+const DBgeo = new PouchDB('geo_adresses');
+const DBanno_other = new PouchDB('anno_other');
+const DBhist_persons = new PouchDB('persons_hist');
 var doc;
 
 //adds a String to a specific DB
@@ -18,6 +22,14 @@ function DBadd(data,DB){
   }else{ console.log('error' + err + DB); }
   });
 }
+
+function DBaddnew(data,DB){
+  DB.post(data, function callback(err, result) {
+    if (!err) { console.log('Successfully added data without id to ' + DB + ' data:' + data.name);
+  }else{ console.log('error' + err + DB); }
+  });
+}
+
 
 //updates a entry in the pouchDB
 function DBupd(data, DB){
