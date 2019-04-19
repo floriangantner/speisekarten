@@ -39,6 +39,7 @@ $("#nav-map").click(function(evt){
 $("#nav-dishes-you").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
+  redrawYourDishes();
   drawer.open = false;
   $( "#card-dishes-you" ).show();
 });
@@ -111,7 +112,9 @@ $('#pubs-list').on('click', '.mdc-list-item', function(evt){
 console.log("clicked");
 $( "#card-pubs-list" ).hide();
     //alert($(this).attr('data-id'));
-    redrawPubs($(this).attr('data-id'));
+    var pubid = $(this).attr('data-id');
+    redrawPubs(pubid);
+    $("#card-pubs-detail").attr("data-id", pubid)
 $( "#card-pubs-detail" ).show();
 
 });
@@ -130,7 +133,7 @@ console.log("clicked");
 $( "#card-pubs-dishes-list" ).hide();
     //alert($(this).attr('data-id'));
     redrawDishes($(this).attr('data-id'));
-$( "#card-dishes-detail" ).show();
+    $( "#card-dishes-detail" ).show();
 });
 
 $("#button-pubs-menu").click(function(evt){
@@ -222,7 +225,8 @@ var name =  $("#dialog-dishes-name > input").val();
 var data = {"name" : name,
 "menupage" : menupageid,
 "price" : price,
-"pubid" : pubid
+"pubid" : pubid,
+"playerid" : user_state.timestamp
 }
 console.log(data);
 DBaddnew(data,DBdishes);
@@ -240,7 +244,8 @@ var value =  $("#dialog-openinghours-name > input").val();
 var data = {
 "menupage" : menupageid,
 "pubid" : pubid,
-"value" : value
+"value" : value,
+"playerid" : user_state.timestamp
 }
 console.log(data);
 DBaddnew(data,DBopeninghours);
@@ -259,7 +264,8 @@ var address =  $("#dialog-geolocation-address > input").val();
 var data = {"city" : city,
 "menupage" : menupageid,
 "address" : address,
-"pubid" : pubid
+"pubid" : pubid,
+"playerid" : user_state.timestamp
 }
 console.log(data);
 DBaddnew(data,DBgeo);
@@ -440,3 +446,27 @@ $("#pubs-search > input").keyup(function(){
     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
   });
 });
+
+$("#button-dishes-rate").click(function(evt){
+//dialog-rate-dishes-comment
+rate_dishes_dialog.open();
+});
+$("#rate-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
+
+  var data = {
+  "time" : Date.now(),
+  "rating" : $("#dialog-rate-dishes-stars > input").val(),
+  "comment" : $("#dialog-rate-dishes-comment > input").val(),
+  "dishes" : $("#card-dishes-detail").attr("data-id"),
+  "pubid" : $("#card-pubs-detail").attr("data-id"),
+  "playerid" : user_state.timestamp,
+  "historic_person" : {
+    "name" : "Tester Testeintrag",
+    "id" : user_state.identity,
+  }
+  }
+  console.log(data);
+  DBaddnew(data,DBrating);
+
+
+})

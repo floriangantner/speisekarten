@@ -33,13 +33,28 @@ function dataStructure_check(){
         });
       }else{
         console.log("Data have been already loaded to DB. Not Loading agains")
-        return true;
-      }
-      }).catch(function (err) {
-        console.log(err);
-      });
-};
+        //creating indexes for search
+        DBmenu.createIndex({
+          index: {
+            fields: ['menupages']
+          }}).then(function(result2){
+        return DBdishes.createIndex({
+          index: {
+            fields: ['pubid']
+          }}).then(function(result2){
+          return DBrating.createIndex({
+            index: {
+              fields: ['pubid', 'dishes']
+            }}).then(function(result2){
 
+            }).catch(function (err) {
+              console.log(err);
+            });
+            })
+});
+}
+})
+}
 
 function dataStructure_loadData(){
 //loads the data from objects generated in a List; Demo-Data
@@ -62,8 +77,13 @@ DBpubs.bulkDocs(data_pubs).then(function (result) {
 }).then(function(result){
   return DBdishes.createIndex({
     index: {
-      fields: ['pubid']
+      fields: ['pubid', 'playerid']
     }});
+  }).then(function(result){
+    return DBrating.createIndex({
+      index: {
+        fields: ['pubid', 'dishes', 'playerid']
+      }});
   }).then(function(result){
     console.log("Datastructure filled from sample data")
     return true;

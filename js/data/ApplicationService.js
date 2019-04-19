@@ -132,6 +132,30 @@ function newDishesCard(data){
 //generated Code for Entry.
 $("#card-dishes-detail").attr("data-id", `${data.id}`);
 $("#card-dishes-detail > .mdc-card > .demo-card__primary > h2  ").text(`${data.name}`);
+DBrating.find({
+  selector: {dishes : data.id},
+}, function (err, result) {
+  console.log(result);
+  if (err) { return console.log(err); }
+  $("#dishes-rating-list").html('');
+  for(var doc in result.docs){
+    console.log(doc)
+    var list = newDishesRatingElement(result.docs[doc]);
+    console.log(list)
+    $("#dishes-rating-list").prepend(list);
+  }
+  // handle result
+});
+}
+
+function newDishesRatingElement(data){
+  //TODO: Sterne und Zeit formatieren
+return `<li class="mdc-list-item" tabindex="0" data-id="${data._id}">
+<span class="mdc-list-item__text">
+<span class="mdc-list-item__primary-text">${data.comment} ${data.rating}</span>
+<span class="mdc-list-item__secondary-text">${data.historic_person.name} : ` + convertTimestamp(data.time) + `</span>
+</span>
+</li>`;
 }
 
 function redrawMenu(menupageid){
@@ -318,7 +342,7 @@ function identity_check(){
           if(docs.length != 0){
             	user_state.account_created = true,
             	user_state.identity = docs[0].identity;
-            	user_state.timestamp = Date.now();
+            	user_state.timestamp = docs[0].timestamp;
               console.log("Identity Data found " + user_state.identity + ". Skipping.")
               redrawUserInfo();
               return true;
@@ -333,6 +357,70 @@ function identity_check(){
     return false;
 }
 
+function convertTimestamp(givenTimestamp){
+var time_now = Date.now();
+var newDate = new Date();
+newDate.setTime(givenTimestamp);
+dateString = newDate.toUTCString();
+return dateString;
+}
+
+function redrawYourDishes(){
+//Go through Dishes and Ratings and view all from this user
+//selector as below
+DBrating.find({
+  selector: {},
+}, function (err, result) {
+  console.log(result);
+  if (err) { return console.log(err); }
+  $("#list-dishes-you").html('');
+  for(var doc in result.docs){
+    console.log(doc)
+    var list = newYourDishesElement(result.docs[doc]);
+    console.log(list)
+    $("#list-dishes-you").prepend(list);
+  }
+  // handle result
+}).then(function(ee){
+return DBdishes.find({
+  selector: {'playerid' : user_state.timestamp},
+}, function (err, result) {
+  console.log(result);
+  if (err) { return console.log(err); }
+  for(var doc in result.docs){
+    console.log(doc)
+    var list = newYourDishesElement(result.docs[doc]);
+    console.log(list)
+    $("#list-dishes-you").prepend(list);
+  }
+
+}).then(function(ff){
+  function sort_li(a, b){
+      return ($(b).data('timestamp')) < ($(a).data('timestamp')) ? 1 : -1;
+  }
+
+   $("#list-dishes-you > li").sort(sort_li) // sort elements
+                     .appendTo('#list-dishes-you'); // append again to the list
+   // sort function callback
+
+})
+
+}).catch(function(err){
+  console.log(err);
+});
+}
+
+function newYourDishesElement(data){
+  console.log(data);
+  return `<li class="mdc-list-item" tabindex="0" data-timestamp="${data.timestamp}">
+    <span class="mdc-list-item__text">
+      <span class="mdc-list-item__primary-text">${data.name} ${data.price}</span>
+      <span class="mdc-list-item__secondary-text">${data.comment}</span>
+    </span>
+  </li>`;
+
+
+}
 
   /*
 DBdishes.allDocs({
