@@ -12,11 +12,11 @@ const user_state = [
 //contains infos about the view. Information and id's for the view.
 //Should avoid useless jquery-querys and easier access to render new pages
 const app_state = [
-this.pubs_actual = "",
-this.menu_actual = "",
-this.menupage_actual = "",
-this.dish_actual = "",
-this.rating_actual = "",
+this.pubs = "",
+this.menu = "",
+this.menupage = "",
+this.dish = "",
+this.rating = "",
 this.player = "",
 this.histperson = "",
 this.intro = 0,

@@ -34,8 +34,8 @@
 <body class="mdc-typography">
   <aside class="mdc-drawer mdc-drawer--modal mdc-drawer" id="nav-drawer">
     <div class="mdc-drawer__header">
-    <h3 class="mdc-drawer__title">Oskar von Miller</h3>
-    <h6 class="mdc-drawer__subtitle">Restaurantkritiker </h6></div>
+    <h3 class="mdc-drawer__title" user-name>Oskar von Miller</h3>
+    <h6 class="mdc-drawer__subtitle" user-status>Restaurantkritiker </h6></div>
     <div class="mdc-drawer__content">
       <nav class="mdc-list">
         <a class="mdc-list-item mdc-list-item" id="nav-pubs-list" href="#" tabindex="0" aria-selected="true"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">home</i>Gasthäuser</a>
@@ -52,7 +52,6 @@
             <a class="mdc-list-item" href="#" tabindex="-1" id="nav-tutorial"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">announcement</i>Help &amp; feedback</a>
           </nav></div>
             </aside>
-
               <div class="mdc-drawer-scrim"></div>
         <div class="drawer-frame-app-content">
           <header class="mdc-top-app-bar--short drawer-top-app-bar--short"><div class="mdc-top-app-bar__row"><section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
@@ -783,16 +782,12 @@ var textField6 = new mdc.textField.MDCTextField(document.querySelector('#dialog-
 var textField7 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-city'));
 var textField8 = new mdc.textField.MDCTextField(document.querySelector('#dialog-openinghours-name'));
 //var textField9 = new mdc.textField.MDCTextField(document.querySelector('#dialog-announcement-name'));
-      $(document).ready(function() {
+$(document).ready(function() {
 progress_loader.open();
 progress_loader.progress = 0.1;
-progress_loader.progress = 0.5;
-
-dataStructure_check()
 mdc.autoInit();
+app_init();
 drawer.open = false;
-progress_loader.progress = 1;
-
 
 });
 </script>

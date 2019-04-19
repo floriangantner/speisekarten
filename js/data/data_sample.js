@@ -71,18 +71,21 @@ var data_dishes = [{
 
 var data_hist_persons = [{
   "id" : "1",
+  "_id" : "1",
 "name" : "Max",
 "firstname" : "Mustermann",
 "job" : "Restaurantkenner",
 "file" : "http://www.digiporta.net/ires/DMA/s0/DMA_PT_00001_02_GF.jpg"
 },{
   "id" : "2",
+  "_id" : "2",
   "name" : "Max",
   "firstname" : "Musterfrau",
   "job" : "Restaurantkennerin",
   "file" : "http://www.digiporta.net/ires/DMA/s0/DMA_PT_00001_03_GF.jpg"
 },{
   "id" : "3",
+  "_id" : "3",
   "name" : "Albert",
   "firstname" : "Einstein",
   "job" : "Physik-Kenner",

@@ -7,15 +7,8 @@
 //init: the following stuff is done, when loading the CODE at beginning
 $( "main" ).hide(); //hide by default in css code
 $("#card-intro").show();
-
-//init for intro card
-if(user_state.identity !== null && user_state.identity != ""){
-console.log("Identity Data found " +  +". Skipping.")
-
-//-> zeige menü oder identity selector an.
-//-> Ändere Feste Sachen im Menü
-
-}
+$("#button-intro-go").attr("disabled", true);
+$("#menu").attr("disabled", true);
 
 //loading data etc...
 
@@ -32,8 +25,6 @@ $("#nav-pubs-list").click(function(evt){
 drawer.open = false;
 $( "#card-pubs-list" ).show();
 });
-
-
 
 $("#nav-map").click(function(evt){
   map.invalidateSize();
@@ -65,10 +56,18 @@ $("#nav-dishes-all").click(function(evt){
 $("#nav-about-you").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
+  //if no identity has been selected?
+  if(user_state.identity == ""){
+  alert("Keine Identität ausgewählt!");
+  $("#card-identity").show();
+  }else{
+  redrawAboutYou();
+  $( "#card-about-you" ).show();
+
+  }
   drawer.open = false;
   //No data available -> go to identity selector
-  $( "#card-about-you" ).show();
-});
+  });
 
 $("#nav-about-us").click(function(evt){
   evt.preventDefault();
@@ -92,8 +91,11 @@ $("#button-intro-go").click(function(evt){
   //TODO: add check for data loaded
 
   //TODO: Check, if Person was selected
-
+  if(user_state.account_created == false){
   $( "#card-identity" ).show();
+}else{
+  $( "#card-tutorial" ).show();
+}
 });
 
 $("#button-identity-go").click(function(evt){

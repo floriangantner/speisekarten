@@ -1,5 +1,20 @@
 //Access to the DB
 
+function app_init(){
+
+  //function called when init the game.
+  //check for game-data
+  //check for identity
+  //fixme: async load of data
+  dataStructure_check();
+  progress_loader.progress = 0.6;
+identity_check();
+  progress_loader.progress = 1;
+  $("#menu").attr("disabled", false);
+  $("#button-intro-go").attr("disabled", false);
+
+}
+
 function newPubListElement(data){
   //generated Code for Entry.
  var card_html = '';
@@ -216,6 +231,7 @@ function redrawRandomIdentityChoice(){
 function registerPlayer(){
 console.log("Player with Identity registred");
 var identity_id = $("#person-selector").attr('data-id');
+//add selected player to db
 var timestamp = Date.now();
 var player = {"_id" : JSON.stringify(timestamp),
 "id" : JSON.stringify(timestamp),
@@ -225,9 +241,13 @@ DBadd(player, DBuser);
 user_state.setAccount = true;
 user_state.identity = identity_id;
 user_state.timestamp = timestamp;
-getIdentityInfos(identity_id);
+//getIdentityInfos(identity_id);
+//redraw
+redrawUserInfo();
+
 }
 
+//TODO: not used yet
 function getIdentityInfos(byID){
 console.log("fetch Identity Infos");
 DBhist_persons.get(byID).then( function(doc){
@@ -235,7 +255,6 @@ DBhist_persons.get(byID).then( function(doc){
     console.log(doc);
     //$("#pubs-list").html('');
     //$(" #pubs-list").append(list);
-
     });
 
 
@@ -271,6 +290,49 @@ function redrawMapPubDialog(addressinfo, latlng){
       $("#map-showpubinfo-popup").find('.mdc-dialog__content').html(`<p>${addressinfo.street}</p><p>${addressinfo.zip} ${addressinfo.city}</p>`);
 }
 
+function redrawAboutYou(){
+  console.log(user_state.identity);
+    DBhist_persons.get(user_state.identity).then(function(doc){
+      $("#card-about-you").find('.mdc-typography--headline6').html(`${doc.firstname} ${doc.name}`);
+      $("#card-about-you").find('.mdc-typography--subtitle2').html(`${doc.job}`);
+    });
+
+};
+
+function redrawUserInfo(){
+    DBhist_persons.get(user_state.identity).then(function(doc){
+      $("[user-name]").html(`${doc.firstname} ${doc.name}`);
+      $("[user-status]").html(`${doc.job}`);
+    });
+
+};
+
+function identity_check(){
+  //init for intro card
+  DBuser.allDocs({
+      include_docs: true
+    }).then(function (result) {
+      var docs = result.rows.map(function (row) {
+        return row.doc;
+      });
+      console.log(docs);
+          if(docs.length != 0){
+            	user_state.account_created = true,
+            	user_state.identity = docs[0].identity;
+            	user_state.timestamp = Date.now();
+              console.log("Identity Data found " + user_state.identity + ". Skipping.")
+              redrawUserInfo();
+              return true;
+          }else{
+            console.log("No Identity Data found");
+            return true;
+          }
+
+    }).catch(function (err) {
+      console.log(err);
+    });
+    return false;
+}
 
   /*
 DBdishes.allDocs({
