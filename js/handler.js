@@ -11,19 +11,17 @@ $("#button-intro-go").attr("disabled", true);
 $("#menu").attr("disabled", true);
 
 //loading data etc...
-
 //show main intro
 $("#menu").click(function(evt){
   drawer.open = true;
-
 });
 
 $("#nav-pubs-list").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
   redrawPubList();
-drawer.open = false;
-$( "#card-pubs-list" ).show();
+  drawer.open = false;
+  $( "#card-pubs-list" ).show();
 });
 
 $("#nav-map").click(function(evt){
@@ -63,7 +61,6 @@ $("#nav-about-you").click(function(evt){
   }else{
   redrawAboutYou();
   $( "#card-about-you" ).show();
-
   }
   drawer.open = false;
   //No data available -> go to identity selector
@@ -413,15 +410,13 @@ $("#person-selector").show();
 }
 });
 
-
 function showMapPubDialog(){
   //Map event on click marker
   redrawMapPubDialog(this.addressinfo, this._latlng);
   //prerender view of pub when clicking this
   //redrawPubs(this.pubid);
   redrawPubs(this.addressinfo.pubid);
-
-map_pubinfo_dialog.open();
+  map_pubinfo_dialog.open();
 //Get info about Put
 }
 
@@ -430,4 +425,18 @@ $("#map-showpubinfo-popup").find('[data-mdc-dialog-action="accept"]').click(func
   $( "#card-map" ).hide();
 $( "#card-pubs-detail" ).show();
 
+});
+
+$("#pubs-search > input").keyup(function(){
+  var value = $(this).val().toLowerCase();
+  $("#pubs-list li").filter(function() {
+   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+ });
+
+});
+ $("#dishes-search > input").keyup(function(){
+   var value = $(this).val().toLowerCase();
+   $("#dishes-all-list li").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  });
 });
