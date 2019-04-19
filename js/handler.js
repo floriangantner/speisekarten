@@ -111,10 +111,8 @@ $("#button-tutorial-go").click(function(evt){
 $('#pubs-list').on('click', '.mdc-list-item', function(evt){
 console.log("clicked");
 $( "#card-pubs-list" ).hide();
-    //alert($(this).attr('data-id'));
-    var pubid = $(this).attr('data-id');
-    redrawPubs(pubid);
-    $("#card-pubs-detail").attr("data-id", pubid)
+  app_state.pubs = $(this).attr('data-id');;
+    redrawPubs(app_state.pubs);
 $( "#card-pubs-detail" ).show();
 
 });
@@ -122,8 +120,8 @@ $( "#card-pubs-detail" ).show();
 $('#dishes-all-list').on('click', '.mdc-list-item', function(evt){
 console.log("clicked");
 $( "#card-dishes-all" ).hide();
-    //alert($(this).attr('data-id'));
-    redrawDishes($(this).attr('data-id'));
+app_state.dishes = $(this).attr('data-id');
+    redrawDishes(app_state.dishes);
 $( "#card-dishes-detail" ).show();
 
 });
@@ -131,8 +129,8 @@ $( "#card-dishes-detail" ).show();
 $('#pubs-dishes-list').on('click', '.mdc-list-item', function(evt){
 console.log("clicked");
 $( "#card-pubs-dishes-list" ).hide();
-    //alert($(this).attr('data-id'));
-    redrawDishes($(this).attr('data-id'));
+app_state.dishes = $(this).attr('data-id');
+    redrawDishes(spp_state.dishes);
     $( "#card-dishes-detail" ).show();
 });
 
@@ -140,8 +138,7 @@ $("#button-pubs-menu").click(function(evt){
   evt.preventDefault();
   //get list of menus
   //populate menu-list
-  var pubid = $(" #card-pubs-detail").attr("data-id")
-redrawMenuList(pubid);
+  redrawMenuList(app_state.pubs);
   $( "#card-pubs-detail" ).hide();
   $( "#card-pubs-menu-list" ).show();
 });
@@ -151,8 +148,7 @@ $("#button-pubs-dishes").click(function(evt){
   evt.preventDefault();
   $( "#card-pubs-detail" ).hide();
   //show all dishes from this pub
-  var pubid = $("#card-pubs-detail").attr("data-id");
-redrawPubsDishesList(pubid);
+redrawPubsDishesList(app_state.pubs);
   $( "#card-pubs-dishes-list" ).show();
 
 });
@@ -160,8 +156,8 @@ redrawPubsDishesList(pubid);
 $('#pubs-menu-list').on('click', '.mdc-image-list__item', function(evt){
 console.log("clicked");
 $( "#card-pubs-menu-list" ).hide();
-    //alert($(this).attr('data-id'));
-    redrawMenu($(this).attr('data-id'));
+    app_state.menupage = $(this).attr('data-id');
+    redrawMenu(app_state.menupage);
 $( "#card-menu-detail" ).show();
 
 });
@@ -215,18 +211,15 @@ $("#button-menu-detail-add-geolocation").click(function(evt){
 //  $( "#card-pubs-detail" ).show();
 });
 
-$("#dialog-dishes-confirm").click(function(evt){
+$("#dialog-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //look for
 //menupageid
-var menupageid = $("#card-menu-detail").attr("data-id");
-var pubid = $("#card-pubs-detail").attr("data-id");
-var price = $("#dialog-dishes-price > input").val();
-var name =  $("#dialog-dishes-name > input").val();
-var data = {"name" : name,
-"menupage" : menupageid,
-"price" : price,
-"pubid" : pubid,
-"playerid" : user_state.timestamp
+var data = {"name" : $("#dialog-dishes-name > input").val(),
+"menupage" : app_state.menupage,
+"price" : $("#dialog-dishes-price > input").val(),
+"pubid" : app_state.pubs,
+"playerid" : user_state.timestamp,
+"time" : Date.now()
 }
 console.log(data);
 DBaddnew(data,DBdishes);
@@ -234,17 +227,13 @@ DBaddnew(data,DBdishes);
 //add name and price as new dished to the database
 
 });
-
-$("#dialog-openinghours-confirm").click(function(evt){
+$("#annotation-openinghours-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //look for
 //menupageid
-var menupageid = $("#card-menu-detail").attr("data-id");
-var pubid = $("#card-pubs-detail").attr("data-id");
-var value =  $("#dialog-openinghours-name > input").val();
 var data = {
-"menupage" : menupageid,
-"pubid" : pubid,
-"value" : value,
+"menupage" : app_state.menupage,
+"pubid" : app_state.pubs,
+"value" : $("#dialog-openinghours-name > input").val(),
 "playerid" : user_state.timestamp
 }
 console.log(data);
@@ -254,18 +243,16 @@ DBaddnew(data,DBopeninghours);
 
 });
 
-$("#dialog-geolocation-confirm").click(function(evt){
+$("#annotation-geolocation-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //look for
 //menupageid
-var menupageid = $("#card-menu-detail").attr("data-id");
-var pubid = $("#card-pubs-detail").attr("data-id");
-var city = $("#dialog-geolocation-city > input").val();
-var address =  $("#dialog-geolocation-address > input").val();
-var data = {"city" : city,
-"menupage" : menupageid,
-"address" : address,
-"pubid" : pubid,
-"playerid" : user_state.timestamp
+var data = {"city" : $("#dialog-geolocation-city > input").val(),
+"menupage" : app_state.menupage,
+"street" : $("#dialog-geolocation-address > input").val(),
+"latlng" : [$("#dialog-geolocation-lat > input").val(), $("#dialog-geolocation-lng > input").val()],
+"pubid" : app_state.pubid,
+"playerid" : user_state.timestamp,
+"country" : ""
 }
 console.log(data);
 DBaddnew(data,DBgeo);
@@ -277,12 +264,10 @@ DBaddnew(data,DBgeo);
 $("#dialog-announcement-confirm").click(function(evt){
 //look for
 //menupageid
-var menupageid = $("#card-menu-detail").attr("data-id");
-var pubid = $("#card-pubs-detail").attr("data-id");
-var value = $("#dialog-announcement-name > input").val();
-var data = {"value" : value,
-"menupage" : menupageid,
-"pubid" : pubid,
+var data = {"value" : $("#dialog-announcement-name > input").val(),
+"menupage" : app_state.menupage,
+"pubid" : app_state.pubid,
+"playerid" : user_state.timestamp
 }
 console.log(data);
 DBaddnew(data,DBanno_other);
@@ -421,7 +406,8 @@ function showMapPubDialog(){
   redrawMapPubDialog(this.addressinfo, this._latlng);
   //prerender view of pub when clicking this
   //redrawPubs(this.pubid);
-  redrawPubs(this.addressinfo.pubid);
+  app_state.pubs = this.addressinfo.pubid;
+  redrawPubs(app_state.pubs);
   map_pubinfo_dialog.open();
 //Get info about Put
 }
@@ -457,8 +443,8 @@ $("#rate-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function
   "time" : Date.now(),
   "rating" : $("#dialog-rate-dishes-stars > input").val(),
   "comment" : $("#dialog-rate-dishes-comment > input").val(),
-  "dishes" : $("#card-dishes-detail").attr("data-id"),
-  "pubid" : $("#card-pubs-detail").attr("data-id"),
+  "dishes" : app_state.dishes,
+  "pubid" : app_state.pubid,
   "playerid" : user_state.timestamp,
   "historic_person" : {
     "name" : "Tester Testeintrag",

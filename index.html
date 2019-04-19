@@ -66,7 +66,7 @@
       <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>
       <div class="demo-card__primary">
         <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Tripadviswurst</h2>
-        <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">by Kurt Wagner</h3>
+        <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
       </div>
       <div class="demo-card__secondary mdc-typography mdc-typography--body2">Willkommen bei Tripadviswurst, deinem Kraut Saußing-Tool zum Entdecken neuer, skuriller und alltäglicher Gerichte aus fernen Zeiten.</div>
       <div role="progressbar" class="mdc-linear-progress" id="progress-loader">
@@ -94,7 +94,7 @@
       <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>
       <div class="demo-card__primary">
         <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Tutorialseite</h2>
-        <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">by Kurt Wagner</h3>
+        <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
       </div>
       <div class="demo-card__secondary mdc-typography mdc-typography--body2">Soll laut dem Games-Workshop erst am Ende gemacht werden. Erweiterbar auf mehrere Seiten.
         Außerdem ist ein Hilfe-Popup möglich, welche bei neuen Funktionen einmalig erscheint.
@@ -346,10 +346,10 @@
   <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
     <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>
     <div class="demo-card__primary">
-      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Our Changing Planet</h2>
-      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">by Kurt Wagner</h3>
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6"></h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
     </div>
-    <div class="demo-card__secondary mdc-typography mdc-typography--body2">Visit ten places on our planet that are undergoing the biggest changes today.</div>
+    <div class="demo-card__secondary mdc-typography mdc-typography--body2"></div>
   </div>
   <div class="mdc-card__actions">
     <div class="mdc-card__action-icons">
@@ -519,10 +519,7 @@
 
 <!-- Popups -->
 
-<div class="mdc-dialog"
-     role="alertdialog"
-     aria-modal="true"
-     aria-labelledby="my-dialog-title"
+<div class="mdc-dialog" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
      aria-describedby="my-dialog-content" id="annotation-dishes-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
@@ -558,7 +555,7 @@
         <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
           <span class="mdc-button__label">Abbrechen</span>
         </button>
-        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept" id="dialog-dishes-confirm">
+        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
           <span class="mdc-button__label">Hinterlegen</span>
         </button>
       </footer>
@@ -567,10 +564,7 @@
   <div class="mdc-dialog__scrim"></div>
 </div>
 
-<div class="mdc-dialog"
-     role="alertdialog"
-     aria-modal="true"
-     aria-labelledby="my-dialog-title"
+<div class="mdc-dialog" role="alertdialog"  aria-modal="true" aria-labelledby="my-dialog-title"
      aria-describedby="my-dialog-content" id="annotation-openinghours-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
@@ -597,7 +591,7 @@
         <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
           <span class="mdc-button__label">Abbrechen</span>
         </button>
-        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept" id="dialog-openinghours-confirm">
+        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
           <span class="mdc-button__label">Hinterlegen</span>
         </button>
       </footer>
@@ -606,11 +600,8 @@
   <div class="mdc-dialog__scrim"></div>
 </div>
 
-<div class="mdc-dialog"
-     role="alertdialog"
-     aria-modal="true"
-     aria-labelledby="my-dialog-title"
-     aria-describedby="my-dialog-content" id="annotation-geolocation-popup">
+<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+     aria-labelledby="my-dialog-title"   aria-describedby="my-dialog-content" id="annotation-geolocation-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
       <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
@@ -639,13 +630,34 @@
     <div class="mdc-notched-outline__trailing"></div>
   </div>
 </div>
+
+            <div class="mdc-text-field mdc-text-field--outlined" id="dialog-geolocation-lat">
+  <input class="mdc-text-field__input">
+  <div class="mdc-notched-outline">
+    <div class="mdc-notched-outline__leading"></div>
+    <div class="mdc-notched-outline__notch">
+      <label class="mdc-floating-label">Latitude</label>
+    </div>
+    <div class="mdc-notched-outline__trailing"></div>
+  </div>
+</div>
+            <div class="mdc-text-field mdc-text-field--outlined" id="dialog-geolocation-lng">
+  <input class="mdc-text-field__input">
+  <div class="mdc-notched-outline">
+    <div class="mdc-notched-outline__leading"></div>
+    <div class="mdc-notched-outline__notch">
+      <label class="mdc-floating-label">Longitude</label>
+    </div>
+    <div class="mdc-notched-outline__trailing"></div>
+  </div>
+</div>
 <!-- ... -->
       </div>
       <footer class="mdc-dialog__actions">
         <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
           <span class="mdc-button__label">Abbrechen</span>
         </button>
-        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept" id="dialog-geolocation-confirm">
+        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
           <span class="mdc-button__label">Hinterlegen</span>
         </button>
       </footer>
@@ -654,10 +666,7 @@
   <div class="mdc-dialog__scrim"></div>
 </div>
 
-<div class="mdc-dialog"
-     role="alertdialog"
-     aria-modal="true"
-     aria-labelledby="my-dialog-title"
+<div class="mdc-dialog" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
      aria-describedby="my-dialog-content" id="map-showpubinfo-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
@@ -681,11 +690,8 @@
   <div class="mdc-dialog__scrim"></div>
 </div>
 
-<div class="mdc-dialog"
-     role="alertdialog"
-     aria-modal="true"
-     aria-labelledby="my-dialog-title"
-     aria-describedby="my-dialog-content" id="rate-dishes-popup">
+<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+     aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="rate-dishes-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
       <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
@@ -730,10 +736,13 @@
 </div>
 
 <!--  Snackbar -->
-<div class="mdc-snackbar app__snackbar" aria-live="assertive" aria-atomic="true" aria-hidden="true">
-  <div class="mdc-snackbar__text"></div>
-  <div class="mdc-snackbar__action-wrapper">
-    <button type="button" class="mdc-snackbar__action-button"></button>
+<div class="mdc-snackbar">
+  <div class="mdc-snackbar__surface">
+    <div class="mdc-snackbar__label" role="status" aria-live="polite">
+    </div>
+    <div class="mdc-snackbar__actions">
+      <button type="button" class="mdc-button mdc-snackbar__action"></button>
+    </div>
   </div>
 </div>
 
@@ -749,10 +758,11 @@
 
 <!-- Snackbar and serviceWorker -->
 
-<!--<script src="js/snackbar.js"></script>-->
 <!--<script src="js/sw.js"></script>-->
   <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
   <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  <script src="js/snackbar.js"></script>
+
   <script src="js/leaflet/map_init.js"></script>
 
 <script>
@@ -814,6 +824,7 @@ console.log(mdc);
       const map_pubinfo_dialog = new mdc.dialog.MDCDialog(document.querySelector('#map-showpubinfo-popup'));
       const rate_dishes_dialog = new mdc.dialog.MDCDialog(document.querySelector('#rate-dishes-popup'));
       mdc.ripple.MDCRipple.attachTo(document.querySelector('#menu '));
+      const snackbar = new mdc.snackbar.MDCSnackbar(document.querySelector('.mdc-snackbar'));
 
 
 var textField = new mdc.textField.MDCTextField(document.querySelector('#dialog-dishes-price'));
@@ -822,6 +833,8 @@ var textField3 = new mdc.textField.MDCTextField(document.querySelector('#dialog-
 var textField4 = new mdc.textField.MDCTextField(document.querySelector('#pubs-search'));
 var textField5 = new mdc.textField.MDCTextField(document.querySelector('#dishes-search'));
 var textField6 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-address'));
+var textField11 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-lat'));
+var textField12 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-lng'));
 var textField7 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-city'));
 var textField8 = new mdc.textField.MDCTextField(document.querySelector('#dialog-openinghours-name'));
 var textField9 = new mdc.textField.MDCTextField(document.querySelector('#dialog-rate-dishes-comment'));
