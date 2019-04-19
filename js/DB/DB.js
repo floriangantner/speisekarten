@@ -19,14 +19,14 @@ var doc;
 
 function DBadd(data,DB){
   DB.put(data, function callback(err, result) {
-    if (!err) { console.log('Successfully added ' + data.id + ' to ' + DB + ' data:' + data.name);
+    if (!err) { console.log('Successfully added ' + data.id + ' to ' + DB + ' data:' + data);
   }else{ console.log('error' + err + DB); }
   });
 }
 
 function DBaddnew(data,DB){
   DB.post(data, function callback(err, result) {
-    if (!err) { console.log('Successfully added data without id to ' + DB + ' data:' + data.name);
+    if (!err) { console.log('Successfully added data without id to ' + DB + ' data:' + data);
   }else{ console.log('error' + err + DB); }
   });
 }

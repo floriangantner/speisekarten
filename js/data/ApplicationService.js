@@ -125,7 +125,6 @@ DBdishes.get(id).then( function(doc){
     console.log(doc);
     //$("#pubs-list").html('');
     //$(" #pubs-list").append(list);
-
     });
 };
 
@@ -333,6 +332,7 @@ function identity_check(){
     });
     return false;
 }
+
 
   /*
 DBdishes.allDocs({

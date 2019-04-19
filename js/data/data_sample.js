@@ -119,3 +119,38 @@ var data_map_points = [{
       "latlng" : [48.14386146470259, 11.59846379032135]
     }
 ];
+
+var data_ratings = [{
+  "_id" : "rat1",
+  "id" : "rat1",
+  "dishes" : "1001",
+  "rating" : "1 Stern",
+  "pub" : "pub1",
+  "historic_person" : {
+    "name" : "Peter Pan",
+    "id" : ""},
+  "time" : "",
+  "playerid" : ""
+},
+{ "_id" : "rat2",
+  "id" : "",
+  "dishes" : "1001",
+  "rating" : "2 Sterne",
+  "pub" : "pub1",
+  "historic_person" : {
+    "name" : "Gustav Gustus",
+    "id" : ""},
+  "time" : "",
+  "playerid" : ""
+},
+{ "_id" : "rat3",
+  "id" : "",
+  "dishes" : "",
+  "pub" : "pub1",
+  "rating" : "Super Lokal!",
+  "historic_person" : {
+    "name" : "Max Mehlwurm",
+    "id" : ""},
+  "time" : "",
+  "playerid" : ""
+}];
