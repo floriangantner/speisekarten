@@ -17,7 +17,6 @@ DBpubs.allDocs({
     include_docs: true
   },function(err, doc){
     var list = newPubListElement(doc.rows);
-    console.log(list);
     $("#pubs-list").html('');
     $(" #pubs-list").append(list);
     });
@@ -198,7 +197,10 @@ function redrawRandomIdentityChoice(){
 
     let max = response.doc_count;
     let min = 1;
+
     let rand = Math.floor(Math.random() * (max - min + 1)) + min;
+    console.log(min + " <-> " + max + " <-> " + rand);
+
     DBhist_persons.find({
        selector: {_id: {$gte : '1'}},
        limit : 1,
@@ -211,20 +213,64 @@ function redrawRandomIdentityChoice(){
 });
 }
 
+function registerPlayer(){
+console.log("Player with Identity registred");
+var identity_id = $("#person-selector").attr('data-id');
+var timestamp = Date.now();
+var player = {"_id" : JSON.stringify(timestamp),
+"id" : JSON.stringify(timestamp),
+"identity" : identity_id,
+timestamp }
+DBadd(player, DBuser);
+user_state.setAccount = true;
+user_state.identity = identity_id;
+user_state.timestamp = timestamp;
+getIdentityInfos(identity_id);
+}
+
+function getIdentityInfos(byID){
+console.log("fetch Identity Infos");
+DBhist_persons.get(byID).then( function(doc){
+    //var list = newPubListElement(doc.rows);
+    console.log(doc);
+    //$("#pubs-list").html('');
+    //$(" #pubs-list").append(list);
+
+    });
+
+
+}
+
 function newIdentityInfo(data){
   console.log(data);
   if(!data[0]){
     $("#person-selector > div > h2").html("Keine Person gefunden. Versuch es nochmal.");
     $("#person-selector > * > img").attr('src',``);
     $("#person-selector").attr('data-id',``);
-    
+
   }else{
+
+    if(!data[0].file.startsWith("http")){
+      data[0].file = "assets/" + data[0].file;
+    }
     $("#person-selector > div > h2").html("");
-  $("#person-selector > * > img").attr('src',`assets/${data[0].file}`);
+  $("#person-selector > * > img").attr('src',`${data[0].file}`);
   $("#person-selector").attr('data-id',`${data[0]._id}`);
   }
   //$("#person-selector").show();
 }
+
+function redrawMapPubDialog(addressinfo, latlng){
+  DBpubs.get(addressinfo.pubid).then( function(doc){
+      //var list = newPubListElement(doc.rows);
+      console.log(doc);
+      //$("#pubs-list").html('');
+      //$(" #pubs-list").append(list);
+      $("#map-showpubinfo-popup").find('.mdc-dialog__title').html(`${doc.name}`);
+      });
+      $("#map-showpubinfo-popup").find('.mdc-dialog__content').html(`<p>${addressinfo.street}</p><p>${addressinfo.zip} ${addressinfo.city}</p>`);
+}
+
 
   /*
 DBdishes.allDocs({

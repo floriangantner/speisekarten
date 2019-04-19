@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lido:lido xmlns:lido="http://www.lido-schema.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" xmlns="urn:isbn:1-931666-33-4" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" xsi:schemaLocation="http://www.lido-schema.org http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd">
+  <lido:lidoRecID lido:source="Deutsches Museum, München, Archiv" lido:type="local">DMA_Portraet_Bildnisse_4488</lido:lidoRecID>
+  <lido:category>
+    <lido:conceptID lido:type="URI">http://www.cidoc-crm.org/crm-concepts/E22</lido:conceptID>
+    <lido:term xml:lang="eng">Man-Made Object</lido:term>
+  </lido:category>
+  <lido:descriptiveMetadata xml:lang="de">
+    <lido:objectClassificationWrap>
+      <lido:objectWorkTypeWrap>
+        <lido:objectWorkType>
+          <lido:term lido:encodinganalog="syo" lido:label="Systematik">Fotografie</lido:term>
+          <lido:term lido:encodinganalog="sys" lido:label="Systematik">monochrom</lido:term>
+        </lido:objectWorkType>
+      </lido:objectWorkTypeWrap>
+    </lido:objectClassificationWrap>
+    <lido:objectIdentificationWrap>
+      <lido:titleWrap>
+        <lido:titleSet>
+          <lido:appellationValue lido:pref="preferred" lido:encodinganalog="Portraet" lido:label="Titel">Loew, Oscar</lido:appellationValue>
+        </lido:titleSet>
+      </lido:titleWrap>
+      <lido:repositoryWrap>
+        <lido:repositorySet lido:type="current">
+          <lido:repositoryName>
+            <lido:legalBodyID lido:type="URI" lido:source="ISIL (ISO 15511)">info:isil/DE-210A</lido:legalBodyID>
+            <lido:legalBodyName>
+              <lido:appellationValue>Deutsches Museum, München, Archiv</lido:appellationValue>
+            </lido:legalBodyName>
+          </lido:repositoryName>
+          <lido:workID lido:type="shelf_no" lido:encodinganalog="Bestand_Signatur" lido:label="Signatur">PT 02272/01</lido:workID>
+          <lido:workID lido:type="image_collection_no" lido:encodinganalog="Bildstellen-Nr." lido:label="Bildstellen-Nr.">*49102 + *CD_68360/ CD-1311</lido:workID>
+          <lido:repositoryLocation>
+            <lido:namePlaceSet>
+              <lido:appellationValue>Deutsches Museum, Archiv</lido:appellationValue>
+            </lido:namePlaceSet>
+            <lido:gml>
+              <gml:Point>
+                <gml:pos srsDimension="2">48.12987 11.58345</gml:pos>
+              </gml:Point>
+              <gml:Polygon>
+                <gml:interior>
+                  <gml:LinearRing>
+                    <gml:posList srsDimension="2">48.12274 11.57823 48.12274 11.58901 48.12994 11.58901 48.12994 11.57823 48.12274 11.57823</gml:posList>
+                  </gml:LinearRing>
+                </gml:interior>
+              </gml:Polygon>
+            </lido:gml>
+          </lido:repositoryLocation>
+        </lido:repositorySet>
+      </lido:repositoryWrap>
+      <lido:objectDescriptionWrap>
+        <lido:objectDescriptionSet lido:type="description">
+          <lido:descriptiveNoteValue lido:encodinganalog="Bildbeschreibung" lido:label="Beschreibung">Visitenkartenporträt mit Bruststück nach links gewandt, den Kopf nahezu im Profil, mit nach hinten gekämmtem, zum Teil nach oben stehenden Haaren, Schnurrbart, Hemd, Querbinder, Weste und Jackett, vor neutralem Hintergrund und in rechteckigem Bildfeld, oben bogenförmig abgeschlossen.</lido:descriptiveNoteValue>
+        </lido:objectDescriptionSet>
+        <lido:objectDescriptionSet lido:type="description">
+          <lido:descriptiveNoteValue lido:encodinganalog="Bemerkung" lido:label="Bemerkung">Unter dem Porträt auf dem Untersatzkarton mit Tinte der Name des Dargestellten mit Ortsangabe.; Auf der Rückseite des Untersatzkartons aufgedruckt Angaben zum Fotografen.</lido:descriptiveNoteValue>
+        </lido:objectDescriptionSet>
+      </lido:objectDescriptionWrap>
+      <lido:objectMeasurementsWrap>
+        <lido:objectMeasurementsSet>
+          <lido:displayObjectMeasurements lido:encodinganalog="Format Bild hxb mm" lido:label="Bildformat">97 x 58 mm (Höhe x Breite)</lido:displayObjectMeasurements>
+          <lido:objectMeasurements>
+            <lido:measurementsSet>
+              <lido:measurementType>height</lido:measurementType>
+              <lido:measurementUnit>mm</lido:measurementUnit>
+              <lido:measurementValue>97</lido:measurementValue>
+            </lido:measurementsSet>
+            <lido:measurementsSet>
+              <lido:measurementType>width</lido:measurementType>
+              <lido:measurementUnit>mm</lido:measurementUnit>
+              <lido:measurementValue>58</lido:measurementValue>
+            </lido:measurementsSet>
+            <lido:extentMeasurements>Bildmaß</lido:extentMeasurements>
+          </lido:objectMeasurements>
+        </lido:objectMeasurementsSet>
+        <lido:objectMeasurementsSet>
+          <lido:displayObjectMeasurements lido:encodinganalog="Format Blatt hxb mm" lido:label="Blattformat">106 x 62 mm (Höhe x Breite)</lido:displayObjectMeasurements>
+          <lido:objectMeasurements>
+            <lido:measurementsSet>
+              <lido:measurementType>height</lido:measurementType>
+              <lido:measurementUnit>mm</lido:measurementUnit>
+              <lido:measurementValue>106</lido:measurementValue>
+            </lido:measurementsSet>
+            <lido:measurementsSet>
+              <lido:measurementType>width</lido:measurementType>
+              <lido:measurementUnit>mm</lido:measurementUnit>
+              <lido:measurementValue>62</lido:measurementValue>
+            </lido:measurementsSet>
+            <lido:extentMeasurements>Blattmaß</lido:extentMeasurements>
+          </lido:objectMeasurements>
+        </lido:objectMeasurementsSet>
+      </lido:objectMeasurementsWrap>
+    </lido:objectIdentificationWrap>
+    <lido:eventWrap>
+      <lido:eventSet>
+        <lido:displayEvent>Fotograf</lido:displayEvent>
+        <lido:event>
+          <lido:eventType>
+            <lido:term>Fotograf</lido:term>
+          </lido:eventType>
+          <lido:eventActor>
+            <lido:displayActorInRole lido:encodinganalog="Fotograf" lido:label="Fotograf">McAllister, C. H.</lido:displayActorInRole>
+            <lido:actorInRole>
+              <lido:actor lido:type="unknown">
+                <lido:nameActorSet>
+                  <lido:appellationValue lido:pref="preferred">McAllister, C. H.</lido:appellationValue>
+                </lido:nameActorSet>
+                <lido:genderActor>unbekannt</lido:genderActor>
+              </lido:actor>
+              <lido:roleActor>
+                <lido:term lido:label="Rolle im Kontext">Fotograf</lido:term>
+              </lido:roleActor>
+            </lido:actorInRole>
+          </lido:eventActor>
+        </lido:event>
+      </lido:eventSet>
+      <lido:eventSet>
+        <lido:displayEvent>Herstellung</lido:displayEvent>
+        <lido:event>
+          <lido:eventType>
+            <lido:term>Creation</lido:term>
+          </lido:eventType>
+          <lido:eventDate>
+            <lido:displayDate lido:encodinganalog="Portraet_Datierung" lido:label="Datierung">ca. 1867 - 1876</lido:displayDate>
+            <lido:date>
+              <lido:earliestDate>1867</lido:earliestDate>
+              <lido:latestDate>1876</lido:latestDate>
+            </lido:date>
+          </lido:eventDate>
+          <lido:eventPlace lido:type="Aufnahmeort">
+            <lido:displayPlace lido:encodinganalog="Ort_Aufnahme" lido:label="Aufnahmeort">Washington, D.C.</lido:displayPlace>
+            <lido:place>
+              <lido:namePlaceSet>
+                <lido:appellationValue>Washington, D.C.</lido:appellationValue>
+              </lido:namePlaceSet>
+              <lido:gml>
+                <gml:Point>
+                  <gml:pos srsDimension="2">38.895 -77.036667</gml:pos>
+                </gml:Point>
+                <gml:Polygon>
+                  <gml:interior>
+                    <gml:LinearRing>
+                      <gml:posList srsDimension="2">38.7916449 -77.1197590 38.7916449 -76.9093930 38.9955480 -76.9093930 38.9955480 -77.1197590 38.7916449 -77.1197590</gml:posList>
+                    </gml:LinearRing>
+                  </gml:interior>
+                </gml:Polygon>
+              </lido:gml>
+            </lido:place>
+          </lido:eventPlace>
+          <lido:eventMaterialsTech>
+            <lido:materialsTech>
+              <lido:termMaterialsTech lido:type="Material">
+                <lido:term lido:encodinganalog="Beschreibstoff" lido:label="Trägermaterial">Papier/Untersatzkarton</lido:term>
+              </lido:termMaterialsTech>
+            </lido:materialsTech>
+          </lido:eventMaterialsTech>
+          <lido:eventMaterialsTech>
+            <lido:materialsTech>
+              <lido:termMaterialsTech lido:type="Technics">
+                <lido:term lido:encodinganalog="Technik" lido:label="Technik">Albuminpapierabzug</lido:term>
+              </lido:termMaterialsTech>
+            </lido:materialsTech>
+          </lido:eventMaterialsTech>
+        </lido:event>
+      </lido:eventSet>
+      <lido:eventSet>
+        <lido:displayEvent>Provenienz</lido:displayEvent>
+        <lido:event>
+          <lido:eventType>
+            <lido:term>Proveniance</lido:term>
+          </lido:eventType>
+          <lido:eventDescriptionSet>
+            <lido:descriptiveNoteValue lido:encodinganalog="Provenienz" lido:label="Provenienz">Porträtsammlung des Deutschen Museums, München: angelegt seit 1903, Mischbestand aus Fotografien, Druckgrafiken, Fotografien und Gemälden, Fokus auf Naturwissenschaft und Technik.</lido:descriptiveNoteValue>
+          </lido:eventDescriptionSet>
+        </lido:event>
+      </lido:eventSet>
+    </lido:eventWrap>
+    <lido:objectRelationWrap>
+      <lido:subjectWrap>
+        <lido:subjectSet>
+          <lido:displaySubject lido:encodinganalog="Porträt" lido:label="Porträtdarstellung">Loew, Oscar</lido:displaySubject>
+          <lido:subject lido:type="portrait">
+            <lido:subjectConcept>
+              <lido:conceptID lido:type="occupations local" lido:encodinganalog="Taetigkeitsfeld/Beruf" lido:label="Berufsindex">Berufsindex</lido:conceptID>
+              <lido:term lido:addedSearchTerm="yes">Chemiker</lido:term>
+            </lido:subjectConcept>
+            <lido:subjectConcept>
+              <lido:conceptID lido:type="occupations" lido:source="DNB" lido:label="Beruf">Beruf</lido:conceptID>
+              <lido:term lido:addedSearchTerm="yes">Physiologe</lido:term>
+              <lido:term lido:addedSearchTerm="yes">Agrikulturchemiker</lido:term>
+            </lido:subjectConcept>
+            <lido:subjectConcept>
+              <lido:conceptID lido:encodinganalog="Schlagwort" lido:label="Schlagworte" lido:type="keywords local">Schlagworte</lido:conceptID>
+              <lido:term lido:addedSearchTerm="yes">Technische Chemie</lido:term>
+            </lido:subjectConcept>
+            <lido:subjectConcept>
+              <lido:conceptID lido:type="sources" lido:label="Quellen">Quellen</lido:conceptID>
+              <lido:term lido:label="Deutsche Nationalbibliothek">http://d-nb.info/gnd/117163457</lido:term>
+              <lido:term lido:label="Wikipedia">http://de.wikipedia.org/wiki/Oskar_Loew</lido:term>
+              <lido:term lido:label="Deutsche Digitale Bibliothek">https://www.deutsche-digitale-bibliothek.de/entity/117163457</lido:term>
+              <lido:term lido:label="Deutsche Biographie, NDB/ADB">http://www.deutsche-biographie.de/pnd117163457.html?anchor=index</lido:term>
+            </lido:subjectConcept>
+            <lido:subjectActor>
+              <lido:displayActor lido:encodinganalog="Portraet" lido:label="Porträtdarstellung">Loew, Oscar</lido:displayActor>
+              <lido:actor lido:type="person">
+                <lido:actorID lido:source="DNB" lido:type="public">http://d-nb.info/gnd/117163457</lido:actorID>
+                <lido:actorID lido:source="DBpedia" lido:type="public">http://dbpedia.org/resource/Oscar_Loew</lido:actorID>
+                <lido:actorID lido:source="VIAF" lido:type="public">http://viaf.org/viaf/30306159</lido:actorID>
+                <lido:nameActorSet>
+                  <lido:appellationValue lido:pref="preferred">Loew, Oscar</lido:appellationValue>
+                </lido:nameActorSet>
+                <lido:nationalityActor>
+                  <lido:term>Deutschland</lido:term>
+                </lido:nationalityActor>
+                <lido:vitalDatesActor>
+                  <lido:earliestDate lido:encodinganalog="Geburtsdatum" lido:type="exactDate">1844-04-02</lido:earliestDate>
+                  <lido:latestDate lido:encodinganalog="Sterbedatum" lido:type="exactDate">1941-01-26</lido:latestDate>
+                </lido:vitalDatesActor>
+                <lido:genderActor>männlich</lido:genderActor>
+              </lido:actor>
+            </lido:subjectActor>
+            <lido:subjectPlace>
+              <lido:displayPlace lido:encodinganalog="Geburtsort" lido:label="Geburtsort">Marktredwitz</lido:displayPlace>
+              <lido:place>
+                <lido:namePlaceSet>
+                  <lido:appellationValue>Marktredwitz</lido:appellationValue>
+                </lido:namePlaceSet>
+                <lido:gml>
+                  <gml:Point>
+                    <gml:pos srsDimension="2">50.003056 12.083056</gml:pos>
+                  </gml:Point>
+                  <gml:Polygon>
+                    <gml:interior>
+                      <gml:LinearRing>
+                        <gml:posList srsDimension="2">49.9895704 12.0837340 49.9895704 12.1056613 50.0038423 12.1056613 50.0038423 12.0837340 49.9895704 12.0837340</gml:posList>
+                      </gml:LinearRing>
+                    </gml:interior>
+                  </gml:Polygon>
+                </lido:gml>
+              </lido:place>
+            </lido:subjectPlace>
+            <lido:subjectPlace>
+              <lido:displayPlace lido:encodinganalog="Sterbeort" lido:label="Sterbeort">Berlin</lido:displayPlace>
+              <lido:place>
+                <lido:namePlaceSet>
+                  <lido:appellationValue>Berlin</lido:appellationValue>
+                </lido:namePlaceSet>
+                <lido:gml>
+                  <gml:Point>
+                    <gml:pos srsDimension="2">52.518611 13.408056</gml:pos>
+                  </gml:Point>
+                  <gml:Polygon>
+                    <gml:interior>
+                      <gml:LinearRing>
+                        <gml:posList srsDimension="2">52.501 13.44397 52.501 13.45579 52.5082 13.45579 52.5082 13.44397 52.501 13.44397</gml:posList>
+                      </gml:LinearRing>
+                    </gml:interior>
+                  </gml:Polygon>
+                </lido:gml>
+              </lido:place>
+            </lido:subjectPlace>
+            <lido:subjectObject>
+              <lido:displayObject>Publikationen</lido:displayObject>
+              <lido:object>
+                <lido:objectNote lido:label="Publikationen">Die chemische Kraftquelle im lebenden Protoplasma. - 1882</lido:objectNote>
+              </lido:object>
+            </lido:subjectObject>
+            <lido:subjectObject>
+              <lido:displayObject>Publikationen</lido:displayObject>
+              <lido:object>
+                <lido:objectNote lido:label="Publikationen">Die Chemische Energie der lebenden Zellen. - 1899</lido:objectNote>
+              </lido:object>
+            </lido:subjectObject>
+            <lido:subjectObject>
+              <lido:displayObject>Publikationen</lido:displayObject>
+              <lido:object>
+                <lido:objectNote lido:label="Publikationen">Ein natürliches System der Gift-Wirkungen. - 1893</lido:objectNote>
+              </lido:object>
+            </lido:subjectObject>
+            <lido:subjectObject>
+              <lido:displayObject>Publikationen</lido:displayObject>
+              <lido:object>
+                <lido:objectNote lido:label="Publikationen">Zur chemischen Physiologie des Kalks bei Mensch und Tier. - 1916</lido:objectNote>
+              </lido:object>
+            </lido:subjectObject>
+            <lido:subjectObject>
+              <lido:displayObject>Publikationen</lido:displayObject>
+              <lido:object>
+                <lido:objectNote lido:label="Publikationen">Der Kalkbedarf von Mensch und Tier. - 1919</lido:objectNote>
+              </lido:object>
+            </lido:subjectObject>
+            <lido:subjectObject>
+              <lido:displayObject>Literatur</lido:displayObject>
+              <lido:object>
+                <lido:objectWebResource>http://www.gateway-bayern.de/opensearch?rfr_id=LinkedOpenData%3ABeacon&amp;rft.au=%28DE-588%29117163457</lido:objectWebResource>
+                <lido:objectNote lido:label="Literatur">Bibliotheksverbund Bayern, B3Kat (44 Einträge)</lido:objectNote>
+              </lido:object>
+            </lido:subjectObject>
+            <lido:subjectObject>
+              <lido:displayObject>Nachlässe</lido:displayObject>
+              <lido:object>
+                <lido:objectWebResource>http://kalliope.staatsbibliothek-berlin.de/de/eac?eac.id=117163457</lido:objectWebResource>
+                <lido:objectNote lido:label="Nachlass-Nachweis">KALLIOPE</lido:objectNote>
+              </lido:object>
+            </lido:subjectObject>
+          </lido:subject>
+        </lido:subjectSet>
+        <lido:subjectSet>
+          <lido:displaySubject lido:encodinganalog="Fotograf" lido:label="Fotograf">McAllister, C. H.</lido:displaySubject>
+          <lido:subject lido:type="creator">
+            <lido:subjectActor>
+              <lido:displayActor lido:encodinganalog="Fotograf" lido:label="Fotograf">McAllister, C. H.</lido:displayActor>
+              <lido:actor lido:type="unknown">
+                <lido:nameActorSet>
+                  <lido:appellationValue lido:pref="preferred">McAllister, C. H.</lido:appellationValue>
+                </lido:nameActorSet>
+                <lido:genderActor>unbekannt</lido:genderActor>
+              </lido:actor>
+            </lido:subjectActor>
+          </lido:subject>
+        </lido:subjectSet>
+      </lido:subjectWrap>
+    </lido:objectRelationWrap>
+  </lido:descriptiveMetadata>
+  <lido:administrativeMetadata xml:lang="de">
+    <lido:recordWrap>
+      <lido:recordID lido:source="Deutsches Museum, München, Archiv" lido:type="local">DMA_Portraet_Bildnisse_4488</lido:recordID>
+      <lido:recordType>
+        <lido:term>item</lido:term>
+      </lido:recordType>
+      <lido:recordSource>
+        <lido:legalBodyID lido:type="URI" lido:source="ISIL (ISO 15511)">info:isil/DE-210A</lido:legalBodyID>
+        <lido:legalBodyName>
+          <lido:appellationValue>Deutsches Museum, München, Archiv</lido:appellationValue>
+        </lido:legalBodyName>
+        <lido:legalBodyWeblink>http://www.deutsches-museum.de</lido:legalBodyWeblink>
+      </lido:recordSource>
+      <lido:recordRights>
+        <lido:rightsHolder>
+          <lido:legalBodyID lido:type="URI" lido:source="ISIL (ISO 15511)">info:isil/DE-210A</lido:legalBodyID>
+          <lido:legalBodyName>
+            <lido:appellationValue>Deutsches Museum, München, Archiv</lido:appellationValue>
+          </lido:legalBodyName>
+          <lido:legalBodyWeblink>http://www.deutsches-museum.de</lido:legalBodyWeblink>
+        </lido:rightsHolder>
+      </lido:recordRights>
+      <lido:recordInfoSet>
+        <lido:recordInfoLink lido:formatResource="html">http://www.digiporta.net/index.php?id=536856997</lido:recordInfoLink>
+      </lido:recordInfoSet>
+      <lido:recordInfoSet>
+        <lido:recordInfoID lido:type="lido">http://www.digiporta.net/index.php?lido=536856997</lido:recordInfoID>
+      </lido:recordInfoSet>
+    </lido:recordWrap>
+    <lido:resourceWrap>
+      <lido:resourceSet>
+        <lido:resourceID lido:type="local">PT_02272_01_01</lido:resourceID>
+        <lido:resourceRepresentation lido:type="size_0">
+          <lido:linkResource lido:formatResource="jpg">http://www.digiporta.net/ires/DMA/s0/DMA_PT_02272_01_01.jpg</lido:linkResource>
+          <lido:resourceMeasurementsSet>
+            <lido:measurementType>width</lido:measurementType>
+            <lido:measurementUnit>pixel</lido:measurementUnit>
+            <lido:measurementValue>160</lido:measurementValue>
+          </lido:resourceMeasurementsSet>
+          <lido:resourceMeasurementsSet>
+            <lido:measurementType>height</lido:measurementType>
+            <lido:measurementUnit>pixel</lido:measurementUnit>
+            <lido:measurementValue>160</lido:measurementValue>
+          </lido:resourceMeasurementsSet>
+        </lido:resourceRepresentation>
+        <lido:resourceRepresentation lido:type="size_1">
+          <lido:linkResource lido:formatResource="jpg">http://www.digiporta.net/ires/DMA/s1/DMA_PT_02272_01_01.jpg</lido:linkResource>
+          <lido:resourceMeasurementsSet>
+            <lido:measurementType>width</lido:measurementType>
+            <lido:measurementUnit>pixel</lido:measurementUnit>
+            <lido:measurementValue>267</lido:measurementValue>
+          </lido:resourceMeasurementsSet>
+          <lido:resourceMeasurementsSet>
+            <lido:measurementType>height</lido:measurementType>
+            <lido:measurementUnit>pixel</lido:measurementUnit>
+            <lido:measurementValue>436</lido:measurementValue>
+          </lido:resourceMeasurementsSet>
+        </lido:resourceRepresentation>
+        <lido:resourceRepresentation lido:type="size_2">
+          <lido:linkResource lido:formatResource="jpg">http://www.digiporta.net/ires/DMA/s2/DMA_PT_02272_01_01.jpg</lido:linkResource>
+          <lido:resourceMeasurementsSet>
+            <lido:measurementType>width</lido:measurementType>
+            <lido:measurementUnit>pixel</lido:measurementUnit>
+            <lido:measurementValue>534</lido:measurementValue>
+          </lido:resourceMeasurementsSet>
+          <lido:resourceMeasurementsSet>
+            <lido:measurementType>height</lido:measurementType>
+            <lido:measurementUnit>pixel</lido:measurementUnit>
+            <lido:measurementValue>872</lido:measurementValue>
+          </lido:resourceMeasurementsSet>
+        </lido:resourceRepresentation>
+        <lido:resourceRepresentation lido:type="Master">
+          <lido:linkResource lido:formatResource="tif">PT_02272_01_01.tif</lido:linkResource>
+          <lido:resourceMeasurementsSet>
+            <lido:measurementType>width</lido:measurementType>
+            <lido:measurementUnit>pixel</lido:measurementUnit>
+            <lido:measurementValue>5346</lido:measurementValue>
+          </lido:resourceMeasurementsSet>
+          <lido:resourceMeasurementsSet>
+            <lido:measurementType>height</lido:measurementType>
+            <lido:measurementUnit>pixel</lido:measurementUnit>
+            <lido:measurementValue>8723</lido:measurementValue>
+          </lido:resourceMeasurementsSet>
+        </lido:resourceRepresentation>
+        <lido:resourceType>
+          <lido:term>Digitales Bild (retrodigitalisiert)</lido:term>
+        </lido:resourceType>
+        <lido:resourceSource lido:type="Bildstelle">
+          <lido:legalBodyID lido:type="URI" lido:source="ISIL (ISO 15511)">info:isil/DE-210A</lido:legalBodyID>
+          <lido:legalBodyName>
+            <lido:appellationValue>Deutsches Museum, München, Archiv</lido:appellationValue>
+          </lido:legalBodyName>
+          <lido:legalBodyWeblink>http://www.deutsches-museum.de/archiv/</lido:legalBodyWeblink>
+        </lido:resourceSource>
+        <lido:rightsResource>
+          <lido:rightsHolder>
+            <lido:legalBodyID lido:type="URI" lido:source="ISIL (ISO 15511)">info:isil/DE-210A</lido:legalBodyID>
+            <lido:legalBodyName>
+              <lido:appellationValue>Deutsches Museum, München, Archiv</lido:appellationValue>
+            </lido:legalBodyName>
+            <lido:legalBodyWeblink>http://www.deutsches-museum.de/archiv/</lido:legalBodyWeblink>
+          </lido:rightsHolder>
+        </lido:rightsResource>
+      </lido:resourceSet>
+      <lido:resourceSet>
+        <lido:resourceID lido:type="local">PT_02272_01_02</lido:resourceID>
+        <lido:resourceRepresentation lido:type="size_0">
+          <lido:linkResource lido:formatResource="jpg">http://www.digiporta.net/ires/DMA/s0/DMA_PT_02272_01_02.jpg</lido:linkResource>
+          <lido:resourceMeasurementsSet>
+            <lido:measurementType>width</lido:measurementType>
+            <lido:measurementUnit>pixel</lido:measurementUnit>
+            <lido:measurementValue>160</lido:measurementValue>
+          </lido:resourceMeasurementsSet>
+          <lido:resourceMeasurementsSet>
+            <lido:measurementType>height</lido:measurementType>
+            <lido:measurementUnit>pixel</lido:measurementUnit>
+            <lido:measurementValue>160</lido:measurementValue>
+          </lido:resourceMeasurementsSet>
+        </lido:resourceRepresentation>
+        <lido:resourceRepresentation lido:type="size_1">
+          <lido:linkResource lido:formatResource="jpg">http://www.digiporta.net/ires/DMA/s1/DMA_PT_02272_01_02.jpg</lido:linkResource>
+          <lido:resourceMeasurementsSet>
+            <lido:measurementType>width</lido:measurementType>
+            <lido:measurementUnit>pixel</lido:measurementUnit>
+            <lido:measurementValue>265</lido:measurementValue>
+          </lido:resourceMeasurementsSet>
+          <lido:resourceMeasurementsSet>
+            <lido:measurementType>height</lido:measurementType>
+            <lido:measurementUnit>pixel</lido:measurementUnit>
+            <lido:measurementValue>436</lido:measurementValue>
+          </lido:resourceMeasurementsSet>
+        </lido:resourceRepresentation>
+        <lido:resourceRepresentation lido:type="size_2">
+          <lido:linkResource lido:formatResource="jpg">http://www.digiporta.net/ires/DMA/s2/DMA_PT_02272_01_02.jpg</lido:linkResource>
+          <lido:resourceMeasurementsSet>
+            <lido:measurementType>width</lido:measurementType>
+            <lido:measurementUnit>pixel</lido:measurementUnit>
+            <lido:measurementValue>531</lido:measurementValue>
+          </lido:resourceMeasurementsSet>
+          <lido:resourceMeasurementsSet>
+            <lido:measurementType>height</lido:measurementType>
+            <lido:measurementUnit>pixel</lido:measurementUnit>
+            <lido:measurementValue>872</lido:measurementValue>
+          </lido:resourceMeasurementsSet>
+        </lido:resourceRepresentation>
+        <lido:resourceRepresentation lido:type="Master">
+          <lido:linkResource lido:formatResource="tif">PT_02272_01_02.tif</lido:linkResource>
+          <lido:resourceMeasurementsSet>
+            <lido:measurementType>width</lido:measurementType>
+            <lido:measurementUnit>pixel</lido:measurementUnit>
+            <lido:measurementValue>5312</lido:measurementValue>
+          </lido:resourceMeasurementsSet>
+          <lido:resourceMeasurementsSet>
+            <lido:measurementType>height</lido:measurementType>
+            <lido:measurementUnit>pixel</lido:measurementUnit>
+            <lido:measurementValue>8722</lido:measurementValue>
+          </lido:resourceMeasurementsSet>
+        </lido:resourceRepresentation>
+        <lido:resourceType>
+          <lido:term>Digitales Bild (retrodigitalisiert)</lido:term>
+        </lido:resourceType>
+        <lido:resourceSource lido:type="Bildstelle">
+          <lido:legalBodyID lido:type="URI" lido:source="ISIL (ISO 15511)">info:isil/DE-210A</lido:legalBodyID>
+          <lido:legalBodyName>
+            <lido:appellationValue>Deutsches Museum, München, Archiv</lido:appellationValue>
+          </lido:legalBodyName>
+          <lido:legalBodyWeblink>http://www.deutsches-museum.de/archiv/</lido:legalBodyWeblink>
+        </lido:resourceSource>
+        <lido:rightsResource>
+          <lido:rightsHolder>
+            <lido:legalBodyID lido:type="URI" lido:source="ISIL (ISO 15511)">info:isil/DE-210A</lido:legalBodyID>
+            <lido:legalBodyName>
+              <lido:appellationValue>Deutsches Museum, München, Archiv</lido:appellationValue>
+            </lido:legalBodyName>
+            <lido:legalBodyWeblink>http://www.deutsches-museum.de/archiv/</lido:legalBodyWeblink>
+          </lido:rightsHolder>
+        </lido:rightsResource>
+      </lido:resourceSet>
+    </lido:resourceWrap>
+  </lido:administrativeMetadata>
+</lido:lido>

@@ -8,6 +8,15 @@
 $( "main" ).hide(); //hide by default in css code
 $("#card-intro").show();
 
+//init for intro card
+if(user_state.identity !== null && user_state.identity != ""){
+console.log("Identity Data found " +  +". Skipping.")
+
+//-> zeige menü oder identity selector an.
+//-> Ändere Feste Sachen im Menü
+
+}
+
 //loading data etc...
 
 //show main intro
@@ -31,6 +40,8 @@ $("#nav-map").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
   drawer.open = false;
+  //Add all Pubs by Default
+  mapAllPubsAdd();
   $( "#card-map" ).show();
    map.invalidateSize();
 
@@ -279,6 +290,7 @@ $("#button-identity-confirm").click(function(evt){
 // confirm selected person
 //go to tutorial
 $("#card-identity").hide();
+registerPlayer();
 $("#card-tutorial").show();
 });
 
@@ -397,4 +409,23 @@ $("#person-selector").show();
 });
 
 }
+});
+
+
+function showMapPubDialog(){
+  //Map event on click marker
+  redrawMapPubDialog(this.addressinfo, this._latlng);
+  //prerender view of pub when clicking this
+  //redrawPubs(this.pubid);
+  redrawPubs(this.addressinfo.pubid);
+
+map_pubinfo_dialog.open();
+//Get info about Put
+}
+
+$("#map-showpubinfo-popup").find('[data-mdc-dialog-action="accept"]').click(function(){
+  map_pubinfo_dialog.close();
+  $( "#card-map" ).hide();
+$( "#card-pubs-detail" ).show();
+
 });

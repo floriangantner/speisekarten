@@ -31,6 +31,46 @@ var osmLayer = new L.TileLayer(osmUrl, {
 	//add Tile Layer to map
 	map.addLayer(osmLayer);
 
+// Layer
+	var pubsListSureLayer = L.featureGroup();
+
+//Helper functions
+	//shows the map on a specific location
+	//f.e. show task on map
+	function MapshowCoord(lat, lng){
+		var posOnMap = L.latLng(lat,lng);
+		map.setView(posOnMap, 16);
+	}
+
+	//TODO: show map on given pubid
+	//multiple maps are possible -> use different marker color?
+	function MapShowPubID(id, lat, lng){
+		alert("not yet implemented");
+	}
+//
+	function mapAllPubsAdd(){
+	map.removeLayer(pubsListSureLayer);
+	pubsListSureLayer = L.featureGroup();
+	DBgeo.allDocs({
+	    include_docs: true
+	  },function(err, doc){
+			console.log(doc)
+				for(var doc2 in doc.rows){
+					spot = doc.rows[doc2].doc;
+					var posCircle;
+									var pos = L.latLng(spot.latlng[0], spot.latlng[1]);
+									posCircle = L.marker([spot.latlng[0], spot.latlng[1]]);
+									posCircle.addTo(pubsListSureLayer);
+									//posCircle.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+									posCircle.on('click', showMapPubDialog);
+									//posCircle.on('click', alert('click'));
+									posCircle.addressinfo = spot;
+								}
+
+	    });
+			console.log(pubsListSureLayer);
+			pubsListSureLayer.addTo(map);
+	  };
 
 
 //#### Layers
@@ -77,6 +117,7 @@ GOTOplacesLayer.addTo(map);
 }*/
 
 // add feature groups to the map
+pubsListSureLayer.addTo(map);
 //taskContainerLayer.addTo(map);
 //playerPositionLayer.addTo(map);
 //GOTOplacesLayer.addTo(map);

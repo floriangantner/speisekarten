@@ -17,7 +17,7 @@
   <!--<link rel="stylesheet" href="css/material-components-web.min.css">-->
   <link rel="stylesheet" href="css/app.css">
   <!-- include map stylesheets -->
-  <link rel="stylesheet" href="css/leaflet.css">
+  <link rel="stylesheet" href="js/leaflet/leaflet.css">
   <!-- include jquery-library -->
   <script src="js/jquery/jquery-3.3.1.min.js"></script>
   <!-- include pouchDB -->
@@ -38,7 +38,7 @@
     <h6 class="mdc-drawer__subtitle">Restaurantkritiker </h6></div>
     <div class="mdc-drawer__content">
       <nav class="mdc-list">
-        <a class="mdc-list-item mdc-list-item--activated" id="nav-pubs-list" href="#" tabindex="0" aria-selected="true"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">home</i>Gasthäuser</a>
+        <a class="mdc-list-item mdc-list-item" id="nav-pubs-list" href="#" tabindex="0" aria-selected="true"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">home</i>Gasthäuser</a>
         <a class="mdc-list-item" href="#" tabindex="-1" id="nav-map"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">map</i>Karte</a>
         <a class="mdc-list-item" href="#" tabindex="-1" id="nav-dishes-all"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">restaurant</i>Alle Gerichte</a>
         <a class="mdc-list-item" href="#" tabindex="-1" id="nav-dishes-you"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">local_dining</i>Deine Gerichte</a>
@@ -664,39 +664,29 @@
      role="alertdialog"
      aria-modal="true"
      aria-labelledby="my-dialog-title"
-     aria-describedby="my-dialog-content" id="annotation-announcement-popup">
+     aria-describedby="my-dialog-content" id="map-showpubinfo-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
       <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
 
-      <h2 class="mdc-dialog__title" id="dialog-announcement-title"><!--
-     -->Weitere Bemerkung zu dieser Speisekartenseite<!--
-   --></h2>
-      <div class="mdc-dialog__content" id="dialog-geolocation-content">
-            <div class="mdc-text-field mdc-text-field--outlined" id="dialog-announcement-name">
-  <input class="mdc-text-field__input">
-  <div class="mdc-notched-outline">
-    <div class="mdc-notched-outline__leading"></div>
-    <div class="mdc-notched-outline__notch">
-      <label class="mdc-floating-label">Freitext / Textarea</label>
-    </div>
-    <div class="mdc-notched-outline__trailing"></div>
-  </div>
-</div>
+      <h2 class="mdc-dialog__title">
+        Weitere Infos zur Gaststätte zeigen</h2>
+      <div class="mdc-dialog__content">
 <!-- ... -->
       </div>
       <footer class="mdc-dialog__actions">
         <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
-          <span class="mdc-button__label">Abbrechen</span>
+          <span class="mdc-button__label"> <i class="material-icons mdc-icon-button__icon">close</i></span>
         </button>
-        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept" id="dialog-announcement-confirm">
-          <span class="mdc-button__label">Hinterlegen</span>
+        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
+          <span class="mdc-button__label">Zur Gaststätte</span>
         </button>
       </footer>
     </div>
   </div>
   <div class="mdc-dialog__scrim"></div>
 </div>
+
 <!--  Snackbar -->
 <div class="mdc-snackbar app__snackbar" aria-live="assertive" aria-atomic="true" aria-hidden="true">
   <div class="mdc-snackbar__text"></div>
@@ -767,17 +757,6 @@ dashTabBar.listen('MDCTabBar:change', function ({detail: tabs}) {
 
   updatePanel(nthChildIndex);
   });
-
-$(document).ready(function() {
-//when DOM is ready --> when all elements are loaded
-//init game_state()
-mdc.autoInit();
-//call function init_game();
-//only one function should be called here
-gameState_check();
-console.log(spotList);
-
-});
 */
 
 var drawerEl = document.querySelector('#nav-drawer');
@@ -786,10 +765,15 @@ var drawerEl = document.querySelector('#nav-drawer');
 console.log(mdc);
       const annotation_dishes_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-dishes-popup'));
       const annotation_openinghours_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-openinghours-popup'));
-      const annotation_announcement_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-announcement-popup'));
+      //const annotation_announcement_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-announcement-popup'));
       const annotation_geolocation_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-geolocation-popup'));
       const progress_loader = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#progress-loader'));
       const progress_identify_face = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#progress-identify-face'));
+
+      const map_pubinfo_dialog = new mdc.dialog.MDCDialog(document.querySelector('#map-showpubinfo-popup'));
+      mdc.ripple.MDCRipple.attachTo(document.querySelector('#menu '));
+
+
 var textField = new mdc.textField.MDCTextField(document.querySelector('#dialog-dishes-price'));
 var textField2 = new mdc.textField.MDCTextField(document.querySelector('#dialog-dishes-name'));
 var textField3 = new mdc.textField.MDCTextField(document.querySelector('#dialog-dishes-price'));
@@ -798,7 +782,7 @@ var textField5 = new mdc.textField.MDCTextField(document.querySelector('#dishes-
 var textField6 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-address'));
 var textField7 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-city'));
 var textField8 = new mdc.textField.MDCTextField(document.querySelector('#dialog-openinghours-name'));
-var textField9 = new mdc.textField.MDCTextField(document.querySelector('#dialog-announcement-name'));
+//var textField9 = new mdc.textField.MDCTextField(document.querySelector('#dialog-announcement-name'));
       $(document).ready(function() {
 progress_loader.open();
 progress_loader.progress = 0.1;
@@ -807,6 +791,7 @@ progress_loader.progress = 0.5;
 dataStructure_check()
 mdc.autoInit();
 drawer.open = false;
+progress_loader.progress = 1;
 
 
 });

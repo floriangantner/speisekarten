@@ -17,7 +17,8 @@ function dataStructure_check(){
 //pouchDB is initiated by DB.js on load
 
 //check pouchDB-size: if length of episodes-table = 0, then load all gameData new
-  DBpubs.info().then(function(response) {
+//user user-db here
+  DBuser.info().then(function(response) {
     if(response.doc_count == 0){
       console.log("no entries in database: create Datastructure");
     }
@@ -58,8 +59,12 @@ console.log("Historic Person data written to PouchDB");
 }).catch(function (err) {
   console.log(err);
 });
+DBgeo.bulkDocs(data_map_points).then(function (result) {
+console.log("GeoData written to PouchDB");
+}).catch(function (err) {
+  console.log(err);
+});
 
-progress_loader.progress = 0.7;
 //Create Index for searching
 DBmenu.createIndex({
   index: {
@@ -79,8 +84,6 @@ DBdishes.createIndex({
   console.log(result);
   // handle result
 });
-progress_loader.progress = 1;
-progress.close(); 
 
 }
 /*
