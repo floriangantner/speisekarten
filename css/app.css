@@ -5,6 +5,15 @@
   min-width: 300px;
   min-height:300px;
   }
+
+  #iiif-map {
+    width: 80%;
+    height: 80%;
+    min-width: 300px;
+    min-height:300px;
+    }
+
+
 #video-selector > #video-selector-video{
   border-radius: 40px;
   }

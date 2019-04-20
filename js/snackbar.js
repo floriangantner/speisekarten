@@ -2,8 +2,6 @@
 //contains definition and functions of the snackbar
 //const snackbar = mdc.snackbar.MDCSnackbar.attachTo(document.querySelector('.mdc-snackbar'));
 
-
-
 function showTextOnSnackbar(message, time, actionText){
   //TODO: define actionhandler for different type of tasks
   const dataObj = {

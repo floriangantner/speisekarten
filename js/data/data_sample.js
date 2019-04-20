@@ -52,24 +52,21 @@ var data_dishes = [{
   "pubid" : "pub1",
   "name" : "Spätzle",
   "menupage" : "101a",
-  "price" : "10DM",
-  "player_id" : "",
+  "price" : "10DM"
 },{
     "_id" : "1002",
     "id" : "1002",
     "pubid" : "pub2",
     "name" : "Schnitzel",
     "menupage" : "101b",
-    "price" : "5€",
-    "player_id" : "",
+    "price" : "5€"
 },{
     "_id" : "1003",
     "id" : "1003",
     "pubid" : "pub1",
     "name" : "Steak",
     "menupage" : "101b",
-    "price" : "23 Goldtaler",
-    "player_id" : "",
+    "price" : "23 Goldtaler"
 }];
 
 var data_hist_persons = [{
@@ -122,40 +119,3 @@ var data_map_points = [{
       "latlng" : [48.14386146470259, 11.59846379032135]
     }
 ];
-
-var data_ratings = [{
-  "_id" : "rat1",
-  "id" : "rat1",
-  "dishes" : "1001",
-  "rating" : "1 Stern",
-  "comment" : "ging so",
-  "pub" : "pub1",
-  "historic_person" : {
-    "name" : "Peter Pan",
-    "id" : ""},
-  "time" : "",
-  "playerid" : ""
-},
-{ "_id" : "rat2",
-  "id" : "",
-  "dishes" : "1001",
-  "rating" : "2 Sterne",
-  "comment" : "Super lecker.",
-  "pub" : "pub1",
-  "historic_person" : {
-    "name" : "Gustav Gustus",
-    "id" : ""},
-  "time" : "",
-  "playerid" : ""
-},
-{ "_id" : "rat3",
-  "id" : "",
-  "dishes" : "",
-  "pub" : "pub1",
-  "rating" : "Super Lokal!",
-  "historic_person" : {
-    "name" : "Max Mehlwurm",
-    "id" : ""},
-  "time" : "",
-  "playerid" : ""
-}];

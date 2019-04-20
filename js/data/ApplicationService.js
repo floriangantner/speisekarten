@@ -41,6 +41,10 @@ DBpubs.allDocs({
   function redrawPubs(id){
   DBpubs.get(id).then( function(doc){
       newPubCard(doc)
+      redrawPubsDishesList(app_state.pubs);
+      redrawMenuList(app_state.pubs);
+      $(".pubs-tab-element").hide();
+      $(`.pubs-tab-element[data-tab="info"]`).show();
       //var list = newPubListElement(doc.rows);
       console.log(doc);
       //$("#pubs-list").html('');
@@ -52,7 +56,7 @@ DBpubs.allDocs({
 function newPubCard(data){
   //generated Code for Entry.
   app_state.pubs = data.id
-  $("#card-pubs-detail > .mdc-card > .demo-card__primary > h2  ").text(`${data.name}`);
+  $("#pubs-detail-tabs-info > .demo-card__primary > h2  ").text(`${data.name}`);
 }
 
 function redrawMenuList(pubid){

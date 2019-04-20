@@ -89,7 +89,7 @@ $("#button-intro-go").click(function(evt){
   //TODO: add check for data loaded
 
   //TODO: Check, if Person was selected
-  if(user_state.account_created == false){
+  if(user_state.account_created == false || user_state.account_created === undefined){
   $( "#card-identity" ).show();
 }else{
   $( "#card-tutorial" ).show();
@@ -113,6 +113,8 @@ console.log("clicked");
 $( "#card-pubs-list" ).hide();
   app_state.pubs = $(this).attr('data-id');;
     redrawPubs(app_state.pubs);
+    $(".pubs-tab-element").hide();
+    $(".pubs-tab-element[data-tab=info]").show();
 $( "#card-pubs-detail" ).show();
 
 });
@@ -128,9 +130,9 @@ $( "#card-dishes-detail" ).show();
 
 $('#pubs-dishes-list').on('click', '.mdc-list-item', function(evt){
 console.log("clicked");
-$( "#card-pubs-dishes-list" ).hide();
+$( "#card-pubs-detail" ).hide();
 app_state.dishes = $(this).attr('data-id');
-    redrawDishes(spp_state.dishes);
+    redrawDishes(app_state.dishes);
     $( "#card-dishes-detail" ).show();
 });
 
@@ -155,9 +157,11 @@ redrawPubsDishesList(app_state.pubs);
 
 $('#pubs-menu-list').on('click', '.mdc-image-list__item', function(evt){
 console.log("clicked");
-$( "#card-pubs-menu-list" ).hide();
+$( "#card-pubs-detail" ).hide();
     app_state.menupage = $(this).attr('data-id');
     redrawMenu(app_state.menupage);
+    //TODO: add to redrawMenu
+    initOpenSeadragon();
 $( "#card-menu-detail" ).show();
 
 });
@@ -172,13 +176,6 @@ $("#button-pubs-menu-back").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
   $( "#card-pubs-detail" ).show();
-});
-
-$("#button-pubs-back").click(function(evt){
-  evt.preventDefault();
-  $( "main" ).hide();
-  $( "#card-pubs-detail" ).show();
-
 });
 
 $("#button-menu-detail-add-dish").click(function(evt){
@@ -442,7 +439,7 @@ $("#rate-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function
   var data = {
   "time" : Date.now(),
   "rating" : $("#dialog-rate-dishes-stars > input").val(),
-  "comment" : $("#dialog-rate-dishes-comment > input").val(),
+  "comment" : $("#dialog-rate-dishes-comment > textarea").val(),
   "dishes" : app_state.dishes,
   "pubid" : app_state.pubid,
   "playerid" : user_state.timestamp,
@@ -453,6 +450,27 @@ $("#rate-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function
   }
   console.log(data);
   DBaddnew(data,DBrating);
-
-
 })
+$("#anno-add-button").click(function(evt){
+anno_menu.open = true;
+
+});
+$("#pubs-tabbar").find(".mdc-tab").on("click", function(evt){
+var clicked = $(this).attr("data-id");
+$(".pubs-tab-element").hide();
+$(".pubs-tab-element[data-tab="+clicked+"]").show();
+});
+$("#button-menu-detail-add-category").on("click", function(evt){
+//TODO: check actual categories of menu
+annotation_category_dialog.open();
+
+});
+$("#annotation-category-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
+//DO Something
+//dialog-category-name
+//$("#dialog-category-name > input").val(),
+
+//dialog-category-select-upper
+//$("#dialog-category-select-upper > select").val(),
+
+});
