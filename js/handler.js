@@ -161,7 +161,7 @@ $( "#card-pubs-detail" ).hide();
     app_state.menupage = $(this).attr('data-id');
     redrawMenu(app_state.menupage);
     //TODO: add to redrawMenu
-    initOpenSeadragon();
+  //  initIIIFMap();
 $( "#card-menu-detail" ).show();
 
 });
@@ -181,7 +181,15 @@ $("#button-pubs-menu-back").click(function(evt){
 $("#button-menu-detail-add-dish").click(function(evt){
   evt.preventDefault();
   annotation_dishes_dialog.open();
-//  $( "#card-pubs-detail" ).show();
+  //Get Coordinates, print Error
+  if(editableLayers.getLayers() && editableLayers.getLayers()[0]._parts.length >= 1 ){
+    $("#dialog-dishes-coord-found").html('Bereich markiert!');
+
+  }else{
+    $("#dialog-dishes-coord-found").html('');
+  }
+  console.log(editableLayers.getLayers()[0]._parts);
+  //  $( "#card-pubs-detail" ).show();
 });
 
 $("#button-menu-detail-add-openinghours").click(function(evt){
@@ -208,15 +216,16 @@ $("#button-menu-detail-add-geolocation").click(function(evt){
 //  $( "#card-pubs-detail" ).show();
 });
 
-$("#dialog-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
+$("#annotation-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //look for
 //menupageid
-var data = {"name" : $("#dialog-dishes-name > input").val(),
+var data = { "name" : $("#dialog-dishes-name > input").val(),
 "menupage" : app_state.menupage,
 "price" : $("#dialog-dishes-price > input").val(),
 "pubid" : app_state.pubs,
 "playerid" : user_state.timestamp,
-"time" : Date.now()
+"time" : Date.now(),
+"coord" : editableLayers.getLayers()[0]._parts
 }
 console.log(data);
 DBaddnew(data,DBdishes);
@@ -474,3 +483,23 @@ $("#annotation-category-popup").find('[data-mdc-dialog-action="accept"]').click(
 //$("#dialog-category-select-upper > select").val(),
 
 });
+
+function showAnnotationInfoDialog(){
+  redrawAnnotationInfoDialog();
+  annotation_info_dialog.open();
+//Get info about Put
+
+}
+
+function redrawAnnotationInfoDialog(){
+  //get Data from klicked Annotation
+}
+
+$("#button-map-anno").click( function(evt){
+addAnnos(null);
+
+});
+
+function onAddedRectMapClick(){
+anno_menu.open = true;
+}

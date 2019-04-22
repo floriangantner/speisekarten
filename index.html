@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="css/app.css">
   <!-- include map stylesheets -->
   <link rel="stylesheet" href="js/leaflet/leaflet.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css">
   <!-- include jquery-library -->
   <script src="js/jquery/jquery-3.3.1.min.js"></script>
   <!-- include pouchDB -->
@@ -335,20 +336,25 @@
 </div>
 </main>
 
+
 <main  class="maincard" id="card-menu-detail">
+  <div id="iiifmap"></div>
+
 <div class="mdc-card demo-card">
   <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
-    <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>
+    <!--<div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>-->
     <div class="demo-card__primary">
       <h2 class="demo-card__title mdc-typography mdc-typography--headline6"></h2>
       <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
     </div>
     <div class="demo-card__secondary mdc-typography mdc-typography--body2">
-    <div id="iiif-map"></div></div>
   </div>
+</div>
   <div class="mdc-card__actions">
     <div class="mdc-card__action-icons ">
       <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" title="back" data-mdc-ripple-is-unbounded="true" id="button-pubs-menu-back">home</button>
+      <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" title="back" data-mdc-ripple-is-unbounded="true" id="button-map-anno">assistant</button>
+
     </div>
     <div class="mdc-card__action-icons mdc-menu-surface--anchor">
     <button class="mdc-fab mdc-fab--extended " id="anno-add-button">
@@ -556,7 +562,7 @@
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
       <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
-
+      <span id="dialog-dishes-coord-found"></span>
       <h2 class="mdc-dialog__title" id="dialog-dishes-title"><!--
      -->Gericht hinterlegen<!--
    --></h2>
@@ -826,6 +832,55 @@
   <div class="mdc-dialog__scrim"></div>
 </div>
 
+
+<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+     aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="annotation-info-popup">
+  <div class="mdc-dialog__container">
+    <div class="mdc-dialog__surface">
+      <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
+
+      <h2 class="mdc-dialog__title" id="annotation-info-title"><!--
+     -->Zeigt vorhandene Annotation an<!--
+   --></h2>
+      <div class="mdc-dialog__content">
+<div class="mdc-text-field mdc-text-field--textarea" id="annotation-info-comment">
+  <div class="mdc-text-field-character-counter">0 / 140</div>
+  <textarea id="textarea" class="mdc-text-field__input" rows="4" cols="40" maxlength="140"></textarea>
+  <div class="mdc-notched-outline">
+    <div class="mdc-notched-outline__leading"></div>
+    <div class="mdc-notched-outline__notch">
+      <label for="textarea" class="mdc-floating-label">Nichts zum Eingeben</label>
+    </div>
+    <div class="mdc-notched-outline__trailing"></div>
+  </div>
+</div>
+
+            <div class="mdc-text-field mdc-text-field--outlined" id="annotation-info-text">
+  <input class="mdc-text-field__input">
+  <div class="mdc-notched-outline">
+    <div class="mdc-notched-outline__leading"></div>
+    <div class="mdc-notched-outline__notch">
+      <label class="mdc-floating-label">Annotation Bewerten</label>
+    </div>
+    <div class="mdc-notched-outline__trailing"></div>
+  </div>
+</div>
+<!-- ... -->
+      </div>
+      <footer class="mdc-dialog__actions">
+        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
+          <span class="mdc-button__label">Abbrechen</span>
+        </button>
+        <!--
+        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
+          <span class="mdc-button__label">Hinterlegen</span>
+        </button> -->
+      </footer>
+    </div>
+  </div>
+  <div class="mdc-dialog__scrim"></div>
+</div>
+
 <!--  Snackbar -->
 <div class="mdc-snackbar">
   <div class="mdc-snackbar__surface">
@@ -840,6 +895,11 @@
 <!-- load more content -->
 <!--<script src="js/MCW/material-components-web.min.js" charset="utf-8"></script> -->
 
+
+<script src="js/leaflet/leaflet.js"></script>
+<script src="js/leaflet/leaflet-iiif.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+
 <script src="js/functions.js"></script>
 <script src="js/handler.js"></script>
 
@@ -847,9 +907,6 @@
 <!--<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>-->
 <!-- initiate map -->
 <!-- include leaflet-iiif for image viewer -->
-<script src="js/leaflet/leaflet.js"></script>
-<script src="js/openseadragon/openseadragon.min.js"></script>
-<!--<script src="js/leaflet/leaflet-iiif.js"></script>-->
 <!-- Snackbar and serviceWorker -->
 
 <!--<script src="js/sw.js"></script>-->
@@ -915,6 +972,7 @@ console.log(mdc);
       const progress_identify_face = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#progress-identify-face'));
       const map_pubinfo_dialog = new mdc.dialog.MDCDialog(document.querySelector('#map-showpubinfo-popup'));
       const rate_dishes_dialog = new mdc.dialog.MDCDialog(document.querySelector('#rate-dishes-popup'));
+      const annotation_info_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-info-popup'));
       const anno_menu = new mdc.menu.MDCMenu(document.querySelector('#anno-add-menu'));
       mdc.ripple.MDCRipple.attachTo(document.querySelector('#menu '));
       const snackbar = new mdc.snackbar.MDCSnackbar(document.querySelector('.mdc-snackbar'));

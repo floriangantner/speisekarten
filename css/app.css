@@ -6,12 +6,19 @@
   min-height:300px;
   }
 
-  #iiif-map {
-    width: 80%;
-    height: 80%;
+  #iiifmap {
+    width:300px;
+    height:400px;
     min-width: 300px;
     min-height:300px;
+    max-width:80%;
+    min-width:75%
     }
+
+#annotation-info-popup {
+  /*move before leaflet-map*/
+  z-index: 900;
+}
 
 
 #video-selector > #video-selector-video{

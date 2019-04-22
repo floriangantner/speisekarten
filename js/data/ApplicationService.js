@@ -419,6 +419,4 @@ function newYourDishesElement(data){
       <span class="mdc-list-item__secondary-text">${data.comment} : ` + convertTimestamp(data.timestamp) + ` : ` + convertTimestamp(data.time) + `</span>
     </span>
   </li>`;
-
-
 }
