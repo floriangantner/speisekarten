@@ -3,6 +3,7 @@
 //data_friends
 
 
+
 //TODO: create one JSON-File for processing in game_State etc...
 
 var data_pubs = [{
@@ -107,7 +108,7 @@ var data_map_points = [{
     "zip" : "86001",
     "city" : "München",
     "country" : "",
-    "pubid" : "pub2",
+    "pubid" : "pub1",
     "latlng" : [48.14376146470259, 11.59756379032135]
   },{
       "id" : "geo3",

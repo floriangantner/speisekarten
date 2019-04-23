@@ -57,6 +57,36 @@ function newPubCard(data){
   //generated Code for Entry.
   app_state.pubs = data.id
   $("#pubs-detail-tabs-info > .demo-card__primary > h2  ").text(`${data.name}`);
+  redrawPubsAdressList();
+}
+
+function redrawPubsAdressList(){
+  DBgeo.allDocs({
+      include_docs: true
+    },function(err, doc){
+      $("#pubs-adress-list").html('');
+      $.each(doc.rows, function (index, value) {
+        console.log(value);
+        console.log(app_state.pubs);
+        if(value.doc.pubid === app_state.pubs){
+              var list = newAdressListElement(value.doc);
+              console.log(list);
+              $("#pubs-adress-list").prepend(list);
+            }
+      });
+
+});
+}
+
+function newAdressListElement(data){
+  console.log(data);
+   var card_html = `<li class="mdc-list-item" data-id="${data.id}">
+           <span class="mdc-list-item__graphic">
+           <button class="mdc-icon-button material-icons" title="Geolocate" data-mdc-ripple-is-unbounded="true" >map</button>
+           </span>
+           <span class="mdc-list-item__text">${data.street} ${data.zip} ${data.city}</span>
+         </li>`;
+  return card_html;
 }
 
 function redrawMenuList(pubid){
@@ -300,6 +330,30 @@ function newIdentityInfo(data){
   //$("#person-selector").show();
 }
 
+
+function redrawAnnotationInfoDialog(anno){
+  //get Data from klicked Annotation
+  //distinguish different AnnotationTypes -> TODO: first only for dishes
+  DBdishes.get(anno.id).then( function(doc){
+      //var list = newPubListElement(doc.rows);
+      console.log(doc);
+$("#annotation-info-title").html(JSON.stringify(doc));
+      //$("#pubs-list").html('');
+      //$(" #pubs-list").append(list);}
+
+});
+}
+
+function redrawMapPubDialog(addressinfo, latlng){
+  DBpubs.get(addressinfo.pubid).then( function(doc){
+      //var list = newPubListElement(doc.rows);
+      console.log(doc);
+      //$("#pubs-list").html('');
+      //$(" #pubs-list").append(list);
+      $("#map-showpubinfo-popup").find('.mdc-dialog__title').html(`${doc.name}`);
+      });
+      $("#map-showpubinfo-popup").find('.mdc-dialog__content').html(`<p>${addressinfo.street}</p><p>${addressinfo.zip} ${addressinfo.city}</p>`);
+}
 function redrawMapPubDialog(addressinfo, latlng){
   DBpubs.get(addressinfo.pubid).then( function(doc){
       //var list = newPubListElement(doc.rows);

@@ -39,13 +39,17 @@ var osmLayer = new L.TileLayer(osmUrl, {
 	//f.e. show task on map
 	function MapshowCoord(lat, lng){
 		var posOnMap = L.latLng(lat,lng);
-		map.setView(posOnMap, 16);
+		map.setView(posOnMap, 19);
 	}
 
 	//TODO: show map on given pubid
 	//multiple maps are possible -> use different marker color?
 	function MapShowPubID(id, lat, lng){
-		alert("not yet implemented");
+		console.log(lat);
+		console.log(lng);
+		MapshowCoord(lat, lng);
+		map.invalidateSize();
+
 	}
 //
 	function mapAllPubsAdd(){

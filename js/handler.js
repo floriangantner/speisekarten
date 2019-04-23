@@ -159,6 +159,7 @@ $('#pubs-menu-list').on('click', '.mdc-image-list__item', function(evt){
 console.log("clicked");
 $( "#card-pubs-detail" ).hide();
     app_state.menupage = $(this).attr('data-id');
+    console.log(app_state.menupage);
     redrawMenu(app_state.menupage);
     //TODO: add to redrawMenu
   //  initIIIFMap();
@@ -182,7 +183,7 @@ $("#button-menu-detail-add-dish").click(function(evt){
   evt.preventDefault();
   annotation_dishes_dialog.open();
   //Get Coordinates, print Error
-  if(editableLayers.getLayers() && editableLayers.getLayers()[0]._parts.length >= 1 ){
+  if(editableLayers && editableLayers.getLayers()[0]._parts.length > 0 ){
     $("#dialog-dishes-coord-found").html('Bereich markiert!');
 
   }else{
@@ -219,13 +220,15 @@ $("#button-menu-detail-add-geolocation").click(function(evt){
 $("#annotation-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //look for
 //menupageid
+console.log(editableLayers.getLayers()[0]);
 var data = { "name" : $("#dialog-dishes-name > input").val(),
 "menupage" : app_state.menupage,
 "price" : $("#dialog-dishes-price > input").val(),
 "pubid" : app_state.pubs,
 "playerid" : user_state.timestamp,
 "time" : Date.now(),
-"coord" : editableLayers.getLayers()[0]._parts
+"coord" : editableLayers.getLayers()[0]._parts,
+"latlng" : editableLayers.getLayers()[0]._latlngs
 }
 console.log(data);
 DBaddnew(data,DBdishes);
@@ -485,21 +488,48 @@ $("#annotation-category-popup").find('[data-mdc-dialog-action="accept"]').click(
 });
 
 function showAnnotationInfoDialog(){
-  redrawAnnotationInfoDialog();
+  var anno_id = this;
+  console.log(anno_id);
+  redrawAnnotationInfoDialog(anno_id);
   annotation_info_dialog.open();
 //Get info about Put
 
 }
 
-function redrawAnnotationInfoDialog(){
-  //get Data from klicked Annotation
-}
 
 $("#button-map-anno").click( function(evt){
-addAnnos(null);
+//addAnnos(null);
+iiifaddExistingAnnotations();
 
 });
 
 function onAddedRectMapClick(){
 anno_menu.open = true;
 }
+
+$('#pubs-adress-list').on('click', '.mdc-list-item', function(evt){
+$( "#card-pubs-detail" ).hide();
+var geoid = $(this).attr('data-id');
+var lat, lng, data;
+//check for pubid -> multiple -> mark on popup and change marker -> change map
+DBgeo.allDocs({
+    include_docs: true
+  },function(err, doc){
+    $.each(doc.rows, function (index, value) {
+      if(value.doc.id === geoid){
+        lat = value.doc.latlng[0];
+        lng = value.doc.latlng[1];
+        data = value.doc;
+      }
+    });
+    //add more info from actual pubs
+    //
+    redrawMapPubDialog(data, [lat,lng]);
+    MapShowPubID($(this).attr('data-id'), lat, lng);
+    mapAllPubsAdd();
+    map_pubinfo_dialog.open();
+
+});
+$("#card-map").show();
+
+});

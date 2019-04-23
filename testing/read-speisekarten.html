@@ -1,0 +1,64 @@
+<html>
+<head>
+  <title>Speisekarten - CSV - Parser</title>
+  <!--<link rel="stylesheet" href="css/material-components-web.min.css">-->
+  <link rel="stylesheet" href="css/app.css">
+  <!-- include map stylesheets -->
+  <script src="../js/jquery/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+
+<h1>Programm zum Einlesen der Gaststätten und -Speisekarteninformationen von der csv-Datei</h1>
+<p>generierter Json-Code in data_samples reinkopieren oder damit eine Datenbank füllen</p>
+<p>Select local CSV File:</p>
+<input id="csv" type="file">
+<output id="out">
+    file contents will appear here
+</output>
+<script>
+$(document).ready(function() {
+  var pubs, menu, menupages, counter;
+  var fileInput = document.getElementById("csv"),
+      readFile = function () {
+          var reader = new FileReader();
+          reader.onload = function () {
+              document.getElementById('out').innerHTML = reader.result;
+                //Teile Zeilen
+                var allRows = reader.result.split(/\r?\n|\r/);
+                console.log(allRows);
+                $.each(allRows, function(index, value){
+                //Teile Zeilen in Teile
+                // DIR und Datum = leer -> Gaststätte
+                //add pub beginning from 1
+                var value_split = value.split(';');
+                allRows[index] = null;
+                allRows[index] = {
+                  'dateiname' = value_split[0],
+                  'ort' = value_split[1],
+                  'kategorie' = value_split[2],
+                  'typ' : value_split[3],
+                  'datum' : value_split[4],
+                  'nummer' : value_split[5],
+                  'format' : value_split[6],
+                  'dateisize' : value_split[7]
+                }
+                console.log(value2);
+                //beginne mit Zeile 2
+
+                })
+          };
+          // start reading the file. When it is done, calls the onload event defined above.
+          // reader.readAsBinaryString(fileInput.files[0]);
+          reader.readAsText(fileInput.files[0], 'utf8');
+      };
+  fileInput.addEventListener('change', readFile);
+
+
+
+//
+
+});
+</script>
+
+</body>
+</html>

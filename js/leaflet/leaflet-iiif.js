@@ -11,7 +11,7 @@ L.TileLayer.Iiif = L.TileLayer.extend({
     updateWhenIdle: false,
     tileFormat: 'jpg',
     fitBounds: true,
-    setMaxBounds: false,
+    setMaxBounds: true,
   },
 
   initialize: function(url, options) {

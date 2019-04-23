@@ -90,6 +90,54 @@ function initIIIFMap(){
   map_iiif.invalidateSize();
 }
 
+function iiifaddExistingAnnotations(){
+map_iiif.removeLayer(markerLayer);
+markerLayer = L.featureGroup();
+if(map_iiif.anno === false){
+DBdishes.allDocs({
+    include_docs: true
+  },function(err, doc){
+    console.log(doc)
+      for(var doc2 in doc.rows){
+        var objdoc = doc.rows[doc2].doc;
+        //where coord is not empty
+        if(objdoc.menupage && (objdoc.menupage === app_state.menupage)){
+          console.log(objdoc.menupage);
+          if(objdoc.coord && objdoc.coord.length > 0 ){
+            //create rectangle and add to markerLayer
+
+            var bounds = [[objdoc.latlng[0][1].lat, objdoc.latlng[0][1].lng], [objdoc.latlng[0][3].lat, objdoc.latlng[0][3].lng]];
+            console.log(bounds);
+    // add rectangle passing bounds and some basic styles
+        var rect = L.rectangle(bounds, {color: "red", weight: 5});
+        rect.name = objdoc.name;
+        rect.coord = objdoc.coord;
+        rect.id = objdoc._id;
+        rect.on('click', showAnnotationInfoDialog);
+
+        rect.addTo(markerLayer);
+        markerLayer.anno = true;
+        map_iiif.anno = true;
+
+          }
+        }
+    };
+});
+    markerLayer.addTo(map_iiif);
+    map_iiif.invalidateSize();
+  }else{
+    //remove Annos
+    map_iiif.eachLayer(function (layer) {
+      if(layer.anno === true){
+      map_iiif.removeLayer(layer);
+      }
+    });
+    map_iiif.anno = false;
+
+  }
+  };
+
+
 
 function addAnnos(id){
 var markerLayer = L.featureGroup();
