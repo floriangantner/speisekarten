@@ -4,19 +4,27 @@
 //contains global variables
 //contains constructor for the classes/objects and their attributes/functions
 
-const pubsList = [];
-const menupageList = [];
-const menuList = [];
-
-const dishesList = [];
-const ratingList = [];
-
-const personList = [];
-const playerList = [];
-const AnnotationList = [];
+const user_state = [
+	this.account_created = false,
+	this.identity = "",
+	this.timestamp = 0
+];
+//contains infos about the view. Information and id's for the view.
+//Should avoid useless jquery-querys and easier access to render new pages
+const app_state = [
+this.pubs = "",
+this.menu = "",
+this.menupage = "",
+this.dishes = "",
+this.player = "",
+this.histperson = "",
+this.intro = 0,
+this.help = [], //add help-intros here to check, if help dialog has been shown
+];
 
 //##############################################################################
 //class Descriptions as follows (order can be distinguished):
+//as a schema for the json-file
 // --> symbolizes inheritance to following Objects
 
 /*

@@ -1,0 +1,27 @@
+<!-- Created from HTML template iiif/templates/static_osd.html in https://github.com/zimeon/iiif -->
+<html>
+<head>
+  <title>IIIF Static Files Demo</title>
+  <script src="js/openseadragon/openseadragon.min.js"></script>
+</head>
+<body>
+
+<h1>IIIF Static Files Demo: tetons</h1>
+<div id="openseadragon1" style="width: 500px; height: 400px;"></div>
+<script>
+//<![CDATA[
+function initOpenSeadragon() {
+  OpenSeadragon({
+    id: "openseadragon1",
+    minZoomImageRatio: 1,
+    prefixUrl: "js/openseadragon/images/", // OSD needs trailing slash
+    tileSources: "https://stacks.stanford.edu/image/iiif/hg676jb4964%2F0380_796-44/info.json",
+    crossOriginPolicy: false});
+}
+window.onload = initOpenSeadragon;
+document.addEventListener("page:load", initOpenSeadragon); // Initialize when using turbolinks
+//]]>
+</script>
+
+</body>
+</html>

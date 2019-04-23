@@ -7,30 +7,30 @@
 //init: the following stuff is done, when loading the CODE at beginning
 $( "main" ).hide(); //hide by default in css code
 $("#card-intro").show();
+$("#button-intro-go").attr("disabled", true);
+$("#menu").attr("disabled", true);
 
 //loading data etc...
-
 //show main intro
 $("#menu").click(function(evt){
   drawer.open = true;
-
 });
 
 $("#nav-pubs-list").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
   redrawPubList();
-drawer.open = false;
-$( "#card-pubs-list" ).show();
+  drawer.open = false;
+  $( "#card-pubs-list" ).show();
 });
-
-
 
 $("#nav-map").click(function(evt){
   map.invalidateSize();
   evt.preventDefault();
   $( "main" ).hide();
   drawer.open = false;
+  //Add all Pubs by Default
+  mapAllPubsAdd();
   $( "#card-map" ).show();
    map.invalidateSize();
 
@@ -39,6 +39,7 @@ $("#nav-map").click(function(evt){
 $("#nav-dishes-you").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
+  redrawYourDishes();
   drawer.open = false;
   $( "#card-dishes-you" ).show();
 });
@@ -54,10 +55,17 @@ $("#nav-dishes-all").click(function(evt){
 $("#nav-about-you").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
+  //if no identity has been selected?
+  if(user_state.identity == ""){
+  alert("Keine Identität ausgewählt!");
+  $("#card-identity").show();
+  }else{
+  redrawAboutYou();
+  $( "#card-about-you" ).show();
+  }
   drawer.open = false;
   //No data available -> go to identity selector
-  $( "#card-about-you" ).show();
-});
+  });
 
 $("#nav-about-us").click(function(evt){
   evt.preventDefault();
@@ -81,8 +89,11 @@ $("#button-intro-go").click(function(evt){
   //TODO: add check for data loaded
 
   //TODO: Check, if Person was selected
-
+  if(user_state.account_created == false || user_state.account_created === undefined){
   $( "#card-identity" ).show();
+}else{
+  $( "#card-tutorial" ).show();
+}
 });
 
 $("#button-identity-go").click(function(evt){
@@ -100,8 +111,10 @@ $("#button-tutorial-go").click(function(evt){
 $('#pubs-list').on('click', '.mdc-list-item', function(evt){
 console.log("clicked");
 $( "#card-pubs-list" ).hide();
-    //alert($(this).attr('data-id'));
-    redrawPubs($(this).attr('data-id'));
+  app_state.pubs = $(this).attr('data-id');;
+    redrawPubs(app_state.pubs);
+    $(".pubs-tab-element").hide();
+    $(".pubs-tab-element[data-tab=info]").show();
 $( "#card-pubs-detail" ).show();
 
 });
@@ -109,26 +122,25 @@ $( "#card-pubs-detail" ).show();
 $('#dishes-all-list').on('click', '.mdc-list-item', function(evt){
 console.log("clicked");
 $( "#card-dishes-all" ).hide();
-    //alert($(this).attr('data-id'));
-    redrawDishes($(this).attr('data-id'));
+app_state.dishes = $(this).attr('data-id');
+    redrawDishes(app_state.dishes);
 $( "#card-dishes-detail" ).show();
 
 });
 
 $('#pubs-dishes-list').on('click', '.mdc-list-item', function(evt){
 console.log("clicked");
-$( "#card-pubs-dishes-list" ).hide();
-    //alert($(this).attr('data-id'));
-    redrawDishes($(this).attr('data-id'));
-$( "#card-dishes-detail" ).show();
+$( "#card-pubs-detail" ).hide();
+app_state.dishes = $(this).attr('data-id');
+    redrawDishes(app_state.dishes);
+    $( "#card-dishes-detail" ).show();
 });
 
 $("#button-pubs-menu").click(function(evt){
   evt.preventDefault();
   //get list of menus
   //populate menu-list
-  var pubid = $(" #card-pubs-detail").attr("data-id")
-redrawMenuList(pubid);
+  redrawMenuList(app_state.pubs);
   $( "#card-pubs-detail" ).hide();
   $( "#card-pubs-menu-list" ).show();
 });
@@ -138,17 +150,18 @@ $("#button-pubs-dishes").click(function(evt){
   evt.preventDefault();
   $( "#card-pubs-detail" ).hide();
   //show all dishes from this pub
-  var pubid = $("#card-pubs-detail").attr("data-id");
-redrawPubsDishesList(pubid);
+redrawPubsDishesList(app_state.pubs);
   $( "#card-pubs-dishes-list" ).show();
 
 });
 
 $('#pubs-menu-list').on('click', '.mdc-image-list__item', function(evt){
 console.log("clicked");
-$( "#card-pubs-menu-list" ).hide();
-    //alert($(this).attr('data-id'));
-    redrawMenu($(this).attr('data-id'));
+$( "#card-pubs-detail" ).hide();
+    app_state.menupage = $(this).attr('data-id');
+    redrawMenu(app_state.menupage);
+    //TODO: add to redrawMenu
+    initOpenSeadragon();
 $( "#card-menu-detail" ).show();
 
 });
@@ -163,13 +176,6 @@ $("#button-pubs-menu-back").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
   $( "#card-pubs-detail" ).show();
-});
-
-$("#button-pubs-back").click(function(evt){
-  evt.preventDefault();
-  $( "main" ).hide();
-  $( "#card-pubs-detail" ).show();
-
 });
 
 $("#button-menu-detail-add-dish").click(function(evt){
@@ -202,17 +208,15 @@ $("#button-menu-detail-add-geolocation").click(function(evt){
 //  $( "#card-pubs-detail" ).show();
 });
 
-$("#dialog-dishes-confirm").click(function(evt){
+$("#dialog-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //look for
 //menupageid
-var menupageid = $("#card-menu-detail").attr("data-id");
-var pubid = $("#card-pubs-detail").attr("data-id");
-var price = $("#dialog-dishes-price > input").val();
-var name =  $("#dialog-dishes-name > input").val();
-var data = {"name" : name,
-"menupage" : menupageid,
-"price" : price,
-"pubid" : pubid
+var data = {"name" : $("#dialog-dishes-name > input").val(),
+"menupage" : app_state.menupage,
+"price" : $("#dialog-dishes-price > input").val(),
+"pubid" : app_state.pubs,
+"playerid" : user_state.timestamp,
+"time" : Date.now()
 }
 console.log(data);
 DBaddnew(data,DBdishes);
@@ -220,17 +224,14 @@ DBaddnew(data,DBdishes);
 //add name and price as new dished to the database
 
 });
-
-$("#dialog-openinghours-confirm").click(function(evt){
+$("#annotation-openinghours-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //look for
 //menupageid
-var menupageid = $("#card-menu-detail").attr("data-id");
-var pubid = $("#card-pubs-detail").attr("data-id");
-var value =  $("#dialog-openinghours-name > input").val();
 var data = {
-"menupage" : menupageid,
-"pubid" : pubid,
-"value" : value
+"menupage" : app_state.menupage,
+"pubid" : app_state.pubs,
+"value" : $("#dialog-openinghours-name > input").val(),
+"playerid" : user_state.timestamp
 }
 console.log(data);
 DBaddnew(data,DBopeninghours);
@@ -239,17 +240,16 @@ DBaddnew(data,DBopeninghours);
 
 });
 
-$("#dialog-geolocation-confirm").click(function(evt){
+$("#annotation-geolocation-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //look for
 //menupageid
-var menupageid = $("#card-menu-detail").attr("data-id");
-var pubid = $("#card-pubs-detail").attr("data-id");
-var city = $("#dialog-geolocation-city > input").val();
-var address =  $("#dialog-geolocation-address > input").val();
-var data = {"city" : city,
-"menupage" : menupageid,
-"address" : address,
-"pubid" : pubid
+var data = {"city" : $("#dialog-geolocation-city > input").val(),
+"menupage" : app_state.menupage,
+"street" : $("#dialog-geolocation-address > input").val(),
+"latlng" : [$("#dialog-geolocation-lat > input").val(), $("#dialog-geolocation-lng > input").val()],
+"pubid" : app_state.pubid,
+"playerid" : user_state.timestamp,
+"country" : ""
 }
 console.log(data);
 DBaddnew(data,DBgeo);
@@ -261,12 +261,10 @@ DBaddnew(data,DBgeo);
 $("#dialog-announcement-confirm").click(function(evt){
 //look for
 //menupageid
-var menupageid = $("#card-menu-detail").attr("data-id");
-var pubid = $("#card-pubs-detail").attr("data-id");
-var value = $("#dialog-announcement-name > input").val();
-var data = {"value" : value,
-"menupage" : menupageid,
-"pubid" : pubid,
+var data = {"value" : $("#dialog-announcement-name > input").val(),
+"menupage" : app_state.menupage,
+"pubid" : app_state.pubid,
+"playerid" : user_state.timestamp
 }
 console.log(data);
 DBaddnew(data,DBanno_other);
@@ -279,6 +277,7 @@ $("#button-identity-confirm").click(function(evt){
 // confirm selected person
 //go to tutorial
 $("#card-identity").hide();
+registerPlayer();
 $("#card-tutorial").show();
 });
 
@@ -397,4 +396,81 @@ $("#person-selector").show();
 });
 
 }
+});
+
+function showMapPubDialog(){
+  //Map event on click marker
+  redrawMapPubDialog(this.addressinfo, this._latlng);
+  //prerender view of pub when clicking this
+  //redrawPubs(this.pubid);
+  app_state.pubs = this.addressinfo.pubid;
+  redrawPubs(app_state.pubs);
+  map_pubinfo_dialog.open();
+//Get info about Put
+}
+
+$("#map-showpubinfo-popup").find('[data-mdc-dialog-action="accept"]').click(function(){
+  map_pubinfo_dialog.close();
+  $( "#card-map" ).hide();
+$( "#card-pubs-detail" ).show();
+
+});
+
+$("#pubs-search > input").keyup(function(){
+  var value = $(this).val().toLowerCase();
+  $("#pubs-list li").filter(function() {
+   $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+ });
+
+});
+ $("#dishes-search > input").keyup(function(){
+   var value = $(this).val().toLowerCase();
+   $("#dishes-all-list li").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  });
+});
+
+$("#button-dishes-rate").click(function(evt){
+//dialog-rate-dishes-comment
+rate_dishes_dialog.open();
+});
+$("#rate-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
+
+  var data = {
+  "time" : Date.now(),
+  "rating" : $("#dialog-rate-dishes-stars > input").val(),
+  "comment" : $("#dialog-rate-dishes-comment > textarea").val(),
+  "dishes" : app_state.dishes,
+  "pubid" : app_state.pubid,
+  "playerid" : user_state.timestamp,
+  "historic_person" : {
+    "name" : "Tester Testeintrag",
+    "id" : user_state.identity,
+  }
+  }
+  console.log(data);
+  DBaddnew(data,DBrating);
+})
+$("#anno-add-button").click(function(evt){
+anno_menu.open = true;
+
+});
+$("#pubs-tabbar").find(".mdc-tab").on("click", function(evt){
+var clicked = $(this).attr("data-id");
+$(".pubs-tab-element").hide();
+$(".pubs-tab-element[data-tab="+clicked+"]").show();
+});
+$("#button-menu-detail-add-category").on("click", function(evt){
+//TODO: check actual categories of menu
+annotation_category_dialog.open();
+
+});
+$("#annotation-category-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
+//DO Something
+//dialog-category-name
+//$("#dialog-category-name > input").val(),
+
+//dialog-category-select-upper
+//$("#dialog-category-select-upper > select").val(),
+
 });
