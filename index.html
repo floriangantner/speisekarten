@@ -19,19 +19,21 @@
   <!-- include map stylesheets -->
   <link rel="stylesheet" href="js/leaflet/leaflet.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css">
+  <!-- image area select plugin -->
+  <link rel="stylesheet" href="css/imgareaselect/imgareaselect-default.css">
   <!-- include jquery-library -->
   <script src="js/jquery/jquery-3.3.1.min.js"></script>
   <!-- include pouchDB -->
   <script src="js/pouchdb/pouchdb-7.0.0.min.js"></script>
   <script src="js/pouchdb/pouchdb.find.js"></script>
-
   <script src="js/DB/DB.js"></script>
   <!-- include Application logic -->
-  <script type="text/javascript" src="js/data/data_structure.js"></script>
+  <script type="text/javascript" src="js/data/data_config.js"></script>
   <script type="text/javascript" src="js/data/data_sample.js"></script>
   <script type="text/javascript" src="js/data/data_consistency.js"></script>
-<script type="text/javascript" src="js/data/ApplicationService.js"></script>
+<script type="text/javascript" src="js/functions.js"></script>
 </head>
+
 <body class="mdc-typography">
   <aside class="mdc-drawer mdc-drawer--modal mdc-drawer" id="nav-drawer">
     <div class="mdc-drawer__header">
@@ -131,10 +133,9 @@
     <div id="person-selector">
     <div class="demo-card__primary">
       <h2></h2>
-      <img src="" width="50%" height="50%"></img>
+      <img src="" width="50%" height="50%" id="person-selector-image"></img>
     </div>
     <div class="demo-card__secondary mdc-typography mdc-typography--body2">
-      Crop the image: <i class="material-icons" aria-hidden="true">crop</i></div>
   </div>
   <div role="progressbar" class="mdc-linear-progress" id="progress-identify-face">
   <div class="mdc-linear-progress__buffering-dots"></div>
@@ -149,11 +150,12 @@
 </div>
   <div class="mdc-card__actions">
     <div class="mdc-card__action-buttons">
-      <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-identity-confirm" disabled="true">Nehmen</button>
+      <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-identity-confirm" disabled=true disabled> <i class="material-icons" aria-hidden="true">check_circle</i></button>
       <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-identity-random">Zufällige Person <i class="material-icons" aria-hidden="true">loop</i></button>
       <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-identity-camera">Ähnliche Person <i class="material-icons" aria-hidden="true">camera_enhance</i></button>
   </div>
   </div>
+</div>
 </div>
 </main>
 
@@ -200,10 +202,12 @@
     <div class="mdc-card__actions">
       <div class="mdc-card__action-buttons">
       </div>
+      <!--
       <div class="mdc-card__action-icons">
         <button class="mdc-button mdc-card__action mdc-card__action--button"><i class="material-icons mdc-icon-button__icon">zoom_in</i></button>
         <button class="mdc-button mdc-card__action mdc-card__action--button"><i class="material-icons mdc-icon-button__icon">zoom_out</i></button>
       </div>
+    -->
     </div>
   </div>
 </main>
@@ -608,6 +612,41 @@
 <div class="mdc-dialog__scrim"></div>
 </div>
 
+
+<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+     aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="annotation-announcement-popup">
+  <div class="mdc-dialog__container">
+    <div class="mdc-dialog__surface">
+      <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
+
+      <h2 class="mdc-dialog__title"><!--
+     -->Weitere Info hinterlegen:<!--
+   --></h2>
+      <div class="mdc-dialog__content">
+        <div class="mdc-text-field mdc-text-field--outlined" id="dialog-announcement-name">
+<input class="mdc-text-field__input">
+<div class="mdc-notched-outline">
+<div class="mdc-notched-outline__leading"></div>
+<div class="mdc-notched-outline__notch">
+  <label class="mdc-floating-label">Preis</label>
+</div>
+<div class="mdc-notched-outline__trailing"></div>
+</div>
+</div>
+</div>
+<footer class="mdc-dialog__actions">
+  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
+    <span class="mdc-button__label">Abbrechen</span>
+  </button>
+  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
+    <span class="mdc-button__label">Okay</span>
+  </button>
+</footer>
+</div>
+</div>
+<div class="mdc-dialog__scrim"></div>
+</div>
+
 <div class="mdc-dialog" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
      aria-describedby="my-dialog-content" id="annotation-dishes-popup">
   <div class="mdc-dialog__container">
@@ -957,6 +996,7 @@
 <script src="js/leaflet/leaflet-iiif.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
 
+<script src="js/imgareaselect/jquery.imgareaselect.pack.js"
 <script src="js/functions.js"></script>
 <script src="js/handler.js"></script>
 
@@ -1021,7 +1061,7 @@ var drawerEl = document.querySelector('#nav-drawer');
 console.log(mdc);
       const annotation_dishes_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-dishes-popup'));
       const annotation_openinghours_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-openinghours-popup'));
-      //const annotation_announcement_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-announcement-popup'));
+      const annotation_announcement_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-announcement-popup'));
       const annotation_geolocation_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-geolocation-popup'));
       const annotation_category_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-category-popup'));
       const annotation_category_select = new mdc.select.MDCSelect(document.querySelector('#dialog-category-select-upper'));

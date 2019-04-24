@@ -56,8 +56,10 @@ $("#nav-about-you").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
   //if no identity has been selected?
-  if(user_state.identity == ""){
+  if(user_state.identity == "" || user_state.identity === undefined){
   alert("Keine Identität ausgewählt!");
+  $("#button-identity-confirm").attr("disabled", false);
+  $("#button-identity-confirm").hide();
   $("#card-identity").show();
   }else{
   redrawAboutYou();
@@ -90,7 +92,9 @@ $("#button-intro-go").click(function(evt){
 
   //TODO: Check, if Person was selected
   if(user_state.account_created == false || user_state.account_created === undefined){
+  $("#button-identity-confirm").hide();
   $( "#card-identity" ).show();
+
 }else{
   $( "#card-tutorial" ).show();
 }
@@ -289,7 +293,8 @@ $("#button-identity-confirm").click(function(evt){
 // confirm selected person
 //go to tutorial
 $("#card-identity").hide();
-registerPlayer();
+  //destroy overlay
+  //@registerPlayer(); done from end of Cropping-Function
 $("#card-tutorial").show();
 });
 
@@ -297,7 +302,7 @@ $("#button-identity-random").click(function(evt){
   progress_identify_face.open();
   progress_identify_face.determinate = false;
   // select random person
-$("#button-identity-confirm").attr("disabled", false);
+$("#button-identity-confirm").attr("disabled", true);
 setTimeout(
   function()
   {
@@ -338,6 +343,9 @@ var button_random_handler = function(evt){
 
 //redrawRandomIdentityChoice();
 }
+
+$("#button-identity-random").on("click", )
+
 
 //register event handler for random person button click
 $("#button-identity-random").one("click", button_random_handler);
@@ -389,13 +397,13 @@ tracks.forEach(function(track) {
 });
 video.srcObject = null;
 video.mozSrcObject=null;
-alert("ähnliche Person wird gesucht. naja eigentlich noch nicht!");
+console.log("ähnliche Person wird gesucht. naja eigentlich noch nicht!");
 $("#button-identity-camera").attr("disabled", false);
 $("#button-identity-submit").attr("disabled", false);
 //TODO: Select Code for for selection
 redrawRandomIdentityChoice();
 // select random person
-$("#button-identity-confirm").attr("disabled", false);
+$("#button-identity-confirm").attr("disabled", true);
 setTimeout( function(){
   //do something special
   redrawRandomIdentityChoice();

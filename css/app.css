@@ -15,6 +15,7 @@
     min-width:75%
     }
 
+
 #annotation-info-popup {
   /*move before leaflet-map*/
   z-index: 900;
