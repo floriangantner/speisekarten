@@ -19,9 +19,9 @@ function newPubListElement(data){
   //generated Code for Entry.
  var card_html = '';
 $.each(data, function (index, value) {
-  console.log(value)
   card_html += `<li class="mdc-list-item" data-id="${value.id}">${value.doc.name}</li>`;
 });
+console.log(data.length + " Pubs written to PubsList");
 return card_html;
 }
 
@@ -90,40 +90,38 @@ function newAdressListElement(data){
 }
 
 function redrawMenuList(pubid){
-var List = [];
 //TODO: refine query
+console.log("Hallo" + pubid);
 
-DBmenu.allDocs({
-    include_docs: true
-  },function(err, doc){
-    var list = newMenuListElement(doc.rows);
-    console.log(list);
-    $("#pubs-menu-list").html('');
-    $(" #pubs-menu-list").append(list);
+DBmenu.find({
+  selector: {pub : pubid},
+}, function (err, result) {
+  console.log(result);
+$("#pubs-menu-list").html('');
+  $.each(result.docs, function (index, value) {
+  var list = newMenuListElement(value);
+  $(" #pubs-menu-list").append(list);
+  });
 });
+}
 
 function newMenuListElement(data){
       //generated Code for Entry.
       //using images
      var card_html = '';
-$.each(data, function (index, value) {
-  console.log(value);
-    card_html += `<li>${value.doc.name} (${value.doc.date})</li>`;
-    $.each(value.doc.menupages, function (index1, value1) {
+  console.log(data);
+    card_html += `<li class="mdc-list__item"><h3 mdc-typography mdc-typography--headline6>${data.name} (${data.date}) - ${data.category}</h3><ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list">`;
+    $.each(data.menupages, function (index1, value1) {
       card_html += `<li class="mdc-image-list__item" data-id="${value1.id}">
-        <img class="mdc-image-list__image" src="assets/${value1.file}">
+        <img class="mdc-image-list__image" src="assets/${value1.filepath}">
         <div class="mdc-image-list__supporting">
-          <span class="mdc-image-list__label">${value1.desc}</span>
+          <span class="mdc-image-list__label">${value1.category}</span>
         </div>
       </li>`;
-
-    });
   });
+  card_html += `</ul></li>`;
     return card_html;
-}
-
-
-  };
+};
 
   function redrawDishesAllList(){
   var List = [];
