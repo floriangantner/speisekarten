@@ -104,6 +104,7 @@ $("#button-intro-go").click(function(evt){
 $("#button-identity-go").click(function(evt){
   evt.preventDefault();
 $( "#card-identity" ).hide();
+alert("Osterei!");
     $( "#card-tutorial" ).show();
 })
 
@@ -200,11 +201,7 @@ $("#button-menu-detail-add-openinghours").click(function(evt){
   evt.preventDefault();
   //annotation_openinghours_dialog.close();
 
-  $("dialog-openinghours-name").focus();
-  console.log(annotation_openinghours_dialog);
-
-  annotation_openinghours_dialog.close();
-  annotation_openinghours_dialog.open();
+  annotation_open_dialog.open();
 //  $( "#card-pubs-detail" ).show();
 });
 
@@ -267,6 +264,7 @@ DBaddnew(data,DBdishes);
 //add name and price as new dished to the database
 
 });
+
 $("#annotation-openinghours-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //look for
 //menupageid
@@ -275,7 +273,7 @@ var data = {
 "type" : "Annotation",
 "annotype" : "OpeningHour",
 "body" : {
-	"value" : $("#dialog-openinghours-name > input").val(),
+	"value" : $("#annotation-open-comment > textarea").val(),
 },
 "target" : {
 	"pubid":app_state.pubs,
@@ -543,8 +541,8 @@ $("#person-selector").show();
 function showMapPubDialog(){
   //Map event on click marker
   console.log("Hallo Karte!");
-
-  redrawMapPubDialog(this.addressinfo, this._latlng);
+  console.log(this);
+  redrawMapPubDialog(this._latlng, this.spot);
   //prerender view of pub when clicking this
   //redrawPubs(this.pubid);
   app_state.pubs = this.target;
@@ -552,10 +550,10 @@ function showMapPubDialog(){
   console.log(map_pubinfo_dialog);
 
   map_pubinfo_dialog.open();
-//Get info about Put
+  //Get info about Put
 }
 
-$("#map-showpubinfo-popup").find('[data-mdc-dialog-action="accept"]').click(function(){
+$("#map-info-popup").find('[data-mdc-dialog-action="accept"]').click(function(){
   map_pubinfo_dialog.close();
   $( "#card-map" ).hide();
 $( "#card-pubs-detail" ).show();
@@ -580,6 +578,7 @@ $("#button-dishes-rate").click(function(evt){
 //dialog-rate-dishes-comment
 rate_dishes_dialog.open();
 });
+
 $("#rate-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 
   var data = {
@@ -597,20 +596,24 @@ $("#rate-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function
   console.log(data);
   DBaddnew(data,DBrating);
 })
+
 $("#anno-add-button").click(function(evt){
 anno_menu.open = true;
 
 });
+
 $("#pubs-tabbar").find(".mdc-tab").on("click", function(evt){
 var clicked = $(this).attr("data-id");
 $(".pubs-tab-element").hide();
 $(".pubs-tab-element[data-tab="+clicked+"]").show();
 });
+
 $("#button-menu-detail-add-category").on("click", function(evt){
 //TODO: check actual categories of menu
 annotation_category_dialog.open();
 
 });
+
 $("#annotation-category-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //DO Something
 //dialog-category-name
@@ -661,7 +664,6 @@ function showAnnotationInfoDialog(){
 //Get info about Put
 
 }
-
 
 $("#button-map-anno").click( function(evt){
 //addAnnos(null);

@@ -139,9 +139,9 @@ function newMenuListElement(data){
 function newDishesAllListElement(data){
   var card_html = '';
  $.each(data, function (index, value) {
-   if(value.id != undefined){
+   if(value.doc.language != "query"){
    console.log(value)
-   card_html += `<li class="mdc-list-item" data-id="${value.id}">${value.doc.name}</li>`;
+   card_html += `<li class="mdc-list-item" data-id="${value.doc.id}">${value.doc.body.name}</li>`;
  }
  });
  return card_html;
@@ -234,7 +234,7 @@ function newMenuCard(data){
 
 function redrawPubsDishesList(pubid){
   DBdishes.find({
-    selector: {pubid : pubid},
+    selector: {'target.pubid' : pubid},
   }, function (err, result) {
     if (err) { return console.log(err); }
     var list = newPubsDishesListElement(result);
@@ -251,8 +251,8 @@ function newPubsDishesListElement(data){
    console.log(value)
    card_html +=`<li class="mdc-list-item" tabindex="0" data-id="${value._id}">
      <span class="mdc-list-item__text">
-       <span class="mdc-list-item__primary-text">${value.name}</span>
-       <span class="mdc-list-item__secondary-text">${value.price}</span>
+       <span class="mdc-list-item__primary-text">${value.body.name}</span>
+       <span class="mdc-list-item__secondary-text">${value.body.price}</span>
      </span>`
  });
  return card_html;
@@ -483,16 +483,21 @@ $("#annotation-info-title").html(JSON.stringify(doc));
 });
 }
 
-function redrawMapPubDialog(addressinfo, latlng){
-  
-  DBpubs.get(addressinfo.target).then( function(doc){
+function redrawMapPubDialog(latlng, infos){
+  console.log("Hallo Karte2!");
+  console.log(addressinfo);
+  var addressinfo = infos.body;
+  console.log(latlng);
+  DBpubs.get(infos.target).then( function(doc){
       //var list = newPubListElement(doc.rows);
       console.log(doc);
       //$("#pubs-list").html('');
       //$(" #pubs-list").append(list);
-      $("#map-showpubinfo-popup").find('.mdc-dialog__title').html(`${doc.name}`);
 
-      $("#map-showpubinfo-popup").find('.mdc-dialog__content').html(`<div><p>${addressinfo.street} ${addressinfo.number}, ${addressinfo.zip} ${addressinfo.city}</p>
+      $("#map-info-title").html(`${doc.name}`);
+
+      $("#map-info-content").html(`<div><p>${infos.creator.name} meldet:</p>
+        <p>${addressinfo.street} ${addressinfo.number}, ${addressinfo.zip} ${addressinfo.city}</p>
         <p>Alte Adresse:${addressinfo.street_old} ${addressinfo.number_old}, ${addressinfo.zip_old} ${addressinfo.city_old} </p>
         <p>${addressinfo.comment}</p></div>`);
 
@@ -534,18 +539,21 @@ function identity_check(){
             	user_state.account_created = true,
             	user_state.identity = docs[0].identity;
             	user_state.timestamp = docs[0].id;
+
               console.log("Identity Data found: " + user_state.identity + " -> Skipping.")
               DBhist_persons.get(user_state.identity).then(function(result){
               console.log(result);
+              user_state.name = result.name;
               var text = 'Willkommen zurück: ' + result.name ;
               showTextOnSnackbar(text , 4500, "OK");
               var path = user_state.timestamp+'_'+user_state.identity+'.jpeg';
               //redrawUserImage(docs[0]._attachments[0].data);
               console.log(path);
               $("#card-about-you > div > div > img[user-image]").attr('src', 'assets/'+result.file).attr('width', '50%').attr('height','auto%');
+                redrawUserInfo();
+
               return DBuser.getAttachment(docs[0]._id, path);
             }).then(function(blob){
-              redrawUserInfo();
               redrawUserImage(blob);
 
             }).catch(function(err){

@@ -70,9 +70,7 @@ function dataStructure_check(){
       //TODO: extend
       if(result === true){
         console.log("Loading Data");
-        dataStructure_loadData().then(function(result2){
-          return true;
-        });
+        dataStructure_loadData();
       }else{
         console.log("Data have been already loaded to DB. Not Loading agains")
         //creating indexes for search

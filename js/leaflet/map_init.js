@@ -64,12 +64,15 @@ var osmLayer = new L.TileLayer(osmUrl, {
 					var posCircle;
 									var pos = L.latLng(spot.body.latlng[0], spot.body.latlng[1]);
 									posCircle = L.marker([spot.body.latlng[0], spot.body.latlng[1]]);
+									posCircle.addressinfo = spot.body;
+									posCircle.target = spot.target;
+									posCircle.id = spot.id;
+									posCircle.spot = spot;
+
 									posCircle.addTo(pubsListSureLayer);
 									//posCircle.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
 									posCircle.on('click', showMapPubDialog);
 									//posCircle.on('click', alert('click'));
-									posCircle.addressinfo = spot.body;
-									posCircle.target = spot.target;
 								}
 
 	    });
