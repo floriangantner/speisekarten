@@ -13,27 +13,30 @@
   <!-- include stylesheets -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.min.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined">
   <!--<link rel="stylesheet" href="css/material-components-web.min.css">-->
   <link rel="stylesheet" href="css/app.css">
   <!-- include map stylesheets -->
   <link rel="stylesheet" href="js/leaflet/leaflet.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css">
+  <!-- image area select plugin -->
+  <link rel="stylesheet" href="css/imgareaselect/imgareaselect-default.css">
   <!-- include jquery-library -->
   <script src="js/jquery/jquery-3.3.1.min.js"></script>
   <!-- include pouchDB -->
   <script src="js/pouchdb/pouchdb-7.0.0.min.js"></script>
   <script src="js/pouchdb/pouchdb.find.js"></script>
-
   <script src="js/DB/DB.js"></script>
   <!-- include Application logic -->
-  <script type="text/javascript" src="js/data/data_structure.js"></script>
+  <script type="text/javascript" src="js/data/data_config.js"></script>
   <script type="text/javascript" src="js/data/data_sample.js"></script>
   <script type="text/javascript" src="js/data/data_consistency.js"></script>
-<script type="text/javascript" src="js/data/ApplicationService.js"></script>
+<script type="text/javascript" src="js/functions.js"></script>
 </head>
+
 <body class="mdc-typography">
   <aside class="mdc-drawer mdc-drawer--modal mdc-drawer" id="nav-drawer">
-    <div class="mdc-drawer__header">
+    <div class="mdc-drawer__header"><img id="nav-image" user-image />
     <h3 class="mdc-drawer__title" user-name>Oskar von Miller</h3>
     <h6 class="mdc-drawer__subtitle" user-status>Restaurantkritiker </h6></div>
     <div class="mdc-drawer__content">
@@ -69,6 +72,7 @@
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
       </div>
       <div class="demo-card__secondary mdc-typography mdc-typography--body2">Willkommen bei Tripadviswurst, deinem Kraut Saußing-Tool zum Entdecken neuer, skuriller und alltäglicher Gerichte aus fernen Zeiten.</div>
+      <a href="pubslist" data-navigo>Link Test</a>
       <div role="progressbar" class="mdc-linear-progress" id="progress-loader">
         <div class="mdc-linear-progress__buffering-dots"></div>
         <div class="mdc-linear-progress__buffer"></div>
@@ -130,10 +134,9 @@
     <div id="person-selector">
     <div class="demo-card__primary">
       <h2></h2>
-      <img src="" width="50%" height="50%"></img>
+      <img src="" id="person-selector-image"></img>
     </div>
     <div class="demo-card__secondary mdc-typography mdc-typography--body2">
-      Crop the image: <i class="material-icons" aria-hidden="true">crop</i></div>
   </div>
   <div role="progressbar" class="mdc-linear-progress" id="progress-identify-face">
   <div class="mdc-linear-progress__buffering-dots"></div>
@@ -148,11 +151,12 @@
 </div>
   <div class="mdc-card__actions">
     <div class="mdc-card__action-buttons">
-      <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-identity-confirm" disabled="true">Nehmen</button>
+      <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-identity-confirm" disabled=true disabled> <i class="material-icons" aria-hidden="true">check_circle</i></button>
       <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-identity-random">Zufällige Person <i class="material-icons" aria-hidden="true">loop</i></button>
       <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-identity-camera">Ähnliche Person <i class="material-icons" aria-hidden="true">camera_enhance</i></button>
   </div>
   </div>
+</div>
 </div>
 </main>
 
@@ -199,10 +203,12 @@
     <div class="mdc-card__actions">
       <div class="mdc-card__action-buttons">
       </div>
+      <!--
       <div class="mdc-card__action-icons">
         <button class="mdc-button mdc-card__action mdc-card__action--button"><i class="material-icons mdc-icon-button__icon">zoom_in</i></button>
         <button class="mdc-button mdc-card__action mdc-card__action--button"><i class="material-icons mdc-icon-button__icon">zoom_out</i></button>
       </div>
+    -->
     </div>
   </div>
 </main>
@@ -295,19 +301,38 @@
     <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
   </div>
   <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
-    <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>
+    <!--<div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>-->
+    Bewertungen:  X Sterne,
+    X Besuche, X Gerichte, Status?
     <div class="demo-card__secondary mdc-typography mdc-typography--body2">Infos, Öffnungszeiten</div>
+    <ul class="mdc-list" id="pubs-adress-list" >
+      <li class="mdc-list-item">
+        <span class="mdc-list-item__graphic">
+        <button class="mdc-icon-button material-icons" title="Geolocate" data-mdc-ripple-is-unbounded="true" >map</button>
+        </span>
+        <span class="mdc-list-item__text">Adresse</span>
+      </li>
+    </ul>
+    <ul class="mdc-list">
+      <li class="mdc-list-item" id="button-menu-detail-add-geolocation">
+        <span class="mdc-list-item__graphic">
+        <button class="mdc-icon-button material-icons" title="Geolocate" data-mdc-ripple-is-unbounded="true" >add_location</button>
+        </span>
+        <span class="mdc-list-item__text">Adresse hinzufügen</span>
+      </li>
+      <li role="separator" class="mdc-list-divider"></li>
+    </ul>
+
   </div>
 </div>
 
 <div class="pubs-tab-element" data-tab="menu" id="pubs-detail-tabs-menu">
   <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
     <div class="demo-card__secondary mdc-typography mdc-typography--body2">
-      <ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list" id="pubs-menu-list">
-  <li class="mdc-image-list__item">
-    <img class="mdc-image-list__image" src="...">
-    <div class="mdc-image-list__supporting">
-      <span class="mdc-image-list__label">Froschkarte 1320</span>
+      <ul class="mdc-list" id="pubs-menu-list">
+  <li class="mdc-list__item">
+    <div class="mdc-list__supporting">
+      <span class="mdc-list__label">wird geladen</span>
     </div>
   </li>
 </ul>
@@ -335,20 +360,25 @@
 </div>
 </main>
 
+
 <main  class="maincard" id="card-menu-detail">
+  <div id="iiifmap"></div>
+
 <div class="mdc-card demo-card">
   <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
-    <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>
+    <!--<div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>-->
     <div class="demo-card__primary">
       <h2 class="demo-card__title mdc-typography mdc-typography--headline6"></h2>
       <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
     </div>
     <div class="demo-card__secondary mdc-typography mdc-typography--body2">
-    <div id="iiif-map"></div></div>
   </div>
+</div>
   <div class="mdc-card__actions">
     <div class="mdc-card__action-icons ">
       <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" title="back" data-mdc-ripple-is-unbounded="true" id="button-pubs-menu-back">home</button>
+      <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" title="back" data-mdc-ripple-is-unbounded="true" id="button-map-anno">assistant</button>
+
     </div>
     <div class="mdc-card__action-icons mdc-menu-surface--anchor">
     <button class="mdc-fab mdc-fab--extended " id="anno-add-button">
@@ -381,12 +411,6 @@
             <button class="mdc-icon-button material-icons" title="Geolocate" data-mdc-ripple-is-unbounded="true" >category</button>
             </span>
             <span class="mdc-list-item__text">Kategorie</span>
-          </li>
-          <li class="mdc-list-item" role="menuitem" id="button-menu-detail-add-geolocation">
-            <span class="mdc-list-item__graphic">
-            <button class="mdc-icon-button material-icons" title="Geolocate" data-mdc-ripple-is-unbounded="true" >add_location</button>
-            </span>
-            <span class="mdc-list-item__text">Ort</span>
           </li>
         </ul>
       </div>
@@ -457,14 +481,28 @@
 <main class="maincard" id="card-about-you">
   <div class="mdc-card demo-card demo-basic-with-header">
     <div class="demo-card__primary">
-      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Über dich</h2>
-      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">Name, Vorname, Portrait</h3>
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6" user-name>Über dich</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2" user-status>Name, Vorname, Portrait</h3>
     </div>
     <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+      <img src="" user-image></img>
       <div class="demo-card__secondary mdc-typography mdc-typography--body2">Infos aus der GND und anderen Datenbanken</div>
     </div>
   </div>
 </main>
+
+<main class="maincard" id="card-about-other">
+  <div class="mdc-card demo-card demo-basic-with-header">
+    <div class="demo-card__primary">
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Über andere Personen</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">Name, Vorname, Portrait</h3>
+    </div>
+    <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Was haben andere Personen bewertet oder besucht?</div>
+    </div>
+  </div>
+</main>
+
 
 <main class="maincard" id="card-dishes-you">
 <div class="mdc-card demo-card">
@@ -551,16 +589,87 @@
 
 <!-- Popups -->
 
+
+<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+     aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="annotation-help-popup">
+  <div class="mdc-dialog__container">
+    <div class="mdc-dialog__surface">
+      <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
+
+      <h2 class="mdc-dialog__title" id="annotation-help-title"><!--
+     -->Hilfefenster mit Hinweisen zur Benutzung. Hab ich gelesen.<!--
+   --></h2>
+      <div class="mdc-dialog__content">
+</div>
+<footer class="mdc-dialog__actions">
+  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
+    <span class="mdc-button__label">Abbrechen</span>
+  </button>
+  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
+    <span class="mdc-button__label">Okay</span>
+  </button>
+</footer>
+</div>
+</div>
+<div class="mdc-dialog__scrim"></div>
+</div>
+
+
+<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+     aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="annotation-announcement-popup">
+  <div class="mdc-dialog__container">
+    <div class="mdc-dialog__surface">
+      <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
+
+      <h2 class="mdc-dialog__title"><!--
+     -->Weitere Info hinterlegen:<!--
+   --></h2>
+      <div class="mdc-dialog__content">
+        <div class="mdc-text-field mdc-text-field--outlined" id="dialog-announcement-name">
+<input class="mdc-text-field__input">
+<div class="mdc-notched-outline">
+<div class="mdc-notched-outline__leading"></div>
+<div class="mdc-notched-outline__notch">
+  <label class="mdc-floating-label">Preis</label>
+</div>
+<div class="mdc-notched-outline__trailing"></div>
+</div>
+</div>
+</div>
+<footer class="mdc-dialog__actions">
+  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
+    <span class="mdc-button__label">Abbrechen</span>
+  </button>
+  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
+    <span class="mdc-button__label">Okay</span>
+  </button>
+</footer>
+</div>
+</div>
+<div class="mdc-dialog__scrim"></div>
+</div>
+
 <div class="mdc-dialog" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
      aria-describedby="my-dialog-content" id="annotation-dishes-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
       <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
-
+      <span id="dialog-dishes-coord-found"></span>
       <h2 class="mdc-dialog__title" id="dialog-dishes-title"><!--
      -->Gericht hinterlegen<!--
    --></h2>
       <div class="mdc-dialog__content" id="dialog-dishes-content">
+        <div class="mdc-switch" id="dialog-dishes-type">
+          <div class="mdc-switch__track"></div>
+          <div class="mdc-switch__thumb-underlay">
+            <i class="material-icons-outlined">local_drink</i>
+            <div class="mdc-switch__thumb">
+                <input type="checkbox" id="basic-switch" class="mdc-switch__native-control" role="switch">
+            </div>
+            <i class="material-icons-outlined">restaurant</i>
+          </div>
+        </div>
+        <label for="basic-switch">Getränk/Speise</label>
             <div class="mdc-text-field mdc-text-field--outlined" id="dialog-dishes-name">
   <input class="mdc-text-field__input">
   <div class="mdc-notched-outline">
@@ -720,6 +829,11 @@
       <div class="mdc-dialog__content">
 <!-- ... -->
       </div>
+
+      <div class="rating-thumb">
+        Position korrekt?
+        <i class="material-icons-outlined">thumb_up</i><i class="material-icons-outlined">thumb_down</i>
+      </div>
       <footer class="mdc-dialog__actions">
         <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
           <span class="mdc-button__label"> <i class="material-icons mdc-icon-button__icon">close</i></span>
@@ -764,6 +878,12 @@
     </div>
     <div class="mdc-notched-outline__trailing"></div>
   </div>
+</div>
+<div id="dialog-rate-dishes-star">
+    Gericht bewerten:
+    <i class="material-icons-outlined">star_border</i><i class="material-icons-outlined">star_border</i>
+    <i class="material-icons-outlined">star_border</i><i class="material-icons-outlined">star_border</i>
+    <i class="material-icons-outlined">star_border</i>
 </div>
 <!-- ... -->
       </div>
@@ -826,6 +946,39 @@
   <div class="mdc-dialog__scrim"></div>
 </div>
 
+
+<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+     aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="annotation-info-popup">
+  <div class="mdc-dialog__container">
+    <div class="mdc-dialog__surface">
+      <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
+
+      <h2 class="mdc-dialog__title" ><!--
+     -->Zeigt vorhandene Annotation an<!--
+   --></h2>
+      <div class="mdc-dialog__content" id="annotation-info-title">
+
+      </div>
+
+<!-- ... -->
+      </div>
+      <footer class="mdc-dialog__actions">
+        <div class="rating-thumb">
+          Annotation bewerten:
+          <i class="material-icons-outlined">thumb_up</i><i class="material-icons-outlined">thumb_down</i>
+        </div>
+        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
+          <span class="mdc-button__label">Abbrechen</span>
+        </button>
+        <!--
+        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
+          <span class="mdc-button__label">Hinterlegen</span>
+        </button> -->
+      </footer>
+    </div>
+  <div class="mdc-dialog__scrim"></div>
+</div>
+
 <!--  Snackbar -->
 <div class="mdc-snackbar">
   <div class="mdc-snackbar__surface">
@@ -840,6 +993,12 @@
 <!-- load more content -->
 <!--<script src="js/MCW/material-components-web.min.js" charset="utf-8"></script> -->
 
+
+<script src="js/leaflet/leaflet.js"></script>
+<script src="js/leaflet/leaflet-iiif.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+
+<script src="js/imgareaselect/jquery.imgareaselect.pack.js"
 <script src="js/functions.js"></script>
 <script src="js/handler.js"></script>
 
@@ -847,9 +1006,6 @@
 <!--<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>-->
 <!-- initiate map -->
 <!-- include leaflet-iiif for image viewer -->
-<script src="js/leaflet/leaflet.js"></script>
-<script src="js/openseadragon/openseadragon.min.js"></script>
-<!--<script src="js/leaflet/leaflet-iiif.js"></script>-->
 <!-- Snackbar and serviceWorker -->
 
 <!--<script src="js/sw.js"></script>-->
@@ -907,7 +1063,7 @@ var drawerEl = document.querySelector('#nav-drawer');
 console.log(mdc);
       const annotation_dishes_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-dishes-popup'));
       const annotation_openinghours_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-openinghours-popup'));
-      //const annotation_announcement_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-announcement-popup'));
+      const annotation_announcement_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-announcement-popup'));
       const annotation_geolocation_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-geolocation-popup'));
       const annotation_category_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-category-popup'));
       const annotation_category_select = new mdc.select.MDCSelect(document.querySelector('#dialog-category-select-upper'));
@@ -915,6 +1071,7 @@ console.log(mdc);
       const progress_identify_face = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#progress-identify-face'));
       const map_pubinfo_dialog = new mdc.dialog.MDCDialog(document.querySelector('#map-showpubinfo-popup'));
       const rate_dishes_dialog = new mdc.dialog.MDCDialog(document.querySelector('#rate-dishes-popup'));
+      const annotation_info_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-info-popup'));
       const anno_menu = new mdc.menu.MDCMenu(document.querySelector('#anno-add-menu'));
       mdc.ripple.MDCRipple.attachTo(document.querySelector('#menu '));
       const snackbar = new mdc.snackbar.MDCSnackbar(document.querySelector('.mdc-snackbar'));
@@ -924,6 +1081,7 @@ var textField = new mdc.textField.MDCTextField(document.querySelector('#dialog-d
 var textField2 = new mdc.textField.MDCTextField(document.querySelector('#dialog-dishes-name'));
 var textField3 = new mdc.textField.MDCTextField(document.querySelector('#dialog-dishes-price'));
 var selectField14 = new mdc.select.MDCSelect(document.querySelector('#dialog-dishes-category'));
+var switchControl = new mdc.switchControl.MDCSwitch(document.querySelector('#dialog-dishes-type'));
 var textField4 = new mdc.textField.MDCTextField(document.querySelector('#pubs-search'));
 var textField5 = new mdc.textField.MDCTextField(document.querySelector('#dishes-search'));
 var textField6 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-address'));
@@ -942,7 +1100,6 @@ progress_loader.progress = 0.1;
 mdc.autoInit();
 app_init();
 drawer.open = false;
-
 });
 </script>
 </body>

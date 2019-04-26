@@ -6,12 +6,39 @@
   min-height:300px;
   }
 
-  #iiif-map {
-    width: 80%;
-    height: 80%;
+  #iiifmap {
+    width:300px;
+    height:400px;
     min-width: 300px;
     min-height:300px;
+    max-width:80%;
+    min-width:75%
     }
+
+#person-selector-image {
+width:75%;
+height:75%;
+}
+
+#annotation-info-popup {
+  /*move before leaflet-map*/
+  z-index: 900;
+}
+/* for image-list */
+#pubs-menu-list {
+
+}
+/*for every masonry-list*/
+.my-masonry-image-list {
+  @include mdc-image-list-masonry-columns(3);
+  max-width: 93%  ;
+  column-count:3;
+  column-width:33%;
+}
+.my-masonry-image-list > .mdc-image-list__item {
+max-width:30%;
+}
+
 
 
 #video-selector > #video-selector-video{

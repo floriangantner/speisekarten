@@ -39,13 +39,17 @@ var osmLayer = new L.TileLayer(osmUrl, {
 	//f.e. show task on map
 	function MapshowCoord(lat, lng){
 		var posOnMap = L.latLng(lat,lng);
-		map.setView(posOnMap, 16);
+		map.setView(posOnMap, 19);
 	}
 
 	//TODO: show map on given pubid
 	//multiple maps are possible -> use different marker color?
 	function MapShowPubID(id, lat, lng){
-		alert("not yet implemented");
+		console.log(lat);
+		console.log(lng);
+		MapshowCoord(lat, lng);
+		map.invalidateSize();
+
 	}
 //
 	function mapAllPubsAdd(){
@@ -85,35 +89,6 @@ var osmLayer = new L.TileLayer(osmUrl, {
 /*function MapshowCoord(lat, lng){
 	var posOnMap = L.latLng(lat,lng);
 	map.setView(posOnMap, 16);
-}*/
-
-//##############################################################################
-//##############################################################################
-//add GOTO-places to map
-/*function mapGOTOadd (){
-//this function adds a list of all GOTO-Places in the TaskList to the Map
-//is created, when map is opened
-//remove previous layer, if possible
-map.removeLayer(GOTOplacesLayer);
-GOTOplacesLayer = L.layerGroup();
-	for(var spot_iterator in spotList){
-		var posCircle;
-		var spot = spotList[spot_iterator];
-
-		if(spot instanceof GOTOSpot){
-				if(spot.coord != undefined){
-					//only display spots, which tour is active and whose preconditions are fulfilled
-						if(spot.checkPrec() == true && tourList[spot.tour] != undefined && tourList[spot.tour].active == true)
-						var pos = L.latLng(spot.coord[1], spot.coord[0]);
-						posCircle = L.marker(pos);
-				 		posCircle.addTo(GOTOplacesLayer);
-						posCircle.on('click', map_show_spot_popup);
-						posCircle.spotid = spot.id;
-
-					}
-			 }
-		 }
-GOTOplacesLayer.addTo(map);
 }*/
 
 // add feature groups to the map

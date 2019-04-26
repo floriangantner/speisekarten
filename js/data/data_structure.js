@@ -1,78 +1,139 @@
 //############0##################################################################
 //#################  <<  data_structure.js >> ############################################
 //##############################################################################
-//contains global variables
-//contains constructor for the classes/objects and their attributes/functions
+//Information about Entities etc...
+//For Creation and Querys
+//_id and _rev are alo added from pouchDB
 
-const user_state = [
-	this.account_created = false,
-	this.identity = "",
-	this.timestamp = 0
-];
-//contains infos about the view. Information and id's for the view.
-//Should avoid useless jquery-querys and easier access to render new pages
-const app_state = [
-this.pubs = "",
-this.menu = "",
-this.menupage = "",
-this.dishes = "",
-this.player = "",
-this.histperson = "",
-this.intro = 0,
-this.help = [], //add help-intros here to check, if help dialog has been shown
-];
+Pub ->
 
-//##############################################################################
-//class Descriptions as follows (order can be distinguished):
-//as a schema for the json-file
-// --> symbolizes inheritance to following Objects
+{ "filename":"Armbrustschützenzelt",
+"name":"Armbrustschützenzelt",
+"category":"",
+"date":"",
+"number":"",
+"format":"DIR",
+"filesize":"26,848 MB",
+"_id":"p1",
+"id":"p1" }
 
-/*
-Pubs
-Dishes
-Rating
-Menu
-Person
-*/
-/*
-this.shown = shown,
-this.registerInList = function (){
-	if(this.id != undefined){
-	 helpList[this.id] = this
-	 }
- },
-*/
+{ "filename":"Armbrustschützenzelt", //path to folder
+"name":"Armbrustschützenzelt",
+"category":"", //not uses
+"date":"", //not uses
+"number":"", //not used
+"format":"DIR", //folder size
+"filesize":"26,848 MB", //size of folder
+"_id":"p1",
+"id":"p1" }
 
-function Pubs(id, name, menu){
-this.id = id,
-this.name = name,
-this.menu = [];
-};
+Menu & Menupage ->
 
-function Menu(){
-this.id = id,
-this.name = name,
-this.pub = pub,
-this.menupages = [];
-};
+{
+	"filename":"Armbrustschützenzelt_Speisenkarte_1975",
+	"name":"Armbrustschützenzelt",
+	"category":"",
+	"typ":"Speisenkarte",
+	"date":"28.05.1905",
+	"number":"",
+	"format":"DIR",
+	"filesize":"9,782 MB",
+	"pub":"p1",
+	"_id":"p1/m1",
+	"id":"p1/m1",
+	"folderpath":"Armbrustschützenzelt/Armbrustschützenzelt_Speisenkarte_1975/",
+	"menupages":[
+		{"filename":"Armbrustschützenzelt_Speisenkarte_1975_01.jpg",
+		"name":"Armbrustschützenzelt",
+		"category":"",
+		"typ":"Speisenkarte",
+		"date":"28.05.1905",
+		"number":"1",
+		"format":"JPG",
+		"filesize":"9,782 MB",
+		"_id":"p1/m1/mp1",
+		"id":"p1/m1/mp1",
+		"filepath":"Armbrustschützenzelt/Armbrustschützenzelt_Speisenkarte_1975/Armbrustschützenzelt_Speisenkarte_1975_01.jpg"}
+	]
+}
 
-function Menupage(){
-this.id = id,
-this.file = file,
-this.filesize = size,
-this.name = name,
-this.type = type,
-this.date = date,
-this.menu = menu,
-this.Annotations = [];
-};
 
-function Category(){
-this.id = id,
-this.name = name,
-this.menupage = menupage,
-this.dishes = [];
-};
+Player ->
+{
+	"_id" : JSON.stringify(timestamp),
+	"id" : JSON.stringify(timestamp),
+	"identity" : identity_id,
+	timestamp
+}
+
+
+Identity ->
+{
+"id" : "1",
+"_id" : "1",
+"name" : "Max",
+"firstname" : "Mustermann",
+"job" : "Restaurantkenner",
+"file" : "http://www.digiporta.net/ires/DMA/s0/DMA_PT_00001_02_GF.jpg"
+}
+
+Geo ->
+{ "id" : "",
+"_id" : "",
+	"city" : "",
+"menupage" : "p1/m2/mp3",
+"street" : "",
+"country" : "",
+"latlng" : [48.4 , 23.4],
+"pubid" : "",
+"playerid" : "",
+"country" : ""
+}
+
+Anno-Other ->
+{
+"value" : $("#dialog-announcement-name > input").val(),
+"menupage" : app_state.menupage,
+"pubid" : app_state.pubid,
+"playerid" : user_state.timestamp
+}
+
+Rating ->
+{
+"time" : Date.now(),
+"rating" : "5",
+"comment" : "Freitext",,
+"dishes" : "a21",
+"pubid" : "p1",
+"playerid" : "person1",
+"historic_person" : {
+	"name" : "Tester Testeintrag",
+	"id" : "h1",
+}
+}
+
+Dishes ->
+{ "name" : "",
+"menupage" : "p1/mp3",
+"price" : "5€",
+"pubid" : "p1",
+"playerid" : "per1",
+"time" : Date.now(),
+"coord" : [[-10,10],[-20,20]],
+"latlng" : [[-10,10],[-30,30]]
+}
+
+OpeningHours ->
+{
+	"menupage" : "p1/m1/mp1",
+	"pubid" : "",
+	"value" : "",
+	"playerid" : ""
+}
+Category -> {
+
+}
+
 
 function Annotation(){
 	//upper class for annotations
@@ -82,6 +143,13 @@ this.person = person,
 this.confidence = confidence,
 this.menucard = menucard;
 }
+
+function Category(){
+this.id = id,
+this.name = name,
+this.menupage = menupage,
+this.dishes = [];
+};
 
 function Address(){
 Annotation.call(this),
@@ -133,6 +201,7 @@ function Person(){
 	this.name = name,
 	this.firstname = firstname;
 };
+
 function Player(){
 	Person.call(this),
 this.timestart = timestart,

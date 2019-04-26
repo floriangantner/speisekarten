@@ -36,7 +36,7 @@ function dataStructure_check(){
         //creating indexes for search
         DBmenu.createIndex({
           index: {
-            fields: ['menupages']
+            fields: ['menupages', 'pub']
           }}).then(function(result2){
         return DBdishes.createIndex({
           index: {

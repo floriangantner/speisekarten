@@ -5,6 +5,9 @@
 
 //##############################################################################
 //init: the following stuff is done, when loading the CODE at beginning
+
+
+
 $( "main" ).hide(); //hide by default in css code
 $("#card-intro").show();
 $("#button-intro-go").attr("disabled", true);
@@ -56,8 +59,10 @@ $("#nav-about-you").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
   //if no identity has been selected?
-  if(user_state.identity == ""){
+  if(user_state.identity == "" || user_state.identity === undefined){
   alert("Keine Identität ausgewählt!");
+  $("#button-identity-confirm").attr("disabled", false);
+  $("#button-identity-confirm").hide();
   $("#card-identity").show();
   }else{
   redrawAboutYou();
@@ -90,7 +95,9 @@ $("#button-intro-go").click(function(evt){
 
   //TODO: Check, if Person was selected
   if(user_state.account_created == false || user_state.account_created === undefined){
+  $("#button-identity-confirm").hide();
   $( "#card-identity" ).show();
+
 }else{
   $( "#card-tutorial" ).show();
 }
@@ -159,9 +166,10 @@ $('#pubs-menu-list').on('click', '.mdc-image-list__item', function(evt){
 console.log("clicked");
 $( "#card-pubs-detail" ).hide();
     app_state.menupage = $(this).attr('data-id');
+    console.log(app_state.menupage);
     redrawMenu(app_state.menupage);
     //TODO: add to redrawMenu
-    initOpenSeadragon();
+  //  initIIIFMap();
 $( "#card-menu-detail" ).show();
 
 });
@@ -181,7 +189,15 @@ $("#button-pubs-menu-back").click(function(evt){
 $("#button-menu-detail-add-dish").click(function(evt){
   evt.preventDefault();
   annotation_dishes_dialog.open();
-//  $( "#card-pubs-detail" ).show();
+  //Get Coordinates, print Error
+  if(editableLayers && editableLayers.getLayers()[0]._parts.length > 0 ){
+    $("#dialog-dishes-coord-found").html('Bereich markiert!');
+
+  }else{
+    $("#dialog-dishes-coord-found").html('');
+  }
+  console.log(editableLayers.getLayers()[0]._parts);
+  //  $( "#card-pubs-detail" ).show();
 });
 
 $("#button-menu-detail-add-openinghours").click(function(evt){
@@ -208,15 +224,18 @@ $("#button-menu-detail-add-geolocation").click(function(evt){
 //  $( "#card-pubs-detail" ).show();
 });
 
-$("#dialog-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
+$("#annotation-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //look for
 //menupageid
-var data = {"name" : $("#dialog-dishes-name > input").val(),
+console.log(editableLayers.getLayers()[0]);
+var data = { "name" : $("#dialog-dishes-name > input").val(),
 "menupage" : app_state.menupage,
 "price" : $("#dialog-dishes-price > input").val(),
 "pubid" : app_state.pubs,
 "playerid" : user_state.timestamp,
-"time" : Date.now()
+"time" : Date.now(),
+"coord" : editableLayers.getLayers()[0]._parts,
+"latlng" : editableLayers.getLayers()[0]._latlngs
 }
 console.log(data);
 DBaddnew(data,DBdishes);
@@ -277,7 +296,8 @@ $("#button-identity-confirm").click(function(evt){
 // confirm selected person
 //go to tutorial
 $("#card-identity").hide();
-registerPlayer();
+  //destroy overlay
+  //@registerPlayer(); done from end of Cropping-Function
 $("#card-tutorial").show();
 });
 
@@ -285,7 +305,7 @@ $("#button-identity-random").click(function(evt){
   progress_identify_face.open();
   progress_identify_face.determinate = false;
   // select random person
-$("#button-identity-confirm").attr("disabled", false);
+$("#button-identity-confirm").attr("disabled", true);
 setTimeout(
   function()
   {
@@ -326,6 +346,9 @@ var button_random_handler = function(evt){
 
 //redrawRandomIdentityChoice();
 }
+
+$("#button-identity-random").on("click", )
+
 
 //register event handler for random person button click
 $("#button-identity-random").one("click", button_random_handler);
@@ -377,13 +400,13 @@ tracks.forEach(function(track) {
 });
 video.srcObject = null;
 video.mozSrcObject=null;
-alert("ähnliche Person wird gesucht. naja eigentlich noch nicht!");
+console.log("ähnliche Person wird gesucht. naja eigentlich noch nicht!");
 $("#button-identity-camera").attr("disabled", false);
 $("#button-identity-submit").attr("disabled", false);
 //TODO: Select Code for for selection
 redrawRandomIdentityChoice();
 // select random person
-$("#button-identity-confirm").attr("disabled", false);
+$("#button-identity-confirm").attr("disabled", true);
 setTimeout( function(){
   //do something special
   redrawRandomIdentityChoice();
@@ -472,5 +495,52 @@ $("#annotation-category-popup").find('[data-mdc-dialog-action="accept"]').click(
 
 //dialog-category-select-upper
 //$("#dialog-category-select-upper > select").val(),
+
+});
+
+function showAnnotationInfoDialog(){
+  var anno_id = this;
+  console.log(anno_id);
+  redrawAnnotationInfoDialog(anno_id);
+  annotation_info_dialog.open();
+//Get info about Put
+
+}
+
+
+$("#button-map-anno").click( function(evt){
+//addAnnos(null);
+iiifaddExistingAnnotations();
+
+});
+
+function onAddedRectMapClick(){
+anno_menu.open = true;
+}
+
+$('#pubs-adress-list').on('click', '.mdc-list-item', function(evt){
+$( "#card-pubs-detail" ).hide();
+var geoid = $(this).attr('data-id');
+var lat, lng, data;
+//check for pubid -> multiple -> mark on popup and change marker -> change map
+DBgeo.allDocs({
+    include_docs: true
+  },function(err, doc){
+    $.each(doc.rows, function (index, value) {
+      if(value.doc.id === geoid){
+        lat = value.doc.latlng[0];
+        lng = value.doc.latlng[1];
+        data = value.doc;
+      }
+    });
+    //add more info from actual pubs
+    //
+    redrawMapPubDialog(data, [lat,lng]);
+    MapShowPubID($(this).attr('data-id'), lat, lng);
+    mapAllPubsAdd();
+    map_pubinfo_dialog.open();
+
+});
+$("#card-map").show();
 
 });

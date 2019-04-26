@@ -6,12 +6,12 @@
 
 L.TileLayer.Iiif = L.TileLayer.extend({
   options: {
-    continuousWorld: true,
-    tileSize: 1024,
-    updateWhenIdle: true,
+    continuousWorld: false,
+    tileSize: 512,
+    updateWhenIdle: false,
     tileFormat: 'jpg',
     fitBounds: true,
-    setMaxBounds: true
+    setMaxBounds: true,
   },
 
   initialize: function(url, options) {
@@ -154,7 +154,6 @@ L.TileLayer.Iiif = L.TileLayer.extend({
     var sw = _this._map.options.crs.pointToLatLng(L.point(0, imageSize.y), initialZoom);
     var ne = _this._map.options.crs.pointToLatLng(L.point(imageSize.x, 0), initialZoom);
     var bounds = L.latLngBounds(sw, ne);
-
     _this._map.setMaxBounds(bounds, true);
   },
   _getInfo: function() {

@@ -2,25 +2,34 @@
 <html>
 <head>
   <title>IIIF Static Files Demo</title>
-  <script src="js/openseadragon/openseadragon.min.js"></script>
+  <!--<link rel="stylesheet" href="css/material-components-web.min.css">-->
+  <link rel="stylesheet" href="css/app.css">
+  <!-- include map stylesheets -->
+  <script src="js/jquery/jquery-3.3.1.min.js"></script>
+  <link rel="stylesheet" href="js/leaflet/leaflet.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css">
+
 </head>
 <body>
 
 <h1>IIIF Static Files Demo: tetons</h1>
-<div id="openseadragon1" style="width: 500px; height: 400px;"></div>
+<div id="iiifmap"></div>
+
+<script src="js/leaflet/leaflet.js"></script>
+<script src="js/leaflet/leaflet-iiif.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+<script src="js/leaflet/iiif_init.js"></script>
 <script>
-//<![CDATA[
-function initOpenSeadragon() {
-  OpenSeadragon({
-    id: "openseadragon1",
-    minZoomImageRatio: 1,
-    prefixUrl: "js/openseadragon/images/", // OSD needs trailing slash
-    tileSources: "https://stacks.stanford.edu/image/iiif/hg676jb4964%2F0380_796-44/info.json",
-    crossOriginPolicy: false});
-}
-window.onload = initOpenSeadragon;
-document.addEventListener("page:load", initOpenSeadragon); // Initialize when using turbolinks
-//]]>
+$(document).ready(function() {
+
+  function showAnnotationInfoDialog(){
+  //Get info about Put
+  alert("Info About me");
+  //}
+
+initIIIFMap();
+};
+});
 </script>
 
 </body>
