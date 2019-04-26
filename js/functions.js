@@ -68,7 +68,7 @@ function redrawPubsAdressList(){
       $.each(doc.rows, function (index, value) {
         console.log(value);
         console.log(app_state.pubs);
-        if(value.doc.pubid === app_state.pubs){
+        if(value.doc.target === app_state.pubs){
               var list = newAdressListElement(value.doc);
               console.log(list);
               $("#pubs-adress-list").prepend(list);
@@ -80,11 +80,11 @@ function redrawPubsAdressList(){
 
 function newAdressListElement(data){
   console.log(data);
-   var card_html = `<li class="mdc-list-item" data-id="${data.id}">
+   var card_html = `<li class="mdc-list-item" data-id="${data._id}">
            <span class="mdc-list-item__graphic">
            <button class="mdc-icon-button material-icons" title="Geolocate" data-mdc-ripple-is-unbounded="true" >map</button>
            </span>
-           <span class="mdc-list-item__text">${data.street} ${data.zip} ${data.city}</span>
+           <span class="mdc-list-item__text">${data.body.street} ${data.body.number},  ${data.body.zip} ${data.body.city}</span>
          </li>`;
   return card_html;
 }
@@ -139,8 +139,10 @@ function newMenuListElement(data){
 function newDishesAllListElement(data){
   var card_html = '';
  $.each(data, function (index, value) {
+   if(value.id != undefined){
    console.log(value)
    card_html += `<li class="mdc-list-item" data-id="${value.id}">${value.doc.name}</li>`;
+ }
  });
  return card_html;
 }
@@ -315,7 +317,7 @@ user_state.identity = identity_id;
 user_state.timestamp = timestamp;
 //getIdentityInfos(identity_id);
 //redraw
-$("#card-about-you > * > [user-image]").attr('src', doc.file).attr('width', '50%').attr('height','50%');
+//$("#card-about-you > * > [user-image]").attr('src', doc.file).attr('width', '50%').attr('height','50%');
 
 redrawUserInfo();
 
@@ -482,15 +484,21 @@ $("#annotation-info-title").html(JSON.stringify(doc));
 }
 
 function redrawMapPubDialog(addressinfo, latlng){
-  DBpubs.get(addressinfo.pubid).then( function(doc){
+  
+  DBpubs.get(addressinfo.target).then( function(doc){
       //var list = newPubListElement(doc.rows);
       console.log(doc);
       //$("#pubs-list").html('');
       //$(" #pubs-list").append(list);
       $("#map-showpubinfo-popup").find('.mdc-dialog__title').html(`${doc.name}`);
+
+      $("#map-showpubinfo-popup").find('.mdc-dialog__content').html(`<div><p>${addressinfo.street} ${addressinfo.number}, ${addressinfo.zip} ${addressinfo.city}</p>
+        <p>Alte Adresse:${addressinfo.street_old} ${addressinfo.number_old}, ${addressinfo.zip_old} ${addressinfo.city_old} </p>
+        <p>${addressinfo.comment}</p></div>`);
+
       });
-      $("#map-showpubinfo-popup").find('.mdc-dialog__content').html(`<p>${addressinfo.street}</p><p>${addressinfo.zip} ${addressinfo.city}</p>`);
-}
+
+    }
 
 function redrawAboutYou(){
     //redrawn once
@@ -505,7 +513,8 @@ function redrawAboutYou(){
 function redrawUserInfo(){
     DBhist_persons.get(user_state.identity).then(function(doc){
       $("[user-name]").html(`${doc.name}`);
-      $("[user-status]").html(`${doc.job}`);
+      $("[user-status]").html(`${doc.job[0]}`);
+      user_state.name = doc.name; // set display name
     });
 
 };

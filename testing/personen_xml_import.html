@@ -61,9 +61,9 @@ for(var x = 0; x < input.files.length; x++){
                   });
                   //Array von Berufen
                   //richtig in LIDO adressieren?
-                  person.beruf = [];
+                  person.job = [];
                   $(this).find('lido\\:term').each(function(){
-                    person.beruf.push($(this).text());
+                    person.job.push($(this).text());
                   });
                     //Geburts- und Sterbedatum
                     person.birthdate = $(this).find('lido\\:vitalDatesActor lido\\:earliestDate').text();
@@ -77,6 +77,7 @@ for(var x = 0; x < input.files.length; x++){
                     person._id = person.fileid;
                     person.id = person.fileid;
                     person.file = person.fileid + ".jpg";
+                    person.xmlfile = "http://www.digiporta.net/opendata/dm/xml/" + person.id + ".xml";
                     person.filejpeg_small = $(this).find('lido\\:resourceRepresentation[lido\\:type="size_1"] lido\\:linkResource[lido\\:formatResource="jpg"]').text();
                     });
                   //Geburts- und Todesdatum
@@ -126,7 +127,7 @@ $("#refresh").on("click", function(){
 <body>
 <h2>XML-Datei importieren</h2>
 <div>Liest Infos, also die wichtigen festgelegten Infos, aus der XML-Datei zu den Datensätzen des Dt. Museum.
-Erstellt aus den Daten dann ein JSON. Diese können in den sample_data abgespeichert werden.
+Erstellt aus den Daten dann ein JSON. Diese können in den data_sample.js  abgespeichert werden.
 Dadurch werden die unnnötigen xml-Formatierungen weggeworfen und die 20MB Xml-Daten eingespart.
  . In der Konsole logbar.</div>
  <div><p>* Dateien aus dem gleichen Ordner auswählen<form enctype="multipart/form-data">

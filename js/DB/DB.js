@@ -5,13 +5,15 @@
 //DBadd
 const DBpubs = new PouchDB('pubs');
 const DBmenu = new PouchDB('menu');
+const DBhist_persons = new PouchDB('persons_hist');
+const DBuser = new PouchDB('user');
+
 const DBdishes = new PouchDB('dishes');
 const DBrating = new PouchDB('rating');
 const DBopeninghours = new PouchDB('openinghours');
 const DBgeo = new PouchDB('geo_adresses');
 const DBanno_other = new PouchDB('anno_other');
-const DBhist_persons = new PouchDB('persons_hist');
-const DBuser = new PouchDB('user');
+const DBcategory = new PouchDB('category');
 var doc;
 
 //adds a String to a specific DB

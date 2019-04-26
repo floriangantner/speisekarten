@@ -54,29 +54,96 @@ var data_hist_persons = [{"name":"Abbe, Ernst","beruf":["Astronom","Physiker","P
 {"name":"Loew, Oscar","beruf":["Chemiker","Physiologe","Agrikulturchemiker","Technische Chemie","http://d-nb.info/gnd/117163457","http://de.wikipedia.org/wiki/Oskar_Loew","https://www.deutsche-digitale-bibliothek.de/entity/117163457","http://www.deutsche-biographie.de/pnd117163457.html?anchor=index","Deutschland"],"birthdate":"1844-04-02","deathdate":"1941-01-26","fileid":"PT_02272_01_02","_id":"PT_02272_01_02","id":"PT_02272_01_02","file":"PT_02272_01_02.jpg","filejpeg_small":"http://www.digiporta.net/ires/DMA/s1/DMA_PT_02272_01_02.jpg"}];
 
 var data_map_points = [{
-  "id" : "geo1",
-  "street" : "Testpunkt 1",
-  "zip" : "86000",
-  "city" : "München-Au",
-  "country" : "",
-  "pubid" : "pub1",
-  "latlng" : [48.14286146470259, 11.59856379032135],
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"id" : "geo1",
+"_id" : "geo1",
+"type" : "Annotation",
+"annotype" : "Geo",
+"body" : {
+	"latlng" : [48.14286146470259, 11.59856379032135],
+	"country" : "",
+	"city" : "München",
+	"zip" : "86000",
+	"street" : "Teststraße",
+	"number" : "3",
+	"street_old" : "Isarstraße",
+	"zip_old" : "8500",
+	"city_old" : "",
+	"number_old" : "44 1/2",
+	"comment" : "Straße wurde umbenannt"
 },
-  {
-    "id" : "geo2",
-    "street" : "Testpunkt 2",
-    "zip" : "86001",
-    "city" : "München",
-    "country" : "",
-    "pubid" : "pub1",
-    "latlng" : [48.14376146470259, 11.59756379032135]
-  },{
-      "id" : "geo3",
-      "street" : "Testpunkt 3",
-      "zip" : "86002",
-      "city" : "Mingaa",
-      "country" : "",
-      "pubid" : "pub3",
-      "latlng" : [48.14386146470259, 11.59846379032135]
-    }
+"target" : "p1",
+"creator" : {
+	"id" : "test",
+	"name" : "Testnutzer",
+	"identity" : ""
+},
+"generator" : {
+	"name" : "tripadviswurst"
+},
+"created" : "0",
+"motivation" : "assessing"
+},
+{
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"id" : "geo2",
+"_id" : "geo2",
+"type" : "Annotation",
+"annotype" : "Geo",
+"body" : {
+	"latlng" : [48.14376146470259, 11.59756379032135],
+	"country" : "",
+	"city" : "München-Au",
+	"zip" : "86399",
+	"street" : "Teststraße",
+	"number" : "2",
+	"street_old" : "Teststraße ",
+	"zip_old" : "8400",
+	"city_old" : "Au",
+	"number_old" : "1",
+	"comment" : "Ist 1950 ins Nachbarhaus umgezogen. "
+},
+"target" : "p1",
+"creator" : {
+	"id" : "test",
+	"name" : "Testnutzer",
+	"identity" : ""
+},
+"generator" : {
+	"name" : "tripadviswurst"
+},
+"created" : "0",
+"motivation" : "assessing"
+},
+{
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"id" : "geo3",
+"_id" : "geo3",
+"type" : "Annotation",
+"annotype" : "Geo",
+"body" : {
+	"latlng" : [48.14386146470259, 11.59846379032135],
+	"country" : "",
+	"city" : "Giesing",
+	"zip" : "12345",
+	"street" : "",
+	"number" : "",
+	"street_old" : " ",
+	"zip_old" : "",
+	"city_old" : "",
+	"number_old" : "",
+	"comment" : "Keine Adresse angegeben "
+},
+"target" : "p2",
+"creator" : {
+	"id" : "test",
+	"name" : "Testnutzer",
+	"identity" : ""
+},
+"generator" : {
+	"name" : "tripadviswurst"
+},
+"created" : "0",
+"motivation" : "assessing"
+}
 ];

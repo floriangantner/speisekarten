@@ -11,6 +11,48 @@
 //gameState_dataload
 //gameState_createDataStructure
 
+
+function dataStructure_loadData(){
+//loads the data from objects generated in a List; Demo-Data
+//adds JSON-Data into pouchDB, using ajax load
+
+DBpubs.bulkDocs(data_pubs).then(function (result) {
+  return DBdishes.bulkDocs(data_dishes);
+}).then(function(result) {
+  return DBmenu.bulkDocs(data_menu);
+}).then(function(result){
+  return DBhist_persons.bulkDocs(data_hist_persons);
+}).then(function(result){
+  return DBgeo.bulkDocs(data_map_points);
+}).then(function(result){
+//Create Indexes for Searching
+  return DBmenu.createIndex({
+    index: {
+      fields: ['menupages']
+    }});
+}).then(function(result){
+  return DBdishes.createIndex({
+    index: {
+      fields: ['pubid', 'playerid']
+    }});
+  }).then(function(result){
+    return DBrating.createIndex({
+      index: {
+        fields: ['pubid', 'dishes', 'playerid']
+      }});
+  }).then(function(result){
+    console.log("Datastructure filled from sample data")
+    return true;
+  }).catch(function (err) {
+  console.log("Error occured:");
+  console.log(err);
+});
+
+
+
+}
+
+
 function dataStructure_check(){
 
 //checks the game state at beginning
@@ -54,42 +96,4 @@ function dataStructure_check(){
 });
 }
 })
-}
-
-function dataStructure_loadData(){
-//loads the data from objects generated in a List; Demo-Data
-//adds JSON-Data into pouchDB, using ajax load
-
-DBpubs.bulkDocs(data_pubs).then(function (result) {
-  return DBdishes.bulkDocs(data_dishes);
-}).then(function(result) {
-  return DBmenu.bulkDocs(data_menu);
-}).then(function(result){
-  return DBhist_persons.bulkDocs(data_hist_persons);
-}).then(function(result){
-  return DBgeo.bulkDocs(data_map_points);
-}).then(function(result){
-//Create Indexes for Searching
-  return DBmenu.createIndex({
-    index: {
-      fields: ['menupages']
-    }});
-}).then(function(result){
-  return DBdishes.createIndex({
-    index: {
-      fields: ['pubid', 'playerid']
-    }});
-  }).then(function(result){
-    return DBrating.createIndex({
-      index: {
-        fields: ['pubid', 'dishes', 'playerid']
-      }});
-  }).then(function(result){
-    console.log("Datastructure filled from sample data")
-    return true;
-  }).catch(function (err) {
-  console.log("Error occured:");
-  console.log(err);
-});
-
 }
