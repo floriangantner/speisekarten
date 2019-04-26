@@ -278,23 +278,54 @@ function redrawRandomIdentityChoice(){
 });
 }
 
-function registerPlayer(coord){
+function registerPlayer(coord, img2DB){
 console.log("Player with Identity registred");
 var identity_id = app_state.histperson;
 //add selected player to db
-var timestamp = Date.now();
-var player = {"_id" : JSON.stringify(timestamp),
-"id" : JSON.stringify(timestamp),
+var timestamp = JSON.stringify(Date.now());
+var player = {"_id" : timestamp,
+"id" : timestamp,
 "identity" : identity_id,
-"cord" : coord,
-timestamp }
-DBadd(player, DBuser);
+"coord" : coord }
+//write player data to DB, get data and add image attachement
+//DBadd(player, DBuser);
+//var url = URL.createObjectURL(img2DB);
+//$('#nav-drawer > * > [user-image]').attr('src', url);
+//.attr('width', '64px').attr('height', '64px');
+
+var imagename = timestamp + "_" + identity_id + ".jpeg"
+DBuser.put(player).then(function (){
+return DBuser.get(timestamp)
+}).then(function(result){
+  //add image here
+  console.log(result);
+  console.log(imagename);
+  console.log(img2DB);
+  return DBuser.putAttachment(timestamp, imagename, result._rev, img2DB, 'image/jpeg' );
+}).then(function(result){
+  console.log(result);
+  return DBuser.getAttachment(timestamp, imagename);
+}).then(function(blob) {
+  redrawUserImage(blob);
+ }).catch(function(err){
+  console.log(err);
+});
 user_state.setAccount = true;
 user_state.identity = identity_id;
 user_state.timestamp = timestamp;
 //getIdentityInfos(identity_id);
 //redraw
+$("#card-about-you > * > [user-image]").attr('src', doc.file).attr('width', '50%').attr('height','50%');
+
 redrawUserInfo();
+
+}
+
+function redrawUserImage(blob){
+    console.log(blob);
+     var url = URL.createObjectURL(blob);
+     console.log(url);
+     $('#nav-image').attr('src', url).attr('width', '128px').attr('height', 'auto');
 
 }
 
@@ -328,10 +359,10 @@ function newIdentityInfo(data){
 
   selectImg.attr('src',`${data[0].file}`);
   console.log(selectImg);
-  console.log("Höhe c: " + selectImg[0].clientWidth + "Weite c: " + selectImg[0].clientHeight + "Höhe n: " + selectImg[0].naturalHeight  + "Weite n" + selectImg[0].naturalWidth);
+  //Cropper Selector for person image
 var areaselector = selectImg.imgAreaSelect({
         handles: true,
-        onSelectStart: alert("Klicke auf das Portrait und wähle das Gesicht aus!"),
+        onSelectStart: snackbarPortrait,
         onSelectEnd: setNextButtonvisible,
         aspectRatio:"3:4",
         minWidth:32,
@@ -342,26 +373,96 @@ var areaselector = selectImg.imgAreaSelect({
         instance:true
     });
   app_state.histperson = data[0]._id
+  var coord_image = {};
+  function snackbarPortrait(){
+    showTextOnSnackbar("Wähle auf dem Portrait das Gesicht aus", 7000)
+  }
   function setNextButtonvisible(){
+    //after first selection, Button gets visible
     $("#button-identity-confirm").show();
     $("#button-identity-confirm").attr("disabled", false);
+    coord_image = {    clientWidth: selectImg[0].clientWidth,
+        clientHeight: selectImg[0].clientHeight,
+        naturalHeight: selectImg[0].naturalHeight,
+        naturalWidth: selectImg[0].naturalWidth,
+      width: selectImg[0].width,
+    height: selectImg[0].height
+  }
+
   };
-  var coord_image = {
-      clientWidth: selectImg[0].clientWidth,
-      clientHeight: selectImg[0].clientHeight,
-      naturalHeight: selectImg[0].naturalHeight,
-      naturalWidth: selectImg[0].naturalWidth,
-    width: selectImg[0].width,
-  height: selectImg[0].height
-};
+//Skalierungen der Bilder
+//ursprüngliches Bild
+//angezeigtes Bild  -> (evtl. kleiner oder größer als ursprüngliches Bild)
+//markiertes Bild -> bezieht sich auf angezeigtes Bild
+//-> deswegen Berechnung von Prozentwerten
+//Punkt * (angezeigte Breite / ursprüngliche Breite)
+//Bild ist ursprünglich 100 Breit, angezeigt in Breite 200, Punkt 150 ist ausgewählt -> 75% -> ursprünglicher Punkt 75
+//Bild ist ursprünglich 200 Breit, angezeigt in Breite 100, Punkt  25 ist ausgewählt -> 25% -> ursprünglihcer Punkt 50
+//Abweichung im Prozentbereich ist gegeben. (beim runter/hochskalieren der Bilder) -> Runden auf zwei nachkommastellen
+console.log("Höhe c: " + selectImg[0].clientHeight + "Weite c: " + selectImg[0].clientWidth + "Höhe n: " + selectImg[0].naturalHeight  + "Weite n" + selectImg[0].naturalWidth);
 
   $("#button-identity-confirm").on('click', function(){
     coord = {"selection" : areaselector.getSelection(),
-    "displayedImage" : coord_image
-  };
+  "displayedValue" : coord_image };
+  console.log("Höhe c: " + selectImg[0].clientHeight + "Weite c: " + selectImg[0].clientWidth + "Höhe n: " + selectImg[0].naturalHeight  + "Weite n" + selectImg[0].naturalWidth);
+
+  //bild umwandeln und mit den vorhandenen Koordinaten beschneiden
+  //Zum Speichern in der Datenbank
+  //Prozent des angeklickten Bildes:
+
+  function extround(zahl) {
+    //runden auf drei Nachkommastellen
+    //50/(100/200)
+    zahl = (Math.round(zahl * 100) / 100);
+    return zahl * 1 / 1000; //prozentzahl
+  }
+
+  var prozent_x = (coord.selection.x1) / (coord_image.width/coord_image.naturalWidth) ,
+  prozent_y = (coord.selection.y1) / (coord_image.height/coord_image.naturalHeight),
+  prozent_w = (coord.selection.width) / (coord_image.width/coord_image.naturalWidth),
+  prozent_h = (coord.selection.height) / (coord_image.height/coord_image.naturalHeight);
+  coord.prozent = {x : extround(prozent_x),
+        y : extround(prozent_y),
+        w : extround(prozent_w),
+        h : extround(prozent_h)};
+    var canvas_img = document.createElement('canvas');
+    var context = canvas_img.getContext('2d');
+    //canvas_img.width =  coord.selection.width;
+    //canvas_img.height = coord.selection.height;
+    canvas_img.width = (Math.round(coord.selection.width * (coord_image.naturalWidth/coord_image.width)));
+    canvas_img.height = (Math.round(coord.selection.height * (coord_image.naturalHeight/coord_image.height)));
+    console.log(canvas_img.width + " - " + canvas_img.height )
+    //https://stackoverflow.com/questions/26015497/how-to-resize-then-crop-an-image-with-canvas
+    //Math.round(coord.selection.x1*(coord_image.width/coord_image.naturalWidth))
+    context.drawImage(selectImg[0],
+    (Math.round(coord.selection.x1 * (coord_image.naturalWidth/coord_image.width))),
+    (Math.round(coord.selection.y1 * (coord_image.naturalHeight/coord_image.height))),
+    (Math.round(coord.selection.width * (coord_image.naturalWidth/coord_image.width))),
+    (Math.round(coord.selection.height * (coord_image.naturalHeight/coord_image.height))),
+    0 , 0 ,
+    (Math.round(coord.selection.width * (coord_image.naturalWidth/coord_image.width))),
+    (Math.round(coord.selection.height * (coord_image.naturalHeight/coord_image.height))) )
+   // Warning: toBlob() isn't supported by every browser.
+     // You may want to use blob-util.
+
+$('#button-identity-camera').one('click', function(){
+  $('#person-selector-image').imgAreaSelect({remove:true});
+})
+
+$('#button-identity-camera').one('click', function(){
+  $('#person-selector-image').imgAreaSelect({remove:true});
+})
+
 $('#person-selector-image').imgAreaSelect({remove:true});
 console.log(coord);
-  registerPlayer(coord);
+
+canvas_img.toBlob(saveImage, 'image/jpeg');
+//callback function from toBlob
+function saveImage(blob) {
+    registerPlayer(coord, blob);
+
+}
+
   });
   };
   }
@@ -390,27 +491,20 @@ function redrawMapPubDialog(addressinfo, latlng){
       });
       $("#map-showpubinfo-popup").find('.mdc-dialog__content').html(`<p>${addressinfo.street}</p><p>${addressinfo.zip} ${addressinfo.city}</p>`);
 }
-function redrawMapPubDialog(addressinfo, latlng){
-  DBpubs.get(addressinfo.pubid).then( function(doc){
-      //var list = newPubListElement(doc.rows);
-      console.log(doc);
-      //$("#pubs-list").html('');
-      //$(" #pubs-list").append(list);
-      $("#map-showpubinfo-popup").find('.mdc-dialog__title').html(`${doc.name}`);
-      });
-      $("#map-showpubinfo-popup").find('.mdc-dialog__content').html(`<p>${addressinfo.street}</p><p>${addressinfo.zip} ${addressinfo.city}</p>`);
-}
 
 function redrawAboutYou(){
+    //redrawn once
+    /*
     DBhist_persons.get(user_state.identity).then(function(doc){
-      $("#card-about-you").find('.mdc-typography--headline6').html(`${doc.firstname} ${doc.name}`);
+      $("#card-about-you").find('.mdc-typography--headline6').html(`${doc.name}`);
       $("#card-about-you").find('.mdc-typography--subtitle2').html(`${doc.job}`);
     });
+    */
 };
 
 function redrawUserInfo(){
     DBhist_persons.get(user_state.identity).then(function(doc){
-      $("[user-name]").html(`${doc.firstname} ${doc.name}`);
+      $("[user-name]").html(`${doc.name}`);
       $("[user-status]").html(`${doc.job}`);
     });
 
@@ -419,7 +513,9 @@ function redrawUserInfo(){
 function identity_check(){
   //init for intro card
   DBuser.allDocs({
-      include_docs: true
+      include_docs: true,
+      attachments:true,
+      binary: true
     }).then(function (result) {
       var docs = result.rows.map(function (row) {
         return row.doc;
@@ -428,11 +524,24 @@ function identity_check(){
           if(docs.length != 0){
             	user_state.account_created = true,
             	user_state.identity = docs[0].identity;
-            	user_state.timestamp = docs[0].timestamp;
-              console.log("Identity Data found " + user_state.identity + ". Skipping.")
-              showTextOnSnackbar("Wir haben deine Identität gefunden!", 4500, "OK");
-
+            	user_state.timestamp = docs[0].id;
+              console.log("Identity Data found: " + user_state.identity + " -> Skipping.")
+              DBhist_persons.get(user_state.identity).then(function(result){
+              console.log(result);
+              var text = 'Willkommen zurück: ' + result.name ;
+              showTextOnSnackbar(text , 4500, "OK");
+              var path = user_state.timestamp+'_'+user_state.identity+'.jpeg';
+              //redrawUserImage(docs[0]._attachments[0].data);
+              console.log(path);
+              $("#card-about-you > div > div > img[user-image]").attr('src', 'assets/'+result.file).attr('width', '50%').attr('height','auto%');
+              return DBuser.getAttachment(docs[0]._id, path);
+            }).then(function(blob){
               redrawUserInfo();
+              redrawUserImage(blob);
+
+            }).catch(function(err){
+              console.log(err);
+            })
               return true;
           }else{
             console.log("No Identity Data found");

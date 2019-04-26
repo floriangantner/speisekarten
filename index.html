@@ -36,7 +36,7 @@
 
 <body class="mdc-typography">
   <aside class="mdc-drawer mdc-drawer--modal mdc-drawer" id="nav-drawer">
-    <div class="mdc-drawer__header">
+    <div class="mdc-drawer__header"><img id="nav-image" user-image />
     <h3 class="mdc-drawer__title" user-name>Oskar von Miller</h3>
     <h6 class="mdc-drawer__subtitle" user-status>Restaurantkritiker </h6></div>
     <div class="mdc-drawer__content">
@@ -72,6 +72,7 @@
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
       </div>
       <div class="demo-card__secondary mdc-typography mdc-typography--body2">Willkommen bei Tripadviswurst, deinem Kraut Saußing-Tool zum Entdecken neuer, skuriller und alltäglicher Gerichte aus fernen Zeiten.</div>
+      <a href="pubslist" data-navigo>Link Test</a>
       <div role="progressbar" class="mdc-linear-progress" id="progress-loader">
         <div class="mdc-linear-progress__buffering-dots"></div>
         <div class="mdc-linear-progress__buffer"></div>
@@ -133,7 +134,7 @@
     <div id="person-selector">
     <div class="demo-card__primary">
       <h2></h2>
-      <img src="" width="50%" height="50%" id="person-selector-image"></img>
+      <img src="" id="person-selector-image"></img>
     </div>
     <div class="demo-card__secondary mdc-typography mdc-typography--body2">
   </div>
@@ -480,10 +481,11 @@
 <main class="maincard" id="card-about-you">
   <div class="mdc-card demo-card demo-basic-with-header">
     <div class="demo-card__primary">
-      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Über dich</h2>
-      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">Name, Vorname, Portrait</h3>
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6" user-name>Über dich</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2" user-status>Name, Vorname, Portrait</h3>
     </div>
     <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+      <img src="" user-image></img>
       <div class="demo-card__secondary mdc-typography mdc-typography--body2">Infos aus der GND und anderen Datenbanken</div>
     </div>
   </div>
@@ -1098,7 +1100,6 @@ progress_loader.progress = 0.1;
 mdc.autoInit();
 app_init();
 drawer.open = false;
-
 });
 </script>
 </body>

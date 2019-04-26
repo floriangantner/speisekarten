@@ -5,6 +5,9 @@
 
 //##############################################################################
 //init: the following stuff is done, when loading the CODE at beginning
+
+
+
 $( "main" ).hide(); //hide by default in css code
 $("#card-intro").show();
 $("#button-intro-go").attr("disabled", true);

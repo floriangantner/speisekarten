@@ -49,28 +49,9 @@ var data_dishes = [{
     "price" : "23 Goldtaler"
 }];
 
-var data_hist_persons = [{
-  "id" : "1",
-  "_id" : "1",
-"name" : "Max",
-"firstname" : "Mustermann",
-"job" : "Restaurantkenner",
-"file" : "http://www.digiporta.net/ires/DMA/s0/DMA_PT_00001_02_GF.jpg"
-},{
-  "id" : "2",
-  "_id" : "2",
-  "name" : "Max",
-  "firstname" : "Musterfrau",
-  "job" : "Restaurantkennerin",
-  "file" : "http://www.digiporta.net/ires/DMA/s0/DMA_PT_00001_03_GF.jpg"
-},{
-  "id" : "3",
-  "_id" : "3",
-  "name" : "Albert",
-  "firstname" : "Einstein",
-  "job" : "Physik-Kenner",
-  "file" : "person3.jpeg"
-}];
+var data_hist_persons = [{"name":"Abbe, Ernst","beruf":["Astronom","Physiker","Physiker","Astronom","Astronomie/Astrophysik","Physik","Optik","http://d-nb.info/gnd/118646419","http://de.wikipedia.org/wiki/Ernst_Abbe","https://www.deutsche-digitale-bibliothek.de/entity/118646419","http://www.deutsche-biographie.de/pnd118646419.html?anchor=index","http://www.herder-institut.de/gnd/118646419","http://cgi-host.uni-marburg.de/~omgesa/gs/xs1.php?f1=pnd&s1=118646419","Deutschland"],"birthdate":"1840-01-23","deathdate":"1905-01-14","fileid":"PT_00001_02_GF","_id":"PT_00001_02_GF","id":"PT_00001_02_GF","file":"PT_00001_02_GF.jpg","filejpeg_small":"http://www.digiporta.net/ires/DMA/s1/DMA_PT_00001_02_GF.jpg"},
+{"name":"Chevreul, Michel E.","beruf":["Chemiker","Chemiker","Chemie","http://d-nb.info/gnd/12097729X","http://de.wikipedia.org/wiki/Eug%C3%A8ne_Chevreul","https://www.deutsche-digitale-bibliothek.de/entity/12097729X","Frankreich"],"birthdate":"1786-08-31","deathdate":"1889-04-09","fileid":"PT_00523_07","_id":"PT_00523_07","id":"PT_00523_07","file":"PT_00523_07.jpg","filejpeg_small":"http://www.digiporta.net/ires/DMA/s1/DMA_PT_00523_07.jpg"},
+{"name":"Loew, Oscar","beruf":["Chemiker","Physiologe","Agrikulturchemiker","Technische Chemie","http://d-nb.info/gnd/117163457","http://de.wikipedia.org/wiki/Oskar_Loew","https://www.deutsche-digitale-bibliothek.de/entity/117163457","http://www.deutsche-biographie.de/pnd117163457.html?anchor=index","Deutschland"],"birthdate":"1844-04-02","deathdate":"1941-01-26","fileid":"PT_02272_01_02","_id":"PT_02272_01_02","id":"PT_02272_01_02","file":"PT_02272_01_02.jpg","filejpeg_small":"http://www.digiporta.net/ires/DMA/s1/DMA_PT_02272_01_02.jpg"}];
 
 var data_map_points = [{
   "id" : "geo1",
