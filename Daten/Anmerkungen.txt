@@ -1,0 +1,5 @@
+- Karte umbenennen (verwechslung mit "Speisekarte")
+- Ueber Dich --> keine Identitaet ausgewaehlt
+- Annotation "anderes"
+- Rechteckbutton in Bildviewer nicht intuitiv
+- graue Flaeche bei aehnliche Person
