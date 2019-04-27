@@ -178,15 +178,47 @@ Anno-Other ->
 
 
 Dishes ->
-{ "name" : "",
-"menupage" : "p1/mp3",
-"price" : "5€",
-"pubid" : "p1",
-"playerid" : "per1",
-"time" : Date.now(),
-"coord" : [[-10,10],[-20,20]],
-"latlng" : [[-10,10],[-30,30]]
-}
+
+var data = {
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"type" : "Annotation",
+"annotype" : "Dishes",
+"body" : {
+  "type" : "meal|drink|other",
+  "name" : "",
+  "price" : "",
+  "price_currency" : "",
+  "amount" : "",
+	"description" : "",
+  "categoryName" : "",
+  "categoryID" : ""
+},
+"target" : {
+	"pubid": "p1",
+  "menu" : "p1/m1",
+	"menupage": "p1/m1/mp1",
+	"selector": {
+		"type": "FragmentSelector",
+		"conformsTo": "http://www.w3.org/TR/media-frags/",
+		"value": "xywh=0,0,30,60"
+		},
+		"coord" : {
+			"type": "AnnoSelector",
+			"conformsTo": "",
+			"value": "lat1lng1lat2lng2=0,0,30,60"
+		}
+},
+"creator" : {
+	"id" : "",
+	"name" : "",
+	"identity" : ""
+},
+"generator" : {
+	"name" : "tripadviswurst"
+},
+"created" : "timestamp",
+"motivation" : "commenting"
+};
 
 OpeningHours ->
 {
@@ -318,17 +350,40 @@ function Rating(){
 
 
 Rating ->
+
 {
-"time" : Date.now(),
-"rating" : "5",
-"comment" : "Freitext",,
-"dishes" : "a21",
-"pubid" : "p1",
-"playerid" : "person1",
-"historic_person" : {
-	"name" : "Tester Testeintrag",
-	"id" : "h1",
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"id" : "",
+"_id" : "",
+"type" : "Annotation",
+"annotype" : "Rating",
+"body" : {
+	"rating" : "somewhat",
+	"comment" : "",
+	"skuril" : true/false/undefined,
+	"thumb" : true/false/undefined
+	}
+},
+"target" : {
+	"pubid":"p1",
+	"menu" : "p1/m1",
+	"menupage": "p1/m1/mp3",
+	"anno-id" : "",
+	"anno-typ" : "Dish | Geo | OpeningHours | Category | Other | DishRating "
+},
+"creator" : {
+	"id" : "",
+	"name" : "",
+	"identity" : ""
+},
+"generator" : {
+	"name" : "tripadviswurst"
+},
+"created" : "timestamp",
+"motivation" : "commenting"
 }
+
+
 //TODO: Text-Bewertungen -> Pub / Dishes
 //TODO: daumen hoch/runter bewertungen
 

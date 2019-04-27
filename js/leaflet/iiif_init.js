@@ -4,7 +4,7 @@ var map_iiif = L.map('iiifmap', {
   crs: L.CRS.Simple,
   zoom: 3,
   anno: false
-});;
+});
 map_iiif.invalidateSize();
 var baseLayer = L.tileLayer.iiif(
   'https://stacks.stanford.edu/image/iiif/cv770rd9515%2F0767_23A_SM/info.json'
@@ -94,7 +94,7 @@ function iiifaddExistingAnnotations(){
 map_iiif.removeLayer(markerLayer);
 markerLayer = L.featureGroup();
 if(map_iiif.anno === false){
-//openinghours , other ,   
+//openinghours , other ,
 DBdishes.allDocs({
     include_docs: true
   },function(err, doc){

@@ -187,14 +187,11 @@ $("#button-pubs-menu-back").click(function(evt){
 
 $("#button-menu-detail-add-dish").click(function(evt){
   //evt.preventDefault();
-  newCategoryList("[anno-dishes-category]");
-  $("dialog-dishes-content > ul > li ").focus();
+  var listelemtofill = $("#annotation-dishes-popup").find("[anno-dishes-category]");
+  newCategoryList(listelemtofill);
+
   console.log(annotation_dishes_dialog);
   annotation_dishes_dialog.open();
-  annotation_dishes_dialog.close();
-  $("#annotation-dishes-popup").focus();
-  $("dialog-dishes-content > ul > li ").focus();
-annotation_dishes_dialog.open();
   //Get Coordinates, print Error
   if(editableLayers && editableLayers.getLayers()[0] && editableLayers.getLayers()[0]._parts.length > 0 ){
     $("#dialog-dishes-coord-found").html('Bereich markiert!');
@@ -232,17 +229,21 @@ $("#button-menu-detail-add-geolocation").click(function(evt){
 $("#annotation-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //look for
 //menupageid
+var dishes_type = $('input[name="type-radios"]:checked').val();
+console.log(dishes_radioset.input);
+console.log(dishes_type);
+
 var data = {
 "@context" : "http://www.w3.org/ns/anno.jsonld",
 "type" : "Annotation",
-"annotype" : "OpeningHour",
+"annotype" : "Dishes",
 "body" : {
-  "type" : $("#anno-dishes-type-switch").val(),
+  "type" : dishes_type,
   "name" : $("#annotation-dishes-popup").find("[anno-dishes-name]").val(),
   "price" : $("#annotation-dishes-popup").find("[anno-dishes-price]").val(),
   "price_currency" : $("#annotation-dishes-popup").find("[anno-dishes-currency]").val(),
   "amount" : $("#annotation-dishes-popup").find("[anno-dishes-amount]").val(),
-	"description" : $("#annotation-dishes-popup").find("[anno-dishes-currency]").val(),
+	"description" : $("#annotation-dishes-popup").find("#dialog-dishes-description > textarea").val(),
   "categoryName" : $("#annotation-dishes-popup").find("[anno-dishes-category]").val(),
   "categoryID" : $("#annotation-dishes-popup").find("[anno-dishes-category] option:selected").text()
 },
@@ -267,7 +268,6 @@ var data = {
 
 console.log(data);
 DBaddnew(data,DBdishes);
-//DBadd(data,DBdishes);
 //add name and price as new dished to the database
 
 });
@@ -343,14 +343,15 @@ var data = {
 
 console.log(data);
 DBaddnew(data,DBgeo);
-//DBadd(data,DBdishes);
 //add name and price as new dished to the database
 
 });
 
 function getAnnoFragment(){
 //read xywh from actual segment
-  if(editableLayers.getLayers()[0]._parts && editableLayers.getLayers()[0]._parts.length > 0){
+console.log(editableLayers);
+console.log(editableLayers.length);
+  if(map_iiif.hasLayer(editableLayers) && editableLayers.getLayers() != undefined && editableLayers.getLayers()[0] != undefined && editableLayers.getLayers()[0]._parts != undefined && editableLayers.getLayers()[0]._parts.length > 0){
   // change selected area to xywh and latlng coordinates
   var part = editableLayers.getLayers()[0]._parts[0];
   var selectorstring = "xywh="+(part[1].x+","+part[1].y)+","+(part[2].x-part[1].x)+","+(part[3].y-part[2].y);
@@ -366,7 +367,7 @@ function getAnnoFragment(){
 
 function getAnnoCoord(){
 //read world coordinated from actual segment
-  if(editableLayers.getLayers()[0]._latlngs && editableLayers.getLayers()[0]._latlngs.length > 0){
+  if(map_iiif.hasLayer(editableLayers) && editableLayers.getLayers()[0] != undefined && editableLayers.getLayers()[0]._latlngs && editableLayers.getLayers()[0]._latlngs.length > 0){
   // change selected area to xywh and latlng coordinates
   var part = editableLayers.getLayers()[0]._latlngs[0];
   var selectorstring = "latlng1lat2lng2="+part[1].lat+","+part[1].lng+","+part[3].lat+","+part[3].lng;
@@ -411,7 +412,6 @@ var data = {
 }
 console.log(data);
 DBaddnew(data,DBanno_other);
-//DBadd(data,DBdishes);
 //add name and price as new dished to the database
 
 });
@@ -584,22 +584,39 @@ $("#pubs-search > input").keyup(function(){
 $("#button-dishes-rate").click(function(evt){
 //dialog-rate-dishes-comment
 rate_dishes_dialog.open();
+Ratingslider.layout();
 });
 
 $("#rate-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
+var data = {
+  "@context" : "http://www.w3.org/ns/anno.jsonld",
+  "type" : "Annotation",
+  "annotype" : "Rating",
+  "body" : {
+  	"rating" : Ratingslider.value,
+  	"comment" : $("#dialog-rate-dishes-comment > textarea").val(),
+  	"skuril" : null,
+  	"thumb" : null
+  },
+  "target" : {
+  	"pubid": app_state.pubs,
+  	"menu" : app_state.menu,
+  	"menupage": app_state.menupage,
+  	"anno-id" : app_state.dishes,
+  	"anno-typ" : "Dish"
+  },
+  "creator" : {
+  	"id" : user_state.timestamp,
+  	"name" : user_state.name,
+  	"identity" : user_state.identity
+  },
+  "generator" : {
+  	"name" : "tripadviswurst"
+  },
+  "created" : JSON.stringify(Date.now()),
+  "motivation" : "commenting"
+  }
 
-  var data = {
-  "time" : Date.now(),
-  "rating" : $("#dialog-rate-dishes-stars > input").val(),
-  "comment" : $("#dialog-rate-dishes-comment > textarea").val(),
-  "dishes" : app_state.dishes,
-  "pubid" : app_state.pubid,
-  "playerid" : user_state.timestamp,
-  "historic_person" : {
-    "name" : "Tester Testeintrag",
-    "id" : user_state.identity,
-  }
-  }
   console.log(data);
   DBaddnew(data,DBrating);
 })
@@ -617,7 +634,8 @@ $(".pubs-tab-element[data-tab="+clicked+"]").show();
 
 $("#button-menu-detail-add-category").on("click", function(evt){
 //TODO: check actual categories of menu
-newCategoryList("[category-upperselect]");
+var listelemtofill = $("#annotation-category-popup").find("[category-upperselect]");
+newCategoryList(listelemtofill);
 annotation_category_dialog.open();
 
 });

@@ -160,7 +160,15 @@ DBdishes.get(id).then( function(doc){
 
 function newDishesCard(data){
 //generated Code for Entry.
-$("#card-dishes-detail > .mdc-card > .demo-card__primary > h2  ").text(`${data.name}`);
+$("#card-dishes-detail").find("[dish-name]").html(data.body.name);
+$("#card-dishes-detail").find("[dish-type]").html(data.body.type);
+$("#card-dishes-detail").find("[dish-comment]").html(data.body.comment);
+$("#card-dishes-detail").find("[dish-amount]").html(data.body.amount);
+$("#card-dishes-detail").find("[dish-price]").html(data.body.price);
+$("#card-dishes-detail").find("[dish-currency]").html(data.body.currency);
+$("#card-dishes-detail").find("[dish-category]").html(data.body.category);
+
+
 DBrating.find({
   selector: {dishes : data.id},
 }, function (err, result) {
@@ -181,8 +189,8 @@ function newDishesRatingElement(data){
   //TODO: Sterne und Zeit formatieren
 return `<li class="mdc-list-item" tabindex="0" data-id="${data._id}">
 <span class="mdc-list-item__text">
-<span class="mdc-list-item__primary-text">${data.comment} ${data.rating}</span>
-<span class="mdc-list-item__secondary-text">${data.historic_person.name} : ` + convertTimestamp(data.time) + `</span>
+<span class="mdc-list-item__primary-text">${data.body.comment} `+ visualizeRating(data.body.rating) +`</span>
+<span class="mdc-list-item__secondary-text">${data.creator.name} : ` + timeDifference(Date.now(), data.created) + `</span>
 </span>
 </li>`;
 }
@@ -303,7 +311,7 @@ return DBuser.get(timestamp)
   console.log(result);
   console.log(imagename);
   console.log(img2DB);
-  return DBuser.putAttachment(timestamp, imagename, result._rev, img2DB, 'image/jpeg' );
+  return DBuser.putAttachment(result._id, imagename, result._rev, img2DB, 'image/jpeg');
 }).then(function(result){
   console.log(result);
   return DBuser.getAttachment(timestamp, imagename);
@@ -355,6 +363,7 @@ var data_head = {
   "created" : JSON.stringify(Date.now()),
   "motivation" : "commenting"
   }
+  console.log('Info to historical Person added!')
 console.log(data_head);
 DBaddnew(data_head, DBpersons_head);
 });
@@ -498,6 +507,7 @@ console.log(coord);
 canvas_img.toBlob(saveImage, 'image/jpeg');
 //callback function from toBlob
 function saveImage(blob) {
+  console.log(blob);
     registerPlayer(coord, blob);
 
 }
@@ -608,14 +618,6 @@ function identity_check(){
     return false;
 }
 
-function convertTimestamp(givenTimestamp){
-var time_now = Date.now();
-var newDate = new Date();
-newDate.setTime(givenTimestamp);
-dateString = newDate.toUTCString();
-return dateString;
-}
-
 function redrawYourDishes(){
 //Go through Dishes and Ratings and view all from this user
 //selector as below
@@ -675,9 +677,13 @@ function newYourDishesElement(data){
 function newCategoryList(elem){
 //read all Categories from this menu (not menupage)
 //DBcategory
+console.log(app_state.menu);
 DBcategory.find({
   selector: {'target.menu' : app_state.menu},
 }, function (err, result) {
+  if(err){
+    console.log(err);
+  }
   console.log(result);
   var html_text = '<option value="none" selected>ohne Kategorie</option>';
   $.each(result.docs, function (index, value) {
@@ -687,9 +693,61 @@ DBcategory.find({
     }
   });
   console.log(html_text);
-   $("annotation-category-select-upper").find(elem).append(html_text);
+  elem.html('').append(html_text);
 
 });
 }
 
-//return as selection and add to options
+function timeDifference(current, previous) {
+//print out time-difference between now and previous time
+    var msPerMinute = 60 * 1000;
+    var msPerHour = msPerMinute * 60;
+    var msPerDay = msPerHour * 24;
+    var msPerMonth = msPerDay * 30;
+    var msPerYear = msPerDay * 365;
+
+    var elapsed = current - previous;
+
+    if (elapsed < 0) {
+         return 'in der Zukunft';
+    }
+
+    if (elapsed < msPerMinute) {
+         return 'vor ' + Math.round(elapsed/1000) + ' Sekunden';
+    }
+
+    else if (elapsed < msPerHour) {
+         return 'vor ' + Math.round(elapsed/msPerMinute) + ' Minuten';
+    }
+
+    else if (elapsed < msPerDay ) {
+         return 'vor ' + Math.round(elapsed/msPerHour ) + ' Stunden';
+    }
+
+    else if (elapsed < msPerMonth) {
+        return 'vor ' + Math.round(elapsed/msPerDay) + ' Tagen';
+    }
+
+    else if (elapsed < msPerYear) {
+        return 'vor ' + Math.round(elapsed/msPerMonth) + ' Monaten';
+    }
+
+    else {
+        return 'vor ' + Math.round(elapsed/msPerYear ) + ' Jahren';
+    }
+}
+
+function visualizeRating(rating){
+//visualize Rating, return Stars
+console.log(rating);
+var text_html = '';
+for(var it = rating; it > 0; it-- ){
+//for(var it = 0; it < rating; it++){
+  text_html += '<i class="material-icons">star</i>';
+}
+for(var it = rating; it < 5; it++){
+  text_html += '<i class="material-icons">star_border</i>';
+
+}
+return text_html;
+}

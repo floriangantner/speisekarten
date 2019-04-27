@@ -421,11 +421,13 @@
 <main class="maincard" id="card-dishes-detail">
   <div class="mdc-card demo-card demo-basic-with-header">
     <div class="demo-card__primary">
-      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Gericht 1</h2>
-      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">Gaststätte, Jahr</h3>
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6" dish-name>Gericht 1</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2" >Gaststätte, Jahr</h3>
     </div>
     <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
-      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Infos, Preis, Wikipedia-Link</div>
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Infos, Preis, Wikipedia-Link
+      <span dish-type></span><span dish-comment></span><span dish-amount></span><span dish-price></span><span dish-currency></span>
+    <span dish-category></span></div>
       <ul class="mdc-list mdc-list--two-line" id="dishes-rating-list">
   <li class="mdc-list-item" tabindex="0">
     <span class="mdc-list-item__text">
@@ -637,33 +639,37 @@
      -->Gericht bewerten!<!--
    --></h2>
       <div class="mdc-dialog__content"><div class="mdc-text-field mdc-text-field--textarea" id="dialog-rate-dishes-comment">
-        <div class="mdc-text-field-character-counter">0 / 140</div>
-        <textarea id="textarea" class="mdc-text-field__input" rows="4" cols="40" maxlength="140"></textarea>
+        <div class="mdc-text-field-character-counter">0 / 300</div>
+        <textarea class="mdc-text-field__input" rows="4" cols="40" required minlength="20" maxlength="300"></textarea>
         <div class="mdc-notched-outline">
           <div class="mdc-notched-outline__leading"></div>
           <div class="mdc-notched-outline__notch">
-            <label for="textarea" class="mdc-floating-label">Dein Kommentar</label>
+            <label for="textarea" class="mdc-floating-label">Dein Kommentar (min 20 Zeichen)</label>
           </div>
           <div class="mdc-notched-outline__trailing"></div>
         </div>
       </div>
 
-                  <div class="mdc-text-field mdc-text-field--outlined" id="dialog-rate-dishes-stars">
-        <input class="mdc-text-field__input">
-        <div class="mdc-notched-outline">
-          <div class="mdc-notched-outline__leading"></div>
-          <div class="mdc-notched-outline__notch">
-            <label class="mdc-floating-label">Sterne</label>
-          </div>
-          <div class="mdc-notched-outline__trailing"></div>
-        </div>
-      </div>
-      <div id="dialog-rate-dishes-star">
-          Gericht bewerten:
-          <i class="material-icons-outlined">star_border</i><i class="material-icons-outlined">star_border</i>
-          <i class="material-icons-outlined">star_border</i><i class="material-icons-outlined">star_border</i>
-          <i class="material-icons-outlined">star_border</i>
-      </div>
+      Sterne auswählen:
+      <div class="mdc-slider mdc-slider--discrete mdc-slider--display-markers" tabindex="0" role="slider"
+     aria-valuemin="0" aria-valuemax="5" aria-valuenow="1"
+     data-step="1" aria-label="Sterne auswählen" id="rating-stars-slider">
+     <div class="mdc-slider__track-container">
+      <div class="mdc-slider__track"></div>
+      <div class="mdc-slider__track-marker-container"></div>
+    </div>
+    <div class="mdc-slider__thumb-container">
+    <div class="mdc-slider__pin">
+      <span class="mdc-slider__pin-value-marker"></span>
+    </div>
+    <svg class="mdc-slider__thumb" width="21" height="21">
+      <circle cx="10.5" cy="10.5" r="7.875"></circle>
+    </svg>
+    <div class="mdc-slider__focus-ring"></div>
+  </div>
+  <span id="dishes-rating-slider-stars"></span>
+     <!-- ... -->
+   </div>
 </div>
 <footer class="mdc-dialog__actions">
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
@@ -718,7 +724,7 @@
    --></h2>
       <div class="mdc-dialog__content"><div class="mdc-text-field mdc-text-field--textarea" id="annotation-open-comment">
         <div class="mdc-text-field-character-counter">0 / 120</div>
-        <textarea class="mdc-text-field__input" rows="4" cols="30" maxlength="120" open-comment></textarea>
+        <textarea class="mdc-text-field__input" rows="4" cols="30" required minlength="5" maxlength="120" open-comment></textarea>
         <div class="mdc-notched-outline">
           <div class="mdc-notched-outline__leading"></div>
           <div class="mdc-notched-outline__notch">
@@ -858,7 +864,7 @@
     </div>
 	</div>
        <div class="mdc-text-field mdc-text-field--outlined" id="dialog-geolocation-zip_old">
-    <input class="mdc-text-field__input" geo-zip_old>
+    <input class="mdc-text-field__input" geo-zip_old >
     <div class="mdc-notched-outline">
     <div class="mdc-notched-outline__leading"></div>
     <div class="mdc-notched-outline__notch">
@@ -892,7 +898,7 @@
    --></h2>
       <div class="mdc-dialog__content">
 	  <div class="mdc-text-field mdc-text-field--outlined" id="annotation-category-name" tabindex="0">
-      <input class="mdc-text-field__input" category-name>
+      <input class="mdc-text-field__input" category-name required minlength="3">
       <div class="mdc-notched-outline">
       <div class="mdc-notched-outline__leading"></div>
       <div class="mdc-notched-outline__notch">
@@ -940,15 +946,15 @@
    <div class="mdc-text-field mdc-text-field--textarea" id="annotation-other-comment">
      <div class="mdc-text-field-character-counter">0 / 600</div>
      <textarea id="textarea" class="mdc-text-field__input" rows="4" cols="40" maxlength="400" ></textarea>
-		
+
 		<div class="mdc-notched-outline">
        <div class="mdc-notched-outline__leading"></div>
        <div class="mdc-notched-outline__notch">
          <label for="textarea" class="mdc-floating-label" onclick="alert("Osterei!");">Dein Kommentar</label>
-       
+
        <!--<div class="mdc-notched-outline__trailing"></div>--></div>
      </div>
-	 
+
    </div>
 </div>
 <footer class="mdc-dialog__actions">
@@ -975,12 +981,12 @@
    --></h2>
       <div class="mdc-dialog__content"><!-- -->
 <div class="mdc-text-field mdc-text-field--textarea" id="dialog-rate-dishes-comment">
-  <div class="mdc-text-field-character-counter">0 / 140</div>
-  <textarea id="textarea" class="mdc-text-field__input" rows="4" cols="40" maxlength="140"></textarea>
+  <div class="mdc-text-field-character-counter">0 / 400</div>
+  <textarea id="textarea" class="mdc-text-field__input" rows="4" cols="40" required minlength="10" maxlength="400" ></textarea>
   <div class="mdc-notched-outline">
     <div class="mdc-notched-outline__leading"></div>
     <div class="mdc-notched-outline__notch">
-      <label for="textarea" class="mdc-floating-label">Dein Kommentar</label>
+      <label for="textarea" class="mdc-floating-label">Dein Kommentar - mindestens 20 Zeichen</label>
     </div>
     <div class="mdc-notched-outline__trailing"></div>
   </div>
@@ -1026,6 +1032,34 @@
      -->Gericht hinterlegen<!--
    --></h2>
       <div class="mdc-dialog__content" id="dialog-dishes-content">
+        <div class="mdc-form-field" id="dialog-dishes-type">
+  <div class="mdc-radio" id="type-radio-1">
+    <input class="mdc-radio__native-control" type="radio" value="meal"  name="type-radios" checked>
+    <div class="mdc-radio__background">
+      <div class="mdc-radio__outer-circle"></div>
+      <div class="mdc-radio__inner-circle"></div>
+    </div>
+  </div>
+  <label for="type-radio-1"><i class="material-icons-outlined" anno-dishes-meal-icon>restaurant</i> Essen </label>
+  <div class="mdc-radio" id="type-radio-2">
+    <input class="mdc-radio__native-control" type="radio" value="drink"  name="type-radios">
+    <div class="mdc-radio__background">
+      <div class="mdc-radio__outer-circle"></div>
+      <div class="mdc-radio__inner-circle"></div>
+    </div>
+  </div>
+  <label for="type-radio-2"><i class="material-icons-outlined" anno-dishes-drink-icon>local_drink</i> Trinken </label>
+  <div class="mdc-radio" id="type-radio-3">
+    <input class="mdc-radio__native-control" type="radio" value="other"  name="type-radios">
+    <div class="mdc-radio__background">
+      <div class="mdc-radio__outer-circle"></div>
+      <div class="mdc-radio__inner-circle"></div>
+    </div>
+  </div>
+  <label for="type-radio-3"><i class="material-icons-outlined" anno-dishes-other-icon>device_unknown</i> Anderes </label>
+
+</div>
+<!--
 <div class="mdc-switch" id="dialog-dishes-type">
   <div class="mdc-switch__track"></div>
   <div class="mdc-switch__thumb-underlay">
@@ -1033,10 +1067,12 @@
         <input type="checkbox" id="anno-dishes-type-switch" class="mdc-switch__native-control" role="switch">
     </div>
   </div>
+
+  <i class="material-icons-outlined mdc-icon-button__icon--on" anno-dishes-meal-icon>restaurant</i> /
   <i class="material-icons-outlined" anno-dishes-drink-icon>local_drink</i>
-  <i class="material-icons-outlined" anno-dishes-meal-icon>restaurant</i>
 </div>
 <label for="anno-dishes-type-switch">Getränk/Speise</label>
+-->
     <div class="mdc-text-field mdc-text-field--outlined" id="dialog-dishes-name">
 <input class="mdc-text-field__input" anno-dishes-name>
 <div class="mdc-notched-outline">
@@ -1049,7 +1085,7 @@
 </div>
 <div class="mdc-text-field mdc-text-field--textarea mdc-text-field__default" id="dialog-dishes-description" >
 <div class="mdc-text-field-character-counter">0 / 1000</div>
-<textarea id="dialog-dishes-desc-testfield"  tabindex="0" aria-selected="true" class="mdc-text-field__input" rows="4" maxlength="1000" cols="40" anno-dishes-desc></textarea>
+<textarea tabindex="0" aria-selected="true" class="mdc-text-field__input" rows="4" maxlength="1000" cols="40" anno-dishes-desc></textarea>
 <div class="mdc-notched-outline">
 <div class="mdc-notched-outline__leading"></div>
 <div class="mdc-notched-outline__notch">
@@ -1220,13 +1256,15 @@ var dishes_textField3 = new mdc.textField.MDCTextField(document.querySelector('#
 var dishes_textField4 = new mdc.textField.MDCTextField(document.querySelector('#dialog-dishes-amount'));
 var dishes_textField5 = new mdc.textField.MDCTextField(document.querySelector('#dialog-dishes-currency'));
 var dishes_selectField3 = new mdc.select.MDCSelect(document.querySelector('#dialog-dishes-category'));
-var dishes_switchControl4 = new mdc.switchControl.MDCSwitch(document.querySelector('#dialog-dishes-type'));
+//var dishes_switchControl4 = new mdc.switchControl.MDCSwitch(document.querySelector('#dialog-dishes-type'));
 
-annotation_dishes_dialog.listen('MDCDialog:opened', () => {
-  dishes_textField.layout();
-  dishes_textField3.layout();
-});
-
+const dishes_radio1 = new mdc.radio.MDCRadio(document.querySelector('#type-radio-1'));
+const dishes_radio2 = new mdc.radio.MDCRadio(document.querySelector('#type-radio-2'));
+const dishes_radio3 = new mdc.radio.MDCRadio(document.querySelector('#type-radio-3'));
+const dishes_radioset = new mdc.formField.MDCFormField(document.querySelector('#dialog-dishes-type'));
+dishes_radioset.input = dishes_radio1;
+dishes_radioset.input = dishes_radio2;
+dishes_radioset.input = dishes_radio3;
 
 const annotation_category_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-category-popup'));
 var category_selectField1 = new mdc.select.MDCSelect(document.querySelector('#annotation-category-select-upper'));
@@ -1269,6 +1307,11 @@ const rate_dishes_dialog = new mdc.dialog.MDCDialog(document.querySelector('#rat
 var rate_textField9 = new mdc.textField.MDCTextField(document.querySelector('#dialog-rate-dishes-comment'));
 var rate_textField10 = new mdc.textField.MDCTextField(document.querySelector('#dialog-rate-dishes-stars'));
 //var textFields = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));
+
+const Ratingslider = new mdc.slider.MDCSlider(document.querySelector('#rating-stars-slider'));
+Ratingslider.listen('MDCSlider:change', function(evt){
+$("#dishes-rating-slider-stars").html('').append(visualizeRating(Ratingslider.value));
+});
 
 
 $(document).ready(function() {
