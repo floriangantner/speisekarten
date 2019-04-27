@@ -186,10 +186,15 @@ $("#button-pubs-menu-back").click(function(evt){
 });
 
 $("#button-menu-detail-add-dish").click(function(evt){
-  evt.preventDefault();
+  //evt.preventDefault();
   newCategoryList("[anno-dishes-category]");
-
+  $("dialog-dishes-content > ul > li ").focus();
+  console.log(annotation_dishes_dialog);
   annotation_dishes_dialog.open();
+  annotation_dishes_dialog.close();
+  $("#annotation-dishes-popup").focus();
+  $("dialog-dishes-content > ul > li ").focus();
+annotation_dishes_dialog.open();
   //Get Coordinates, print Error
   if(editableLayers && editableLayers.getLayers()[0] && editableLayers.getLayers()[0]._parts.length > 0 ){
     $("#dialog-dishes-coord-found").html('Bereich markiert!');

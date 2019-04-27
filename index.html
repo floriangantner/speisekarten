@@ -40,7 +40,7 @@
     <h6 class="mdc-drawer__subtitle" user-status>Restaurantkritiker </h6></div>
     <div class="mdc-drawer__content">
       <nav class="mdc-list" >
-        <a class="mdc-list-item" href="#" tabindex="0" id="nav-pubs-list" aria-selected="true"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">home</i>Gasthäuser</a>
+        <a class="mdc-list-item" href="#" tabindex="0" id="nav-pubs-list" aria-selected="true" selected="true"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">home</i>Gasthäuser</a>
         <a class="mdc-list-item" href="#" tabindex="-1" id="nav-map"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">map</i>Karte</a>
         <a class="mdc-list-item" href="#" tabindex="-1" id="nav-dishes-all"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">restaurant</i>Alle Gerichte</a>
         <a class="mdc-list-item" href="#" tabindex="-1" id="nav-dishes-you"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">local_dining</i>Deine Gerichte</a>
@@ -71,7 +71,7 @@
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
       </div>
       <div class="demo-card__secondary mdc-typography mdc-typography--body2">Willkommen bei Tripadviswurst, deinem Kraut Saußing-Tool zum Entdecken neuer, skuriller und alltäglicher Gerichte aus fernen Zeiten.</div>
-      <a href="#" onclick="annotation_open_dialog.open()">Link Test</a>
+      <a href="#" onclick="annotation_dishes_dialog.open()">Link Test</a>
       <div role="progressbar" class="mdc-linear-progress" id="progress-loader">
         <div class="mdc-linear-progress__buffering-dots"></div>
         <div class="mdc-linear-progress__buffer"></div>
@@ -107,6 +107,7 @@
         <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-tutorial-go">Taking Off <i class="material-icons" aria-hidden="true">airplanemode_active</i></button>
       </div>
     </div>
+  </div>
   </div>
 </main>
 
@@ -359,7 +360,6 @@
 </div>
 </main>
 
-
 <main  class="maincard" id="card-menu-detail">
   <div id="iiifmap"></div>
 
@@ -370,7 +370,7 @@
       <h2 class="demo-card__title mdc-typography mdc-typography--headline6"></h2>
       <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
     </div>
-    <div class="demo-card__secondary mdc-typography mdc-typography--body2">
+    <div class="demo-card__secondary mdc-typography mdc-typography--body2">test
   </div>
 </div>
   <div class="mdc-card__actions">
@@ -575,7 +575,6 @@
 </main>
 
 <!-- Popups -->
-
 
 <div class="mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="annotation-help-popup">
@@ -857,6 +856,7 @@
     <div class="mdc-notched-outline__trailing"></div>
     </div>
     </div>
+	</div>
        <div class="mdc-text-field mdc-text-field--outlined" id="dialog-geolocation-zip_old">
     <input class="mdc-text-field__input" geo-zip_old>
     <div class="mdc-notched-outline">
@@ -890,7 +890,8 @@
       <h2 class="mdc-dialog__title" id="annotation-category-title"><!--
      -->Hilfefenster mit Hinweisen zur Benutzung. Hab ich gelesen.<!--
    --></h2>
-      <div class="mdc-dialog__content"><div class="mdc-text-field mdc-text-field--outlined" id="annotation-category-name" tabindex="0">
+      <div class="mdc-dialog__content">
+	  <div class="mdc-text-field mdc-text-field--outlined" id="annotation-category-name" tabindex="0">
       <input class="mdc-text-field__input" category-name>
       <div class="mdc-notched-outline">
       <div class="mdc-notched-outline__leading"></div>
@@ -938,14 +939,16 @@
       <div class="mdc-dialog__content">
    <div class="mdc-text-field mdc-text-field--textarea" id="annotation-other-comment">
      <div class="mdc-text-field-character-counter">0 / 600</div>
-     <textarea id="textarea" class="mdc-text-field__input" rows="4" cols="40" maxlength="400" geo-comment></textarea>
-     <div class="mdc-notched-outline">
+     <textarea id="textarea" class="mdc-text-field__input" rows="4" cols="40" maxlength="400" ></textarea>
+		
+		<div class="mdc-notched-outline">
        <div class="mdc-notched-outline__leading"></div>
        <div class="mdc-notched-outline__notch">
          <label for="textarea" class="mdc-floating-label" onclick="alert("Osterei!");">Dein Kommentar</label>
-       </div>
-       <div class="mdc-notched-outline__trailing"></div>
+       
+       <!--<div class="mdc-notched-outline__trailing"></div>--></div>
      </div>
+	 
    </div>
 </div>
 <footer class="mdc-dialog__actions">
@@ -960,106 +963,6 @@
 </div>
 <div class="mdc-dialog__scrim"></div>
 </div>
-
-<div class="mdc-dialog" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
-     aria-describedby="my-dialog-content" id="annotation-dishes-popup">
-  <div class="mdc-dialog__container">
-    <div class="mdc-dialog__surface">
-      <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
-      <span id="dialog-dishes-coord-found"></span>
-      <h2 class="mdc-dialog__title" id="dialog-dishes-title"><!--
-     -->Gericht hinterlegen<!--
-   --></h2>
-      <div class="mdc-dialog__content" id="dialog-dishes-content">
-        <div class="mdc-switch" id="dialog-dishes-type">
-          <div class="mdc-switch__track"></div>
-          <div class="mdc-switch__thumb-underlay">
-            <div class="mdc-switch__thumb">
-                <input type="checkbox" id="anno-dishes-type-switch" class="mdc-switch__native-control" role="switch">
-            </div>
-          </div>
-          <i class="material-icons-outlined" anno-dishes-drink-icon>local_drink</i>
-          <i class="material-icons-outlined" anno-dishes-meal-icon>restaurant</i>
-        </div>
-        <label for="anno-dishes-type-switch">Getränk/Speise</label>
-            <div class="mdc-text-field mdc-text-field--outlined" id="dialog-dishes-name">
-  <input class="mdc-text-field__input" anno-dishes-name>
-  <div class="mdc-notched-outline">
-    <div class="mdc-notched-outline__leading"></div>
-    <div class="mdc-notched-outline__notch">
-      <label class="mdc-floating-label">Name</label>
-    </div>
-    <div class="mdc-notched-outline__trailing"></div>
-  </div>
-</div>
-<div class="mdc-text-field mdc-text-field--textarea" id="dialog-dishes-description">
-  <div class="mdc-text-field-character-counter">0 / 1000</div>
-  <textarea id="textarea" class="mdc-text-field__input" rows="4" maxlength="1000" cols="40" anno-dishes-desc></textarea>
-  <div class="mdc-notched-outline">
-    <div class="mdc-notched-outline__leading"></div>
-    <div class="mdc-notched-outline__notch">
-      <label for="textarea" class="mdc-floating-label">Beschreibung</label>
-    </div>
-    <div class="mdc-notched-outline__trailing"></div>
-  </div>
-</div>
-<div class="mdc-text-field mdc-text-field--outlined" id="dialog-dishes-amount">
-<input class="mdc-text-field__input" anno-dishes-amount>
-<div class="mdc-notched-outline">
-<div class="mdc-notched-outline__leading"></div>
-<div class="mdc-notched-outline__notch">
-<label class="mdc-floating-label">Anzahl/Menge</label>
-</div>
-<div class="mdc-notched-outline__trailing"></div>
-</div>
-</div>
-            <div class="mdc-text-field mdc-text-field--outlined" id="dialog-dishes-price">
-  <input class="mdc-text-field__input" anno-dishes-price>
-  <div class="mdc-notched-outline">
-    <div class="mdc-notched-outline__leading"></div>
-    <div class="mdc-notched-outline__notch">
-      <label class="mdc-floating-label">Preis</label>
-    </div>
-    <div class="mdc-notched-outline__trailing"></div>
-  </div>
-</div>
-<div class="mdc-text-field mdc-text-field--outlined" id="dialog-dishes-currency">
-<input class="mdc-text-field__input" anno-dishes-currency>
-<div class="mdc-notched-outline">
-<div class="mdc-notched-outline__leading"></div>
-<div class="mdc-notched-outline__notch">
-<label class="mdc-floating-label">Währung</label>
-</div>
-<div class="mdc-notched-outline__trailing"></div>
-</div>
-</div>
-<div class="mdc-select" id="dialog-dishes-category">
-  <i class="mdc-select__dropdown-icon"></i>
-  <select class="mdc-select__native-control" anno-dishes-category>
-    <option value="none" selected>In keiner Kategorie</option>
-    <option value="none">
-      noch nicht gepflegt
-    </option>
-  </select>
-  <label class="mdc-floating-label">Unterkategorie von</label>
-  <div class="mdc-line-ripple"></div>
-</div>
-<!-- ... -->
-      </div>
-      <footer class="mdc-dialog__actions">
-        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
-          <span class="mdc-button__label">Abbrechen <i class="material-icons mdc-icon-button__icon">clear</i></span>
-        </button>
-        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
-          <span class="mdc-button__label">Hinterlegen <i class="material-icons mdc-icon-button__icon">add_box</i></span>
-        </button>
-      </footer>
-    </div>
-  <div class="mdc-dialog__scrim"></div>
-</div>
-
-
-
 
 <div class="mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="rate-dishes-popup">
@@ -1082,7 +985,6 @@
     <div class="mdc-notched-outline__trailing"></div>
   </div>
 </div>
-
             <div class="mdc-text-field mdc-text-field--outlined" id="dialog-rate-dishes-stars">
   <input class="mdc-text-field__input">
   <div class="mdc-notched-outline">
@@ -1114,7 +1016,102 @@
   <div class="mdc-dialog__scrim"></div>
 </div>
 
-
+<div class="mdc-dialog" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
+     aria-describedby="my-dialog-content" id="annotation-dishes-popup">
+  <div class="mdc-dialog__container">
+    <div class="mdc-dialog__surface">
+      <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
+      <span id="dialog-dishes-coord-found"></span>
+      <h2 class="mdc-dialog__title" id="dialog-dishes-title"><!--
+     -->Gericht hinterlegen<!--
+   --></h2>
+      <div class="mdc-dialog__content" id="dialog-dishes-content">
+<div class="mdc-switch" id="dialog-dishes-type">
+  <div class="mdc-switch__track"></div>
+  <div class="mdc-switch__thumb-underlay">
+    <div class="mdc-switch__thumb">
+        <input type="checkbox" id="anno-dishes-type-switch" class="mdc-switch__native-control" role="switch">
+    </div>
+  </div>
+  <i class="material-icons-outlined" anno-dishes-drink-icon>local_drink</i>
+  <i class="material-icons-outlined" anno-dishes-meal-icon>restaurant</i>
+</div>
+<label for="anno-dishes-type-switch">Getränk/Speise</label>
+    <div class="mdc-text-field mdc-text-field--outlined" id="dialog-dishes-name">
+<input class="mdc-text-field__input" anno-dishes-name>
+<div class="mdc-notched-outline">
+<div class="mdc-notched-outline__leading"></div>
+<div class="mdc-notched-outline__notch">
+<label class="mdc-floating-label">Name</label>
+</div>
+<div class="mdc-notched-outline__trailing"></div>
+</div>
+</div>
+<div class="mdc-text-field mdc-text-field--textarea mdc-text-field__default" id="dialog-dishes-description" >
+<div class="mdc-text-field-character-counter">0 / 1000</div>
+<textarea id="dialog-dishes-desc-testfield"  tabindex="0" aria-selected="true" class="mdc-text-field__input" rows="4" maxlength="1000" cols="40" anno-dishes-desc></textarea>
+<div class="mdc-notched-outline">
+<div class="mdc-notched-outline__leading"></div>
+<div class="mdc-notched-outline__notch">
+<label for="textarea" class="mdc-floating-label">Beschreibung</label>
+</div>
+<div class="mdc-notched-outline__trailing"></div>
+</div>
+</div>
+<div class="mdc-text-field mdc-text-field--outlined" id="dialog-dishes-amount">
+<input class="mdc-text-field__input" anno-dishes-amount>
+<div class="mdc-notched-outline">
+<div class="mdc-notched-outline__leading"></div>
+<div class="mdc-notched-outline__notch">
+<label class="mdc-floating-label">Anzahl/Menge</label>
+</div>
+<div class="mdc-notched-outline__trailing"></div>
+</div>
+</div>
+    <div class="mdc-text-field mdc-text-field--outlined" id="dialog-dishes-price">
+<input class="mdc-text-field__input" anno-dishes-price>
+<div class="mdc-notched-outline">
+<div class="mdc-notched-outline__leading"></div>
+<div class="mdc-notched-outline__notch">
+<label class="mdc-floating-label">Preis</label>
+</div>
+<div class="mdc-notched-outline__trailing"></div>
+</div>
+</div>
+<div class="mdc-text-field mdc-text-field--outlined" id="dialog-dishes-currency">
+<input class="mdc-text-field__input" anno-dishes-currency>
+<div class="mdc-notched-outline">
+<div class="mdc-notched-outline__leading"></div>
+<div class="mdc-notched-outline__notch">
+<label class="mdc-floating-label">Währung</label>
+</div>
+<div class="mdc-notched-outline__trailing"></div>
+</div>
+</div>
+<div class="mdc-select" id="dialog-dishes-category">
+<i class="mdc-select__dropdown-icon"></i>
+<select class="mdc-select__native-control" anno-dishes-category>
+<option value="none" selected>In keiner Kategorie</option>
+<option value="none">
+noch nicht gepflegt
+</option>
+</select>
+<label class="mdc-floating-label">Unterkategorie von</label>
+<div class="mdc-line-ripple"></div>
+</div>
+</div>
+      <footer class="mdc-dialog__actions">
+        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
+          <span class="mdc-button__label">Abbrechen <i class="material-icons mdc-icon-button__icon">clear</i></span>
+        </button>
+        <button type="button" class="mdc-button mdc-dialog__button--default mdc-dialog__button" data-mdc-dialog-action="accept">
+          <span class="mdc-button__label">Hinterlegen <i class="material-icons mdc-icon-button__icon">add_box</i></span>
+        </button>
+      </footer>
+    </div>
+  </div>
+  <div class="mdc-dialog__scrim"></div>
+</div>
 
 <!--  Snackbar -->
 <div class="mdc-snackbar">
@@ -1129,7 +1126,6 @@
 
 <!-- load more content -->
 <!--<script src="js/MCW/material-components-web.min.js" charset="utf-8"></script> -->
-
 
 <script src="js/leaflet/leaflet.js"></script>
 <script src="js/leaflet/leaflet-iiif.js"></script>
@@ -1225,6 +1221,12 @@ var dishes_textField4 = new mdc.textField.MDCTextField(document.querySelector('#
 var dishes_textField5 = new mdc.textField.MDCTextField(document.querySelector('#dialog-dishes-currency'));
 var dishes_selectField3 = new mdc.select.MDCSelect(document.querySelector('#dialog-dishes-category'));
 var dishes_switchControl4 = new mdc.switchControl.MDCSwitch(document.querySelector('#dialog-dishes-type'));
+
+annotation_dishes_dialog.listen('MDCDialog:opened', () => {
+  dishes_textField.layout();
+  dishes_textField3.layout();
+});
+
 
 const annotation_category_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-category-popup'));
 var category_selectField1 = new mdc.select.MDCSelect(document.querySelector('#annotation-category-select-upper'));
