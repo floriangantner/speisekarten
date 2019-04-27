@@ -14,6 +14,7 @@ const DBopeninghours = new PouchDB('openinghours');
 const DBgeo = new PouchDB('geo_adresses');
 const DBanno_other = new PouchDB('anno_other');
 const DBcategory = new PouchDB('category');
+const DBpersons_head = new PouchDB('person_head');
 var doc;
 
 //adds a String to a specific DB

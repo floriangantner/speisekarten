@@ -320,7 +320,44 @@ user_state.timestamp = timestamp;
 //$("#card-about-you > * > [user-image]").attr('src', doc.file).attr('width', '50%').attr('height','50%');
 
 redrawUserInfo();
-
+//create Head-Entry from the given entries, coords and id
+DBhist_persons.get(user_state.identity).then(function(doc){
+coord_prozent = coord.prozent.x + "," + coord.prozent.y + "," + coord.prozent.w + "," + coord.prozent.h;
+var data_head = {
+  "@context" : "http://www.w3.org/ns/anno.jsonld",
+  "type" : "Annotation",
+  "annotype" : "PersonHead",
+  "body" : {
+    "selector": {
+      "type": "FragmentSelector",
+      "conformsTo": "Prozent des Bildes",
+      "value": "xywh="+coord_prozent+"",
+      },
+      "coord" : {
+        "type": "Displayed and NaturalWidth/Height Values",
+        "conformsTo": "px",
+        "value": coord
+      }
+  },
+  "target" : {
+    "personID" : doc.id,
+    "file" : "http://www.digiporta.net/opendata/dm/img/"+doc.file,
+    "filexml" : doc.xmlfile,
+  },
+  "creator" : {
+    "id" : user_state.timestamp,
+    "name" : doc.name,
+    "identity" : user_state.identity
+  },
+  "generator" : {
+    "name" : "tripadviswurst"
+  },
+  "created" : JSON.stringify(Date.now()),
+  "motivation" : "commenting"
+  }
+console.log(data_head);
+DBaddnew(data_head, DBpersons_head);
+});
 }
 
 function redrawUserImage(blob){
@@ -634,3 +671,25 @@ function newYourDishesElement(data){
     </span>
   </li>`;
 }
+
+function newCategoryList(elem){
+//read all Categories from this menu (not menupage)
+//DBcategory
+DBcategory.find({
+  selector: {'target.menu' : app_state.menu},
+}, function (err, result) {
+  console.log(result);
+  var html_text = '<option value="none" selected>ohne Kategorie</option>';
+  $.each(result.docs, function (index, value) {
+    if(!(value == undefined)){
+      console.log(value);
+      html_text += `<option value="${value._id}">${value.body.name}</option>`;
+    }
+  });
+  console.log(html_text);
+   $("annotation-category-select-upper").find(elem).append(html_text);
+
+});
+}
+
+//return as selection and add to options

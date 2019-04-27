@@ -7,7 +7,6 @@
 
 //May not represent the actual state (see code/Constructors/DBadd methods)
 
-
 Pub ->
 
 { "filename":"Armbrustschützenzelt",
@@ -263,6 +262,61 @@ Category -> {
 "motivation" : "commenting"
 }
 
+
+Head-Infos -> {
+	{
+		"@context" : "http://www.w3.org/ns/anno.jsonld",
+		"type" : "Annotation",
+		"annotype" : "PersonHead",
+		"body" : {
+			"selector": {
+	      "type": "FragmentSelector",
+	      "conformsTo": "Prozent des Bildes",
+	      "value": "xywh=0.455,0.5444,0.200,0.300"";
+	      },
+	      "coord" : {
+	        "type": "Displayed and NaturalWidth/Height Values",
+	        "conformsTo": "px",
+	        "value": {"prozent" :
+					{"x" : "0.555", "y" : "0.4", "w" : "0.444", "h" : "0.786" },
+					"selection" : { x1 : 133 ,y1,x2,y2,w,h}, //selected area of viewed image
+					"displayedValue" : {clientWidth : selectImg[0].clientWidth, //values of viewed and original image
+							clientHeight : selectImg[0].clientHeight,
+							naturalHeight : selectImg[0].naturalHeight,
+							naturalWidth : selectImg[0].naturalWidth,
+							width : selectImg[0].width,
+							height : selectImg[0].height
+							},
+	      }
+		},
+		"target" : {
+			"personID" : "",,
+			"file" : "http://www.digiporta.net/opendata/dm/img/*.jpg",
+			"filexml" : ".xml",
+		},
+		"creator" : {
+			"id" : "",
+			"name" : "",
+			"identity" : ""
+		},
+		"generator" : {
+			"name" : "tripadviswurst"
+		},
+		"created" : "",
+		"motivation" : "commenting"
+		}
+
+function Rating(){
+	this.id = id,
+	this.dishes = dishes,
+	this.pub = pub,
+	this.rating = rating,
+	this.name = name,
+	this.person = person,
+	this.time = time;
+};
+
+
 Rating ->
 {
 "time" : Date.now(),
@@ -275,20 +329,7 @@ Rating ->
 	"name" : "Tester Testeintrag",
 	"id" : "h1",
 }
-
-Head-Infos -> {
-
-}
-
-function Rating(){
-	this.id = id,
-	this.dishes = dishes,
-	this.pub = pub,
-	this.rating = rating,
-	this.name = name,
-	this.person = person,
-	this.time = time;
-};
-
+//TODO: Text-Bewertungen -> Pub / Dishes
+//TODO: daumen hoch/runter bewertungen
 
 //##############################################################################

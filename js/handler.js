@@ -187,6 +187,8 @@ $("#button-pubs-menu-back").click(function(evt){
 
 $("#button-menu-detail-add-dish").click(function(evt){
   evt.preventDefault();
+  newCategoryList("[anno-dishes-category]");
+
   annotation_dishes_dialog.open();
   //Get Coordinates, print Error
   if(editableLayers && editableLayers.getLayers()[0] && editableLayers.getLayers()[0]._parts.length > 0 ){
@@ -610,6 +612,7 @@ $(".pubs-tab-element[data-tab="+clicked+"]").show();
 
 $("#button-menu-detail-add-category").on("click", function(evt){
 //TODO: check actual categories of menu
+newCategoryList("[category-upperselect]");
 annotation_category_dialog.open();
 
 });
@@ -621,6 +624,12 @@ $("#annotation-category-popup").find('[data-mdc-dialog-action="accept"]').click(
 
 //dialog-category-select-upper
 //$("#dialog-category-select-upper > select").val(),
+var cat = $("#annotation-category-popup").find("[category-upperselect]").text();
+var cat_id = $("#annotation-category-popup").find("[category-upperselect]").val();
+if(cat === "none"){
+  cat = null;
+  cat_id = null;
+}
 
 //TODO:
 var data = {
@@ -629,8 +638,8 @@ var data = {
 "annotype" : "Category",
 "body" : {
 	"name" : $("#annotation-category-popup").find("[category-name]").val(),
-  "upperCategoryID" : $("#annotation-category-popup").find("[category-upperselect]").val(),
-  "upperCategory" : $("#annotation-category-popup").find("[category-upperselect]").text()
+  "upperCategoryID" : cat_id,
+  "upperCategory" : cat
 },
 "target" : {
 	"pubid":app_state.pubs,
