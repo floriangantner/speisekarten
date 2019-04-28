@@ -4,7 +4,7 @@ var map_iiif = L.map('iiifmap', {
   crs: L.CRS.Simple,
   zoom: 3,
   anno: false
-});;
+});
 map_iiif.invalidateSize();
 var baseLayer = L.tileLayer.iiif(
   'https://stacks.stanford.edu/image/iiif/cv770rd9515%2F0767_23A_SM/info.json'
@@ -94,6 +94,7 @@ function iiifaddExistingAnnotations(){
 map_iiif.removeLayer(markerLayer);
 markerLayer = L.featureGroup();
 if(map_iiif.anno === false){
+//openinghours , other ,
 DBdishes.allDocs({
     include_docs: true
   },function(err, doc){
@@ -101,17 +102,20 @@ DBdishes.allDocs({
       for(var doc2 in doc.rows){
         var objdoc = doc.rows[doc2].doc;
         //where coord is not empty
-        if(objdoc.menupage && (objdoc.menupage === app_state.menupage)){
-          console.log(objdoc.menupage);
-          if(objdoc.coord && objdoc.coord.length > 0 ){
+        console.log(objdoc);
+        console.log(app_state.menupage);
+        if(!objdoc.language && objdoc.target.menupage && (objdoc.target.menupage === app_state.menupage)){
+          console.log(objdoc.target.menupage);
+          if(objdoc.target.coord && objdoc.target.coord.value != ""){
             //create rectangle and add to markerLayer
-
-            var bounds = [[objdoc.latlng[0][1].lat, objdoc.latlng[0][1].lng], [objdoc.latlng[0][3].lat, objdoc.latlng[0][3].lng]];
+            var latlng = objdoc.target.coord.value.split("=");
+            latlng = latlng[1].split(",");
+            var bounds = [[latlng[0], latlng[1]], [latlng[2], latlng[3]]];
             console.log(bounds);
     // add rectangle passing bounds and some basic styles
         var rect = L.rectangle(bounds, {color: "red", weight: 5});
-        rect.name = objdoc.name;
-        rect.coord = objdoc.coord;
+        rect.name = objdoc.body.name;
+        rect.coord = objdoc.target.bounds;
         rect.id = objdoc._id;
         rect.on('click', showAnnotationInfoDialog);
 

@@ -68,7 +68,7 @@ function redrawPubsAdressList(){
       $.each(doc.rows, function (index, value) {
         console.log(value);
         console.log(app_state.pubs);
-        if(value.doc.pubid === app_state.pubs){
+        if(value.doc.target === app_state.pubs){
               var list = newAdressListElement(value.doc);
               console.log(list);
               $("#pubs-adress-list").prepend(list);
@@ -80,11 +80,11 @@ function redrawPubsAdressList(){
 
 function newAdressListElement(data){
   console.log(data);
-   var card_html = `<li class="mdc-list-item" data-id="${data.id}">
+   var card_html = `<li class="mdc-list-item" data-id="${data._id}">
            <span class="mdc-list-item__graphic">
            <button class="mdc-icon-button material-icons" title="Geolocate" data-mdc-ripple-is-unbounded="true" >map</button>
            </span>
-           <span class="mdc-list-item__text">${data.street} ${data.zip} ${data.city}</span>
+           <span class="mdc-list-item__text">${data.body.street} ${data.body.number},  ${data.body.zip} ${data.body.city}</span>
          </li>`;
   return card_html;
 }
@@ -139,8 +139,10 @@ function newMenuListElement(data){
 function newDishesAllListElement(data){
   var card_html = '';
  $.each(data, function (index, value) {
+   if(value.doc.language != "query"){
    console.log(value)
-   card_html += `<li class="mdc-list-item" data-id="${value.id}">${value.doc.name}</li>`;
+   card_html += `<li class="mdc-list-item" data-id="${value.doc.id}">${value.doc.body.name}</li>`;
+ }
  });
  return card_html;
 }
@@ -158,7 +160,15 @@ DBdishes.get(id).then( function(doc){
 
 function newDishesCard(data){
 //generated Code for Entry.
-$("#card-dishes-detail > .mdc-card > .demo-card__primary > h2  ").text(`${data.name}`);
+$("#card-dishes-detail").find("[dish-name]").html(data.body.name);
+$("#card-dishes-detail").find("[dish-type]").html(data.body.type);
+$("#card-dishes-detail").find("[dish-comment]").html(data.body.comment);
+$("#card-dishes-detail").find("[dish-amount]").html(data.body.amount);
+$("#card-dishes-detail").find("[dish-price]").html(data.body.price);
+$("#card-dishes-detail").find("[dish-currency]").html(data.body.currency);
+$("#card-dishes-detail").find("[dish-category]").html(data.body.category);
+
+
 DBrating.find({
   selector: {dishes : data.id},
 }, function (err, result) {
@@ -179,8 +189,8 @@ function newDishesRatingElement(data){
   //TODO: Sterne und Zeit formatieren
 return `<li class="mdc-list-item" tabindex="0" data-id="${data._id}">
 <span class="mdc-list-item__text">
-<span class="mdc-list-item__primary-text">${data.comment} ${data.rating}</span>
-<span class="mdc-list-item__secondary-text">${data.historic_person.name} : ` + convertTimestamp(data.time) + `</span>
+<span class="mdc-list-item__primary-text">${data.body.comment} `+ visualizeRating(data.body.rating) +`</span>
+<span class="mdc-list-item__secondary-text">${data.creator.name} : ` + timeDifference(Date.now(), data.created) + `</span>
 </span>
 </li>`;
 }
@@ -232,7 +242,7 @@ function newMenuCard(data){
 
 function redrawPubsDishesList(pubid){
   DBdishes.find({
-    selector: {pubid : pubid},
+    selector: {'target.pubid' : pubid},
   }, function (err, result) {
     if (err) { return console.log(err); }
     var list = newPubsDishesListElement(result);
@@ -249,8 +259,8 @@ function newPubsDishesListElement(data){
    console.log(value)
    card_html +=`<li class="mdc-list-item" tabindex="0" data-id="${value._id}">
      <span class="mdc-list-item__text">
-       <span class="mdc-list-item__primary-text">${value.name}</span>
-       <span class="mdc-list-item__secondary-text">${value.price}</span>
+       <span class="mdc-list-item__primary-text">${value.body.name}</span>
+       <span class="mdc-list-item__secondary-text">${value.body.price}</span>
      </span>`
  });
  return card_html;
@@ -301,7 +311,7 @@ return DBuser.get(timestamp)
   console.log(result);
   console.log(imagename);
   console.log(img2DB);
-  return DBuser.putAttachment(timestamp, imagename, result._rev, img2DB, 'image/jpeg' );
+  return DBuser.putAttachment(result._id, imagename, result._rev, img2DB, 'image/jpeg');
 }).then(function(result){
   console.log(result);
   return DBuser.getAttachment(timestamp, imagename);
@@ -315,10 +325,48 @@ user_state.identity = identity_id;
 user_state.timestamp = timestamp;
 //getIdentityInfos(identity_id);
 //redraw
-$("#card-about-you > * > [user-image]").attr('src', doc.file).attr('width', '50%').attr('height','50%');
+//$("#card-about-you > * > [user-image]").attr('src', doc.file).attr('width', '50%').attr('height','50%');
 
 redrawUserInfo();
-
+//create Head-Entry from the given entries, coords and id
+DBhist_persons.get(user_state.identity).then(function(doc){
+coord_prozent = coord.prozent.x + "," + coord.prozent.y + "," + coord.prozent.w + "," + coord.prozent.h;
+var data_head = {
+  "@context" : "http://www.w3.org/ns/anno.jsonld",
+  "type" : "Annotation",
+  "annotype" : "PersonHead",
+  "body" : {
+    "selector": {
+      "type": "FragmentSelector",
+      "conformsTo": "Prozent des Bildes",
+      "value": "xywh="+coord_prozent+"",
+      },
+      "coord" : {
+        "type": "Displayed and NaturalWidth/Height Values",
+        "conformsTo": "px",
+        "value": coord
+      }
+  },
+  "target" : {
+    "personID" : doc.id,
+    "file" : "http://www.digiporta.net/opendata/dm/img/"+doc.file,
+    "filexml" : doc.xmlfile,
+  },
+  "creator" : {
+    "id" : user_state.timestamp,
+    "name" : doc.name,
+    "identity" : user_state.identity
+  },
+  "generator" : {
+    "name" : "tripadviswurst"
+  },
+  "created" : JSON.stringify(Date.now()),
+  "motivation" : "commenting"
+  }
+  console.log('Info to historical Person added!')
+console.log(data_head);
+DBaddnew(data_head, DBpersons_head);
+});
 }
 
 function redrawUserImage(blob){
@@ -459,6 +507,7 @@ console.log(coord);
 canvas_img.toBlob(saveImage, 'image/jpeg');
 //callback function from toBlob
 function saveImage(blob) {
+  console.log(blob);
     registerPlayer(coord, blob);
 
 }
@@ -481,16 +530,27 @@ $("#annotation-info-title").html(JSON.stringify(doc));
 });
 }
 
-function redrawMapPubDialog(addressinfo, latlng){
-  DBpubs.get(addressinfo.pubid).then( function(doc){
+function redrawMapPubDialog(latlng, infos){
+  console.log("Hallo Karte2!");
+  console.log(addressinfo);
+  var addressinfo = infos.body;
+  console.log(latlng);
+  DBpubs.get(infos.target).then( function(doc){
       //var list = newPubListElement(doc.rows);
       console.log(doc);
       //$("#pubs-list").html('');
       //$(" #pubs-list").append(list);
-      $("#map-showpubinfo-popup").find('.mdc-dialog__title').html(`${doc.name}`);
+
+      $("#map-info-title").html(`${doc.name}`);
+
+      $("#map-info-content").html(`<div><p>${infos.creator.name} meldet:</p>
+        <p>${addressinfo.street} ${addressinfo.number}, ${addressinfo.zip} ${addressinfo.city}</p>
+        <p>Alte Adresse:${addressinfo.street_old} ${addressinfo.number_old}, ${addressinfo.zip_old} ${addressinfo.city_old} </p>
+        <p>${addressinfo.comment}</p></div>`);
+
       });
-      $("#map-showpubinfo-popup").find('.mdc-dialog__content').html(`<p>${addressinfo.street}</p><p>${addressinfo.zip} ${addressinfo.city}</p>`);
-}
+
+    }
 
 function redrawAboutYou(){
     //redrawn once
@@ -505,7 +565,8 @@ function redrawAboutYou(){
 function redrawUserInfo(){
     DBhist_persons.get(user_state.identity).then(function(doc){
       $("[user-name]").html(`${doc.name}`);
-      $("[user-status]").html(`${doc.job}`);
+      $("[user-status]").html(`${doc.job[0]}`);
+      user_state.name = doc.name; // set display name
     });
 
 };
@@ -525,18 +586,21 @@ function identity_check(){
             	user_state.account_created = true,
             	user_state.identity = docs[0].identity;
             	user_state.timestamp = docs[0].id;
+
               console.log("Identity Data found: " + user_state.identity + " -> Skipping.")
               DBhist_persons.get(user_state.identity).then(function(result){
               console.log(result);
+              user_state.name = result.name;
               var text = 'Willkommen zurück: ' + result.name ;
               showTextOnSnackbar(text , 4500, "OK");
               var path = user_state.timestamp+'_'+user_state.identity+'.jpeg';
               //redrawUserImage(docs[0]._attachments[0].data);
               console.log(path);
               $("#card-about-you > div > div > img[user-image]").attr('src', 'assets/'+result.file).attr('width', '50%').attr('height','auto%');
+                redrawUserInfo();
+
               return DBuser.getAttachment(docs[0]._id, path);
             }).then(function(blob){
-              redrawUserInfo();
               redrawUserImage(blob);
 
             }).catch(function(err){
@@ -552,14 +616,6 @@ function identity_check(){
       console.log(err);
     });
     return false;
-}
-
-function convertTimestamp(givenTimestamp){
-var time_now = Date.now();
-var newDate = new Date();
-newDate.setTime(givenTimestamp);
-dateString = newDate.toUTCString();
-return dateString;
 }
 
 function redrawYourDishes(){
@@ -616,4 +672,82 @@ function newYourDishesElement(data){
       <span class="mdc-list-item__secondary-text">${data.comment} : ` + convertTimestamp(data.timestamp) + ` : ` + convertTimestamp(data.time) + `</span>
     </span>
   </li>`;
+}
+
+function newCategoryList(elem){
+//read all Categories from this menu (not menupage)
+//DBcategory
+console.log(app_state.menu);
+DBcategory.find({
+  selector: {'target.menu' : app_state.menu},
+}, function (err, result) {
+  if(err){
+    console.log(err);
+  }
+  console.log(result);
+  var html_text = '<option value="none" selected>ohne Kategorie</option>';
+  $.each(result.docs, function (index, value) {
+    if(!(value == undefined)){
+      console.log(value);
+      html_text += `<option value="${value._id}">${value.body.name}</option>`;
+    }
+  });
+  console.log(html_text);
+  elem.html('').append(html_text);
+
+});
+}
+
+function timeDifference(current, previous) {
+//print out time-difference between now and previous time
+    var msPerMinute = 60 * 1000;
+    var msPerHour = msPerMinute * 60;
+    var msPerDay = msPerHour * 24;
+    var msPerMonth = msPerDay * 30;
+    var msPerYear = msPerDay * 365;
+
+    var elapsed = current - previous;
+
+    if (elapsed < 0) {
+         return 'in der Zukunft';
+    }
+
+    if (elapsed < msPerMinute) {
+         return 'vor ' + Math.round(elapsed/1000) + ' Sekunden';
+    }
+
+    else if (elapsed < msPerHour) {
+         return 'vor ' + Math.round(elapsed/msPerMinute) + ' Minuten';
+    }
+
+    else if (elapsed < msPerDay ) {
+         return 'vor ' + Math.round(elapsed/msPerHour ) + ' Stunden';
+    }
+
+    else if (elapsed < msPerMonth) {
+        return 'vor ' + Math.round(elapsed/msPerDay) + ' Tagen';
+    }
+
+    else if (elapsed < msPerYear) {
+        return 'vor ' + Math.round(elapsed/msPerMonth) + ' Monaten';
+    }
+
+    else {
+        return 'vor ' + Math.round(elapsed/msPerYear ) + ' Jahren';
+    }
+}
+
+function visualizeRating(rating){
+//visualize Rating, return Stars
+console.log(rating);
+var text_html = '';
+for(var it = rating; it > 0; it-- ){
+//for(var it = 0; it < rating; it++){
+  text_html += '<i class="material-icons">star</i>';
+}
+for(var it = rating; it < 5; it++){
+  text_html += '<i class="material-icons">star_border</i>';
+
+}
+return text_html;
 }

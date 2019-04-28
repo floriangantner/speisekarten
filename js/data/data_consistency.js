@@ -11,50 +11,6 @@
 //gameState_dataload
 //gameState_createDataStructure
 
-function dataStructure_check(){
-
-//checks the game state at beginning
-//pouchDB is initiated by DB.js on load
-//check pouchDB-size: if length of pubs-table = //usually after first visit or after deleting cache, then load all gameData new
-//user user-db here
-  DBpubs.info().then(function(response) {
-    if(response.doc_count == 0){
-      console.log("No pubs entries in database found: create Datastructure");
-      return true;
-    }else{
-      return false;
-    }
-      }).then(function (result) {
-      //TODO: extend
-      if(result === true){
-        console.log("Loading Data");
-        dataStructure_loadData().then(function(result2){
-          return true;
-        });
-      }else{
-        console.log("Data have been already loaded to DB. Not Loading agains")
-        //creating indexes for search
-        DBmenu.createIndex({
-          index: {
-            fields: ['menupages', 'pub']
-          }}).then(function(result2){
-        return DBdishes.createIndex({
-          index: {
-            fields: ['pubid']
-          }}).then(function(result2){
-          return DBrating.createIndex({
-            index: {
-              fields: ['pubid', 'dishes']
-            }}).then(function(result2){
-
-            }).catch(function (err) {
-              console.log(err);
-            });
-            })
-});
-}
-})
-}
 
 function dataStructure_loadData(){
 //loads the data from objects generated in a List; Demo-Data
@@ -92,4 +48,50 @@ DBpubs.bulkDocs(data_pubs).then(function (result) {
   console.log(err);
 });
 
+
+
+}
+
+
+function dataStructure_check(){
+
+//checks the game state at beginning
+//pouchDB is initiated by DB.js on load
+//check pouchDB-size: if length of pubs-table = //usually after first visit or after deleting cache, then load all gameData new
+//user user-db here
+  DBpubs.info().then(function(response) {
+    if(response.doc_count == 0){
+      console.log("No pubs entries in database found: create Datastructure");
+      return true;
+    }else{
+      return false;
+    }
+      }).then(function (result) {
+      //TODO: extend
+      if(result === true){
+        console.log("Loading Data");
+        dataStructure_loadData();
+      }else{
+        console.log("Data have been already loaded to DB. Not Loading agains")
+        //creating indexes for search
+        DBmenu.createIndex({
+          index: {
+            fields: ['menupages', 'pub']
+          }}).then(function(result2){
+        return DBdishes.createIndex({
+          index: {
+            fields: ['pubid']
+          }}).then(function(result2){
+          return DBrating.createIndex({
+            index: {
+              fields: ['pubid', 'dishes']
+            }}).then(function(result2){
+
+            }).catch(function (err) {
+              console.log(err);
+            });
+            })
+});
+}
+})
 }

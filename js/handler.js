@@ -6,8 +6,6 @@
 //##############################################################################
 //init: the following stuff is done, when loading the CODE at beginning
 
-
-
 $( "main" ).hide(); //hide by default in css code
 $("#card-intro").show();
 $("#button-intro-go").attr("disabled", true);
@@ -106,6 +104,7 @@ $("#button-intro-go").click(function(evt){
 $("#button-identity-go").click(function(evt){
   evt.preventDefault();
 $( "#card-identity" ).hide();
+alert("Osterei!");
     $( "#card-tutorial" ).show();
 })
 
@@ -187,30 +186,33 @@ $("#button-pubs-menu-back").click(function(evt){
 });
 
 $("#button-menu-detail-add-dish").click(function(evt){
-  evt.preventDefault();
+  //evt.preventDefault();
+  var listelemtofill = $("#annotation-dishes-popup").find("[anno-dishes-category]");
+  newCategoryList(listelemtofill);
+
+  console.log(annotation_dishes_dialog);
   annotation_dishes_dialog.open();
   //Get Coordinates, print Error
-  if(editableLayers && editableLayers.getLayers()[0]._parts.length > 0 ){
+  if(editableLayers && editableLayers.getLayers()[0] && editableLayers.getLayers()[0]._parts.length > 0 ){
     $("#dialog-dishes-coord-found").html('Bereich markiert!');
-
+    console.log(editableLayers.getLayers()[0]._parts);
   }else{
     $("#dialog-dishes-coord-found").html('');
-  }
-  console.log(editableLayers.getLayers()[0]._parts);
-  //  $( "#card-pubs-detail" ).show();
+  }//  $( "#card-pubs-detail" ).show();
 });
 
 $("#button-menu-detail-add-openinghours").click(function(evt){
   evt.preventDefault();
-  console.log(annotation_openinghours_dialog);
-  annotation_openinghours_dialog.open();
+  //annotation_openinghours_dialog.close();
+
+  annotation_open_dialog.open();
 //  $( "#card-pubs-detail" ).show();
 });
 
-$("#button-menu-detail-add-announcement").click(function(evt){
+$("#button-menu-detail-add-other").click(function(evt){
   evt.preventDefault();
-  console.log(annotation_announcement_dialog);
-  annotation_announcement_dialog.open();
+  console.log(annotation_other_dialog);
+  annotation_other_dialog.open();
 //  $( "#card-pubs-detail" ).show();
 });
 
@@ -227,31 +229,77 @@ $("#button-menu-detail-add-geolocation").click(function(evt){
 $("#annotation-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //look for
 //menupageid
-console.log(editableLayers.getLayers()[0]);
-var data = { "name" : $("#dialog-dishes-name > input").val(),
-"menupage" : app_state.menupage,
-"price" : $("#dialog-dishes-price > input").val(),
-"pubid" : app_state.pubs,
-"playerid" : user_state.timestamp,
-"time" : Date.now(),
-"coord" : editableLayers.getLayers()[0]._parts,
-"latlng" : editableLayers.getLayers()[0]._latlngs
-}
+var dishes_type = $('input[name="type-radios"]:checked').val();
+console.log(dishes_radioset.input);
+console.log(dishes_type);
+
+var data = {
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"type" : "Annotation",
+"annotype" : "Dishes",
+"body" : {
+  "type" : dishes_type,
+  "name" : $("#annotation-dishes-popup").find("[anno-dishes-name]").val(),
+  "price" : $("#annotation-dishes-popup").find("[anno-dishes-price]").val(),
+  "price_currency" : $("#annotation-dishes-popup").find("[anno-dishes-currency]").val(),
+  "amount" : $("#annotation-dishes-popup").find("[anno-dishes-amount]").val(),
+	"description" : $("#annotation-dishes-popup").find("#dialog-dishes-description > textarea").val(),
+  "categoryName" : $("#annotation-dishes-popup").find("[anno-dishes-category]").val(),
+  "categoryID" : $("#annotation-dishes-popup").find("[anno-dishes-category] option:selected").text()
+},
+"target" : {
+	"pubid":app_state.pubs,
+  "menu" : app_state.menu,
+	"menupage": app_state.menupage,
+  "selector": getAnnoFragment(),
+  "coord" : getAnnoCoord(),
+},
+"creator" : {
+	"id" : user_state.timestamp,
+	"name" : user_state.name,
+	"identity" : user_state.identity
+},
+"generator" : {
+	"name" : "tripadviswurst"
+},
+"created" : JSON.stringify(Date.now()),
+"motivation" : "commenting"
+};
+
 console.log(data);
 DBaddnew(data,DBdishes);
-//DBadd(data,DBdishes);
 //add name and price as new dished to the database
 
 });
+
 $("#annotation-openinghours-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //look for
 //menupageid
 var data = {
-"menupage" : app_state.menupage,
-"pubid" : app_state.pubs,
-"value" : $("#dialog-openinghours-name > input").val(),
-"playerid" : user_state.timestamp
-}
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"type" : "Annotation",
+"annotype" : "OpeningHour",
+"body" : {
+	"value" : $("#annotation-open-comment > textarea").val(),
+},
+"target" : {
+	"pubid":app_state.pubs,
+  "menu" : app_state.menu,
+	"menupage": app_state.menupage,
+  "selector": getAnnoFragment(),
+  "coord" : getAnnoCoord(),
+},
+"creator" : {
+	"id" : user_state.timestamp,
+	"name" : user_state.name,
+	"identity" : user_state.identity
+},
+"generator" : {
+	"name" : "tripadviswurst"
+},
+"created" : JSON.stringify(Date.now()),
+"motivation" : "commenting"
+};
 console.log(data);
 DBaddnew(data,DBopeninghours);
 //DBadd(data,DBdishes);
@@ -262,32 +310,108 @@ DBaddnew(data,DBopeninghours);
 $("#annotation-geolocation-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //look for
 //menupageid
-var data = {"city" : $("#dialog-geolocation-city > input").val(),
-"menupage" : app_state.menupage,
-"street" : $("#dialog-geolocation-address > input").val(),
-"latlng" : [$("#dialog-geolocation-lat > input").val(), $("#dialog-geolocation-lng > input").val()],
-"pubid" : app_state.pubid,
-"playerid" : user_state.timestamp,
-"country" : ""
+
+var data = {
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"type" : "Annotation",
+"annocategory" : "Geo",
+"body" : {
+	"latlng" : [$("[geo-lat]").val(), $("[geo-lng]").val()],
+	"country" : "",
+	"city" : $("[geo-city").val(),
+	"zip" : $("[geo-zip").val(),
+	"street" : $("[geo-street]").val(),
+	"number" : $("[geo-number").val(),
+	"street_old" : $("[geo-street_old").val(),
+	"zip_old" : $("[geo-zip_old").val(),
+	"city_old" : $("[geo-city_old").val(),
+	"number_old" : $("[geo-number_old").val(),
+	"comment" : $("[geo-comment").val()
+},
+"target" : app_state.pubid,
+"creator" : {
+	"id" : user_state.timestamp,
+  "identity" : user_state.identity,
+	"name" : user_state.name
+},
+"generator" : {
+	"name" : "tripadviswurst"
+},
+"created" : JSON.stringify(Date.now()),
+"motivation" : "assessing"
 }
+
 console.log(data);
 DBaddnew(data,DBgeo);
-//DBadd(data,DBdishes);
 //add name and price as new dished to the database
 
 });
 
-$("#dialog-announcement-confirm").click(function(evt){
+function getAnnoFragment(){
+//read xywh from actual segment
+console.log(editableLayers);
+console.log(editableLayers.length);
+  if(map_iiif.hasLayer(editableLayers) && editableLayers.getLayers() != undefined && editableLayers.getLayers()[0] != undefined && editableLayers.getLayers()[0]._parts != undefined && editableLayers.getLayers()[0]._parts.length > 0){
+  // change selected area to xywh and latlng coordinates
+  var part = editableLayers.getLayers()[0]._parts[0];
+  var selectorstring = "xywh="+(part[1].x+","+part[1].y)+","+(part[2].x-part[1].x)+","+(part[3].y-part[2].y);
+  return {
+    "type": "FragmentSelector",
+    "conformsTo": "http://www.w3.org/TR/media-frags/",
+    "value": selectorstring
+  }
+}else{
+    return null;
+  }
+};
+
+function getAnnoCoord(){
+//read world coordinated from actual segment
+  if(map_iiif.hasLayer(editableLayers) && editableLayers.getLayers()[0] != undefined && editableLayers.getLayers()[0]._latlngs && editableLayers.getLayers()[0]._latlngs.length > 0){
+  // change selected area to xywh and latlng coordinates
+  var part = editableLayers.getLayers()[0]._latlngs[0];
+  var selectorstring = "latlng1lat2lng2="+part[1].lat+","+part[1].lng+","+part[3].lat+","+part[3].lng;
+  return {
+    "type": "AnnoSelector",
+    "conformsTo": "",
+    "value": selectorstring,
+  }
+}else{
+  return null;
+}
+};
+
+$("#dialog-other-popup").find('[data-mdc-dialog-action="accept"]').click(function(){
 //look for
 //menupageid
-var data = {"value" : $("#dialog-announcement-name > input").val(),
-"menupage" : app_state.menupage,
-"pubid" : app_state.pubid,
-"playerid" : user_state.timestamp
+
+var data = {
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"type" : "Annotation",
+"annotype" : "Other",
+"body" : {
+	"comment" : $("#dialog-other-comment > input"),
+},
+"target" : {
+	"pubid":app_state.pubs,
+  "menu" : app_state.menu,
+	"menupage": app_state.menupage,
+  "selector": getAnnoFragment(),
+  "coord" : getAnnoCoord(),
+},
+"creator" : {
+	"id" : user_state.timestamp,
+	"name" : user_state.name,
+	"identity" : user_state.identity
+},
+"generator" : {
+	"name" : "tripadviswurst"
+},
+"created" : JSON.stringify(Date.now()),
+"motivation" : "commenting"
 }
 console.log(data);
 DBaddnew(data,DBanno_other);
-//DBadd(data,DBdishes);
 //add name and price as new dished to the database
 
 });
@@ -423,16 +547,20 @@ $("#person-selector").show();
 
 function showMapPubDialog(){
   //Map event on click marker
-  redrawMapPubDialog(this.addressinfo, this._latlng);
+  console.log("Hallo Karte!");
+  console.log(this);
+  redrawMapPubDialog(this._latlng, this.spot);
   //prerender view of pub when clicking this
   //redrawPubs(this.pubid);
-  app_state.pubs = this.addressinfo.pubid;
+  app_state.pubs = this.target;
   redrawPubs(app_state.pubs);
+  console.log(map_pubinfo_dialog);
+
   map_pubinfo_dialog.open();
-//Get info about Put
+  //Get info about Put
 }
 
-$("#map-showpubinfo-popup").find('[data-mdc-dialog-action="accept"]').click(function(){
+$("#map-info-popup").find('[data-mdc-dialog-action="accept"]').click(function(){
   map_pubinfo_dialog.close();
   $( "#card-map" ).hide();
 $( "#card-pubs-detail" ).show();
@@ -456,38 +584,62 @@ $("#pubs-search > input").keyup(function(){
 $("#button-dishes-rate").click(function(evt){
 //dialog-rate-dishes-comment
 rate_dishes_dialog.open();
+Ratingslider.layout();
 });
-$("#rate-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 
-  var data = {
-  "time" : Date.now(),
-  "rating" : $("#dialog-rate-dishes-stars > input").val(),
-  "comment" : $("#dialog-rate-dishes-comment > textarea").val(),
-  "dishes" : app_state.dishes,
-  "pubid" : app_state.pubid,
-  "playerid" : user_state.timestamp,
-  "historic_person" : {
-    "name" : "Tester Testeintrag",
-    "id" : user_state.identity,
+$("#rate-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
+var data = {
+  "@context" : "http://www.w3.org/ns/anno.jsonld",
+  "type" : "Annotation",
+  "annotype" : "Rating",
+  "body" : {
+  	"rating" : Ratingslider.value,
+  	"comment" : $("#dialog-rate-dishes-comment > textarea").val(),
+  	"skuril" : null,
+  	"thumb" : null
+  },
+  "target" : {
+  	"pubid": app_state.pubs,
+  	"menu" : app_state.menu,
+  	"menupage": app_state.menupage,
+  	"anno-id" : app_state.dishes,
+  	"anno-typ" : "Dish"
+  },
+  "creator" : {
+  	"id" : user_state.timestamp,
+  	"name" : user_state.name,
+  	"identity" : user_state.identity
+  },
+  "generator" : {
+  	"name" : "tripadviswurst"
+  },
+  "created" : JSON.stringify(Date.now()),
+  "motivation" : "commenting"
   }
-  }
+
   console.log(data);
   DBaddnew(data,DBrating);
 })
+
 $("#anno-add-button").click(function(evt){
 anno_menu.open = true;
 
 });
+
 $("#pubs-tabbar").find(".mdc-tab").on("click", function(evt){
 var clicked = $(this).attr("data-id");
 $(".pubs-tab-element").hide();
 $(".pubs-tab-element[data-tab="+clicked+"]").show();
 });
+
 $("#button-menu-detail-add-category").on("click", function(evt){
 //TODO: check actual categories of menu
+var listelemtofill = $("#annotation-category-popup").find("[category-upperselect]");
+newCategoryList(listelemtofill);
 annotation_category_dialog.open();
 
 });
+
 $("#annotation-category-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //DO Something
 //dialog-category-name
@@ -495,6 +647,44 @@ $("#annotation-category-popup").find('[data-mdc-dialog-action="accept"]').click(
 
 //dialog-category-select-upper
 //$("#dialog-category-select-upper > select").val(),
+var cat = $("#annotation-category-popup").find("[category-upperselect]").text();
+var cat_id = $("#annotation-category-popup").find("[category-upperselect]").val();
+if(cat === "none"){
+  cat = null;
+  cat_id = null;
+}
+
+//TODO:
+var data = {
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"type" : "Annotation",
+"annotype" : "Category",
+"body" : {
+	"name" : $("#annotation-category-popup").find("[category-name]").val(),
+  "upperCategoryID" : cat_id,
+  "upperCategory" : cat
+},
+"target" : {
+	"pubid":app_state.pubs,
+  "menu" : app_state.menu,
+	"menupage": app_state.menupage,
+  "selector": getAnnoFragment(),
+  "coord" : getAnnoCoord(),
+},
+"creator" : {
+	"id" : user_state.timestamp,
+	"name" : user_state.name,
+	"identity" : user_state.identity
+},
+"generator" : {
+	"name" : "tripadviswurst"
+},
+"created" : JSON.stringify(Date.now()),
+"motivation" : "commenting"
+}
+console.log(data);
+DBaddnew(data,DBcategory);
+
 
 });
 
@@ -506,7 +696,6 @@ function showAnnotationInfoDialog(){
 //Get info about Put
 
 }
-
 
 $("#button-map-anno").click( function(evt){
 //addAnnos(null);
@@ -528,9 +717,9 @@ DBgeo.allDocs({
   },function(err, doc){
     $.each(doc.rows, function (index, value) {
       if(value.doc.id === geoid){
-        lat = value.doc.latlng[0];
-        lng = value.doc.latlng[1];
-        data = value.doc;
+        lat = value.doc.body.latlng[0];
+        lng = value.doc.body.latlng[1];
+        data = value.doc.body;
       }
     });
     //add more info from actual pubs
