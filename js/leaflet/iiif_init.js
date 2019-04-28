@@ -85,7 +85,6 @@ map_iiif.eachLayer(function (layer) {
 
 function initIIIFMap(){
   loadTileLayer('https://stacks.stanford.edu/image/iiif/hg676jb4964%2F0380_796-44/info.json');
-  //addAnnos(null);
   //addButtons();
   map_iiif.invalidateSize();
 }
@@ -117,6 +116,178 @@ DBdishes.allDocs({
         rect.name = objdoc.body.name;
         rect.coord = objdoc.target.bounds;
         rect.id = objdoc._id;
+        rect.obj = objdoc;
+        rect.on('click', showAnnotationInfoDialog);
+
+        rect.addTo(markerLayer);
+        markerLayer.anno = true;
+        map_iiif.anno = true;
+
+          }
+        }
+    };
+});
+DBopeninghours.allDocs({
+    include_docs: true
+  },function(err, doc){
+    console.log(doc)
+      for(var doc2 in doc.rows){
+        var objdoc = doc.rows[doc2].doc;
+        //where coord is not empty
+        console.log(objdoc);
+        console.log(app_state.menupage);
+        if(!objdoc.language && objdoc.target.menupage && (objdoc.target.menupage === app_state.menupage)){
+          console.log(objdoc.target.menupage);
+          if(objdoc.target.coord && objdoc.target.coord.value != ""){
+            //create rectangle and add to markerLayer
+            var latlng = objdoc.target.coord.value.split("=");
+            latlng = latlng[1].split(",");
+            var bounds = [[latlng[0], latlng[1]], [latlng[2], latlng[3]]];
+            console.log(bounds);
+    // add rectangle passing bounds and some basic styles
+        var rect = L.rectangle(bounds, {color: "orange", weight: 5});
+        rect.name = objdoc.body.name;
+        rect.coord = objdoc.target.bounds;
+        rect.id = objdoc._id;
+        rect.obj = objdoc;
+        rect.on('click', showAnnotationInfoDialog);
+
+        rect.addTo(markerLayer);
+        markerLayer.anno = true;
+        map_iiif.anno = true;
+
+          }
+        }
+    };
+});
+DBanno_other.allDocs({
+    include_docs: true
+  },function(err, doc){
+    console.log(doc)
+      for(var doc2 in doc.rows){
+        var objdoc = doc.rows[doc2].doc;
+        //where coord is not empty
+        console.log(objdoc);
+        console.log(app_state.menupage);
+        if(!objdoc.language && objdoc.target.menupage && (objdoc.target.menupage === app_state.menupage)){
+          console.log(objdoc.target.menupage);
+          if(objdoc.target.coord && objdoc.target.coord.value != ""){
+            //create rectangle and add to markerLayer
+            var latlng = objdoc.target.coord.value.split("=");
+            latlng = latlng[1].split(",");
+            var bounds = [[latlng[0], latlng[1]], [latlng[2], latlng[3]]];
+            console.log(bounds);
+    // add rectangle passing bounds and some basic styles
+        var rect = L.rectangle(bounds, {color: "grey", weight: 5});
+        rect.name = objdoc.body.name;
+        rect.coord = objdoc.target.bounds;
+        rect.id = objdoc._id;
+        rect.obj = objdoc;
+
+        rect.on('click', showAnnotationInfoDialog);
+
+        rect.addTo(markerLayer);
+        markerLayer.anno = true;
+        map_iiif.anno = true;
+
+          }
+        }
+    };
+});
+DBcategory.allDocs({
+    include_docs: true
+  },function(err, doc){
+    console.log(doc)
+      for(var doc2 in doc.rows){
+        var objdoc = doc.rows[doc2].doc;
+        //where coord is not empty
+        console.log(objdoc);
+        console.log(app_state.menupage);
+        if(!objdoc.language && objdoc.target.menupage && (objdoc.target.menupage === app_state.menupage)){
+          console.log(objdoc.target.menupage);
+          if(objdoc.target.coord && objdoc.target.coord.value != ""){
+            //create rectangle and add to markerLayer
+            var latlng = objdoc.target.coord.value.split("=");
+            latlng = latlng[1].split(",");
+            var bounds = [[latlng[0], latlng[1]], [latlng[2], latlng[3]]];
+            console.log(bounds);
+    // add rectangle passing bounds and some basic styles
+        var rect = L.rectangle(bounds, {color: "blue", weight: 5});
+        rect.name = objdoc.body.name;
+        rect.coord = objdoc.target.bounds;
+        rect.id = objdoc._id;
+        rect.obj = objdoc;
+
+        rect.on('click', showAnnotationInfoDialog);
+
+        rect.addTo(markerLayer);
+        markerLayer.anno = true;
+        map_iiif.anno = true;
+
+          }
+        }
+    };
+});
+
+DBads.allDocs({
+    include_docs: true
+  },function(err, doc){
+    console.log(doc)
+      for(var doc2 in doc.rows){
+        var objdoc = doc.rows[doc2].doc;
+        //where coord is not empty
+        console.log(objdoc);
+        console.log(app_state.menupage);
+        if(!objdoc.language && objdoc.target.menupage && (objdoc.target.menupage === app_state.menupage)){
+          console.log(objdoc.target.menupage);
+          if(objdoc.target.coord && objdoc.target.coord.value != ""){
+            //create rectangle and add to markerLayer
+            var latlng = objdoc.target.coord.value.split("=");
+            latlng = latlng[1].split(",");
+            var bounds = [[latlng[0], latlng[1]], [latlng[2], latlng[3]]];
+            console.log(bounds);
+    // add rectangle passing bounds and some basic styles
+        var rect = L.rectangle(bounds, {color: "black", weight: 5});
+        rect.name = objdoc.body.name;
+        rect.coord = objdoc.target.bounds;
+        rect.id = objdoc._id;
+        rect.obj = objdoc;
+
+        rect.on('click', showAnnotationInfoDialog);
+
+        rect.addTo(markerLayer);
+        markerLayer.anno = true;
+        map_iiif.anno = true;
+
+          }
+        }
+    };
+});
+
+DBimage.allDocs({
+    include_docs: true
+  },function(err, doc){
+    console.log(doc)
+      for(var doc2 in doc.rows){
+        var objdoc = doc.rows[doc2].doc;
+        //where coord is not empty
+        console.log(objdoc);
+        console.log(app_state.menupage);
+        if(!objdoc.language && objdoc.target.menupage && (objdoc.target.menupage === app_state.menupage)){
+          console.log(objdoc.target.menupage);
+          if(objdoc.target.coord && objdoc.target.coord.value != ""){
+            //create rectangle and add to markerLayer
+            var latlng = objdoc.target.coord.value.split("=");
+            latlng = latlng[1].split(",");
+            var bounds = [[latlng[0], latlng[1]], [latlng[2], latlng[3]]];
+            console.log(bounds);
+    // add rectangle passing bounds and some basic styles
+        var rect = L.rectangle(bounds, {color: "white", weight: 5});
+        rect.name = objdoc.body.name;
+        rect.coord = objdoc.target.bounds;
+        rect.id = objdoc._id;
+        rect.obj = objdoc;
+
         rect.on('click', showAnnotationInfoDialog);
 
         rect.addTo(markerLayer);
@@ -141,35 +312,6 @@ DBdishes.allDocs({
   }
   };
 
-
-
-function addAnnos(id){
-var markerLayer = L.featureGroup();
-console.log(map_iiif.anno);
-if(map_iiif.anno === false){
-var posCircle;
-      var pos = L.latLng(-40, 20);
-      posCircle = L.marker(pos);
-      posCircle.addTo(markerLayer);
-      var polygon = L.polygon([
-          [-30, 20],
-          [-60, 60],
-          [-40, 30]
-      ]).addTo(markerLayer);
-      posCircle.on('click', showAnnotationInfoDialog);
-      polygon.on('click', showAnnotationInfoDialog);
-      markerLayer.anno = true;
-      markerLayer.addTo(map_iiif);
-      map_iiif.anno = true;
-}else{
-  map_iiif.eachLayer(function (layer) {
-    if(layer.anno === true){
-    map_iiif.removeLayer(layer);
-    }
-});
-map_iiif.anno = false;
-}
-}
   /*
       var popup = L.popup();
 

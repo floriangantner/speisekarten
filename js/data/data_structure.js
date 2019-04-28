@@ -224,7 +224,7 @@ OpeningHours ->
 {
 	"@context" : "http://www.w3.org/ns/anno.jsonld",
 	"type" : "Annotation",
-	"annotype" : "OpeningHour",
+	"annotype" : "OpeningHours",
 	"body" : {
 		"value" : "Mo-Fr 10-18",
 	},
@@ -338,16 +338,6 @@ Head-Infos -> {
 		"motivation" : "commenting"
 		}
 
-function Rating(){
-	this.id = id,
-	this.dishes = dishes,
-	this.pub = pub,
-	this.rating = rating,
-	this.name = name,
-	this.person = person,
-	this.time = time;
-};
-
 
 Rating ->
 
@@ -368,8 +358,8 @@ Rating ->
 	"pubid":"p1",
 	"menu" : "p1/m1",
 	"menupage": "p1/m1/mp3",
-	"anno-id" : "",
-	"anno-typ" : "Dish | Geo | OpeningHours | Category | Other | DishRating "
+	"anno_id" : "",
+	"anno_typ" : "Dish | Geo | OpeningHours | Category | Other | DishRating "
 },
 "creator" : {
 	"id" : "",
@@ -383,6 +373,84 @@ Rating ->
 "motivation" : "commenting"
 }
 
+
+Ads ->
+{
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"id" : "",
+"_id" : "",
+"type" : "Annotation",
+"annotype" : "Ads",
+"body" : {
+	"brand" : "Spaten bier",
+	"comment" : "Wird hier beworben: Text der Anzeige:",
+	}
+},
+"target" : {
+	"pubid":"p1",
+	"menu" : "p1/m1",
+	"menupage": "p1/m1/mp3",
+	"selector": {
+		"type": "FragmentSelector",
+		"conformsTo": "http://www.w3.org/TR/media-frags/",
+		"value": "xywh=0,0,30,60"
+		},
+		"coord" : {
+			"type": "AnnoSelector",
+			"conformsTo": "",
+			"value": "lat1lng1lat2lng2=0,0,30,60"
+		}
+},
+"creator" : {
+	"id" : "",
+	"name" : "",
+	"identity" : ""
+},
+"generator" : {
+	"name" : "tripadviswurst"
+},
+"created" : "timestamp",
+"motivation" : "commenting"
+}
+
+Image ->
+{
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"id" : "",
+"_id" : "",
+"type" : "Annotation",
+"annotype" : "Image",
+"body" : {
+	"type" : "photo | draw | ornament | other",
+	"name" : "",
+	}
+},
+"target" : {
+	"pubid":"p1",
+	"menu" : "p1/m1",
+	"menupage": "p1/m1/mp3",
+	"selector": {
+		"type": "FragmentSelector",
+		"conformsTo": "http://www.w3.org/TR/media-frags/",
+		"value": "xywh=0,0,30,60"
+		},
+		"coord" : {
+			"type": "AnnoSelector",
+			"conformsTo": "",
+			"value": "lat1lng1lat2lng2=0,0,30,60"
+		}
+},
+"creator" : {
+	"id" : "",
+	"name" : "",
+	"identity" : ""
+},
+"generator" : {
+	"name" : "tripadviswurst"
+},
+"created" : "timestamp",
+"motivation" : "commenting"
+}
 
 //TODO: Text-Bewertungen -> Pub / Dishes
 //TODO: daumen hoch/runter bewertungen

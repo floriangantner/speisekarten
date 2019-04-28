@@ -125,6 +125,23 @@ $( "#card-pubs-detail" ).show();
 
 });
 
+$('#dishes-detail-pubs').on('click', function(evt){
+  //link from dishes to pub
+$("#card-dishes-detail").hide();
+redrawPubs(app_state.pubs);
+
+$( "#card-pubs-detail" ).show();
+})
+
+$('#dishes-detail-menupage').on('click', function(evt){
+  //link from dishes to pub
+$("#card-dishes-detail").hide();
+redrawMenu(app_state.menupage);
+//TODO: add to redrawMenu
+//  initIIIFMap();
+$( "#card-menu-detail" ).show();
+})
+
 $('#dishes-all-list').on('click', '.mdc-list-item', function(evt){
 console.log("clicked");
 $( "#card-dishes-all" ).hide();
@@ -223,6 +240,8 @@ $("#button-menu-detail-add-geolocation").click(function(evt){
   //get pubid of this menu
   var pubid = "";
   annotation_geolocation_dialog.open();
+  Ratingslider.layout();
+
 //  $( "#card-pubs-detail" ).show();
 });
 
@@ -278,7 +297,7 @@ $("#annotation-openinghours-popup").find('[data-mdc-dialog-action="accept"]').cl
 var data = {
 "@context" : "http://www.w3.org/ns/anno.jsonld",
 "type" : "Annotation",
-"annotype" : "OpeningHour",
+"annotype" : "OpeningHours",
 "body" : {
 	"value" : $("#annotation-open-comment > textarea").val(),
 },
@@ -602,8 +621,8 @@ var data = {
   	"pubid": app_state.pubs,
   	"menu" : app_state.menu,
   	"menupage": app_state.menupage,
-  	"anno-id" : app_state.dishes,
-  	"anno-typ" : "Dish"
+  	"anno_id" : app_state.dishes,
+  	"anno_typ" : "Dish"
   },
   "creator" : {
   	"id" : user_state.timestamp,
@@ -689,9 +708,11 @@ DBaddnew(data,DBcategory);
 });
 
 function showAnnotationInfoDialog(){
-  var anno_id = this;
-  console.log(anno_id);
-  redrawAnnotationInfoDialog(anno_id);
+  //infos are saved in map object
+  var anno_info = this.obj;
+app_state.anno_id = anno_info.id;
+app_state.anno_type = anno_info.annotype;
+  redrawAnnotationInfoDialog(anno_info);
   annotation_info_dialog.open();
 //Get info about Put
 
@@ -731,5 +752,82 @@ DBgeo.allDocs({
 
 });
 $("#card-map").show();
+});
+
+$("#button-menu-detail-add-ads").click(function(evt){
+  evt.preventDefault();
+  annotation_ads_dialog.open();
+});
+
+$("#button-menu-detail-add-image").click(function(evt){
+  annotation_image_dialog.open();
+});
+
+$("#annotation-ads-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
+  var data = {
+  "@context" : "http://www.w3.org/ns/anno.jsonld",
+  "type" : "Annotation",
+  "annotype" : "Ads",
+  "body" : {
+    "brand" : textField_ads_brand.value,
+    "comment" : textField_ads_comment.value,
+  },
+  "target" : {
+  	"pubid":app_state.pubs,
+    "menu" : app_state.menu,
+  	"menupage": app_state.menupage,
+    "selector": getAnnoFragment(),
+    "coord" : getAnnoCoord(),
+  },
+  "creator" : {
+  	"id" : user_state.timestamp,
+  	"name" : user_state.name,
+  	"identity" : user_state.identity
+  },
+  "generator" : {
+  	"name" : "tripadviswurst"
+  },
+  "created" : JSON.stringify(Date.now()),
+  "motivation" : "commenting"
+  };
+
+console.log(data);
+DBaddnew(data, DBads);
+
+});
+
+$("#annotation-image-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
+  var image_type = $('input[name="image-radios"]:checked').val();
+  console.log(image_radioset.value);
+  var data = {
+  "@context" : "http://www.w3.org/ns/anno.jsonld",
+  "type" : "Annotation",
+  "annotype" : "Image",
+  "body" : {
+    "type" : image_type,
+    "name" : textField_image_comment.value,
+    //$("#annotation-dishes-popup").find("[anno-dishes-name]").val(),
+  },
+  "target" : {
+  	"pubid":app_state.pubs,
+    "menu" : app_state.menu,
+  	"menupage": app_state.menupage,
+    "selector": getAnnoFragment(),
+    "coord" : getAnnoCoord(),
+  },
+  "creator" : {
+  	"id" : user_state.timestamp,
+  	"name" : user_state.name,
+  	"identity" : user_state.identity
+  },
+  "generator" : {
+  	"name" : "tripadviswurst"
+  },
+  "created" : JSON.stringify(Date.now()),
+  "motivation" : "commenting"
+  };
+
+  console.log(data);
+  DBaddnew(data, DBimage);
 
 });
