@@ -155,6 +155,10 @@ DBdishes.get(id).then( function(doc){
     console.log(doc);
     //$("#pubs-list").html('');
     //$(" #pubs-list").append(list);
+    var elem = $("#card-dishes-detail").find("[dish-rating]");
+    console.log(elem);
+    drawThumb(elem);
+
     });
 };
 
@@ -184,7 +188,9 @@ DBrating.find({
   $("#dishes-rating-list").html('');
   for(var doc in result.docs){
     console.log(doc)
+    if(result.docs[doc].target.anno_typ === "Dish" && result.docs[doc].body.comment != null && result.docs[doc].body.comment != undefined){
     var list = newDishesRatingElement(result.docs[doc]);
+    }
     console.log(list)
     $("#dishes-rating-list").prepend(list);
   }
@@ -527,7 +533,7 @@ function saveImage(blob) {
 function redrawAnnotationInfoDialog(anno){
   //get Data from klicked Annotation
   //distinguish different AnnotationTypes -> TODO: first only for dishes
-var html = `<div><p>${anno.creator.name},`+timeDifference(Date.now(), anno.created)+`:</p></div><div>`;
+var html = `<div anno-rating></div><div><p>${anno.creator.name},`+timeDifference(Date.now(), anno.created)+`:</p></div><div>`;
 if(anno.annotype === "Dishes"){
 $("#annotation-info-title").html(`${anno.body.name}`);
 if(anno.body.type === "meal"){
@@ -584,6 +590,7 @@ $("#annotation-info-content").html(html);
 //not implemented, own dialog on map
 
 }
+drawThumb($("[anno-rating]"));
 };
 
 function redrawMapPubDialog(latlng, infos){

@@ -359,7 +359,7 @@ Rating ->
 	"menu" : "p1/m1",
 	"menupage": "p1/m1/mp3",
 	"anno_id" : "",
-	"anno_typ" : "Dish | Geo | OpeningHours | Category | Other | DishRating "
+	"anno_typ" : "DishThumb | Dish | Geo | OpeningHours | Category | Other | DishRating "
 },
 "creator" : {
 	"id" : "",
