@@ -294,17 +294,21 @@ DBimage.allDocs({
         markerLayer.anno = true;
         map_iiif.anno = true;
 
+
           }
         }
     };
 });
     markerLayer.addTo(map_iiif);
+    showTextOnSnackbar("Annotationen inaktiv!", 5000);
     map_iiif.invalidateSize();
   }else{
     //remove Annos
     map_iiif.eachLayer(function (layer) {
       if(layer.anno === true){
       map_iiif.removeLayer(layer);
+      showTextOnSnackbar("Annotationen inaktiv!", 5000);
+
       }
     });
     map_iiif.anno = false;

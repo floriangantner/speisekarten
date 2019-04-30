@@ -58,7 +58,7 @@ $("#nav-about-you").click(function(evt){
   $( "main" ).hide();
   //if no identity has been selected?
   if(user_state.identity == "" || user_state.identity === undefined){
-  alert("Keine Identität ausgewählt!");
+   showTextOnSnackbar("Keine Identität ausgewählt!", 5000);
   $("#button-identity-confirm").attr("disabled", false);
   $("#button-identity-confirm").hide();
   $("#card-identity").show();
@@ -224,6 +224,7 @@ $("#button-menu-detail-add-openinghours").click(function(evt){
 
   annotation_open_dialog.open();
 //  $( "#card-pubs-detail" ).show();
+
 });
 
 $("#button-menu-detail-add-other").click(function(evt){
@@ -288,6 +289,7 @@ var data = {
 console.log(data);
 DBaddnew(data,DBdishes);
 //add name and price as new dished to the database
+showTextOnSnackbar("Gericht hinterlegt!", 5000);
 
 });
 
@@ -323,6 +325,7 @@ console.log(data);
 DBaddnew(data,DBopeninghours);
 //DBadd(data,DBdishes);
 //add name and price as new dished to the database
+showTextOnSnackbar("Öffnungszeiten hinterlegt!", 5000);
 
 });
 
@@ -363,6 +366,7 @@ var data = {
 console.log(data);
 DBaddnew(data,DBgeo);
 //add name and price as new dished to the database
+showTextOnSnackbar("Adresse hinterlegt!", 5000);
 
 });
 
@@ -432,6 +436,7 @@ var data = {
 console.log(data);
 DBaddnew(data,DBanno_other);
 //add name and price as new dished to the database
+showTextOnSnackbar("Etwas hinterlegt!", 5000);
 
 });
 
@@ -641,6 +646,8 @@ var data = {
 
   console.log(data);
   DBaddnew(data,DBrating);
+  showTextOnSnackbar("Bewertung hinterlegt!", 5000);
+
 })
 
 $("#anno-add-button").click(function(evt){
@@ -706,7 +713,8 @@ var data = {
 }
 console.log(data);
 DBaddnew(data,DBcategory);
-
+//
+showTextOnSnackbar("Kategorie hinterlegt!", 5000);
 
 });
 
@@ -724,6 +732,8 @@ app_state.anno_type = anno_info.annotype;
 $("#button-map-anno").click( function(evt){
 //addAnnos(null);
 iiifaddExistingAnnotations();
+
+
 
 });
 
@@ -798,7 +808,7 @@ $("#annotation-ads-popup").find('[data-mdc-dialog-action="accept"]').click(funct
 
 console.log(data);
 DBaddnew(data, DBads);
-
+showTextOnSnackbar("Werbung hinterlegt!", 5000);
 });
 
 $("#annotation-image-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
@@ -834,6 +844,7 @@ $("#annotation-image-popup").find('[data-mdc-dialog-action="accept"]').click(fun
 
   console.log(data);
   DBaddnew(data, DBimage);
+  showTextOnSnackbar("Werbung hinterlegt!", 5000);
 
 });
 
@@ -881,7 +892,7 @@ html += `<div class="rating-thumb">
   <span class="mdc-button__label">`+down_votes+`</span>
   <i class="material-icons-outlined mdc-icon-button__icon-">thumb_down</i>
   </button>
-</div>`;
+</div`;
 
 elem.html(html);
 if(user_vote == true){
@@ -1025,3 +1036,11 @@ $("#map-info-popup").on("click", ".thumbDown", function(evt){
 
   actionThumbUp();
 });
+
+function redrawHelp(topic){
+if(topic === "annotation"){
+  $("#help-title").html('');
+  $("#help-content").html('');
+  $("#help-go").html('');
+}
+}

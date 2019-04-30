@@ -141,7 +141,20 @@ function newDishesAllListElement(data){
  $.each(data, function (index, value) {
    if(value.doc.language != "query"){
    console.log(value)
-   card_html += `<li class="mdc-list-item" data-id="${value.doc.id}">${value.doc.body.name}</li>`;
+   var logo = value.doc.body.type;
+if(logo === "drink"){
+logo = 'restaurant';
+}else if(logo === "meal"){
+logo = 'local_drink';
+}else if(logo === "other"){
+logo = 'device_unknown';
+  }
+   card_html += `<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.doc.id}">
+     <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">${logo}</span>
+     <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.doc.body.name}</span>
+     <span class="mdc-list-item__secondary-text">${value.doc.body.description}</span></span>
+     <span class="mdc-list-item__meta" aria-hidden="true">${value.doc.body.price} ${value.doc.body.price_currency}</span>
+   </li>`;
  }
  });
  return card_html;
@@ -270,11 +283,21 @@ function newPubsDishesListElement(data){
   var card_html = '';
  $.each(data.docs, function (index, value) {
    console.log(value)
-   card_html +=`<li class="mdc-list-item" tabindex="0" data-id="${value._id}">
-     <span class="mdc-list-item__text">
-       <span class="mdc-list-item__primary-text">${value.body.name}</span>
-       <span class="mdc-list-item__secondary-text">${value.body.price}</span>
-     </span>`
+   var logo = value.body.type;
+   if(logo === "drink"){
+   logo = 'restaurant';
+   }else if(logo === "meal"){
+   logo = 'local_drink';
+   }else if(logo === "other"){
+   logo = 'device_unknown';
+   }
+
+   card_html +=`<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.id}">
+     <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">${logo}</span>
+     <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.body.name}</span>
+     <span class="mdc-list-item__secondary-text">${value.body.description}</span></span>
+     <span class="mdc-list-item__meta" aria-hidden="true">${value.body.price} ${value.body.price_currency}</span>
+   </li>`;
  });
  return card_html;
 }
