@@ -1044,3 +1044,23 @@ if(topic === "annotation"){
   $("#help-go").html('');
 }
 }
+
+$("#pubs-list-sort").click(function(){
+  if($("#pubs-list-sort").hasClass('sort_asc')){
+    $("#pubs-list li").sort(asc_sort).appendTo('#pubs-list');
+    $("#pubs-list-sort").removeClass('sort_asc')
+  }else{
+    $("#pubs-list li").sort(dec_sort).appendTo('#pubs-list');
+    $("#pubs-list-sort").addClass('sort_asc')
+  }
+  // accending sort
+  function asc_sort(a, b){
+      return ($(b).text()) < ($(a).text()) ? 1 : -1;
+  }
+
+  // decending sort
+  function dec_sort(a, b){
+      return ($(b).text()) > ($(a).text()) ? 1 : -1;
+  }
+
+})

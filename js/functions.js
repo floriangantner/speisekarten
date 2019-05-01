@@ -15,14 +15,64 @@ identity_check();
 
 }
 
-function newPubListElement(data){
+function newPubListElement(data, elem){
   //generated Code for Entry.
  var card_html = '';
 $.each(data, function (index, value) {
-  card_html += `<li class="mdc-list-item" data-id="${value.id}">${value.doc.name}</li>`;
-});
+
+      card_html = `<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.id}">
+        <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.doc.name}</span>
+        <span class="mdc-list-item__secondary-text"><span data-stat></span><span data-geo></span></span></span>
+        <span class="mdc-list-item__meta" aria-hidden="true" data-status><i class="material-icons">check</i></span>
+      </li>`;
+      elem.append(card_html);
+    })
+
+
+
+
+
 console.log(data.length + " Pubs written to PubsList");
-return card_html;
+}
+
+function enrichPubListwithStatistic(elem){
+  //icons -> done, done_all, help_outline
+  //print more information -> Geolocation, if available, number of dishes, number of menu_pages, sterne, total status,
+  /*
+  <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">${logo}</span>
+  </li>`;
+  */
+  var counter = 0;
+elem.find("li").each(function(index, value){
+  let id = $(this).attr("data-id");
+getPubsStatistic(id).then(function(result){
+$(value).find("[data-stat]").html(`${result.menupage} <i class="material-icons">chrome_reader_mode</i>`)
+return getGeoStatistic(id)
+}).then(function(result){
+  if(result.geo <= 0){
+$(value).find("[data-geo]").html(`<i class="material-icons">location_off</i>`)
+}else if(result.geo === 1){
+$(value).find("[data-geo]").html(`<i class="material-icons">location_on</i>`)
+}else{
+$(value).find("[data-geo]").html(`${result.geo}<i class="material-icons">location_on</i>`)
+}
+counter += result.geo;
+if(counter === 0){
+$(value).find("[data-status]").html(`<i class="material-icons">help_outline</i>`)
+}else if(counter < 4){
+$(value).find("[data-status]").html(`<i class="material-icons">done</i>`)
+}else if(counter > 4){
+  //TODO Check with menupages, if all are finished
+$(value).find("[data-status]").html(`<i class="material-icons">done_all</i>`)
+
+}
+
+}).catch(function(err){
+  console.log(err);
+})
+
+
+});
 }
 
 //return List of all Pubs
@@ -31,9 +81,12 @@ var List = [];
 DBpubs.allDocs({
     include_docs: true
   },function(err, doc){
-    var list = newPubListElement(doc.rows);
-    $("#pubs-list").html('');
-    $(" #pubs-list").append(list);
+    elem = $("#pubs-list");
+    elem.html('');
+    newPubListElement(doc.rows, elem);
+
+    enrichPubListwithStatistic(elem);
+    //enrich with statistics?
     });
   };
 
@@ -58,6 +111,18 @@ function newPubCard(data){
   app_state.pubs = data.id
   $("#pubs-detail-tabs-info > .demo-card__primary > h2  ").text(`${data.name}`);
   redrawPubsAdressList();
+  redrawPubsRatingInfo();
+
+}
+
+function redrawPubsRatingInfo(){
+getPubsRatingStatistic(app_state.pubs).then(function(result){
+console.log(result);
+  $("#pubs-detail-tabs-info").find("[pubs-rating]").html('').html(visualizeRating(((result.rating)/(result.rating_count)).toFixed(1))+ " aus " + result.rating_count + " Bewertungen!");
+}).catch(function(err){
+  console.log(err);
+})
+
 }
 
 function redrawPubsAdressList(){
@@ -110,17 +175,18 @@ function newMenuListElement(data){
       //using images
      var card_html = '';
   console.log(data);
-    card_html += `<li class="mdc-list__item"><h3 mdc-typography mdc-typography--headline6>${data.name} (${data.date}) - ${data.typ}</h3><ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list">`;
+    card_html += `<h3 mdc-typography mdc-typography--headline6>${data.name} (${data.date}) - ${data.typ}</h3><ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list">`;
     $.each(data.menupages, function (index1, value1) {
       card_html += `<li class="mdc-image-list__item" data-id="${value1.id}">
         <img class="mdc-image-list__image" src="assets/${value1.filepath}">
-        <div class="mdc-image-list__supporting">
+        <div class="mdc-image-list__supporting">Beschreibung der Liste
         </div>
       </li>`;
+
       //<span class="mdc-image-list__label">${value1.category}</span>
 
   });
-  card_html += `</ul></li>`;
+  card_html += `</ul>`;
     return card_html;
 };
 
@@ -826,19 +892,80 @@ function timeDifference(current, previous) {
 function visualizeRating(rating){
 //visualize Rating, return Stars
 console.log(rating);
+var counter_printed = 0;
 var text_html = '';
-for(var it = rating; it > 0; it-- ){
-//for(var it = 0; it < rating; it++){
+var it = 0;
+for(; it < rating; it++ ){
   text_html += '<i class="material-icons">star</i>';
+  counter_printed++;
+
 }
-for(var it = rating; it < 5; it++){
+if((rating - it) >= 0.49){
+  text_html += '<i class="material-icons">star_half</i>';
+  counter_printed++;
+}
+for(; counter_printed < 5; counter_printed++){
   text_html += '<i class="material-icons">star_border</i>';
 
 }
 return text_html;
 }
 
-function drawThumb(annotyp, anno){
 
+//get PubsData
+function getPubsStatistic(pubsid){
+//get infos about all menupages, numbers, ratings and status, and geolocation infos
+//returned in object
+//DFS Search
+return new Promise(function(resolve, reject){
+var obj = { menu : 0,
+menupage : 0};
+DBmenu.find({
+  selector: {pub : pubsid},
+}, function (err, result) {
+  $.each(result.docs, function (index, value) {
+  obj.menu += 1;
+  obj.menupage += value.menupages.length;
+  });
+  resolve(obj);
 
+});
+});
+
+}
+
+function getGeoStatistic(pubsid){
+  var obj = { geo : 0};
+  return new Promise(function(resolve, reject){
+
+  DBgeo.find({
+    selector: {target : pubsid},
+  }, function (err, result) {
+    obj.geo = result.docs.length;
+    resolve(obj);
+  });
+})
+  }
+
+  function getPubsRatingStatistic(pubid){
+    //including rating from pub
+    return new Promise(function(resolve, reject){
+      var obj = {
+        rating : 0,
+        rating_count : 0
+      }
+    DBrating.find({
+      selector: {'target.pubid' : pubid},
+    }, function (err, result) {
+      $.each(result.docs, function (index, value) {
+        if(value.body.rating != undefined && value.body.rating != null){
+          obj.rating += value.body.rating
+          obj.rating_count += 1;
+        }
+      });
+      resolve(obj);
+
+    });
+
+  })
 }

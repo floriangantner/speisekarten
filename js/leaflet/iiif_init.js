@@ -300,7 +300,7 @@ DBimage.allDocs({
     };
 });
     markerLayer.addTo(map_iiif);
-    showTextOnSnackbar("Annotationen inaktiv!", 5000);
+    showTextOnSnackbar("Annotationen aktiv!", 5000);
     map_iiif.invalidateSize();
   }else{
     //remove Annos
