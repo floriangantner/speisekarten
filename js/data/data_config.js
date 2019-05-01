@@ -3,7 +3,8 @@
 //##############################################################################
 //common configuration settings
 const config = [
-this.path_folder_images = "" //path to images, relative from index.html file
+this.path_folder_images = "", //path to images, relative from index.html file
+this.url = "" //path to index.html
 ];
 
 //contains global variables
@@ -12,7 +13,8 @@ this.path_folder_images = "" //path to images, relative from index.html file
 const user_state = [
 	this.account_created = false,
 	this.identity = "",
-	this.timestamp = 0
+	this.timestamp = 0,
+	this.name = ""
 ];
 //contains infos about the view. Information and id's for the view.
 //Should avoid useless jquery-querys and easier access to render new pages
@@ -25,5 +27,4 @@ this.player = "",
 this.histperson = "",
 this.intro = 0,
 this.help = [], //add help-intros here to check, if help dialog has been shown
-this.selecteda //selectedarea from start image
 ];
