@@ -155,11 +155,22 @@ DBdishes.get(id).then( function(doc){
     console.log(doc);
     //$("#pubs-list").html('');
     //$(" #pubs-list").append(list);
+    var elem = $("#card-dishes-detail").find("[dish-rating]");
+    console.log(elem);
+    drawThumb(elem);
+
     });
 };
 
 function newDishesCard(data){
 //generated Code for Entry.
+//set menu and pub from dishes-id //may come from allDishes etc..
+app_state.pubs = data.target.pubid;
+app_state.menu = data.target.menu;
+app_state.menupage = data.target.menupage;
+app_state.anno_id = data._id;
+app_state.anno_typ = data.annotype;
+
 $("#card-dishes-detail").find("[dish-name]").html(data.body.name);
 $("#card-dishes-detail").find("[dish-type]").html(data.body.type);
 $("#card-dishes-detail").find("[dish-comment]").html(data.body.comment);
@@ -177,7 +188,9 @@ DBrating.find({
   $("#dishes-rating-list").html('');
   for(var doc in result.docs){
     console.log(doc)
+    if(result.docs[doc].target.anno_typ === "Dish" && result.docs[doc].body.comment != null && result.docs[doc].body.comment != undefined){
     var list = newDishesRatingElement(result.docs[doc]);
+    }
     console.log(list)
     $("#dishes-rating-list").prepend(list);
   }
@@ -520,19 +533,67 @@ function saveImage(blob) {
 function redrawAnnotationInfoDialog(anno){
   //get Data from klicked Annotation
   //distinguish different AnnotationTypes -> TODO: first only for dishes
-  DBdishes.get(anno.id).then( function(doc){
-      //var list = newPubListElement(doc.rows);
-      console.log(doc);
-$("#annotation-info-title").html(JSON.stringify(doc));
-      //$("#pubs-list").html('');
-      //$(" #pubs-list").append(list);}
-
-});
+var html = `<div anno-rating></div><div><p>${anno.creator.name},`+timeDifference(Date.now(), anno.created)+`:</p></div><div>`;
+if(anno.annotype === "Dishes"){
+$("#annotation-info-title").html(`${anno.body.name}`);
+if(anno.body.type === "meal"){
+  html += `<p><i class="material-icons-outlined">restaurant</i>`;
+}else if(anno.body.type === "drink"){
+  html += `<p><i class="material-icons-outlined">local_drink</i>`;
+}else if(anno.body.type === "other"){
+  html += `<p><i class="material-icons-outlined">device_unknown</i>`;
 }
+html += ` </p><p>Kategorie: ${anno.body.categoryName}</p><p>Preis: ${anno.body.price} ${anno.body.price_currency}</p>
+<p>Anzahl: ${anno.body.amount}</p><p>Beschreibung: ${anno.body.description}</p><p></div>`; //TODO: Link zur Kategorie
+$("#annotation-info-content").html(html);
+
+}else if(anno.annotype === "OpeningHours"){
+  $("#annotation-info-title").html(`Öffnungszeiten`);
+  html += `<p><i class="material-icons-outlined">access_time</i> ${anno.body.value}</p></div>`;
+  $("#annotation-info-content").html();
+}else if(anno.annotype === "Category"){
+    $("#annotation-info-title").html($(anno.body.name));
+    html += `<p><i class="material-icons-outlined">category</i>`;
+    if(anno.body.upperCategoryID != undefined && anno.body.upperCategoryID != "null"){
+      html += `(Unterkategorie von ${anno.body.value})`; //TODO: Link zur Kategorie
+    }else{
+      html += `(keine Oberkategorie)`;
+    }
+    html += `</p></div>`;
+    $("#annotation-info-content").html(html);
+}else if(anno.annotype === "Other"){
+  $("#annotation-info-title").html(``);
+  html += `<p><i class="material-icons-outlined"></i> ${anno.body.comment}</p></div><p>`;
+  $("#annotation-info-content").html(html);
+}else if(anno.annotype === "Image"){
+    $("#annotation-info-title").html(`Werbeanzeige:`);
+    if(anno.body.type === "photo"){
+      html += `<i class="material-icons">camera_roll</i>`;
+    }else if(anno.body.type === "draw"){
+      html += `<i class="material-icons">border_color</i>`;
+    }else if(anno.body.type === "ornament"){
+      html += `<i class="material-icons">polymer</i>`;
+    }else if(anno.body.type === "other"){
+        html += `<i class="material-icons">device_unknown</i>`;
+    }
+    html += `</p><p> ${anno.body.comment}</p></div>`;
+    $("#annotation-info-content").html(html);
+
+}else if(anno.annotype === "Ads"){
+  $("#annotation-info-title").html(`Werbeanzeige:`);
+  html += `<p>Beworbene Marke/Geschäft: ${anno.body.brand}</p><p><i class="material-icons-outlined"></i> ${anno.body.comment}</p></div>`;
+  $("#annotation-info-content").html(html);
+
+
+
+}else if (anno.annotype === "Geo"){
+//not implemented, own dialog on map
+
+}
+drawThumb($("[anno-rating]"));
+};
 
 function redrawMapPubDialog(latlng, infos){
-  console.log("Hallo Karte2!");
-  console.log(addressinfo);
   var addressinfo = infos.body;
   console.log(latlng);
   DBpubs.get(infos.target).then( function(doc){
@@ -543,7 +604,8 @@ function redrawMapPubDialog(latlng, infos){
 
       $("#map-info-title").html(`${doc.name}`);
 
-      $("#map-info-content").html(`<div><p>${infos.creator.name} meldet:</p>
+      $("#map-info-content").html(`<div>
+        <p>${infos.creator.name} meldete `+timeDifference(Date.now(), infos.created )+`:</p>
         <p>${addressinfo.street} ${addressinfo.number}, ${addressinfo.zip} ${addressinfo.city}</p>
         <p>Alte Adresse:${addressinfo.street_old} ${addressinfo.number_old}, ${addressinfo.zip_old} ${addressinfo.city_old} </p>
         <p>${addressinfo.comment}</p></div>`);
@@ -566,6 +628,7 @@ function redrawUserInfo(){
     DBhist_persons.get(user_state.identity).then(function(doc){
       $("[user-name]").html(`${doc.name}`);
       $("[user-status]").html(`${doc.job[0]}`);
+      $("#card-about-you").find(`[user-status]`).append(` (${doc.birthdate} - ${doc.deathdate})`);
       user_state.name = doc.name; // set display name
     });
 
@@ -750,4 +813,9 @@ for(var it = rating; it < 5; it++){
 
 }
 return text_html;
+}
+
+function drawThumb(annotyp, anno){
+
+
 }

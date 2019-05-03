@@ -37,12 +37,12 @@ $("#nav-map").click(function(evt){
 
 });
 
-$("#nav-dishes-you").click(function(evt){
+$("#nav-anno-you").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
   redrawYourDishes();
   drawer.open = false;
-  $( "#card-dishes-you" ).show();
+  $( "#card-anno-you" ).show();
 });
 
 $("#nav-dishes-all").click(function(evt){
@@ -124,6 +124,23 @@ $( "#card-pubs-list" ).hide();
 $( "#card-pubs-detail" ).show();
 
 });
+
+$('#dishes-detail-pubs').on('click', function(evt){
+  //link from dishes to pub
+$("#card-dishes-detail").hide();
+redrawPubs(app_state.pubs);
+
+$( "#card-pubs-detail" ).show();
+})
+
+$('#dishes-detail-menupage').on('click', function(evt){
+  //link from dishes to pub
+$("#card-dishes-detail").hide();
+redrawMenu(app_state.menupage);
+//TODO: add to redrawMenu
+//  initIIIFMap();
+$( "#card-menu-detail" ).show();
+})
 
 $('#dishes-all-list').on('click', '.mdc-list-item', function(evt){
 console.log("clicked");
@@ -223,6 +240,8 @@ $("#button-menu-detail-add-geolocation").click(function(evt){
   //get pubid of this menu
   var pubid = "";
   annotation_geolocation_dialog.open();
+  Ratingslider.layout();
+
 //  $( "#card-pubs-detail" ).show();
 });
 
@@ -278,7 +297,7 @@ $("#annotation-openinghours-popup").find('[data-mdc-dialog-action="accept"]').cl
 var data = {
 "@context" : "http://www.w3.org/ns/anno.jsonld",
 "type" : "Annotation",
-"annotype" : "OpeningHour",
+"annotype" : "OpeningHours",
 "body" : {
 	"value" : $("#annotation-open-comment > textarea").val(),
 },
@@ -547,9 +566,12 @@ $("#person-selector").show();
 
 function showMapPubDialog(){
   //Map event on click marker
-  console.log("Hallo Karte!");
   console.log(this);
   redrawMapPubDialog(this._latlng, this.spot);
+  app_state.anno_id = this.spot._id;
+  app_state.anno_typ = this.spot.annotype;
+
+  drawThumb($("#map-info-popup").find("[geo-rating]"));
   //prerender view of pub when clicking this
   //redrawPubs(this.pubid);
   app_state.pubs = this.target;
@@ -602,8 +624,8 @@ var data = {
   	"pubid": app_state.pubs,
   	"menu" : app_state.menu,
   	"menupage": app_state.menupage,
-  	"anno-id" : app_state.dishes,
-  	"anno-typ" : "Dish"
+  	"anno_id" : app_state.dishes,
+  	"anno_typ" : "Dish"
   },
   "creator" : {
   	"id" : user_state.timestamp,
@@ -689,9 +711,11 @@ DBaddnew(data,DBcategory);
 });
 
 function showAnnotationInfoDialog(){
-  var anno_id = this;
-  console.log(anno_id);
-  redrawAnnotationInfoDialog(anno_id);
+  //infos are saved in map object
+  var anno_info = this.obj;
+app_state.anno_id = anno_info.id;
+app_state.anno_type = anno_info.annotype;
+  redrawAnnotationInfoDialog(anno_info);
   annotation_info_dialog.open();
 //Get info about Put
 
@@ -719,17 +743,285 @@ DBgeo.allDocs({
       if(value.doc.id === geoid){
         lat = value.doc.body.latlng[0];
         lng = value.doc.body.latlng[1];
-        data = value.doc.body;
+        spot = value.doc;
       }
     });
     //add more info from actual pubs
     //
-    redrawMapPubDialog(data, [lat,lng]);
+    redrawMapPubDialog([lat,lng], this.spot);
+    drawThumb($("#map-info-popup").find("[geo-rating]"));
     MapShowPubID($(this).attr('data-id'), lat, lng);
     mapAllPubsAdd();
     map_pubinfo_dialog.open();
 
 });
 $("#card-map").show();
+});
 
+$("#button-menu-detail-add-ads").click(function(evt){
+  evt.preventDefault();
+  annotation_ads_dialog.open();
+});
+
+$("#button-menu-detail-add-image").click(function(evt){
+  evt.preventDefault();
+  annotation_image_dialog.open();
+});
+
+$("#annotation-ads-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
+  var data = {
+  "@context" : "http://www.w3.org/ns/anno.jsonld",
+  "type" : "Annotation",
+  "annotype" : "Ads",
+  "body" : {
+    "brand" : textField_ads_brand.value,
+    "comment" : textField_ads_comment.value,
+  },
+  "target" : {
+  	"pubid":app_state.pubs,
+    "menu" : app_state.menu,
+  	"menupage": app_state.menupage,
+    "selector": getAnnoFragment(),
+    "coord" : getAnnoCoord(),
+  },
+  "creator" : {
+  	"id" : user_state.timestamp,
+  	"name" : user_state.name,
+  	"identity" : user_state.identity
+  },
+  "generator" : {
+  	"name" : "tripadviswurst"
+  },
+  "created" : JSON.stringify(Date.now()),
+  "motivation" : "commenting"
+  };
+
+console.log(data);
+DBaddnew(data, DBads);
+
+});
+
+$("#annotation-image-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
+  var image_type = $('input[name="image-radios"]:checked').val();
+  console.log(image_radioset.value);
+  var data = {
+  "@context" : "http://www.w3.org/ns/anno.jsonld",
+  "type" : "Annotation",
+  "annotype" : "Image",
+  "body" : {
+    "type" : image_type,
+    "name" : textField_image_comment.value,
+    //$("#annotation-dishes-popup").find("[anno-dishes-name]").val(),
+  },
+  "target" : {
+  	"pubid":app_state.pubs,
+    "menu" : app_state.menu,
+  	"menupage": app_state.menupage,
+    "selector": getAnnoFragment(),
+    "coord" : getAnnoCoord(),
+  },
+  "creator" : {
+  	"id" : user_state.timestamp,
+  	"name" : user_state.name,
+  	"identity" : user_state.identity
+  },
+  "generator" : {
+  	"name" : "tripadviswurst"
+  },
+  "created" : JSON.stringify(Date.now()),
+  "motivation" : "commenting"
+  };
+
+  console.log(data);
+  DBaddnew(data, DBimage);
+
+});
+
+function drawThumb(elem){
+//draws an Thumb up/Thumb Down Button to the specified element
+//get actual number of ratings of selected annotype and anno_id
+
+//remove all zip_old
+$(".rating-thumb").remove();
+
+var up_votes = 0;
+var down_votes = 0;
+var user_vote = null;
+var html = '';
+console.log(app_state.anno_typ); // not checked. typ is defined by anno_id and thumb-attribute
+//count entries
+DBrating.find({
+  selector: { 'target.anno_id' : app_state.anno_id},
+}).then(function(result){
+  $.each(result.docs, function (index, value) {
+    console.log(value);
+    if(value.target.anno_id === app_state.anno_id){
+      console.log(value);
+      if(value.body.thumb != undefined){ //only thumbs
+          if(value.body.thumb === true){
+            up_votes += 1;
+          }else{
+            down_votes += 1;
+          }
+          if(value.creator.id === user_state.timestamp){
+            user_vote = value.body.thumb;
+          }
+      }
+    }
+});
+//'creator.id' : user_state.timestamp
+console.log(result);
+
+html += `<div class="rating-thumb">
+ <button class="mdc-icon-button thumbUp">
+ <span class="mdc-button__label">`+up_votes+`</span>
+<i class="material-icons-outlined  mdc-icon-button__icon">thumb_up</i>
+ </button>
+  <button class="mdc-icon-button thumbDown">
+  <span class="mdc-button__label">`+down_votes+`</span>
+  <i class="material-icons-outlined mdc-icon-button__icon-">thumb_down</i>
+  </button>
+</div>`;
+
+elem.html(html);
+if(user_vote == true){
+
+  $(".thumbUp:visible").attr("disabled", true);
+  $(".thumbDown:visible").attr("disabled", true);
+$(".thumbUp:visible").find("i").toggleClass("material-icons").toggleClass("material-icons-outlined");
+//Working?
+console.log("user_vote true");
+}else if(user_vote == false){
+    $(".thumbUp:visible").attr("disabled", true);
+    $(".thumbDown:visible").attr("disabled", true);
+$(".thumbDown:visible").find("i").toggleClass("material-icons").toggleClass("material-icons-outlined");
+}
+});
+
+}
+
+
+
+//check, if user has already pressed any button
+
+
+function actionThumbUp(){
+//create new rating with thumb down
+var data = {
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"type" : "Annotation",
+"annotype" : "Rating",
+"body" : {
+  "rating" : null,
+  "comment" : null,
+  "skuril" : null,
+  "thumb" : true
+},
+"target" : {
+  "pubid": app_state.pubs,
+  "menu" : app_state.menu,
+  "menupage": app_state.menupage,
+  "anno_id" : app_state.anno_id,
+  "anno_typ" : app_state.anno_typ
+},
+"creator" : {
+  "id" : user_state.timestamp,
+  "name" : user_state.name,
+  "identity" : user_state.identity
+},
+"generator" : {
+  "name" : "tripadviswurst"
+},
+"created" : JSON.stringify(Date.now()),
+"motivation" : "commenting"
+};
+console.log(data);
+DBaddnew(data, DBrating);
+
+}
+function actionThumbDown(){
+//create new rating with thumb false
+var data = {
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"type" : "Annotation",
+"annotype" : "Rating",
+"body" : {
+  "rating" : null,
+  "comment" : null,
+  "skuril" : null,
+  "thumb" : false
+},
+"target" : {
+  "pubid": app_state.pubs,
+  "menu" : app_state.menu,
+  "menupage": app_state.menupage,
+  "anno_id" : app_state.anno_id,
+  "anno_typ" : app_state.anno_typ
+},
+"creator" : {
+  "id" : user_state.timestamp,
+  "name" : user_state.name,
+  "identity" : user_state.identity
+},
+"generator" : {
+  "name" : "tripadviswurst"
+},
+"created" : JSON.stringify(Date.now()),
+"motivation" : "commenting"
+};
+console.log(data);
+DBaddnew(data, DBrating);
+
+}
+$("#card-dishes-detail").on("click", ".thumbUp", function(evt){
+  console.log(this);
+  var th = parseInt(($(this).closest("button").find("span").text())) + 1;
+  console.log("Up" + th);
+  $(".thumbUp:visible").attr("disabled", true);
+  $(".thumbDown:visible").attr("disabled", true);
+  $(".thumbUp:visible").find("i").toggleClass("material-icons").toggleClass("material-icons-outlined");
+  $(this).closest("button").find("span").html(th);
+
+  actionThumbUp();
+});
+
+
+
+$("#card-dishes-detail").on("click", ".thumbDown", function(evt){
+  console.log(this);
+  var th = parseInt(($(this).closest("button").find("span").text())) - 1;
+  console.log("Up" + th);
+  $(".thumbUp:visible").attr("disabled", true);
+  $(".thumbDown:visible").attr("disabled", true);
+
+  $(".thumbDown:visible").find("i").toggleClass("material-icons").toggleClass("material-icons-outlined");
+  $(this).closest("button").find("span").html(th);
+
+  actionThumbDown();
+});
+
+
+$("#map-info-popup").on("click", ".thumbUp", function(evt){
+  console.log(this);
+  var th = parseInt(($(this).closest("button").find("span").text())) + 1;
+  console.log("Up" + th);
+  $(".thumbUp:visible").attr("disabled", true);
+  $(".thumbDown:visible").attr("disabled", true);
+  $(".thumbUp:visible").find("i").toggleClass("material-icons").toggleClass("material-icons-outlined");
+  $(this).closest("button").find("span").html(th);
+
+  actionThumbUp();
+});
+
+
+$("#map-info-popup").on("click", ".thumbDown", function(evt){
+  console.log(this);
+  var th = parseInt(($(this).closest("button").find("span").text())) + 1;
+  console.log("Down" + th);
+  $(".thumbUp:visible").attr("disabled", true);
+  $(".thumbDown:visible").attr("disabled", true);
+  $(".thumbUp:visible").find("i").toggleClass("material-icons").toggleClass("material-icons-outlined");
+  $(this).closest("button").find("span").html(th);
+
+  actionThumbUp();
 });
