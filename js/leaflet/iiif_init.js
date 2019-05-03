@@ -7,7 +7,8 @@ var map_iiif = L.map('iiifmap', {
 });
 map_iiif.invalidateSize();
 var baseLayer = L.tileLayer.iiif(
-  'https://stacks.stanford.edu/image/iiif/cv770rd9515%2F0767_23A_SM/info.json'
+  //
+  'https://stacks.stanford.edu/image/iiif/hg676jb4964%2F0380_796-44/info.json'
 ).addTo(map_iiif);
 
 var markerLayer = L.featureGroup();

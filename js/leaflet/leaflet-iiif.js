@@ -162,7 +162,13 @@ L.TileLayer.Iiif = L.TileLayer.extend({
     //-> using ajax, problems to read json as contentType
     $.ajax({
       url: _this._infoUrl,
-      dataType:"json",
+      crossDomain: true,
+    withCredentials: true,
+    crossOrigin: true,
+    headers: {
+            'Access-Control-Allow-Origin' : '*'
+        },
+            dataType:"json",
       mimeType:"text/plain",
       success:function(data){
         console.log("success: ", data);

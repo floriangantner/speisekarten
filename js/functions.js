@@ -920,16 +920,18 @@ function getPubsStatistic(pubsid){
 return new Promise(function(resolve, reject){
 var obj = { menu : 0,
 menupage : 0};
-DBmenu.find({
+/*DBmenu.find({
   selector: {pub : pubsid},
 }, function (err, result) {
   $.each(result.docs, function (index, value) {
   obj.menu += 1;
   obj.menupage += value.menupages.length;
   });
+*/
   resolve(obj);
 
-});
+// });
+
 });
 
 }
