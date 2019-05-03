@@ -38,7 +38,7 @@ DBpubs.bulkDocs(data_pubs).then(function (result) {
   }).then(function(result){
     return DBrating.createIndex({
       index: {
-        fields: ['pubid', 'dishes', 'playerid']
+        fields: ['pubid', 'dishes', 'playerid', 'target.anno_id']
       }});
   }).then(function(result){
     console.log("Datastructure filled from sample data")
@@ -84,7 +84,7 @@ function dataStructure_check(){
           }}).then(function(result2){
           return DBrating.createIndex({
             index: {
-              fields: ['pubid', 'dishes']
+              fields: ['pubid', 'dishes', 'target.anno_id']
             }}).then(function(result2){
 
             }).catch(function (err) {

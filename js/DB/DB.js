@@ -15,6 +15,8 @@ const DBgeo = new PouchDB('geo_adresses');
 const DBanno_other = new PouchDB('anno_other');
 const DBcategory = new PouchDB('category');
 const DBpersons_head = new PouchDB('person_head');
+const DBads = new PouchDB('ads');
+const DBimage = new PouchDB('image');
 var doc;
 
 //adds a String to a specific DB
