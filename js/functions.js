@@ -15,14 +15,64 @@ identity_check();
 
 }
 
-function newPubListElement(data){
+function newPubListElement(data, elem){
   //generated Code for Entry.
  var card_html = '';
 $.each(data, function (index, value) {
-  card_html += `<li class="mdc-list-item" data-id="${value.id}">${value.doc.name}</li>`;
-});
+
+      card_html = `<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.id}">
+        <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.doc.name}</span>
+        <span class="mdc-list-item__secondary-text"><span data-stat></span><span data-geo></span></span></span>
+        <span class="mdc-list-item__meta" aria-hidden="true" data-status><i class="material-icons">check</i></span>
+      </li>`;
+      elem.append(card_html);
+    })
+
+
+
+
+
 console.log(data.length + " Pubs written to PubsList");
-return card_html;
+}
+
+function enrichPubListwithStatistic(elem){
+  //icons -> done, done_all, help_outline
+  //print more information -> Geolocation, if available, number of dishes, number of menu_pages, sterne, total status,
+  /*
+  <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">${logo}</span>
+  </li>`;
+  */
+  var counter = 0;
+elem.find("li").each(function(index, value){
+  let id = $(this).attr("data-id");
+getPubsStatistic(id).then(function(result){
+$(value).find("[data-stat]").html(`${result.menupage} <i class="material-icons">chrome_reader_mode</i>`)
+return getGeoStatistic(id)
+}).then(function(result){
+  if(result.geo <= 0){
+$(value).find("[data-geo]").html(`<i class="material-icons">location_off</i>`)
+}else if(result.geo === 1){
+$(value).find("[data-geo]").html(`<i class="material-icons">location_on</i>`)
+}else{
+$(value).find("[data-geo]").html(`${result.geo}<i class="material-icons">location_on</i>`)
+}
+counter += result.geo;
+if(counter === 0){
+$(value).find("[data-status]").html(`<i class="material-icons">help_outline</i>`)
+}else if(counter < 4){
+$(value).find("[data-status]").html(`<i class="material-icons">done</i>`)
+}else if(counter > 4){
+  //TODO Check with menupages, if all are finished
+$(value).find("[data-status]").html(`<i class="material-icons">done_all</i>`)
+
+}
+
+}).catch(function(err){
+  console.log(err);
+})
+
+
+});
 }
 
 //return List of all Pubs
@@ -31,9 +81,12 @@ var List = [];
 DBpubs.allDocs({
     include_docs: true
   },function(err, doc){
-    var list = newPubListElement(doc.rows);
-    $("#pubs-list").html('');
-    $(" #pubs-list").append(list);
+    elem = $("#pubs-list");
+    elem.html('');
+    newPubListElement(doc.rows, elem);
+
+    enrichPubListwithStatistic(elem);
+    //enrich with statistics?
     });
   };
 
@@ -58,6 +111,18 @@ function newPubCard(data){
   app_state.pubs = data.id
   $("#pubs-detail-tabs-info > .demo-card__primary > h2  ").text(`${data.name}`);
   redrawPubsAdressList();
+  redrawPubsRatingInfo();
+
+}
+
+function redrawPubsRatingInfo(){
+getPubsRatingStatistic(app_state.pubs).then(function(result){
+console.log(result);
+  $("#pubs-detail-tabs-info").find("[pubs-rating]").html('').html(visualizeRating(((result.rating)/(result.rating_count)).toFixed(1))+ " aus " + result.rating_count + " Bewertungen!");
+}).catch(function(err){
+  console.log(err);
+})
+
 }
 
 function redrawPubsAdressList(){
@@ -68,7 +133,7 @@ function redrawPubsAdressList(){
       $.each(doc.rows, function (index, value) {
         console.log(value);
         console.log(app_state.pubs);
-        if(value.doc.target === app_state.pubs){
+        if(value.doc.language != "query" && value.doc.target.pubid === app_state.pubs){
               var list = newAdressListElement(value.doc);
               console.log(list);
               $("#pubs-adress-list").prepend(list);
@@ -110,17 +175,20 @@ function newMenuListElement(data){
       //using images
      var card_html = '';
   console.log(data);
-    card_html += `<li class="mdc-list__item"><h3 mdc-typography mdc-typography--headline6>${data.name} (${data.date}) - ${data.typ}</h3><ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list">`;
+    card_html += `<h3 mdc-typography mdc-typography--headline6>${data.name} (${data.date}) - ${data.typ}</h3><ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list">`;
+    //get preview image from iiif server
     $.each(data.menupages, function (index1, value1) {
+      var img_url = config['iiifserver'] + value1.filepath.replace(/\//g, "%2F") + "/full/!200,200/0/default.jpg";
       card_html += `<li class="mdc-image-list__item" data-id="${value1.id}">
-        <img class="mdc-image-list__image" src="assets/${value1.filepath}">
-        <div class="mdc-image-list__supporting">
+        <img class="mdc-image-list__image" src="${img_url}" alt="Nicht gefunden"'>
+        <div class="mdc-image-list__supporting">Beschreibung der Liste
         </div>
       </li>`;
+
       //<span class="mdc-image-list__label">${value1.category}</span>
 
   });
-  card_html += `</ul></li>`;
+  card_html += `</ul>`;
     return card_html;
 };
 
@@ -141,7 +209,20 @@ function newDishesAllListElement(data){
  $.each(data, function (index, value) {
    if(value.doc.language != "query"){
    console.log(value)
-   card_html += `<li class="mdc-list-item" data-id="${value.doc.id}">${value.doc.body.name}</li>`;
+   var logo = value.doc.body.type;
+if(logo === "drink"){
+logo = 'restaurant';
+}else if(logo === "meal"){
+logo = 'local_drink';
+}else if(logo === "other"){
+logo = 'device_unknown';
+  }
+   card_html += `<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.doc.id}">
+     <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">${logo}</span>
+     <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.doc.body.name}</span>
+     <span class="mdc-list-item__secondary-text">${value.doc.body.description}</span></span>
+     <span class="mdc-list-item__meta" aria-hidden="true">${value.doc.body.price} ${value.doc.body.price_currency}</span>
+   </li>`;
  }
  });
  return card_html;
@@ -181,7 +262,7 @@ $("#card-dishes-detail").find("[dish-category]").html(data.body.category);
 
 
 DBrating.find({
-  selector: {dishes : data.id},
+  selector: {'target.anno_id' : data.id, 'target.anno_typ' : 'Dish' },
 }, function (err, result) {
   console.log(result);
   if (err) { return console.log(err); }
@@ -245,10 +326,16 @@ DBmenu.allDocs({
 function newMenuCard(data){
       //generated Code for Entry.
       //using images
+
       console.log(data);
+      //encoding not working properly with iiif-server, thus replacing
+      var uri = config['iiifserver'] + data.filepath.replace(/\//g, "%2F") + "/info.json";
+      console.log(uri);
+      loadTileLayer(uri);
 
       $("#card-menu-detail > div > .mdc-card__primary-action > .demo-card__primary > h2 ").html(`${data.name} - ${data.date} - ${data.typ} - ID: ${data.category}`);
       $("#card-menu-detail > div > .mdc-card__primary-action > .mdc-card__media ").attr('style', `background-image: url(assets/${data.filename})`);
+
       app_state.menupage = data.id;
      //TODO: change some menu card
 }
@@ -270,11 +357,21 @@ function newPubsDishesListElement(data){
   var card_html = '';
  $.each(data.docs, function (index, value) {
    console.log(value)
-   card_html +=`<li class="mdc-list-item" tabindex="0" data-id="${value._id}">
-     <span class="mdc-list-item__text">
-       <span class="mdc-list-item__primary-text">${value.body.name}</span>
-       <span class="mdc-list-item__secondary-text">${value.body.price}</span>
-     </span>`
+   var logo = value.body.type;
+   if(logo === "drink"){
+   logo = 'restaurant';
+   }else if(logo === "meal"){
+   logo = 'local_drink';
+   }else if(logo === "other"){
+   logo = 'device_unknown';
+   }
+
+   card_html +=`<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.id}">
+     <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">${logo}</span>
+     <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.body.name}</span>
+     <span class="mdc-list-item__secondary-text">${value.body.description}</span></span>
+     <span class="mdc-list-item__meta" aria-hidden="true">${value.body.price} ${value.body.price_currency}</span>
+   </li>`;
  });
  return card_html;
 }
@@ -596,7 +693,7 @@ drawThumb($("[anno-rating]"));
 function redrawMapPubDialog(latlng, infos){
   var addressinfo = infos.body;
   console.log(latlng);
-  DBpubs.get(infos.target).then( function(doc){
+  DBpubs.get(infos.target.pubid).then( function(doc){
       //var list = newPubListElement(doc.rows);
       console.log(doc);
       //$("#pubs-list").html('');
@@ -684,6 +781,11 @@ function identity_check(){
 function redrawYourDishes(){
 //Go through Dishes and Ratings and view all from this user
 //selector as below
+var list = $("#list-anno-you");
+list.html('');
+drawPersonAnnotationList(list);
+//TODO: add Ratings to list!
+/*
 DBrating.find({
   selector: {'playerid' : user_state.timestamp},
 }, function (err, result) {
@@ -724,17 +826,21 @@ return DBdishes.find({
 }).catch(function(err){
   console.log(err);
 });
+*/
 }
 
 function newYourDishesElement(data){
+  //DEPRECATED
   //TODO: seperate between dishes, annotations, lokations
+  /*
   console.log(data);
   return `<li class="mdc-list-item" tabindex="0" data-timestamp="${data.timestamp}">
     <span class="mdc-list-item__text">
       <span class="mdc-list-item__primary-text">${data.name} ${data.price}</span>
-      <span class="mdc-list-item__secondary-text">${data.comment} : ` + convertTimestamp(data.timestamp) + ` : ` + convertTimestamp(data.time) + `</span>
+      <span class="mdc-list-item__secondary-text">${data.comment} : ` + timeDifference(data.timestamp, Date.now()) + `</span>
     </span>
   </li>`;
+  */
 }
 
 function newCategoryList(elem){
@@ -771,51 +877,228 @@ function timeDifference(current, previous) {
 
     var elapsed = current - previous;
 
-    if (elapsed < 0) {
-         return 'in der Zukunft';
-    }
+    if (elapsed < 0) return 'in der Zukunft';
+    if (elapsed < msPerMinute) return 'vor ' + Math.round(elapsed/1000) + ' Sekunden';
+    else if (elapsed < msPerHour) return 'vor ' + Math.round(elapsed/msPerMinute) + ' Minuten';
+    else if (elapsed < msPerDay ) return 'vor ' + Math.round(elapsed/msPerHour ) + ' Stunden';
+    else if (elapsed < msPerMonth) return 'vor ' + Math.round(elapsed/msPerDay) + ' Tagen';
+    else if (elapsed < msPerYear) return 'vor ' + Math.round(elapsed/msPerMonth) + ' Monaten';
+    else return 'vor ' + Math.round(elapsed/msPerYear ) + ' Jahren';
 
-    if (elapsed < msPerMinute) {
-         return 'vor ' + Math.round(elapsed/1000) + ' Sekunden';
-    }
-
-    else if (elapsed < msPerHour) {
-         return 'vor ' + Math.round(elapsed/msPerMinute) + ' Minuten';
-    }
-
-    else if (elapsed < msPerDay ) {
-         return 'vor ' + Math.round(elapsed/msPerHour ) + ' Stunden';
-    }
-
-    else if (elapsed < msPerMonth) {
-        return 'vor ' + Math.round(elapsed/msPerDay) + ' Tagen';
-    }
-
-    else if (elapsed < msPerYear) {
-        return 'vor ' + Math.round(elapsed/msPerMonth) + ' Monaten';
-    }
-
-    else {
-        return 'vor ' + Math.round(elapsed/msPerYear ) + ' Jahren';
-    }
 }
 
 function visualizeRating(rating){
 //visualize Rating, return Stars
 console.log(rating);
+var counter_printed = 0;
 var text_html = '';
-for(var it = rating; it > 0; it-- ){
-//for(var it = 0; it < rating; it++){
+var it = 0;
+for(; it < rating; it++ ){
   text_html += '<i class="material-icons">star</i>';
+  counter_printed++;
+
 }
-for(var it = rating; it < 5; it++){
+if((rating - it) >= 0.49){
+  text_html += '<i class="material-icons">star_half</i>';
+  counter_printed++;
+}
+for(; counter_printed < 5; counter_printed++){
   text_html += '<i class="material-icons">star_border</i>';
 
 }
 return text_html;
 }
 
-function drawThumb(annotyp, anno){
 
+//get PubsData
+function getPubsStatistic(pubsid){
+//get infos about all menupages, numbers, ratings and status, and geolocation infos
+//returned in object
+//DFS Search
+return new Promise(function(resolve, reject){
+var obj = { menu : 0,
+menupage : 0};
+/*DBmenu.find({
+  selector: {pub : pubsid},
+}, function (err, result) {
+  $.each(result.docs, function (index, value) {
+  obj.menu += 1;
+  obj.menupage += value.menupages.length;
+  });
+*/
+  resolve(obj);
+
+// });
+
+});
 
 }
+
+function getGeoStatistic(pubsid){
+  var obj = { geo : 0};
+  return new Promise(function(resolve, reject){
+
+  DBgeo.find({
+    selector: {'target.pubid' : pubsid},
+  }, function (err, result) {
+    obj.geo = result.docs.length;
+    resolve(obj);
+  });
+})
+  }
+
+  function getPubsRatingStatistic(pubid){
+    //including rating from pub
+    return new Promise(function(resolve, reject){
+      var obj = {
+        rating : 0,
+        rating_count : 0
+      }
+    DBrating.find({
+      selector: {'target.pubid' : pubid},
+    }, function (err, result) {
+      $.each(result.docs, function (index, value) {
+        if(value.body.rating != undefined && value.body.rating != null){
+          obj.rating += value.body.rating
+          obj.rating_count += 1;
+        }
+      });
+      resolve(obj);
+
+    });
+
+  })
+}
+
+  function addToAnnotationList(data,target){
+    //data -> type,
+    //target element -> jquery elem
+    //draw Annotation listed with a menupage
+
+    //Switch Cases -> Logo, Description Value
+    //Filter: Coords available
+    //Filter: Timestamp
+    //Filter: Your Coordinates creator.id
+    var data2 = JSON.stringify(data.body);
+    var icon = "", display_value = "", display_value2 = "";
+    var by_user_created = "", user_created_logo = ""
+    var timestamp = JSON.stringify(data.created);
+    var coord = "", coord_logo = "";
+    if(data.target.coord && data.target.coord.value != ""){
+      coord = "coord-missing";
+      coord_logo = '<i class="material-icons" title="Nicht auf der Karte">location_disabled</i>';
+    };
+    if(data.creator.id === user_state.timestamp){
+      by_user_created = "user-created";
+      user_created_logo = '<i class="material-icons" title="Von dir verzeichnet">person_pin</i>';
+    }
+
+    if(data.annotype === "Other"){
+      icon = 'announcement';
+      display_value = data.body.comment;
+}else if(data.annotype === "Dishes"){
+  icon = 'note_add';
+  if(data.body.type === "drink"){
+  icon = 'restaurant';
+}else if(data.body.type === "meal"){
+  icon = 'local_drink';
+}else if(data.body.type === "other"){
+  icon = 'device_unknown';
+    }
+  display_value = data.body.name;
+  display_value2 = data.body.price + " " + data.body.price_currency;
+}else if(data.annotype === "OpeningHours"){
+  icon = 'access_alarm';
+  display_value = data.body.value;
+}else if(data.annotype === "Category"){
+  icon = 'category';
+  display_value = data.body.name;
+}else if(data.annotype === "Ads"){
+  icon = 'format_paint';
+  display_value = data.body.brand;
+  display_value2 = data.body.comment;
+}else if(data.annotype === "Image"){
+  icon = 'image';
+  display_value = data.body.name;
+}else if(data.annotype === "Geo"){
+  icon = 'location_city';
+  display_value = data.body.street + " " + data.body.number + " ( " + data.body.street_old + data.body.number_old +")";
+  if(data.body.latlng.length > 1){
+    coord_logo = '<i class="material-icons" title="Geolokalisiert">location_on</i>';
+    coord = "";
+  }
+}else if(data.annotype === "Rating" && data.body.comment != "" && data.body.thumb == null){
+  icon = 'comment';
+  display_value = data.body.comment;
+  display_value2 = visualizeRating(data.body.rating);
+}
+
+    html = `<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${data._id}" data-type="${data.annotype}" data-timestamp="${data.created}" ${by_user_created} ${coord}>
+      <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">${icon}</span>
+      <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${display_value}</span>
+      <span class="mdc-list-item__secondary-text">${display_value2}</span></span>
+      <span class="mdc-list-item__meta" aria-hidden="true">${coord_logo} ${user_created_logo}</span>
+    </li>`;
+
+    //annotation-list
+    target.append(html);
+  }
+  function drawPersonAnnotationList(list){
+    //find all Annotations by this user
+    //include Geo and Rating (special mode needed to access these)
+
+
+    DBdishes.find({
+      selector: {'creator.id' : user_state.timestamp},
+    }).then(function(result){
+      $.each(result.docs, function (index, value) {
+        if(value.language != "query") addToAnnotationList(value, list);
+      });
+
+      return DBopeninghours.find({selector : {'creator.id' : user_state.timestamp}});
+    }).then(function(result){
+        $.each(result.docs, function (index, value) {
+          if(value.language != "query") addToAnnotationList(value, list);
+        });
+      return DBanno_other.find({selector : {'creator.id' : user_state.timestamp}});
+    }).then(function(result){
+        $.each(result.docs, function (index, value) {
+
+          if(value.language != "query") addToAnnotationList(value, list);
+        });
+      return DBads.find({selector : {'creator.id' : user_state.timestamp}});
+    }).then(function(result){
+        $.each(result.docs, function (index, value) {
+            if(value.language != "query") addToAnnotationList(value, list);
+        });
+      return DBcategory.find({selector : {'creator.id' : user_state.timestamp}});
+    }).then(function(result){
+        $.each(result.docs, function (index, value) {
+            if(value.language != "query") addToAnnotationList(value, list);
+        });
+      return DBimage.find({selector : {'creator.id' : user_state.timestamp}});
+    }).then(function(result){
+        $.each(result.docs, function (index, value) {
+            if(value.language != "query") addToAnnotationList(value, list);
+        });
+      return DBgeo.find({selector : {'creator.id' : user_state.timestamp}});
+    }).then(function(result){
+        $.each(result.docs, function (index, value) {
+            if(value.language != "query") addToAnnotationList(value, list);
+        });
+      return DBrating.find({selector : {'creator.id' : user_state.timestamp, 'target.anno_typ' : 'Dish'}});
+      }).then(function(result){
+          $.each(result.docs, function (index, value) {
+                if(value.target.anno_typ === "Dish" && value.body.thumb === null){
+                console.log(value);
+                addToAnnotationList(value, list);
+                }
+          });
+
+    }).catch(function(err){
+console.log(err);
+    });
+
+    $("#pubs-menu-list").html('');
+
+  }

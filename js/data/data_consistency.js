@@ -28,7 +28,7 @@ DBpubs.bulkDocs(data_pubs).then(function (result) {
 //Create Indexes for Searching
   return DBmenu.createIndex({
     index: {
-      fields: ['menupages']
+      fields: ['menupages', 'pub']
     }});
 }).then(function(result){
   return DBdishes.createIndex({
@@ -38,7 +38,12 @@ DBpubs.bulkDocs(data_pubs).then(function (result) {
   }).then(function(result){
     return DBrating.createIndex({
       index: {
-        fields: ['pubid', 'dishes', 'playerid', 'target.anno_id']
+        fields: ['pubid', 'dishes', 'playerid', 'target.anno_id', 'target.pubid']
+      }});
+  }).then(function(result){
+    return DBgeo.createIndex({
+      index: {
+        fields: ['target.pubid']
       }});
   }).then(function(result){
     console.log("Datastructure filled from sample data")
@@ -81,17 +86,23 @@ function dataStructure_check(){
         return DBdishes.createIndex({
           index: {
             fields: ['pubid']
-          }}).then(function(result2){
+          }})
+        }).then(function(result2){
           return DBrating.createIndex({
             index: {
-              fields: ['pubid', 'dishes', 'target.anno_id']
-            }}).then(function(result2){
-
+              fields: ['pubid', 'dishes', 'target.anno_id', 'target.pubid']
+            }})
+          }).then(function(result2){
+            return DBgeo.createIndex({
+              index: {
+                fields: ['target-pubid']
+              }})
+            }).then(function(result2){
+              console.log("Indexes created");
             }).catch(function (err) {
               console.log(err);
-            });
             })
-});
+
 }
 })
 }

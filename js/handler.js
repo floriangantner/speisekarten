@@ -58,7 +58,7 @@ $("#nav-about-you").click(function(evt){
   $( "main" ).hide();
   //if no identity has been selected?
   if(user_state.identity == "" || user_state.identity === undefined){
-  alert("Keine Identität ausgewählt!");
+   showTextOnSnackbar("Keine Identität ausgewählt!", 5000);
   $("#button-identity-confirm").attr("disabled", false);
   $("#button-identity-confirm").hide();
   $("#card-identity").show();
@@ -131,6 +131,9 @@ $("#card-dishes-detail").hide();
 redrawPubs(app_state.pubs);
 
 $( "#card-pubs-detail" ).show();
+$(".menu-tab-element").hide();
+$(".menu-tab-element[data-tab=map]").show();
+
 })
 
 $('#dishes-detail-menupage').on('click', function(evt){
@@ -138,7 +141,6 @@ $('#dishes-detail-menupage').on('click', function(evt){
 $("#card-dishes-detail").hide();
 redrawMenu(app_state.menupage);
 //TODO: add to redrawMenu
-//  initIIIFMap();
 $( "#card-menu-detail" ).show();
 })
 
@@ -184,8 +186,9 @@ $( "#card-pubs-detail" ).hide();
     app_state.menupage = $(this).attr('data-id');
     console.log(app_state.menupage);
     redrawMenu(app_state.menupage);
+    $(".pubs-menu-element").hide();
+    $(".pubs-menu-element[data-tab=map]").show();
     //TODO: add to redrawMenu
-  //  initIIIFMap();
 $( "#card-menu-detail" ).show();
 
 });
@@ -224,6 +227,7 @@ $("#button-menu-detail-add-openinghours").click(function(evt){
 
   annotation_open_dialog.open();
 //  $( "#card-pubs-detail" ).show();
+
 });
 
 $("#button-menu-detail-add-other").click(function(evt){
@@ -288,6 +292,7 @@ var data = {
 console.log(data);
 DBaddnew(data,DBdishes);
 //add name and price as new dished to the database
+showTextOnSnackbar("Gericht hinterlegt!", 5000);
 
 });
 
@@ -323,6 +328,7 @@ console.log(data);
 DBaddnew(data,DBopeninghours);
 //DBadd(data,DBdishes);
 //add name and price as new dished to the database
+showTextOnSnackbar("Öffnungszeiten hinterlegt!", 5000);
 
 });
 
@@ -347,7 +353,10 @@ var data = {
 	"number_old" : $("[geo-number_old").val(),
 	"comment" : $("[geo-comment").val()
 },
-"target" : app_state.pubid,
+"target" : {
+  "pubid" : app_state.pubid,
+"menu" : app_state.menu
+},
 "creator" : {
 	"id" : user_state.timestamp,
   "identity" : user_state.identity,
@@ -363,6 +372,7 @@ var data = {
 console.log(data);
 DBaddnew(data,DBgeo);
 //add name and price as new dished to the database
+showTextOnSnackbar("Adresse hinterlegt!", 5000);
 
 });
 
@@ -432,6 +442,7 @@ var data = {
 console.log(data);
 DBaddnew(data,DBanno_other);
 //add name and price as new dished to the database
+showTextOnSnackbar("Etwas hinterlegt!", 5000);
 
 });
 
@@ -574,7 +585,7 @@ function showMapPubDialog(){
   drawThumb($("#map-info-popup").find("[geo-rating]"));
   //prerender view of pub when clicking this
   //redrawPubs(this.pubid);
-  app_state.pubs = this.target;
+  app_state.pubs = this.target.pubid;
   redrawPubs(app_state.pubs);
   console.log(map_pubinfo_dialog);
 
@@ -641,6 +652,8 @@ var data = {
 
   console.log(data);
   DBaddnew(data,DBrating);
+  showTextOnSnackbar("Bewertung hinterlegt!", 5000);
+
 })
 
 $("#anno-add-button").click(function(evt){
@@ -652,6 +665,12 @@ $("#pubs-tabbar").find(".mdc-tab").on("click", function(evt){
 var clicked = $(this).attr("data-id");
 $(".pubs-tab-element").hide();
 $(".pubs-tab-element[data-tab="+clicked+"]").show();
+});
+
+$("#menu-tabbar").find(".mdc-tab").on("click", function(evt){
+var clicked = $(this).attr("data-id");
+$(".pubs-menu-element").hide();
+$(".pubs-menu-element[data-tab="+clicked+"]").show();
 });
 
 $("#button-menu-detail-add-category").on("click", function(evt){
@@ -706,12 +725,13 @@ var data = {
 }
 console.log(data);
 DBaddnew(data,DBcategory);
-
+//
+showTextOnSnackbar("Kategorie hinterlegt!", 5000);
 
 });
 
 function showAnnotationInfoDialog(){
-  //infos are saved in map object
+  //infos are saved in map object or list-object
   var anno_info = this.obj;
 app_state.anno_id = anno_info.id;
 app_state.anno_type = anno_info.annotype;
@@ -798,7 +818,7 @@ $("#annotation-ads-popup").find('[data-mdc-dialog-action="accept"]').click(funct
 
 console.log(data);
 DBaddnew(data, DBads);
-
+showTextOnSnackbar("Werbung hinterlegt!", 5000);
 });
 
 $("#annotation-image-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
@@ -834,6 +854,7 @@ $("#annotation-image-popup").find('[data-mdc-dialog-action="accept"]').click(fun
 
   console.log(data);
   DBaddnew(data, DBimage);
+  showTextOnSnackbar("Werbung hinterlegt!", 5000);
 
 });
 
@@ -881,7 +902,7 @@ html += `<div class="rating-thumb">
   <span class="mdc-button__label">`+down_votes+`</span>
   <i class="material-icons-outlined mdc-icon-button__icon-">thumb_down</i>
   </button>
-</div>`;
+</div`;
 
 elem.html(html);
 if(user_vote == true){
@@ -1025,3 +1046,189 @@ $("#map-info-popup").on("click", ".thumbDown", function(evt){
 
   actionThumbUp();
 });
+
+function redrawHelp(topic){
+if(topic === "annotation"){
+  $("#help-title").html('');
+  $("#help-content").html('');
+  $("#help-go").html('');
+}
+}
+
+$("#pubs-list-sort").click(function(){
+  if($("#pubs-list-sort").hasClass('sort_asc')){
+    $("#pubs-list li").sort(asc_sort).appendTo('#pubs-list');
+    $("#pubs-list-sort").removeClass('sort_asc')
+  }else{
+    $("#pubs-list li").sort(dec_sort).appendTo('#pubs-list');
+    $("#pubs-list-sort").addClass('sort_asc')
+  }
+  // accending sort
+  function asc_sort(a, b){
+      return ($(b).text()) < ($(a).text()) ? 1 : -1;
+  }
+
+  // decending sort
+  function dec_sort(a, b){
+      return ($(b).text()) > ($(a).text()) ? 1 : -1;
+  }
+
+})
+
+$(".filter-sort > span").on("click", function (evt){
+//find next list and filter or sort
+console.log(this);
+var list = $(this).closest("div").find("ul:visible");
+if($(this).attr('filter-user') != undefined){
+if($(this).attr("user-filter-active") != undefined){
+list.find("li").show();
+$(this).removeAttr("user-filter-active");
+}else{
+  $(this).attr("user-filter-active");
+  list.find("li").hide();
+  list.find("li[user-created]").show();
+}
+
+}else if($(this).attr('sort-time') != undefined){
+if($(list).hasClass('sort_time_asc')){
+  $(list).find("li").sort(asc_sort).appendTo(list);
+  $(list).removeClass('sort_time_asc');
+}else{
+  $(list).find("li").sort(dec_sort).appendTo(list);
+  $(list).addClass('sort_time_asc')
+}
+// accending sort
+function asc_sort(a, b){
+  return ($(b).attr('data-timestamp')) < ($(a).attr('data-timestamp')) ? 1 : -1;
+}
+
+// decending sort
+function dec_sort(a, b){
+  return ($(b).attr('data-timestamp')) > ($(a).attr('data-timestamp')) ? 1 : -1;
+}
+
+}else if($(this).attr('filter-coord') != undefined){
+  if($(this).attr("coord-filter-active") != undefined){
+  list.find("li").show();
+  $(this).removeAttr("coord-filter-active");
+  }else{
+    $(this).attr("coord-filter-active", "true");
+    list.find("li").hide();
+    list.find("li[coord-missing]").show();
+  }
+}else if($(this).attr('sort-atoz') != undefined){
+if($(list).hasClass('sort_atoz_asc')){
+  $(list).find("li").sort(asc_sort).appendTo(list);
+  $(list).removeClass('sort_atoz_asc');
+}else{
+  $(list).find("li").sort(dec_sort).appendTo(list);
+  $(list).addClass('sort_atoz_asc')
+}
+// accending sort
+function asc_sort(a, b){
+  return ($(b).find('mdc-list-item__primary-text').text()) < ($(a).find('mdc-list-item__primary-text').text()) ? 1 : -1;
+}
+
+// decending sort
+function dec_sort(a, b){
+  return ($(b).find('mdc-list-item__primary-text').text()) > ($(a).find('mdc-list-item__primary-text').text()) ? 1 : -1;
+}
+
+};
+});
+
+
+$("#annotation-list").on("click", ".mdc-list-item", function(){
+var db = null;
+if($(this).attr('data-type') === "Other"){
+db = DBanno_other;
+}else if($(this).attr('data-type') === "Dishes"){
+db = DBdishes;
+}else if($(this).attr('data-type') === "Category"){
+db = DBcategory;
+}else if($(this).attr('data-type') === "OpeningHours"){
+db = DBopeninghours;
+}else if($(this).attr('data-type') === "Ads"){
+db = DBads;
+}else if($(this).attr('data-type') === "Image"){
+db = DBimage;
+}
+db.get($(this).attr("data-id")).then(function(result){
+var anno_info = result;
+app_state.anno_id = anno_info.id;
+app_state.anno_type = anno_info.annotype;
+redrawAnnotationInfoDialog(anno_info);
+annotation_info_dialog.open();
+
+}).catch(function(err){
+  console.log(err);
+});
+//data-id data-type
+//showAnnotationInfoDialog
+//set variables
+//redraw Dialog and open
+});
+
+
+$("#list-anno-you").on("click", ".mdc-list-item", function(){
+  //extend for geo and ratings
+var db = null;
+if($(this).attr('data-type') === "Other"){
+db = DBanno_other;
+}else if($(this).attr('data-type') === "Dishes"){
+db = DBdishes;
+}else if($(this).attr('data-type') === "Category"){
+db = DBcategory;
+}else if($(this).attr('data-type') === "OpeningHours"){
+db = DBopeninghours;
+}else if($(this).attr('data-type') === "Ads"){
+db = DBads;
+}else if($(this).attr('data-type') === "Image"){
+db = DBimage;
+}
+if(db != null){
+db.get($(this).attr("data-id")).then(function(result){
+var anno_info = result;
+app_state.anno_id = anno_info.id;
+app_state.anno_type = anno_info.annotype;
+redrawAnnotationInfoDialog(anno_info);
+annotation_info_dialog.open();
+}).catch(function(err){
+  console.log(err);
+});
+}else if($(this).attr('data-type') === "Geo"){
+  DBgeo.get($(this).attr("data-id")).then(function(result){
+  var anno_info = result;
+  app_state.anno_id = anno_info.id;
+  app_state.anno_type = anno_info.annotype;
+  app_state.pubs = result.target.pubid;
+
+  redrawMapPubDialog(result.body.latlng, result);
+  drawThumb($("#map-info-popup").find("[geo-rating]"));
+  app_state.pubs = this.target.pubid; //prerender Pubs-Dialog
+  redrawPubs(app_state.pubs);
+  map_pubinfo_dialog.open();
+  }).catch(function(err){
+    console.log(err);
+  });
+
+}else if($(this).attr('data-type') === "Rating"){
+//Comment Dishes-Funktion here
+
+}
+//data-id data-type
+//showAnnotationInfoDialog
+//set variables
+//redraw Dialog and open
+});
+
+$("#map-random-pub").click(function(){
+//go to random pub of markerLAyer
+
+    var keys = Object.keys(pubsListSureLayer._layers)
+    var randomProperty = pubsListSureLayer._layers[keys[ keys.length * Math.random() << 0]];
+console.log(randomProperty);
+MapShowPubID(randomProperty.spot.targer, randomProperty._latlng.lat, randomProperty._latlng.lng);
+showTextOnSnackbar("Zufällige Gaststätte ausgewählt!", 5000);
+
+})

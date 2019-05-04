@@ -1,0 +1,175 @@
+<html>
+<head>
+  <title>Geodata - CSV - Parser</title>
+  <!--<link rel="stylesheet" href="css/material-components-web.min.css">
+  <link rel="stylesheet" href="css/app.css">-->
+  <script src="../js/jquery/jquery-3.3.1.min.js"></script>
+  <style>
+  #out, #out2 {
+  font-family: Consolas, monaco, monospace;
+  font-size:10pt;
+  }
+  </style>
+</head>
+<body>
+
+<h1>Programm zum Einlesen der Geodaten aus der Excel-Datei</h1>
+<div>
+<p>Excel in csv umwandeln und generierter Json-Code in data_samples.js reinkopieren oder damit eine Datenbank füllen</p>
+<p><a href="https://jsoneditoronline.org/">Json Editor online zum Betrachten</a></p>
+<p>Select local CSV File:</p>
+<input id="csv" type="file">
+</div><div>
+<output id="statistic">Statistiken:</output><br />
+  <button id="show-geo">Geopositionen anzeigen und kopieren</button><br />
+
+</div>
+<div><textarea id="out" cols="50" rows="10">
+    file contents will appear here
+</textarea>
+</div>
+<script>
+
+//Gaststätten und Speisekarten sind im Dokument durch die Reihenfolge zusammenhängend (also untereinanderstehende Einträge)
+
+$(document).ready(function() {
+
+$("#show-geo").click(function(){
+$("#out").toggle().select();
+document.execCommand("copy");
+
+})
+
+  var geos = [], pubcounter = [], geoid = 4;
+  var time_start = new Date().getTime();
+  var fileInput = document.getElementById("csv"),
+      readFile = function () {
+          var reader = new FileReader();
+          reader.onload = function () {
+                //print readed filed
+                //$("#out").html(reader.result);
+                //Teile Zeilen
+                var allRows = reader.result.split(/\  r?\n|\r/);
+                $.each(allRows, function(index, value){
+                //Teile Zeilen in Teile
+                // DIR und Datum = leer -> Gaststätte
+                //add pub beginning from 1
+                var value_split = value.split(';');
+                allRows[index] = null;
+                allRows[index] = {
+                  'id' : value_split[0],
+                  'name_other' : value_split[1],
+                  'lokal' : value_split[2],
+                  'jahr' : value_split[3],
+                  'tel' : value_split[4],
+                  'adresse' : value_split[5],
+                  'latlng' : value_split[6],
+                  'quelle' : value_split[7],
+                  'bemerkung' : value_split[8],
+                  'misc' : value_split[9] //und waas danach kommt
+                }
+              });
+
+              for(var it = 1; it < allRows.length; it++){
+
+                  var thisentry = allRows[it];
+                  var newgeo = {};
+                  if(thisentry == null){
+                    console.log("Error or empty line at line " + it)
+                    break;
+                  }
+                  var lat, lng, latlng;
+                  if(thisentry.latlng != undefined && thisentry.latlng != ""){
+                  var latlng = thisentry.latlng.split(",");
+                  console.log(latlng);
+                  console.log(it);
+                  //remove [ and ] from entries
+                  lat = latlng[0].replace("\[", "");
+                  //Regex for Geo
+                  console.log(lat);
+                  reg = new RegExp('[0-9][0-9]\.[0-9]+')
+                  var reg_result = lat.match(reg);
+                  console.log(reg_result);
+                  if(!lat.match(reg)){
+                    console.log(lat + " lat nicht korrekt. Skipping latlng")
+                    latlng = null
+                  }else{
+                    lng = latlng[1].replace("\]", "");
+                  if(!lng.match(reg)){
+                    console.log(lng + " lng nicht korrekt. Skipping latlng")
+                    latlng = null;
+                  }else{
+                    latlng = [parseFloat(lat), parseFloat(lng)];
+                    }
+                  }
+                }else{
+                  latlng = null;
+                }
+                var menu_id = thisentry.id.replace('\n', "");
+                  var id = thisentry.id.split("/");
+                  var id = id[0].replace('\n', "");
+newgeo = {
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"id" : "geo"+geoid,
+"_id" : "geo"+geoid,
+"type" : "Annotation",
+"annotype" : "Geo",
+"body" : {
+	"latlng" : latlng,
+	"country" : "",
+	"city" : "",
+	"zip" : "",
+	"street" : thisentry.adresse,
+	"number" : "",
+	"street_old" : "",
+	"zip_old" : "",
+	"city_old" : "",
+	"number_old" : "",
+	"comment" : thisentry.bemerkung + " | Quelle:" + thisentry.quelle
+},
+"target" : {"pubid": id,
+"menu" : menu_id},
+"creator" : {
+	"id" : "",
+	"name" : "Heni & Alan",
+	"identity" : null
+},
+"generator" : {
+	"name" : "by hand"
+},
+"created" : "1",
+"motivation" : "assessing"
+};
+
+      geoid++;
+
+      geos.push(newgeo);
+      if(!pubcounter.includes(id)){
+      pubcounter.push(id);
+      }
+                };
+
+                var time_end = new Date().getTime();
+                //push last menu-object to array
+                console.log("Erkannt: " + allRows.length + " Einträge insgesamt || " + geos.length + " Geolokationen von " + pubcounter.length + " verschiedenen Gaststätten" )
+                var time_seconds = Math.round((time_end - time_start) / 10) / 100;;
+                console.log( "in " + time_seconds + " Sekunden");
+                //statistiken ausgeben:
+                $("#statistic").html(allRows.length + " Einträge insgesamt || " + geos.length + " Geolokationen von " + pubcounter.length + " Gaststätten");
+                $("#out").html(JSON.stringify(geos));
+                };
+          // start reading the file. When it is done, calls the onload event defined above.
+          // reader.readAsBinaryString(fileInput.files[0]);
+          reader.readAsText(fileInput.files[0], 'utf8');
+      };
+  fileInput.addEventListener('change', readFile);
+
+
+
+//
+
+});
+</script>
+
+</body>
+</html>

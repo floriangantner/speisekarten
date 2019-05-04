@@ -4,3 +4,5 @@ Tiles can be regenerated with python and iiif-library
 https://github.com/zimeon/iiif/tree/master/demo-static
 
 and OpenSeadragon
+
+
