@@ -1218,3 +1218,14 @@ annotation_info_dialog.open();
 //set variables
 //redraw Dialog and open
 });
+
+$("#map-random-pub").click(function(){
+//go to random pub of markerLAyer
+
+    var keys = Object.keys(pubsListSureLayer._layers)
+    var randomProperty = pubsListSureLayer._layers[keys[ keys.length * Math.random() << 0]];
+console.log(randomProperty);
+MapShowPubID(randomProperty.spot.targer, randomProperty._latlng.lat, randomProperty._latlng.lng);
+showTextOnSnackbar("Zufällige Gaststätte ausgewählt!", 5000);
+
+})

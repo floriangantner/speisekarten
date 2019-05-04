@@ -194,15 +194,20 @@
     <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
       <div class="demo-card__primary">
         <h2 class="demo-card__title mdc-typography mdc-typography--headline6">  <i class="material-icons mdc-icon-button__icon">map</i>
-        Karte</h2>
+        Stadtplan</h2>
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
       </div>
-      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Gerichte räumlich entdecken
-      <div id="mapid"></div></div>
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2">
+        <div id="mapid"></div></div>
     </div>
     <div class="mdc-card__actions">
       <div class="mdc-card__action-buttons">
       </div>
+      <button class="mdc-icon-button" id="map-random-pub">
+      <span class="mdc-button__label"></span>
+     <i class="material-icons-outlined  mdc-icon-button__icon">shuffle</i>
+      </button>
+
       <!--
       <div class="mdc-card__action-icons">
         <button class="mdc-button mdc-card__action mdc-card__action--button"><i class="material-icons mdc-icon-button__icon">zoom_in</i></button>
@@ -652,10 +657,7 @@
      <!--
    --></h2>
       <div class="mdc-dialog__content" id="annotation-info-content">
-        <div class="rating-thumb">
-         Bewertung!
-        <i class="material-icons-outlined">thumb_up</i><i class="material-icons-outlined">thumb_down</i>
-      </div>
+
 </div>
 <footer class="mdc-dialog__actions">
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
