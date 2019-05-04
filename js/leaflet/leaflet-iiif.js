@@ -10,8 +10,8 @@ L.TileLayer.Iiif = L.TileLayer.extend({
     tileSize: 512,
     updateWhenIdle: false,
     tileFormat: 'jpg',
-    fitBounds: false,
-    setMaxBounds: false,
+    fitBounds: true,
+    setMaxBounds: true,
   },
 
   initialize: function(url, options) {
@@ -162,16 +162,8 @@ L.TileLayer.Iiif = L.TileLayer.extend({
     //-> using ajax, problems to read json as contentType
     $.ajax({
       url: _this._infoUrl,
-    //crossDomain: true,
-    //crossOrigin: true,
-      //mimeType:"text/plain",
-      dataType:'json',
-      method: 'GET',
-    //  headers: {'access-control-allow-origin' : 'x-requested-with',
-     //},
-      //xhrFields: {
-      //    withCredentials: true
-      //  },
+      dataType:"json",
+      mimeType:"text/plain",
       success:function(data){
         console.log("success: ", data);
       //}});

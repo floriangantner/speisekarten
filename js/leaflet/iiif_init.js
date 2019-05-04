@@ -6,15 +6,9 @@ var map_iiif = L.map('iiifmap', {
   anno: false
 });
 map_iiif.invalidateSize();
-
-//var baseLayer = L.tileLayer.iiif(
-  //
-  //'http://localhost:8182/iiif/2/testinfo%2Fzelt.jpg/info.json'
-  //'http://localhost:8182/iiif/2/Armbrustschützenzelt%2FArmbrustschützenzelt_Speisenkarte_20.09.1957%2FArmbrustschützenzelt_Speisenkarte_20.09.1975_01.jpg/info.json'
-  //'http://localhost:8182/iiif/2/214-2.png/info.json'
-  //'http://localhost:8080/tetons/info.json'
-
-//).addTo(map_iiif);
+var baseLayer = L.tileLayer.iiif(
+  'https://stacks.stanford.edu/image/iiif/cv770rd9515%2F0767_23A_SM/info.json'
+).addTo(map_iiif);
 
 var markerLayer = L.featureGroup();
 markerLayer.addTo(map_iiif);
@@ -22,7 +16,7 @@ markerLayer.anno = true;
 map_iiif.anno = false;
 
 var editableLayers = new L.featureGroup()
-editableLayers.addTo(map_iiif);
+map_iiif.addLayer(editableLayers);
 var drawControl = new L.Control.Draw({
   edit: {
     featureGroup: editableLayers
@@ -78,30 +72,24 @@ map_iiif.invalidateSize();
 
 
 function loadTileLayer(url){
-//if (map_iiif != undefined){
+
+if (map_iiif != undefined){
 map_iiif.eachLayer(function (layer) {
     map_iiif.removeLayer(layer);
 });
 
   var iiif_layer = L.tileLayer.iiif(url);
-  iiif_layer.addTo(map_iiif);
+  //iiif_layer.addTo(map_iiif);
+}
+}
 
-  console.log(iiif_layer);
-  iiif_layer.setZIndex(4);
-
-  editableLayers = new L.featureGroup()
-  editableLayers.addTo(map_iiif);
-  editableLayers.setZIndex(50);
+function initIIIFMap(){
+  loadTileLayer('https://stacks.stanford.edu/image/iiif/hg676jb4964%2F0380_796-44/info.json');
+  //addButtons();
   map_iiif.invalidateSize();
-
-//}
-console.log(url);
 }
 
 function iiifaddExistingAnnotations(){
-  var target_list = $("#annotation-list");
-  target_list.html('');
-  //adds Annotations to map and to list
 map_iiif.removeLayer(markerLayer);
 markerLayer = L.featureGroup();
 if(map_iiif.anno === false){
@@ -130,13 +118,12 @@ DBdishes.allDocs({
         rect.id = objdoc._id;
         rect.obj = objdoc;
         rect.on('click', showAnnotationInfoDialog);
+
         rect.addTo(markerLayer);
         markerLayer.anno = true;
         map_iiif.anno = true;
 
           }
-          //add to AnnotationList
-          addToAnnotationList(objdoc, target_list);
         }
     };
 });
@@ -164,12 +151,12 @@ DBopeninghours.allDocs({
         rect.id = objdoc._id;
         rect.obj = objdoc;
         rect.on('click', showAnnotationInfoDialog);
+
         rect.addTo(markerLayer);
         markerLayer.anno = true;
         map_iiif.anno = true;
 
           }
-          addToAnnotationList(objdoc, target_list);
         }
     };
 });
@@ -198,13 +185,12 @@ DBanno_other.allDocs({
         rect.obj = objdoc;
 
         rect.on('click', showAnnotationInfoDialog);
+
         rect.addTo(markerLayer);
         markerLayer.anno = true;
         map_iiif.anno = true;
 
           }
-          addToAnnotationList(objdoc, target_list);
-
         }
     };
 });
@@ -233,13 +219,12 @@ DBcategory.allDocs({
         rect.obj = objdoc;
 
         rect.on('click', showAnnotationInfoDialog);
+
         rect.addTo(markerLayer);
         markerLayer.anno = true;
         map_iiif.anno = true;
 
           }
-           addToAnnotationList(objdoc, target_list);
-
         }
     };
 });
@@ -269,13 +254,12 @@ DBads.allDocs({
         rect.obj = objdoc;
 
         rect.on('click', showAnnotationInfoDialog);
+
         rect.addTo(markerLayer);
         markerLayer.anno = true;
         map_iiif.anno = true;
 
           }
-          addToAnnotationList(objdoc, target_list);
-
         }
     };
 });
@@ -305,25 +289,22 @@ DBimage.allDocs({
         rect.obj = objdoc;
 
         rect.on('click', showAnnotationInfoDialog);
+
         rect.addTo(markerLayer);
         markerLayer.anno = true;
         map_iiif.anno = true;
-          }
-          addToAnnotationList(objdoc, target_list);
 
+          }
         }
     };
 });
     markerLayer.addTo(map_iiif);
-    showTextOnSnackbar("Annotationen aktiv!", 5000);
     map_iiif.invalidateSize();
   }else{
     //remove Annos
     map_iiif.eachLayer(function (layer) {
       if(layer.anno === true){
       map_iiif.removeLayer(layer);
-      showTextOnSnackbar("Annotationen inaktiv!", 5000);
-
       }
     });
     map_iiif.anno = false;

@@ -126,8 +126,7 @@ Geo ->
 	"number_old" : "",
 	"comment" : ""
 },
-"target" : {"pubid":"p1",
-"menupage" : "p1/m1"},
+"target" : "p1",
 "creator" : {
 	"id" : "",
 	"name" : "",

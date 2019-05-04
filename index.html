@@ -40,9 +40,9 @@
     <h3 class="mdc-drawer__title" user-name>Oskar von Miller</h3>
     <h6 class="mdc-drawer__subtitle" user-status>Restaurantkritiker </h6></div>
     <div class="mdc-drawer__content">
-      <nav class="mdc-list" >
-        <a class="mdc-list-item" href="#" tabindex="0" id="nav-pubs-list" aria-selected="true" selected="true"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">home</i>Gasthäuser</a>
-        <a class="mdc-list-item" href="#" tabindex="-1" id="nav-map"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">map</i>Stadtplan</a>
+      <nav class="mdc-list">
+        <a class="mdc-list-item mdc-list-item" id="nav-pubs-list" href="#" tabindex="0" aria-selected="true"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">home</i>Gasthäuser</a>
+        <a class="mdc-list-item" href="#" tabindex="-1" id="nav-map"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">map</i>Karte</a>
         <a class="mdc-list-item" href="#" tabindex="-1" id="nav-dishes-all"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">restaurant</i>Alle Gerichte</a>
         <a class="mdc-list-item" href="#" tabindex="-1" id="nav-anno-you"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">local_dining</i>Von dir entdeckt</a>
         <hr class="mdc-list-divider">
@@ -166,7 +166,7 @@
         <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
           <div class="demo-card__primary">
                 <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Liste von Gaststätten
-                <i class="material-icons mdc-icon-button__icon" id="pubs-list-sort">sort_by_alpha</i></h2>
+                <i class="material-icons mdc-icon-button__icon">filter_list</i></h2>
                 <div class="mdc-text-field" id="pubs-search">
             <input class="mdc-text-field__input">
             <div class="mdc-line-ripple"></div>
@@ -174,11 +174,11 @@
           </div>
               </div>
               <div class="demo-card__secondary mdc-typography mdc-typography--body2">
-                  <ul class="mdc-list mdc-list--two-line pubs-list" id="pubs-list"  >
+                <ul class="mdc-list mdc-list--two-line pubs-list" id="pubs-list"  >
   <li class="mdc-list-item" tabindex="0">
     <span class="mdc-list-item__text">
       <span class="mdc-list-item__primary-text"></span>
-      <span class="mdc-list-item__secondary-text">Infos über die Gaststätten werden geladen.</span>
+      <span class="mdc-list-item__secondary-text">X Gerichte, Position unbekannt</span>
     </span>
   </li>
 </ul>
@@ -194,20 +194,15 @@
     <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
       <div class="demo-card__primary">
         <h2 class="demo-card__title mdc-typography mdc-typography--headline6">  <i class="material-icons mdc-icon-button__icon">map</i>
-        Stadtplan</h2>
+        Karte</h2>
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
       </div>
-      <div class="demo-card__secondary mdc-typography mdc-typography--body2">
-        <div id="mapid"></div></div>
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Gerichte räumlich entdecken
+      <div id="mapid"></div></div>
     </div>
     <div class="mdc-card__actions">
       <div class="mdc-card__action-buttons">
       </div>
-      <button class="mdc-icon-button" id="map-random-pub">
-      <span class="mdc-button__label"></span>
-     <i class="material-icons-outlined  mdc-icon-button__icon">shuffle</i>
-      </button>
-
       <!--
       <div class="mdc-card__action-icons">
         <button class="mdc-button mdc-card__action mdc-card__action--button"><i class="material-icons mdc-icon-button__icon">zoom_in</i></button>
@@ -232,6 +227,28 @@
     <div class="mdc-card__action-buttons">
       <button class="mdc-button mdc-card__action mdc-card__action--button">Read</button>
       <button class="mdc-button mdc-card__action mdc-card__action--button">Bookmark</button>
+    </div>
+  </div>
+</div>
+</main>
+
+<main class="maincard" id="card-pubs-dishes-list2">
+<div class="mdc-card demo-card">
+  <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+    <div class="demo-card__primary">
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Liste von Gerichten</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">in diesem Gasthaus</h3>
+    </div>
+    <div class="demo-card__secondary mdc-typography mdc-typography--body2">
+      <ul class="mdc-list demo-list mdc-list--two-line dishes-list" id="pubs-dishes-list2">
+      <li class="mdc-list-item" tabindex="0">
+        <span class="mdc-list-item__text">
+          <span class="mdc-list-item__primary-text">Gericht 1</span>
+          <span class="mdc-list-item__secondary-text">Info</span>
+        </span>
+
+      </li>
+    </ul>
     </div>
   </div>
 </div>
@@ -284,8 +301,9 @@
     <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
   </div>
   <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
-    <span pubs-rating></span>
     <!--<div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>-->
+    Bewertungen:  X Sterne,
+    X Besuche, X Gerichte, Status?
     <div class="demo-card__secondary mdc-typography mdc-typography--body2">Infos, Öffnungszeiten</div>
     <ul class="mdc-list" id="pubs-adress-list" >
       <li class="mdc-list-item">
@@ -329,7 +347,6 @@
   <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
     <div class="demo-card__secondary mdc-typography mdc-typography--body2">
     <ul class="mdc-list demo-list mdc-list--two-line dishes-list" id="pubs-dishes-list">
-
     <li class="mdc-list-item" tabindex="0">
       <span class="mdc-list-item__text">
         <span class="mdc-list-item__primary-text">Gericht 1</span>
@@ -345,72 +362,16 @@
 
 
 <main  class="maincard" id="card-menu-detail">
-  <div class="mdc-tab-bar" role="tablist" id="menu-tabbar">
-    <div class="mdc-tab-scroller">
-      <div class="mdc-tab-scroller__scroll-area">
-        <div class="mdc-tab-scroller__scroll-content">
-          <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0" data-id="map">
-            <span class="mdc-tab__content">
-              <span class="mdc-tab__icon material-icons" aria-hidden="true">map</span>
-              <span class="mdc-tab__text-label">Karte</span>
-            </span>
-            <span class="mdc-tab-indicator mdc-tab-indicator--active">
-              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-            </span>
-            <span class="mdc-tab__ripple"></span>
-          </button>
-          <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0" data-id="list">
-            <span class="mdc-tab__content">
-              <span class="mdc-tab__icon material-icons" aria-hidden="true">list</span>
-              <span class="mdc-tab__text-label">Gerichte</span>
-            </span>
-            <span class="mdc-tab-indicator">
-              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
-            </span>
-            <span class="mdc-tab__ripple"></span>
-          </button>
-          <!-- id="button-pubs-menu" button-pubs-dishes -->
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="mdc-card demo-card">
-  <div class="pubs-menu-element" data-tab="map" id="menu-anno-map-view">
-  <!--<div class="demo-card__primary">
-    <h2 class="demo-card__title mdc-typography mdc-typography--headline6"></h2>
-    <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
-  </div>-->
+  <div id="iiifmap"></div>
+
+<div class="mdc-card demo-card">
   <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
     <!--<div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>-->
-
-    <div class="demo-card__secondary mdc-typography mdc-typography--body2"></div>
-    <div id="iiifmap"></div>
-
-  </div>
-  </div>
-  <div class="pubs-menu-element" data-tab="list" id="menu-anno-list-view">
-
-<!--<div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">-->
-    <!--<div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>-->
+    <div class="demo-card__primary">
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6"></h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
+    </div>
     <div class="demo-card__secondary mdc-typography mdc-typography--body2">
-        Zeigt alle Annotationen in einer Liste an, mit Filterfunktionen für welche ohne Karte.
-        Liste wird beim Laden der iiif-Karte mit gefüllt.
-        <div>
-        <p class="filter-sort">
-        <span><i class="material-icons">filter_list</i></span>
-        <span filter-user><i class="material-icons" >person_pin</i></span>
-        <span sort-time><i class="material-icons" >hourglass_full</i></span>
-        <span filter-coord><i class="material-icons" >location_disabled</i></span>
-      </p>
-        <ul class="mdc-list anno-list mdc-list--two-line" id="annotation-list">
-          <li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.id}">
-            <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">${logo}</span>
-            <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.body.name}</span>
-            <span class="mdc-list-item__secondary-text">${value.body.description}</span></span>
-            <span class="mdc-list-item__meta" aria-hidden="true">${value.body.price} ${value.body.price_currency}</span>
-          </li>
-        </ul>
-      </div>
   </div>
 </div>
   <div class="mdc-card__actions">
@@ -420,7 +381,7 @@
 
     </div>
     <div class="mdc-card__action-icons mdc-menu-surface--anchor">
-    <button class="mdc-fab mdc-fab--extended" id="anno-add-button">
+    <button class="mdc-fab mdc-fab--extended " id="anno-add-button">
       <span class="material-icons mdc-fab__icon">add</span>
         <span class="mdc-fab__label">Annotation</span>
       </button>
@@ -473,7 +434,13 @@
 <main class="maincard" id="card-dishes-detail">
   <div class="mdc-card demo-card demo-basic-with-header">
     <div class="demo-card__primary">
-
+<<<<<<< HEAD
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Gericht 1</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">Gaststätte, Jahr</h3>
+    </div>
+    <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Infos, Preis, Wikipedia-Link</div>
+=======
       <h2 class="demo-card__title mdc-typography mdc-typography--headline6" dish-name>Gericht 1</h2>
       <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2" ><!--Gaststätte, Jahr--></h3>
     </div>
@@ -481,6 +448,7 @@
       <div class="demo-card__secondary mdc-typography mdc-typography--body2">Infos, Preis, Wikipedia-Link <span dish-rating></span>
       <span dish-type></span><span dish-comment></span><span dish-amount></span><span dish-price></span><span dish-currency></span>
     <span dish-category></span></div>
+>>>>>>> 74eb2abf6c8c848d4077283a0b970e1cf619f81b
       <ul class="mdc-list mdc-list--two-line" id="dishes-rating-list">
   <li class="mdc-list-item" tabindex="0">
     <span class="mdc-list-item__text">
@@ -498,12 +466,12 @@
     </div>
     <div class="mdc-card__actions">
       <div class="mdc-card__action-buttons">
-        <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" title="Gaststätte" data-mdc-ripple-is-unbounded="true" id="dishes-detail-pubs">home</button>
-        <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" title="Speisekarte" data-mdc-ripple-is-unbounded="true" id="dishes-detail-menupage">chrome_reader_mode</button>
-
+        <button class="mdc-button mdc-card__action mdc-card__action--button" id="dishes-detail-pubs">Gaststätte</button>
+        <button class="mdc-button mdc-card__action mdc-card__action--button" id="dishes-detail-menupage">Speisekarte</button>
       </div>
       <div class="mdc-card__action-icons">
         <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" title="Rate" data-mdc-ripple-is-unbounded="true" id="button-dishes-rate">rate_review</button>
+        <button class="mdc-icon-button material-icons mdc-card__action mdc-card__action--icon--unbounded" title="More options" data-mdc-ripple-is-unbounded="true">more_vert</button>
       </div>
     </div>
   </div>
@@ -561,26 +529,31 @@
 <div class="mdc-card demo-card">
   <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
     <div class="demo-card__primary">
-      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Deine Bewertungen</h2>
-      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">
-      </h3>
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Liste von Gerichten</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">die du bereits bewertest oder transkribiert hast TODO: weitere Kategorien ausgeben lassen.
+        Sortierbar nach bestbewertet und nach letzem Zeitpunkt und Kategorie-Filter</h3>
     </div>
     <div class="demo-card__secondary mdc-typography mdc-typography--body2">
-      <div>
-      <p class="filter-sort">
-      <span><i class="material-icons">filter_list</i></span>
-      <span sort-atoz><i class="material-icons">sort_by_alpha</i></span>
-      <span sort-time><i class="material-icons" >hourglass_full</i></span>
-    </p>
-      <ul class="mdc-list anno-list mdc-list--two-line" id="list-anno-you">
-        <li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.id}">
-          <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">${logo}</span>
-          <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.body.name}</span>
-          <span class="mdc-list-item__secondary-text">${value.body.description}</span></span>
-          <span class="mdc-list-item__meta" aria-hidden="true">${value.body.price} ${value.body.price_currency}</span>
-        </li>
-      </ul>
-    </div>
+      <ul class="mdc-list demo-list mdc-list--two-line dishes-list" id="list-anno-you">
+      <li class="mdc-list-item" tabindex="0">
+        <span class="mdc-list-item__text">
+          <span class="mdc-list-item__primary-text">Gericht 1</span>
+          <span class="mdc-list-item__secondary-text">Info</span>
+        </span>
+      </li>
+      <li class="mdc-list-item">
+        <span class="mdc-list-item__text">
+          <span class="mdc-list-item__primary-text">Gericht 2</span>
+          <span class="mdc-list-item__secondary-text">Info</span>
+        </span>
+      </li>
+      <li class="mdc-list-item">
+        <span class="mdc-list-item__text">
+          <span class="mdc-list-item__primary-text">Gericht 3</span>
+          <span class="mdc-list-item__secondary-text">Info</span>
+        </span>
+      </li>
+    </ul>
     </div>
   </div>
 </div>
@@ -611,7 +584,7 @@
 </div>
     </div>
     <div class="demo-card__secondary mdc-typography mdc-typography--body2">
-      <ul class="mdc-list demo-list mdc-list--two-line mdc-list--avatar-list dishes-list" id="dishes-all-list">
+      <ul class="mdc-list demo-list mdc-list--two-line dishes-list" id="dishes-all-list">
       <li class="mdc-list-item" tabindex="0">
         <span class="mdc-list-item__text">
           <span class="mdc-list-item__primary-text">Gericht 1</span>
@@ -640,23 +613,22 @@
 
 
 <div class="mdc-dialog" role="alertdialog" aria-modal="true"
-     aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="help-popup">
+     aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="annotation-help-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
       <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
 
-      <h2 class="mdc-dialog__title" id="help-title"><!--
+      <h2 class="mdc-dialog__title" id="annotation-help-title"><!--
      -->Hilfefenster mit Hinweisen zur Benutzung. Hab ich gelesen.<!--
    --></h2>
-      <div class="mdc-dialog__content" id="help-content">
+      <div class="mdc-dialog__content">
 </div>
 <footer class="mdc-dialog__actions">
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
     <span class="mdc-button__label">Abbrechen</span>
   </button>
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
-    <span class="mdc-button__label">Okay <i class="material-icons mdc-icon-button__icon" id="help-go">check_circle</i></span>
-
+    <span class="mdc-button__label">Okay</span>
   </button>
 </footer>
 </div>
@@ -670,11 +642,32 @@
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
       <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
- <h2 class="mdc-dialog__title" id="annotation-info-title"><!--
+
+<<<<<<< HEAD
+      <h2 class="mdc-dialog__title"><!--
+     -->Weitere Info hinterlegen:<!--
+   --></h2>
+      <div class="mdc-dialog__content">
+        <div class="mdc-text-field mdc-text-field--outlined" id="dialog-announcement-name">
+<input class="mdc-text-field__input">
+<div class="mdc-notched-outline">
+<div class="mdc-notched-outline__leading"></div>
+<div class="mdc-notched-outline__notch">
+  <label class="mdc-floating-label">Preis</label>
+</div>
+<div class="mdc-notched-outline__trailing"></div>
+</div>
+</div>
+=======
+      <h2 class="mdc-dialog__title" id="annotation-info-title"><!--
      <!--
    --></h2>
       <div class="mdc-dialog__content" id="annotation-info-content">
-
+        <div class="rating-thumb">
+         Bewertung!
+        <i class="material-icons-outlined">thumb_up</i><i class="material-icons-outlined">thumb_down</i>
+      </div>
+>>>>>>> 74eb2abf6c8c848d4077283a0b970e1cf619f81b
 </div>
 <footer class="mdc-dialog__actions">
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
@@ -698,15 +691,26 @@
       <h2 class="mdc-dialog__title" id="dialog-dishes-title"><!--
      -->Gericht hinterlegen<!--
    --></h2>
-
+<<<<<<< HEAD
+      <div class="mdc-dialog__content" id="dialog-dishes-content">
+        <div class="mdc-switch" id="dialog-dishes-type">
+          <div class="mdc-switch__track"></div>
+          <div class="mdc-switch__thumb-underlay">
+            <i class="material-icons-outlined">local_drink</i>
+            <div class="mdc-switch__thumb">
+                <input type="checkbox" id="basic-switch" class="mdc-switch__native-control" role="switch">
+            </div>
+            <i class="material-icons-outlined">restaurant</i>
+=======
       <div class="mdc-dialog__content"><div class="mdc-text-field mdc-text-field--textarea mdc-text-field--with-leading-icon" id="dialog-rate-dishes-comment">
-        <i class="material-icons mdc-text-field__icon" tabindex="0" role="">rate_review</i>
+        <i class="material-icons mdc-text-field__icon" tabindex="0" role="">comment</i>
         <div class="mdc-text-field-character-counter">0 / 300</div>
         <textarea class="mdc-text-field__input" rows="4" cols="40" required minlength="20" maxlength="300"></textarea>
         <div class="mdc-notched-outline">
           <div class="mdc-notched-outline__leading"></div>
           <div class="mdc-notched-outline__notch">
             <label for="textarea" class="mdc-floating-label">Dein Kommentar (min 20 Zeichen)</label>
+>>>>>>> 74eb2abf6c8c848d4077283a0b970e1cf619f81b
           </div>
         </div>
         <label for="basic-switch">Getränk/Speise</label>
@@ -741,6 +745,26 @@
   <label class="mdc-floating-label">Unterkategorie von</label>
   <div class="mdc-line-ripple"></div>
 </div>
+<<<<<<< HEAD
+<!-- ... -->
+      </div>
+      <footer class="mdc-dialog__actions">
+        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
+          <span class="mdc-button__label">Abbrechen</span>
+        </button>
+        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
+          <span class="mdc-button__label">Hinterlegen</span>
+        </button>
+      </footer>
+    </div>
+  </div>
+  <div class="mdc-dialog__scrim"></div>
+</div>
+
+<div class="mdc-dialog" role="alertdialog"  aria-modal="true" aria-labelledby="my-dialog-title"
+     aria-describedby="my-dialog-content" id="annotation-openinghours-popup">
+=======
+
 
 <div class="mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="map-info-popup">
@@ -768,6 +792,7 @@
 
 <div class="mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="annotation-open-popup">
+>>>>>>> 74eb2abf6c8c848d4077283a0b970e1cf619f81b
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
       <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
@@ -776,6 +801,18 @@
      -->Öffnungszeiten hinterlegen - eine pro Speisekarte.
      Wenn vorhanden, überprüfen<!--
    --></h2>
+<<<<<<< HEAD
+      <div class="mdc-dialog__content" id="dialog-openinghours-content">
+            <div class="mdc-text-field mdc-text-field--outlined" id="dialog-openinghours-name">
+  <input class="mdc-text-field__input">
+  <div class="mdc-notched-outline">
+    <div class="mdc-notched-outline__leading"></div>
+    <div class="mdc-notched-outline__notch">
+      <label class="mdc-floating-label">Freitext</label>
+    </div>
+    <div class="mdc-notched-outline__trailing"></div>
+  </div>
+=======
       <div class="mdc-dialog__content"><div class="mdc-text-field mdc-text-field--textarea" id="annotation-open-comment">
         <div class="mdc-text-field-character-counter">0 / 120</div>
         <textarea class="mdc-text-field__input" rows="4" cols="30" required minlength="5" maxlength="120" open-comment></textarea>
@@ -803,6 +840,7 @@
 </div>
 <div class="mdc-dialog__scrim"></div>
 </div>
+
 
 <div class="mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="annotation-ads-popup">
@@ -923,8 +961,8 @@
   </button>
 </footer>
 </div>
-
-  </div>
+>>>>>>> 74eb2abf6c8c848d4077283a0b970e1cf619f81b
+</div>
 <!-- ... -->
       </div>
       <footer class="mdc-dialog__actions">
@@ -971,6 +1009,11 @@
   </div>
 </div>
 
+<<<<<<< HEAD
+            <div class="mdc-text-field mdc-text-field--outlined" id="dialog-geolocation-lat">
+  <input class="mdc-text-field__input">
+  <div class="mdc-notched-outline">
+=======
           <div class="mdc-text-field mdc-text-field--outlined mdc-text-field--with-leading-icon" id="dialog-geolocation-lat">
             <i class="material-icons mdc-text-field__icon" tabindex="0" role="">location_searching</i>
     <input class="mdc-text-field__input" geo-lng>
@@ -1038,7 +1081,7 @@
        <div class="mdc-text-field mdc-text-field--outlined" id="dialog-geolocation-city_old">
     <input class="mdc-text-field__input" geo-city_old>
     <div class="mdc-notched-outline">
-
+>>>>>>> 74eb2abf6c8c848d4077283a0b970e1cf619f81b
     <div class="mdc-notched-outline__leading"></div>
     <div class="mdc-notched-outline__notch">
       <label class="mdc-floating-label">Latitude</label>
@@ -1083,6 +1126,23 @@
 <!-- ... -->
       </div>
 
+<<<<<<< HEAD
+      <div class="rating-thumb">
+        Position korrekt?
+        <i class="material-icons-outlined">thumb_up</i><i class="material-icons-outlined">thumb_down</i>
+      </div>
+      <footer class="mdc-dialog__actions">
+        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
+          <span class="mdc-button__label"> <i class="material-icons mdc-icon-button__icon">close</i></span>
+        </button>
+        <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
+          <span class="mdc-button__label">Zur Gaststätte</span>
+        </button>
+      </footer>
+    </div>
+  </div>
+  <div class="mdc-dialog__scrim"></div>
+=======
    </div>
    <div class="mdc-text-field-helper-line">
   <div class="mdc-text-field-helper-text">Hinterlasse hier weitere Infos, die auf der Speisekarte sind und keinder der anderen Kategorien zugehören</div>
@@ -1099,6 +1159,7 @@
 </div>
 </div>
 <div class="mdc-dialog__scrim"></div>
+>>>>>>> 74eb2abf6c8c848d4077283a0b970e1cf619f81b
 </div>
 
 <div class="mdc-dialog" role="alertdialog" aria-modal="true"
@@ -1122,9 +1183,13 @@
     <div class="mdc-notched-outline__trailing"></div>
   </div>
 </div>
+<<<<<<< HEAD
+
+=======
 <div class="mdc-text-field-helper-line">
   <div class="mdc-text-field-helper-text">Hinterlasse hier deinen Senf zum Gericht</div>
 </div>
+>>>>>>> 74eb2abf6c8c848d4077283a0b970e1cf619f81b
             <div class="mdc-text-field mdc-text-field--outlined" id="dialog-rate-dishes-stars">
   <input class="mdc-text-field__input">
   <div class="mdc-notched-outline">
@@ -1319,16 +1384,36 @@ var drawerEl = document.querySelector('#nav-drawer');
       var MDCTemporaryDrawer = mdc.drawer.MDCDrawer;
       var drawer = new MDCTemporaryDrawer(drawerEl);
 console.log(mdc);
-
+<<<<<<< HEAD
+      const annotation_dishes_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-dishes-popup'));
+      const annotation_openinghours_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-openinghours-popup'));
+      const annotation_announcement_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-announcement-popup'));
+      const annotation_geolocation_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-geolocation-popup'));
+      const annotation_category_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-category-popup'));
+      const annotation_category_select = new mdc.select.MDCSelect(document.querySelector('#dialog-category-select-upper'));
+      const progress_loader = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#progress-loader'));
+      const progress_identify_face = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#progress-identify-face'));
+      const map_pubinfo_dialog = new mdc.dialog.MDCDialog(document.querySelector('#map-showpubinfo-popup'));
+      const rate_dishes_dialog = new mdc.dialog.MDCDialog(document.querySelector('#rate-dishes-popup'));
+      const annotation_info_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-info-popup'));
+      const anno_menu = new mdc.menu.MDCMenu(document.querySelector('#anno-add-menu'));
+      mdc.ripple.MDCRipple.attachTo(document.querySelector('#menu '));
+      const snackbar = new mdc.snackbar.MDCSnackbar(document.querySelector('.mdc-snackbar'));
+      const pubs_tabbar = new mdc.tabBar.MDCTabBar(document.querySelector('#pubs-tabbar'));
+      const pubs_tabbar_indicator = new mdc.tabIndicator.MDCTabIndicator(document.querySelector('.mdc-tab-scroller'));
+var textField = new mdc.textField.MDCTextField(document.querySelector('#dialog-dishes-price'));
+var textField2 = new mdc.textField.MDCTextField(document.querySelector('#dialog-dishes-name'));
+var textField3 = new mdc.textField.MDCTextField(document.querySelector('#dialog-dishes-price'));
+var selectField14 = new mdc.select.MDCSelect(document.querySelector('#dialog-dishes-category'));
+var switchControl = new mdc.switchControl.MDCSwitch(document.querySelector('#dialog-dishes-type'));
+var textField4 = new mdc.textField.MDCTextField(document.querySelector('#pubs-search'));
+var textField5 = new mdc.textField.MDCTextField(document.querySelector('#dishes-search'));
+=======
 mdc.ripple.MDCRipple.attachTo(document.querySelector('#menu '));
 const snackbar = new mdc.snackbar.MDCSnackbar(document.querySelector('.mdc-snackbar'));
 const anno_menu = new mdc.menu.MDCMenu(document.querySelector('#anno-add-menu'));
 const pubs_tabbar = new mdc.tabBar.MDCTabBar(document.querySelector('#pubs-tabbar'));
 const pubs_tabbar_indicator = new mdc.tabIndicator.MDCTabIndicator(document.querySelector('.mdc-tab-scroller'));
-
-const menu_tabbar = new mdc.tabBar.MDCTabBar(document.querySelector('#menu-tabbar'));
-const menu_tabbar_indicator = new mdc.tabIndicator.MDCTabIndicator(document.querySelector('.mdc-tab-scroller'));
-
 
 const progress_loader = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#progress-loader'));
 const progress_identify_face = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#progress-identify-face'));
@@ -1337,7 +1422,7 @@ const progress_identify_face = new mdc.linearProgress.MDCLinearProgress(document
 const map_pubinfo_dialog = new mdc.dialog.MDCDialog(document.querySelector('#map-info-popup'));
 //const annotation_info_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-help3-popup'));
 const annotation_info_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-info-popup'));
-const help_dialog = new mdc.dialog.MDCDialog(document.querySelector('#help-popup'));
+const help_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-help-popup'));
 
 var search_textField4 = new mdc.textField.MDCTextField(document.querySelector('#pubs-search'));
 var search_textField5 = new mdc.textField.MDCTextField(document.querySelector('#dishes-search'));
@@ -1398,11 +1483,16 @@ var geo_textField9 = new mdc.textField.MDCTextField(document.querySelector('#dia
 var geo_textField10 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-zip_old'));
 var geo_textField11 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-zip'));
 
+
+
+
+
 //annotation_category_dialog.listen('MDCDialog:opened', () => {
 //  annotation_category_select.layout();
 //});
 
 /*
+>>>>>>> 74eb2abf6c8c848d4077283a0b970e1cf619f81b
 var textField6 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-address'));
 var textField11 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-lat'));
 var textField12 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-lng'));
