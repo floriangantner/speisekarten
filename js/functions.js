@@ -260,7 +260,7 @@ $("#card-dishes-detail").find("[dish-category]").html(data.body.category);
 
 
 DBrating.find({
-  selector: {dishes : data.id},
+  selector: {'target.anno_id' : data.id, 'target.anno_typ' : 'Dish' },
 }, function (err, result) {
   console.log(result);
   if (err) { return console.log(err); }
@@ -773,6 +773,11 @@ function identity_check(){
 function redrawYourDishes(){
 //Go through Dishes and Ratings and view all from this user
 //selector as below
+var list = $("#list-anno-you");
+list.html('');
+drawPersonAnnotationList(list);
+//TODO: add Ratings to list!
+/*
 DBrating.find({
   selector: {'playerid' : user_state.timestamp},
 }, function (err, result) {
@@ -813,17 +818,21 @@ return DBdishes.find({
 }).catch(function(err){
   console.log(err);
 });
+*/
 }
 
 function newYourDishesElement(data){
+  //DEPRECATED
   //TODO: seperate between dishes, annotations, lokations
+  /*
   console.log(data);
   return `<li class="mdc-list-item" tabindex="0" data-timestamp="${data.timestamp}">
     <span class="mdc-list-item__text">
       <span class="mdc-list-item__primary-text">${data.name} ${data.price}</span>
-      <span class="mdc-list-item__secondary-text">${data.comment} : ` + convertTimestamp(data.timestamp) + ` : ` + convertTimestamp(data.time) + `</span>
+      <span class="mdc-list-item__secondary-text">${data.comment} : ` + timeDifference(data.timestamp, Date.now()) + `</span>
     </span>
   </li>`;
+  */
 }
 
 function newCategoryList(elem){
@@ -860,33 +869,14 @@ function timeDifference(current, previous) {
 
     var elapsed = current - previous;
 
-    if (elapsed < 0) {
-         return 'in der Zukunft';
-    }
+    if (elapsed < 0) return 'in der Zukunft';
+    if (elapsed < msPerMinute) return 'vor ' + Math.round(elapsed/1000) + ' Sekunden';
+    else if (elapsed < msPerHour) return 'vor ' + Math.round(elapsed/msPerMinute) + ' Minuten';
+    else if (elapsed < msPerDay ) return 'vor ' + Math.round(elapsed/msPerHour ) + ' Stunden';
+    else if (elapsed < msPerMonth) return 'vor ' + Math.round(elapsed/msPerDay) + ' Tagen';
+    else if (elapsed < msPerYear) return 'vor ' + Math.round(elapsed/msPerMonth) + ' Monaten';
+    else return 'vor ' + Math.round(elapsed/msPerYear ) + ' Jahren';
 
-    if (elapsed < msPerMinute) {
-         return 'vor ' + Math.round(elapsed/1000) + ' Sekunden';
-    }
-
-    else if (elapsed < msPerHour) {
-         return 'vor ' + Math.round(elapsed/msPerMinute) + ' Minuten';
-    }
-
-    else if (elapsed < msPerDay ) {
-         return 'vor ' + Math.round(elapsed/msPerHour ) + ' Stunden';
-    }
-
-    else if (elapsed < msPerMonth) {
-        return 'vor ' + Math.round(elapsed/msPerDay) + ' Tagen';
-    }
-
-    else if (elapsed < msPerYear) {
-        return 'vor ' + Math.round(elapsed/msPerMonth) + ' Monaten';
-    }
-
-    else {
-        return 'vor ' + Math.round(elapsed/msPerYear ) + ' Jahren';
-    }
 }
 
 function visualizeRating(rating){
@@ -971,3 +961,136 @@ function getGeoStatistic(pubsid){
 
   })
 }
+
+  function addToAnnotationList(data,target){
+    //data -> type,
+    //target element -> jquery elem
+    //draw Annotation listed with a menupage
+
+    //Switch Cases -> Logo, Description Value
+    //Filter: Coords available
+    //Filter: Timestamp
+    //Filter: Your Coordinates creator.id
+    var data2 = JSON.stringify(data.body);
+    var icon = "", display_value = "", display_value2 = "";
+    var by_user_created = "", user_created_logo = ""
+    var timestamp = JSON.stringify(data.created);
+    var coord = "", coord_logo = "";
+    if(data.target.coord && data.target.coord.value != ""){
+      coord = "coord-missing";
+      coord_logo = '<i class="material-icons" title="Nicht auf der Karte">location_disabled</i>';
+    };
+    if(data.creator.id === user_state.timestamp){
+      by_user_created = "user-created";
+      user_created_logo = '<i class="material-icons" title="Von dir verzeichnet">person_pin</i>';
+    }
+
+    if(data.annotype === "Other"){
+      icon = 'announcement';
+      display_value = data.body.comment;
+}else if(data.annotype === "Dishes"){
+  icon = 'note_add';
+  if(data.body.type === "drink"){
+  icon = 'restaurant';
+}else if(data.body.type === "meal"){
+  icon = 'local_drink';
+}else if(data.body.type === "other"){
+  icon = 'device_unknown';
+    }
+  display_value = data.body.name;
+  display_value2 = data.body.price + " " + data.body.price_currency;
+}else if(data.annotype === "OpeningHours"){
+  icon = 'access_alarm';
+  display_value = data.body.value;
+}else if(data.annotype === "Category"){
+  icon = 'category';
+  display_value = data.body.name;
+}else if(data.annotype === "Ads"){
+  icon = 'format_paint';
+  display_value = data.body.brand;
+  display_value2 = data.body.comment;
+}else if(data.annotype === "Image"){
+  icon = 'image';
+  display_value = data.body.name;
+}else if(data.annotype === "Geo"){
+  icon = 'location_city';
+  display_value = data.body.street + " " + data.body.number + " ( " + data.body.street_old + data.body.number_old +")";
+  if(data.body.latlng.length > 1){
+    coord_logo = '<i class="material-icons" title="Geolokalisiert">location_on</i>';
+    coord = "";
+  }
+}else if(data.annotype === "Rating" && data.body.comment != "" && data.body.thumb == null){
+  icon = 'comment';
+  display_value = data.body.comment;
+  display_value2 = visualizeRating(data.body.rating);
+}
+
+    html = `<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${data._id}" data-type="${data.annotype}" data-timestamp="${data.created}" ${by_user_created} ${coord}>
+      <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">${icon}</span>
+      <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${display_value}</span>
+      <span class="mdc-list-item__secondary-text">${display_value2}</span></span>
+      <span class="mdc-list-item__meta" aria-hidden="true">${coord_logo} ${user_created_logo}</span>
+    </li>`;
+
+    //annotation-list
+    target.append(html);
+  }
+  function drawPersonAnnotationList(list){
+    //find all Annotations by this user
+    //include Geo and Rating (special mode needed to access these)
+
+
+    DBdishes.find({
+      selector: {'creator.id' : user_state.timestamp},
+    }).then(function(result){
+      $.each(result.docs, function (index, value) {
+        if(value.language != "query") addToAnnotationList(value, list);
+      });
+
+      return DBopeninghours.find({selector : {'creator.id' : user_state.timestamp}});
+    }).then(function(result){
+        $.each(result.docs, function (index, value) {
+          if(value.language != "query") addToAnnotationList(value, list);
+        });
+      return DBanno_other.find({selector : {'creator.id' : user_state.timestamp}});
+    }).then(function(result){
+        $.each(result.docs, function (index, value) {
+
+          if(value.language != "query") addToAnnotationList(value, list);
+        });
+      return DBads.find({selector : {'creator.id' : user_state.timestamp}});
+    }).then(function(result){
+        $.each(result.docs, function (index, value) {
+            if(value.language != "query") addToAnnotationList(value, list);
+        });
+      return DBcategory.find({selector : {'creator.id' : user_state.timestamp}});
+    }).then(function(result){
+        $.each(result.docs, function (index, value) {
+            if(value.language != "query") addToAnnotationList(value, list);
+        });
+      return DBimage.find({selector : {'creator.id' : user_state.timestamp}});
+    }).then(function(result){
+        $.each(result.docs, function (index, value) {
+            if(value.language != "query") addToAnnotationList(value, list);
+        });
+      return DBgeo.find({selector : {'creator.id' : user_state.timestamp}});
+    }).then(function(result){
+        $.each(result.docs, function (index, value) {
+            if(value.language != "query") addToAnnotationList(value, list);
+        });
+      return DBrating.find({selector : {'creator.id' : user_state.timestamp, 'target.anno_typ' : 'Dish'}});
+      }).then(function(result){
+          $.each(result.docs, function (index, value) {
+                if(value.target.anno_typ === "Dish" && value.body.thumb === null){
+                console.log(value);
+                addToAnnotationList(value, list);
+                }
+          });
+
+    }).catch(function(err){
+console.log(err);
+    });
+
+    $("#pubs-menu-list").html('');
+
+  }

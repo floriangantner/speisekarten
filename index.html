@@ -339,16 +339,71 @@
 </main>
 
 <main  class="maincard" id="card-menu-detail">
-  <div id="iiifmap"></div>
-
-<div class="mdc-card demo-card">
+  <div class="mdc-tab-bar" role="tablist" id="menu-tabbar">
+    <div class="mdc-tab-scroller">
+      <div class="mdc-tab-scroller__scroll-area">
+        <div class="mdc-tab-scroller__scroll-content">
+          <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0" data-id="map">
+            <span class="mdc-tab__content">
+              <span class="mdc-tab__icon material-icons" aria-hidden="true">map</span>
+              <span class="mdc-tab__text-label">Karte</span>
+            </span>
+            <span class="mdc-tab-indicator mdc-tab-indicator--active">
+              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+            </span>
+            <span class="mdc-tab__ripple"></span>
+          </button>
+          <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0" data-id="list">
+            <span class="mdc-tab__content">
+              <span class="mdc-tab__icon material-icons" aria-hidden="true">list</span>
+              <span class="mdc-tab__text-label">Gerichte</span>
+            </span>
+            <span class="mdc-tab-indicator">
+              <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+            </span>
+            <span class="mdc-tab__ripple"></span>
+          </button>
+          <!-- id="button-pubs-menu" button-pubs-dishes -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mdc-card demo-card">
+  <div class="pubs-menu-element" data-tab="map" id="menu-anno-map-view">
+  <!--<div class="demo-card__primary">
+    <h2 class="demo-card__title mdc-typography mdc-typography--headline6"></h2>
+    <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
+  </div>-->
   <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
     <!--<div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>-->
-    <div class="demo-card__primary">
-      <h2 class="demo-card__title mdc-typography mdc-typography--headline6"></h2>
-      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
-    </div>
-    <div class="demo-card__secondary mdc-typography mdc-typography--body2">test
+    <div class="demo-card__secondary mdc-typography mdc-typography--body2"></div>
+    <div id="iiifmap"></div>
+
+  </div>
+  </div>
+  <div class="pubs-menu-element" data-tab="list" id="menu-anno-list-view">
+
+<!--<div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">-->
+    <!--<div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>-->
+    <div class="demo-card__secondary mdc-typography mdc-typography--body2">
+        Zeigt alle Annotationen in einer Liste an, mit Filterfunktionen für welche ohne Karte.
+        Liste wird beim Laden der iiif-Karte mit gefüllt.
+        <div>
+        <p class="filter-sort">
+        <span><i class="material-icons">filter_list</i></span>
+        <span filter-user><i class="material-icons" >person_pin</i></span>
+        <span sort-time><i class="material-icons" >hourglass_full</i></span>
+        <span filter-coord><i class="material-icons" >location_disabled</i></span>
+      </p>
+        <ul class="mdc-list anno-list mdc-list--two-line" id="annotation-list">
+          <li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.id}">
+            <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">${logo}</span>
+            <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.body.name}</span>
+            <span class="mdc-list-item__secondary-text">${value.body.description}</span></span>
+            <span class="mdc-list-item__meta" aria-hidden="true">${value.body.price} ${value.body.price_currency}</span>
+          </li>
+        </ul>
+      </div>
   </div>
 </div>
   <div class="mdc-card__actions">
@@ -358,7 +413,7 @@
 
     </div>
     <div class="mdc-card__action-icons mdc-menu-surface--anchor">
-    <button class="mdc-fab mdc-fab--extended " id="anno-add-button">
+    <button class="mdc-fab mdc-fab--extended" id="anno-add-button">
       <span class="material-icons mdc-fab__icon">add</span>
         <span class="mdc-fab__label">Annotation</span>
       </button>
@@ -498,31 +553,26 @@
 <div class="mdc-card demo-card">
   <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
     <div class="demo-card__primary">
-      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Liste von Gerichten</h2>
-      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">die du bereits bewertest oder transkribiert hast TODO: weitere Kategorien ausgeben lassen.
-        Sortierbar nach bestbewertet und nach letzem Zeitpunkt und Kategorie-Filter</h3>
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Deine Bewertungen</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">
+      </h3>
     </div>
     <div class="demo-card__secondary mdc-typography mdc-typography--body2">
-      <ul class="mdc-list demo-list mdc-list--two-line dishes-list" id="list-anno-you">
-      <li class="mdc-list-item" tabindex="0">
-        <span class="mdc-list-item__text">
-          <span class="mdc-list-item__primary-text">Gericht 1</span>
-          <span class="mdc-list-item__secondary-text">Info</span>
-        </span>
-      </li>
-      <li class="mdc-list-item">
-        <span class="mdc-list-item__text">
-          <span class="mdc-list-item__primary-text">Gericht 2</span>
-          <span class="mdc-list-item__secondary-text">Info</span>
-        </span>
-      </li>
-      <li class="mdc-list-item">
-        <span class="mdc-list-item__text">
-          <span class="mdc-list-item__primary-text">Gericht 3</span>
-          <span class="mdc-list-item__secondary-text">Info</span>
-        </span>
-      </li>
-    </ul>
+      <div>
+      <p class="filter-sort">
+      <span><i class="material-icons">filter_list</i></span>
+      <span sort-atoz><i class="material-icons">sort_by_alpha</i></span>
+      <span sort-time><i class="material-icons" >hourglass_full</i></span>
+    </p>
+      <ul class="mdc-list anno-list mdc-list--two-line" id="list-anno-you">
+        <li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.id}">
+          <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">${logo}</span>
+          <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.body.name}</span>
+          <span class="mdc-list-item__secondary-text">${value.body.description}</span></span>
+          <span class="mdc-list-item__meta" aria-hidden="true">${value.body.price} ${value.body.price_currency}</span>
+        </li>
+      </ul>
+    </div>
     </div>
   </div>
 </div>
@@ -737,7 +787,6 @@
 </div>
 <div class="mdc-dialog__scrim"></div>
 </div>
-
 
 <div class="mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="annotation-ads-popup">
@@ -1369,6 +1418,10 @@ const snackbar = new mdc.snackbar.MDCSnackbar(document.querySelector('.mdc-snack
 const anno_menu = new mdc.menu.MDCMenu(document.querySelector('#anno-add-menu'));
 const pubs_tabbar = new mdc.tabBar.MDCTabBar(document.querySelector('#pubs-tabbar'));
 const pubs_tabbar_indicator = new mdc.tabIndicator.MDCTabIndicator(document.querySelector('.mdc-tab-scroller'));
+
+const menu_tabbar = new mdc.tabBar.MDCTabBar(document.querySelector('#menu-tabbar'));
+const menu_tabbar_indicator = new mdc.tabIndicator.MDCTabIndicator(document.querySelector('.mdc-tab-scroller'));
+
 
 const progress_loader = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#progress-loader'));
 const progress_identify_face = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#progress-identify-face'));

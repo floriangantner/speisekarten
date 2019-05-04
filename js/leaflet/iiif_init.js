@@ -8,7 +8,9 @@ var map_iiif = L.map('iiifmap', {
 map_iiif.invalidateSize();
 var baseLayer = L.tileLayer.iiif(
   //
-  'https://stacks.stanford.edu/image/iiif/hg676jb4964%2F0380_796-44/info.json'
+  'http://localhost:8182/iiif/2/214-2.png/info.json'
+  //'http://localhost:8080/tetons/info.json'
+
 ).addTo(map_iiif);
 
 var markerLayer = L.featureGroup();
@@ -91,6 +93,9 @@ function initIIIFMap(){
 }
 
 function iiifaddExistingAnnotations(){
+  var target_list = $("#annotation-list");
+  target_list.html('');
+  //adds Annotations to map and to list
 map_iiif.removeLayer(markerLayer);
 markerLayer = L.featureGroup();
 if(map_iiif.anno === false){
@@ -119,12 +124,13 @@ DBdishes.allDocs({
         rect.id = objdoc._id;
         rect.obj = objdoc;
         rect.on('click', showAnnotationInfoDialog);
-
         rect.addTo(markerLayer);
         markerLayer.anno = true;
         map_iiif.anno = true;
 
           }
+          //add to AnnotationList
+          addToAnnotationList(objdoc, target_list);
         }
     };
 });
@@ -152,12 +158,12 @@ DBopeninghours.allDocs({
         rect.id = objdoc._id;
         rect.obj = objdoc;
         rect.on('click', showAnnotationInfoDialog);
-
         rect.addTo(markerLayer);
         markerLayer.anno = true;
         map_iiif.anno = true;
 
           }
+          addToAnnotationList(objdoc, target_list);
         }
     };
 });
@@ -186,12 +192,13 @@ DBanno_other.allDocs({
         rect.obj = objdoc;
 
         rect.on('click', showAnnotationInfoDialog);
-
         rect.addTo(markerLayer);
         markerLayer.anno = true;
         map_iiif.anno = true;
 
           }
+          addToAnnotationList(objdoc, target_list);
+
         }
     };
 });
@@ -220,12 +227,13 @@ DBcategory.allDocs({
         rect.obj = objdoc;
 
         rect.on('click', showAnnotationInfoDialog);
-
         rect.addTo(markerLayer);
         markerLayer.anno = true;
         map_iiif.anno = true;
 
           }
+           addToAnnotationList(objdoc, target_list);
+
         }
     };
 });
@@ -255,12 +263,13 @@ DBads.allDocs({
         rect.obj = objdoc;
 
         rect.on('click', showAnnotationInfoDialog);
-
         rect.addTo(markerLayer);
         markerLayer.anno = true;
         map_iiif.anno = true;
 
           }
+          addToAnnotationList(objdoc, target_list);
+
         }
     };
 });
@@ -290,13 +299,12 @@ DBimage.allDocs({
         rect.obj = objdoc;
 
         rect.on('click', showAnnotationInfoDialog);
-
         rect.addTo(markerLayer);
         markerLayer.anno = true;
         map_iiif.anno = true;
-
-
           }
+          addToAnnotationList(objdoc, target_list);
+
         }
     };
 });

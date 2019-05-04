@@ -131,6 +131,9 @@ $("#card-dishes-detail").hide();
 redrawPubs(app_state.pubs);
 
 $( "#card-pubs-detail" ).show();
+$(".menu-tab-element").hide();
+$(".menu-tab-element[data-tab=map]").show();
+
 })
 
 $('#dishes-detail-menupage').on('click', function(evt){
@@ -661,6 +664,12 @@ $(".pubs-tab-element").hide();
 $(".pubs-tab-element[data-tab="+clicked+"]").show();
 });
 
+$("#menu-tabbar").find(".mdc-tab").on("click", function(evt){
+var clicked = $(this).attr("data-id");
+$(".pubs-menu-element").hide();
+$(".pubs-menu-element[data-tab="+clicked+"]").show();
+});
+
 $("#button-menu-detail-add-category").on("click", function(evt){
 //TODO: check actual categories of menu
 var listelemtofill = $("#annotation-category-popup").find("[category-upperselect]");
@@ -719,7 +728,7 @@ showTextOnSnackbar("Kategorie hinterlegt!", 5000);
 });
 
 function showAnnotationInfoDialog(){
-  //infos are saved in map object
+  //infos are saved in map object or list-object
   var anno_info = this.obj;
 app_state.anno_id = anno_info.id;
 app_state.anno_type = anno_info.annotype;
@@ -732,8 +741,6 @@ app_state.anno_type = anno_info.annotype;
 $("#button-map-anno").click( function(evt){
 //addAnnos(null);
 iiifaddExistingAnnotations();
-
-
 
 });
 
@@ -1064,3 +1071,150 @@ $("#pubs-list-sort").click(function(){
   }
 
 })
+
+$(".filter-sort > span").on("click", function (evt){
+//find next list and filter or sort
+console.log(this);
+var list = $(this).closest("div").find("ul:visible");
+if($(this).attr('filter-user') != undefined){
+if($(this).attr("user-filter-active") != undefined){
+list.find("li").show();
+$(this).removeAttr("user-filter-active");
+}else{
+  $(this).attr("user-filter-active");
+  list.find("li").hide();
+  list.find("li[user-created]").show();
+}
+
+}else if($(this).attr('sort-time') != undefined){
+if($(list).hasClass('sort_time_asc')){
+  $(list).find("li").sort(asc_sort).appendTo(list);
+  $(list).removeClass('sort_time_asc');
+}else{
+  $(list).find("li").sort(dec_sort).appendTo(list);
+  $(list).addClass('sort_time_asc')
+}
+// accending sort
+function asc_sort(a, b){
+  return ($(b).attr('data-timestamp')) < ($(a).attr('data-timestamp')) ? 1 : -1;
+}
+
+// decending sort
+function dec_sort(a, b){
+  return ($(b).attr('data-timestamp')) > ($(a).attr('data-timestamp')) ? 1 : -1;
+}
+
+}else if($(this).attr('filter-coord') != undefined){
+  if($(this).attr("coord-filter-active") != undefined){
+  list.find("li").show();
+  $(this).removeAttr("coord-filter-active");
+  }else{
+    $(this).attr("coord-filter-active", "true");
+    list.find("li").hide();
+    list.find("li[coord-missing]").show();
+  }
+}else if($(this).attr('sort-atoz') != undefined){
+if($(list).hasClass('sort_atoz_asc')){
+  $(list).find("li").sort(asc_sort).appendTo(list);
+  $(list).removeClass('sort_atoz_asc');
+}else{
+  $(list).find("li").sort(dec_sort).appendTo(list);
+  $(list).addClass('sort_atoz_asc')
+}
+// accending sort
+function asc_sort(a, b){
+  return ($(b).find('mdc-list-item__primary-text').text()) < ($(a).find('mdc-list-item__primary-text').text()) ? 1 : -1;
+}
+
+// decending sort
+function dec_sort(a, b){
+  return ($(b).find('mdc-list-item__primary-text').text()) > ($(a).find('mdc-list-item__primary-text').text()) ? 1 : -1;
+}
+
+};
+});
+
+
+$("#annotation-list").on("click", ".mdc-list-item", function(){
+var db = null;
+if($(this).attr('data-type') === "Other"){
+db = DBanno_other;
+}else if($(this).attr('data-type') === "Dishes"){
+db = DBdishes;
+}else if($(this).attr('data-type') === "Category"){
+db = DBcategory;
+}else if($(this).attr('data-type') === "OpeningHours"){
+db = DBopeninghours;
+}else if($(this).attr('data-type') === "Ads"){
+db = DBads;
+}else if($(this).attr('data-type') === "Image"){
+db = DBimage;
+}
+db.get($(this).attr("data-id")).then(function(result){
+var anno_info = result;
+app_state.anno_id = anno_info.id;
+app_state.anno_type = anno_info.annotype;
+redrawAnnotationInfoDialog(anno_info);
+annotation_info_dialog.open();
+
+}).catch(function(err){
+  console.log(err);
+});
+//data-id data-type
+//showAnnotationInfoDialog
+//set variables
+//redraw Dialog and open
+});
+
+
+$("#list-anno-you").on("click", ".mdc-list-item", function(){
+  //extend for geo and ratings
+var db = null;
+if($(this).attr('data-type') === "Other"){
+db = DBanno_other;
+}else if($(this).attr('data-type') === "Dishes"){
+db = DBdishes;
+}else if($(this).attr('data-type') === "Category"){
+db = DBcategory;
+}else if($(this).attr('data-type') === "OpeningHours"){
+db = DBopeninghours;
+}else if($(this).attr('data-type') === "Ads"){
+db = DBads;
+}else if($(this).attr('data-type') === "Image"){
+db = DBimage;
+}
+if(db != null){
+db.get($(this).attr("data-id")).then(function(result){
+var anno_info = result;
+app_state.anno_id = anno_info.id;
+app_state.anno_type = anno_info.annotype;
+redrawAnnotationInfoDialog(anno_info);
+annotation_info_dialog.open();
+}).catch(function(err){
+  console.log(err);
+});
+}else if($(this).attr('data-type') === "Geo"){
+  DBgeo.get($(this).attr("data-id")).then(function(result){
+  var anno_info = result;
+  app_state.anno_id = anno_info.id;
+  app_state.anno_type = anno_info.annotype;
+  app_state.pubs = result.target;
+
+  redrawMapPubDialog(result.body.latlng, result);
+  drawThumb($("#map-info-popup").find("[geo-rating]"));
+  app_state.pubs = this.target; //prerender Pubs-Dialog
+  redrawPubs(app_state.pubs);
+  map_pubinfo_dialog.open();
+  }).catch(function(err){
+    console.log(err);
+  });
+
+}else if($(this).attr('data-type') === "Rating"){
+//Comment Dishes-Funktion here
+
+}
+//data-id data-type
+//showAnnotationInfoDialog
+//set variables
+//redraw Dialog and open
+});
