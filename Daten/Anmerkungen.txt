@@ -1,0 +1,8 @@
+- Karte umbenennen (verwechslung mit "Speisekarte")
+- Ueber Dich --> keine Identitaet ausgewaehlt
+- Annotation "anderes"
+- Rechteckbutton in Bildviewer nicht intuitiv
+- graue Flaeche bei aehnliche Person
+- kann XML-Datei nur einmalig importieren - danach Speichern nicht mgl?
+- man kommt nicht wieder zurueck auf die Hauptseite
+- Alan sieht aeltere Version des Codes trotz aktueller Daten
