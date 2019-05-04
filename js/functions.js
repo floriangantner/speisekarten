@@ -642,6 +642,7 @@ if(anno.body.type === "meal"){
 }
 html += ` </p><p>Kategorie: ${anno.body.categoryName}</p><p>Preis: ${anno.body.price} ${anno.body.price_currency}</p>
 <p>Anzahl: ${anno.body.amount}</p><p>Beschreibung: ${anno.body.description}</p><p></div>`; //TODO: Link zur Kategorie
+html += `<div><img src="${config.iiifserver}`+getIIIfPreviewSnippetUrl(anno._id, anno.target)+`" alt="Kein Bild">"</div>`
 $("#annotation-info-content").html(html);
 
 }else if(anno.annotype === "OpeningHours"){
@@ -680,8 +681,6 @@ $("#annotation-info-content").html(html);
   $("#annotation-info-title").html(`Werbeanzeige:`);
   html += `<p>Beworbene Marke/Geschäft: ${anno.body.brand}</p><p><i class="material-icons-outlined"></i> ${anno.body.comment}</p></div>`;
   $("#annotation-info-content").html(html);
-
-
 
 }else if (anno.annotype === "Geo"){
 //not implemented, own dialog on map
@@ -1159,4 +1158,25 @@ var html = '';
 })
 
 elem.html(html);
+}
+
+function getIIIfPreviewSnippetUrl(id, target){
+//get File from Menupage
+//access iiif-server and generate URL for the Snippet
+//TODO: faster querys with mango possible?
+DBmenu.query((doc, emit) => {
+          for (let element of doc.menupages) {
+            if (element.id === target.menupage) {
+              emit(element);
+            }
+          }
+        }).then((result) => {
+          for (let row of result.rows) {
+            console.log(row);
+            value = row.key;
+            return value.filepath.replace(/\//g, "%2F") + "/full/!200,200/0/default.jpg";
+
+          }
+        })
+
 }
