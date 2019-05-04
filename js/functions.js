@@ -704,7 +704,6 @@ function redrawMapPubDialog(latlng, infos){
       $("#map-info-content").html(`<div>
         <p>${infos.creator.name} meldete `+timeDifference(Date.now(), infos.created )+`:</p>
         <p>${addressinfo.street} ${addressinfo.number}, ${addressinfo.zip} ${addressinfo.city}</p>
-        <p>Alte Adresse:${addressinfo.street_old} ${addressinfo.number_old}, ${addressinfo.zip_old} ${addressinfo.city_old} </p>
         <p>${addressinfo.comment}</p></div>`);
 
       });
@@ -1102,3 +1101,62 @@ console.log(err);
     $("#pubs-menu-list").html('');
 
   }
+
+function getSingleTeaserInfo(elem){
+  elem.html('');
+
+//returns one or two of available Infos, Image or Comment
+DBmenu_info.find({
+  selector: {'target.pubid' : app_state.pubid},
+}).then(function(result){
+  console.log(result);
+  var random = result.docs[ result.docs.length * Math.random() << 0];
+  value = result.docs[random];
+  var html = "<div>"
+  if(value.type === "photo"){
+    html += `<p><img src="assets/${value.filename}" alt="Kein Bild vorhanden"></p>`;
+  }else if (value.type === "comment" ){
+    html += `<p>$(value.comment)</p>`;
+  }else if(value.type === "skuril"){
+    html += `<p>$(value.comment)</p>`;
+  }else if(value.type === "rating"){
+    html += `<p>$(value.comment)</p>`;
+  }
+
+  html += "</div>"
+  elem.html(html);
+}).catch(function(err){
+console.log(err);
+});
+
+}
+
+function getAllTeaserInfo(elem){
+  //get all Teaser-Infos -> Use Slider-Module for images
+elem.html('');
+var html = '';
+  DBmenu_info.find({
+    selector: {'target.pubid' : app_state.pubid},
+  }).then(function(result){
+    console.log(result);
+    $.each(result.docs, function (index, value) {
+
+    var html2 = "<div>"
+    if(value.type === "photo"){
+      html2 += `<p><img src="assets/${value.filename}" alt="Kein Bild vorhanden"></p>`;
+    }else if (value.type === "comment" ){
+      html2 += `<p>$(value.comment)</p>`;
+    }else if(value.type === "skuril"){
+      html2 += `<p>$(value.comment)</p>`;
+    }else if(value.type === "rating"){
+      html2 += `<p>$(value.comment)</p>`;
+    }
+    html2 += "</div>"
+    html.append(html2);
+  });
+}).catch(function(err){
+  console.log(err);
+})
+
+elem.html(html);
+}

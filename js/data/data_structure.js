@@ -452,8 +452,48 @@ Image ->
 "created" : "timestamp",
 "motivation" : "commenting"
 }
+//
+Menu TeaserInfo ->
+	{
+	"@context" : "http://www.w3.org/ns/anno.jsonld",
+	"id" : "",
+	"_id" : "",
+	"type" : "Info",
+	"annotype" : "TeaserInfo",
+	"body" : {
+		"type" : "photo | comment | rating | skuril",
+		"filename" : "",
+		"comment" : "",
+		"cite" : "",
+	},
+	"target" : {
+		"pubid":"p1",
+		"menu" : "p1/m1",
+		"menupage": "p1/m1/mp3",
+		"selector": {
+			"type": "FragmentSelector",
+			"conformsTo": "http://www.w3.org/TR/media-frags/",
+			"value": "xywh=0,0,30,60"
+			},
+			"coord" : {
+				"type": "AnnoSelector",
+				"conformsTo": "",
+				"value": "lat1lng1lat2lng2=0,0,30,60"
+			}
+	},
+	"creator" : {
+		"id" : "",
+		"name" : "",
+		"identity" : ""
+	},
+	"generator" : {
+		"name" : "tripadviswurst"
+	},
+	"created" : "timestamp",
+	"motivation" : "commenting"
+	}
 
-//TODO: Text-Bewertungen -> Pub / Dishes
-//TODO: daumen hoch/runter bewertungen
+}
+
 
 //##############################################################################

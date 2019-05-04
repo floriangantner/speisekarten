@@ -65,7 +65,7 @@
 <main class="maincard" id="card-intro">
   <div class="mdc-card demo-card">
     <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
-      <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>
+      <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;sample-data/p66_m1_ima11.jpg&quot;);"></div>
       <div class="demo-card__primary">
         <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Tripadviswurst</h2>
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
@@ -287,6 +287,7 @@
     <span pubs-rating></span>
     <!--<div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>-->
     <div class="demo-card__secondary mdc-typography mdc-typography--body2">Infos, Öffnungszeiten</div>
+    <span teaser-info-ext></span>
     <ul class="mdc-list" id="pubs-adress-list" >
       <li class="mdc-list-item">
         <span class="mdc-list-item__graphic">
@@ -738,6 +739,7 @@
      -->Lade Inhalt zur Kartenposition.<!--
    --></h2>
    <span geo-rating></span>
+   <span map-teaser></span>
       <div class="mdc-dialog__content" id="map-info-content">
 </div>
 <footer class="mdc-dialog__actions">
@@ -1002,54 +1004,6 @@
     </div>
     <div class="mdc-text-field-helper-line">
       <div class="mdc-text-field-helper-text">Schreibe hier weitere Infos zu deinere Geolokalisierug hin. Wie bist du darauf gekommen?</div>
-    </div>
-    <div class="mdc-text-field mdc-text-field--outlined" id="dialog-geolocation-street_old">
-    <input class="mdc-text-field__input" geo-street_old>
-    <div class="mdc-notched-outline">
-    <div class="mdc-notched-outline__leading"></div>
-    <div class="mdc-notched-outline__notch">
-    <label class="mdc-floating-label">Straße (alt)</label>
-    </div>
-    <div class="mdc-notched-outline__trailing"></div>
-    </div>
-    </div>
-    <div class="mdc-text-field-helper-line">
-      <div class="mdc-text-field-helper-text">Straßen werden umbenannt. Falls die Straße heute nicht mehr existiert.</div>
-    </div>
-    <div class="mdc-text-field mdc-text-field--outlined" id="dialog-geolocation-number_old">
-    <input class="mdc-text-field__input" geo-number_old>
-    <div class="mdc-notched-outline">
-    <div class="mdc-notched-outline__leading"></div>
-    <div class="mdc-notched-outline__notch">
-    <label class="mdc-floating-label">Nummer (alt)</label>
-    </div>
-    <div class="mdc-notched-outline__trailing"></div>
-    </div>
-    </div>
-    <div class="mdc-text-field-helper-line">
-      <div class="mdc-text-field-helper-text">Hausnummern ändern sich. Falls die Adresse heute anders ist.</div>
-    </div>
-    <div class="mdc-dialog__content" id="dialog-geolocation-content">
-       <div class="mdc-text-field mdc-text-field--outlined" id="dialog-geolocation-city_old">
-    <input class="mdc-text-field__input" geo-city_old>
-    <div class="mdc-notched-outline">
-    <div class="mdc-notched-outline__leading"></div>
-    <div class="mdc-notched-outline__notch">
-    <label class="mdc-floating-label">Stadt (alt)</label>
-    </div>
-    <div class="mdc-notched-outline__trailing"></div>
-    </div>
-    </div>
-	</div>
-       <div class="mdc-text-field mdc-text-field--outlined" id="dialog-geolocation-zip_old">
-    <input class="mdc-text-field__input" geo-zip_old >
-    <div class="mdc-notched-outline">
-    <div class="mdc-notched-outline__leading"></div>
-    <div class="mdc-notched-outline__notch">
-    <label class="mdc-floating-label">PLZ (alt)</label>
-    </div>
-    <div class="mdc-notched-outline__trailing"></div>
-    </div>
     </div>
 </div>
 <footer class="mdc-dialog__actions">
@@ -1487,10 +1441,6 @@ var geo_textField3 = new mdc.textField.MDCTextField(document.querySelector('#dia
 var geo_textField4 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-lat'));
 var geo_textField5 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-lng'));
 var geo_textField6 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-comment'));
-var geo_textField7 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-street_old'));
-var geo_textField8 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-number_old'));
-var geo_textField9 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-city_old'));
-var geo_textField10 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-zip_old'));
 var geo_textField11 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-zip'));
 
 //annotation_category_dialog.listen('MDCDialog:opened', () => {

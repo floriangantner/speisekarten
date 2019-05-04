@@ -8,6 +8,7 @@ const DBmenu = new PouchDB('menu');
 const DBhist_persons = new PouchDB('persons_hist');
 const DBuser = new PouchDB('user');
 
+const DBmenu_info = new PouchDB('menu_infos'); //contains image/teaser material
 const DBdishes = new PouchDB('dishes');
 const DBrating = new PouchDB('rating');
 const DBopeninghours = new PouchDB('openinghours');
@@ -17,6 +18,7 @@ const DBcategory = new PouchDB('category');
 const DBpersons_head = new PouchDB('person_head');
 const DBads = new PouchDB('ads');
 const DBimage = new PouchDB('image');
+
 var doc;
 
 //adds a String to a specific DB

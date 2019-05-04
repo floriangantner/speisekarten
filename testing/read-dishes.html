@@ -59,7 +59,7 @@ document.execCommand("copy");
   var menuid = $("#menu").val();
   var menupageid = $("#menupage").val();
   var dishes_output = [], category_output = [], dishcounter = 1;
-  var cat = new Map();
+  var cat = {};
   var cat_counter = 0;
   var time_start = new Date().getTime();
   var fileInput = document.getElementById("csv"),
@@ -83,7 +83,7 @@ document.execCommand("copy");
                   'gericht' : value_split[3],
                   'beschreibung' : value_split[4],
                   'preis' : value_split[5],
-                  'währung' : value_split[6],
+                  'waehrung' : value_split[6],
                   'menge' : value_split[7],
                   'unbekannt' : value_split[8],
                   'skuril' : value_split[9], //und waas danach kommt
@@ -96,15 +96,56 @@ document.execCommand("copy");
                 //Map Categorys with id's
                 //Upper Category: nons
                  //var cat_id = cat.get(allRows[it].kategorie);
-                 var cat_id = Object.keys(cat).find(key => cat[key] === allRows[it].kategorie);
-                 console.log(Object.keys(cat));
-                 console.log(cat_id);
-                 //get Key by value
-                 if(cat_id === undefined || cat_id === null){
-                   var cat_key = menupageid + "/c" + cat_counter;
-                   cat.set(cat_key, allRows[it].kategorie);
-                   cat_counter++;
+                 var exists = false;
+                 Object.keys(cat).forEach(function(key,index) {
+                   if(cat[key] === allRows[it].kategorie){
+                     exists = true;
+                   }
+                    });
+                 if(exists === false && (allRows[it].kategorie != undefined)){
+                     var cat_key = menupageid + "/c" + cat_counter;
+                     cat[cat_key] = allRows[it].kategorie;
+                     cat_counter++;
+                     var newcat = {
+                     "@context" : "http://www.w3.org/ns/anno.jsonld",
+                     "id" : cat_key,
+                     "_id" : cat_key,
+                     "type" : "Annotation",
+                     "annotype" : "Category",
+                     "body" : {
+                       "name" : allRows[it].kategorie,
+                       "upperCategoryName" : "",
+                       "upperCategoryID" : ""
+                     },
+                     "target" : {
+                       "pubid":pubid,
+                       "menu" : menuid,
+                       "menupage": menupageid,
+                       "selector": null, /*{
+                         "type": "FragmentSelector",
+                         "conformsTo": "http://www.w3.org/TR/media-frags/",
+                         "value": "xywh=0,0,30,60"
+                      }, */
+                         "coord" : null, /* {
+                           "type": "AnnoSelector",
+                           "conformsTo": "",
+                           "value": "lat1lng1lat2lng2=0,0,30,60"
+                         } */
+                     },
+                     "creator" : {
+                       "id" : "1",
+                       "name" : "Heni & Alan",
+                       "identity" : "1"
+                     },
+                     "generator" : {
+                       "name" : "by hand"
+                     },
+                     "created" : "1",
+                     "motivation" : "commenting"
+                     }
+                     category_output.push(newcat);
                  }
+
               };
               console.log(cat);
 
@@ -112,20 +153,35 @@ document.execCommand("copy");
 
                   var thisentry = allRows[it];
                   var newdish = {};
-
+                  //7Distinguish cases
+                  var type;
+                  if(newdish.typ === "Essen"){
+                    type = "meal";
+                  }else if(newdish.typ === "Trinken" || newdish.typ === "Getränk"){
+                    type = "drink";
+                  }else {
+                    type = "other";
+                  }
+                  //find category name and id by given category
+                  var category_key_id;
+                  Object.keys(cat).forEach(function(key,index) {
+                    if(cat[key] === allRows[it].kategorie){
+                      category_key_id = key
+                    }
+                     });
 newdish = {
 "@context" : "http://www.w3.org/ns/anno.jsonld",
 "type" : "Annotation",
 "annotype" : "Dishes",
 "body" : {
-  "type" : "meal|drink|other",
-  "name" : "",
-  "price" : "",
-  "price_currency" : "",
-  "amount" : "",
-	"description" : "",
-  "categoryName" : "",
-  "categoryID" : ""
+  "type" : type,
+  "name" : newdish.gericht,
+  "price" : newdish.price,
+  "price_currency" : newdish.waehrung,
+  "amount" : newdish.menge,
+	"description" : newdish.beschreibung,
+  "categoryName" : allRows[it].kategorie,
+  "categoryID" : category_key_id
 },
 "target" : {
 	"pubid": pubid,

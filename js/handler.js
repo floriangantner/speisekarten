@@ -117,7 +117,8 @@ $("#button-tutorial-go").click(function(evt){
 $('#pubs-list').on('click', '.mdc-list-item', function(evt){
 console.log("clicked");
 $( "#card-pubs-list" ).hide();
-  app_state.pubs = $(this).attr('data-id');;
+  app_state.pubs = $(this).attr('data-id');
+  getAllTeaserInfo($("#pubs-detail-tabs-info").find("[teaser-info-ext]"));
     redrawPubs(app_state.pubs);
     $(".pubs-tab-element").hide();
     $(".pubs-tab-element[data-tab=info]").show();
@@ -128,11 +129,12 @@ $( "#card-pubs-detail" ).show();
 $('#dishes-detail-pubs').on('click', function(evt){
   //link from dishes to pub
 $("#card-dishes-detail").hide();
+getAllTeaserInfo($("#pubs-detail-tabs-info").find("[teaser-info-ext]"));
 redrawPubs(app_state.pubs);
 
 $( "#card-pubs-detail" ).show();
 $(".menu-tab-element").hide();
-$(".menu-tab-element[data-tab=map]").show();
+$(".menu-tab-element[data-tab=info]").show();
 
 })
 
@@ -347,10 +349,6 @@ var data = {
 	"zip" : $("[geo-zip").val(),
 	"street" : $("[geo-street]").val(),
 	"number" : $("[geo-number").val(),
-	"street_old" : $("[geo-street_old").val(),
-	"zip_old" : $("[geo-zip_old").val(),
-	"city_old" : $("[geo-city_old").val(),
-	"number_old" : $("[geo-number_old").val(),
 	"comment" : $("[geo-comment").val()
 },
 "target" : {
@@ -579,6 +577,7 @@ function showMapPubDialog(){
   //Map event on click marker
   console.log(this);
   redrawMapPubDialog(this._latlng, this.spot);
+  getSingleTeaserInfo($("#map-info-popup").find("[map-teaser]"));
   app_state.anno_id = this.spot._id;
   app_state.anno_typ = this.spot.annotype;
 
@@ -768,12 +767,17 @@ DBgeo.allDocs({
     });
     //add more info from actual pubs
     //
+    if(lat === undefined || lng === undefined){
+      showTextOnSnackbar("Koordinaten nicht gefunden!", 4000);
+  }else{
+    getSingleTeaserInfo($("#map-info-popup").find("[map-teaser]"));
     redrawMapPubDialog([lat,lng], this.spot);
     drawThumb($("#map-info-popup").find("[geo-rating]"));
     MapShowPubID($(this).attr('data-id'), lat, lng);
     mapAllPubsAdd();
     map_pubinfo_dialog.open();
 
+  }
 });
 $("#card-map").show();
 });
@@ -1203,6 +1207,7 @@ annotation_info_dialog.open();
   app_state.anno_type = anno_info.annotype;
   app_state.pubs = result.target.pubid;
 
+  getSingleTeaserInfo($("#map-info-popup").find("[map-teaser]"));
   redrawMapPubDialog(result.body.latlng, result);
   drawThumb($("#map-info-popup").find("[geo-rating]"));
   app_state.pubs = this.target.pubid; //prerender Pubs-Dialog
