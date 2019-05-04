@@ -127,7 +127,7 @@ Geo ->
 	"comment" : ""
 },
 "target" : {"pubid":"p1",
-"menupage" : "p1/m1"},
+"menu" : "p1/m1"},
 "creator" : {
 	"id" : "",
 	"name" : "",
