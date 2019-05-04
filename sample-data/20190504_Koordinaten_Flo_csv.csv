@@ -1,0 +1,792 @@
+Id;Name richtig, wenn abweichend;Lokal;Jahr;Telefonnummer;Adresse;lat, lon;Quelle;Bemerkung;to do;Bestände;Skurrilitätsfaktor / Besonderheit;Aus der Speisekarte;fremde Identifikatoren;Personen;Inhaber;Bild;Bier;Transkription
+p1/m1;;Armbrustschützenzelt;1975;;[Wirtsbudenstraße 117, 80336 München];48.13387, 11.54852;"https://www.armbrustschuetzenzelt.de/haeufige-fragen/; https://www.muenchen.de/veranstaltungen/oktoberfest/besucher-service/wiesnplan.html";Auch früher Zeltstandort?;;0;;;;;;ja;;Ja
+p1/m2;;Armbrustschützenzelt;1975;;;;;;;;;;;;;;;
+p1/m3;;Armbrustschützenzelt;1975;;;;;;;;;;;;;;;
+p2/m1;;Gaststätte Augustiner;19591027;;Neuhauser Str. 16;48.13891, 11.56803;Karte;Heutiger Standort Neuhauser Str. 27 – womöglich andere Häuserzählung frühher?;Nach hist. Katasterkarte suchen;0;;;;;;;Augustiner;
+;;Augustiner Festhalle;Oktoberfest 1965;;[Wirtsbudenstraße 64];48.13286, 11.54976;https://www.muenchen.de/veranstaltungen/oktoberfest/besucher-service/wiesnplan.html;Auch früher Zeltstandort?;Id vergeben;;;;;;;;Augustiner;
+p2/m2;;Gaststätte Augustiner;19170709;;[Neuhauserstraße 16];48.13891, 11.56803;Fonbuch 1916;;hist. Telefonbuch/Katasterkarte;F Mon 3457;Kriegskarte;;;;;;Augustiner;
+p2/m3;;Gaststätte Augustiner;19180128;;[Neuhauserstraße 16];48.13891, 11.56803;Fonbuch 1916;;hist. Telefonbuch/Katasterkarte;F Mon 3490;Kriegskarte;;;;;;Augustiner;
+p2/m4;;Gaststätte Augustiner;19180418;;[Neuhauserstraße 16];48.13891, 11.56803;Fonbuch 1916;;hist. Telefonbuch/Katasterkarte;F Mon 3492;Kriegskarte;;;;;;Augustiner;
+p2/m5;;Gaststätte Augustiner;19590815;;[Neuhauserstraße 16];;;;;;;;;;;;Augustiner;
+p2/m6;;Gaststätte Augustiner;19591027;;[Neuhauserstraße 16];;;Tagesspezialitäten;;;;;;;;;Augustiner;
+p2/m7;;Restaurant Augustiner;1916 Sommer;;[Neuhauserstraße 16];;Fonbuch 1916;"Abweichender Name!
+Da kein solcher Eintrag in Fonbuch, vermutl. Identisch mit p2";hist. Telefonbuch/Katasterkarte;F Mon 3444;;"Preise „exclusive der Steuererhöhung“; „Speisen ohne Getränke 10 Pfg. mehr.“";;;;;Augustiner;
+p3/m1;;Gaststätte Bavaria;Abend 19380828;;Bayerstr. 81;48.1389837,11.5506248;;Noch heute aaO vorhanden;;;Hs. Einträge auf Bl. 3;;;;;;;
+p3/m2;;Gaststätte Bavaria;Mittag 19380828;;Bayerstr. 81;48.1389837,11.5506248;;Noch heute aaO vorhanden;;;Hs. Einträge auf Bl. 3;;;;;;;
+;;Hotel und Restaurant „Bavaria“;1938;;Schillerstr. 10;[48.1394259,11.5548529];;"In Ordnerstruktur unter p3 subsumiert. Disambiguiert.
+
+Nicht mit Gaststätte Bavaria zu verwechseln (im selben Ordner)";Neue id vergeben;;;„Eigene Schlächterei“;;;;;;
+p4/m1;;Bayerische Krone;19430308;Fernsprecher 59178;Schützenstraße 10;[48.13997, 11.56266];;;;;Kriegskarte;;;;;;;
+p4/m2;;Bayerische Krone;19390716;Fernsprecher 59178;Schützenstraße 10;[48.13997, 11.56266];;;;;;;;;;;;
+p4/m3;;Hotel und Gaststätte Bayerische Krone;19420629;Fernsprecher 59178;Schützenstraße 10;[48.13997, 11.56266];;;;;;;;;;;;
+p5/m1;;Bayerischer Hof;1959;"28871
+Fernschreiber 05/23409";"Promenadeplatz
+
+neu: Promenadepl. 2-6";48.1404252,11.5730849;;Luxushotel;;;;;"Q728213
+";;;;;
+p5/m2;;Bayerischer Hof;1959;;;;;;;;;;;;;;;
+p5/m3;;Bayerischer Hof;1959;;;;;;;;;;;;;;;
+p5/m4;;Bayerischer Hof;19590710;;;;;;;;;;;;;;;
+p5/m5;;Bayerischer Hof;19591029;;;;;;;;;;;;;;;
+p5/m6;;Bayerischer Hof;195907;;;;;;;;;;;;;;;
+p6/m1;;Bierstüberl am Deutschen Theater / Pension Pregler;19390715;50622;Landwehrstraße 20;[48.1364604,11.561245];;Hs.-Vermerk: Abendkarte;;;;;;;;;;
+p7/m1;;Bräu-Rosl Festzelt;1965;;;[48.13180, 11.54938];;;;;;;;;;;;
+p8/m1;;Bürgerbräu??????????????????????;;;;;;;bearbeiten!;;;;"Q592281
+GND7723962-3";;;;;
+p8/m2;;;;;;;;;;;;;;;;;;
+p8/m3;;;;;;;;;;;;;;;;;;
+p8/m4;;;;;;;;;;;;;;;;;;
+p8/m5;;;;;;;;;;;;;;;;;;
+p8/m6;;;;;;;;;;;;;;;;;;
+p8/m7;;;;;;;;;;;;;;;;;;
+p8/m8;;;;;;;;;;;;;;;;;;
+p8/m9;;;;;;;;;;;;;;;;;;
+p8/m10;;;;;;;;;;;;;;;;;;
+p8/m11;;;;;;;;;;;;;;;;;;
+p8/m12;;;;;;;;;;;;;;;;;;
+p8/m13;;;;;;;;;;;;;;;;;;
+p8/m14;;;;;;;;;;;;;;;;;;
+p8/m15;;;;;;;;;;;;;;;;;;
+p8/m16;;;;;;;;;;;;;;;;;;
+p8/m17;;;;;;;;;;;;;;;;;;
+p8/m18;;;;;;;;;;;;;;;;;;
+p8/m19;;;;;;;;;;;;;;;;;;
+p8/m20;;;;;;;;;;;;;;;;;;
+p8/m21;;;;;;;;;;;;;;;;;;
+p8/m22;;;;;;;;;;;;;;;;;;
+p8/m23;;;;;;;;;;;;;;;;;;
+p8/m24;;;;;;;;;;;;;;;;;;
+p9/m1;;Café de Paris;;;;;;Nicht in München;;;;;;;;;;
+p10/m1;;Chez Pierre;1960;65248;Rotkreuzplatz 2a;[48.1523256,11.5310822];;Karte leer;;;;;;;;;;
+p11/m1;;Christliches Hospiz München;19380821;52413;Mathildenstraße 4-5;[48.1360286,11.5609768];;;;;Studentenkarte;;;;;;;
+p12/m1;;Coop im Stachus-Zentrum;19710726 - 19710730;;Karlsplatz;[48.1393026,11.5631603];;"Tagesgerichte
+wohl in COOP-Supermarkt";;;;;;;;;;
+p13/m1;;Gaststätte Deutsches Eck;19380826;;Schwanthalerstraße 58;[48.1376934,11.5534114];;Abendkarte;;;;„Bestgepflegte Weine“ , „Eigene Schlächterei“;;;;;;
+p14/m1;;Gaststätte zum Deutschen Haus;19170606;;Sophienstraße 1a;48.1413139,11.5642087,;;"Über Fonbuch 1916 Sophienstraße gefunden - am Lenbachplatz
+
+alt.: Gastwirtschaft zum Deutschen Haus, Restaurant zum Deutschen Haus";nicht exakt verortbar! Telefonbuch 1916 – kein Eintrag für Lenbachplatz!!;;Kriegskarte;„Man bittet höflichst, die Marken gleich bei Bestellung abzugeben“;;;Franz Hintermaier;;;
+p14/m2;;Gaststätte zum Deutschen Haus;19170627;;;;;;;;Kriegskarte;;;;;;;
+p14/m3;;Gaststätte zum Deutschen Haus;19170730;;;;;;;;Kriegskarte;;;;;;;
+p14/m4;;Gaststätte zum Deutschen Haus;19170730;;;;;;;;Kriegskarte;;;;;;;
+p14/m5;;Gaststätte zum Deutschen Haus;19171121;;;;;;;;Kriegskarte;;;;;;;
+p14/m6;;Gaststätte zum Deutschen Haus;19180501;;;;;;;;Kriegskarte;;;;;;;
+p14/m7;;Gaststätte zum Deutschen Haus;19180619;;;;;;;;Kriegskarte;;;;;;;
+p14/m8;;Gaststätte zum Deutschen Haus;19180227;;;;;;;;Kriegskarte;;;;;;;
+p14/m9;;Gaststätte zum Deutschen Haus;19160705;;;;;;;;Kriegskarte;;;;;;;
+p14/m10;;Gaststätte zum Deutschen Haus;19169697;;;;;;;;Kriegskarte;;;;;;;
+p14/m11;;Gaststätte zum Deutschen Haus;19160517;;;;;;;;Kriegskarte;;;;;;;
+p14/m12;;Gaststätte zum Deutschen Haus;Sommer 1916;;;;;;;;Kriegskarte;;;;;;;
+p14/m13;;Gaststätte zum Deutschen Haus;19160718;;;;;;;;Kriegskarte;;;;;;;
+p14/m14;;Gaststätte zum Deutschen Haus;19151108;;;;;;;;;„Speisen ohne Getränke 10 Pfg. mehr.“;;;;;;
+p14/m15;;Gaststätte zum Deutschen Haus;19151108;;;;;;;;;;;;;;;
+p14/m16;;Gaststätte zum Deutschen Haus;19151110;;;;;;;;;;;;;;;
+p14/m17;;Gaststätte zum Deutschen Haus;19151106;;;;;;;;;;;;;;;
+p14/m18;;Gaststätte zum Deutschen Haus;19151107;;;;;;;;;;;;;;;
+p14/m19;;Gaststätte zum Deutschen Haus;19151107;;;;;;;;;;;;;;;
+p14/m20;;Gaststätte zum Deutschen Haus;19151106;;;;;;;;;;;;;;;
+p14/m21;;Gaststätte zum Deutschen Haus;19151110;;;;;;;;;;;;;;;
+p15/m1;;Bar Deutsches Theater;ca. 1947;;;;;;;;Getränkekarte;;;;;;Spaten;
+p15/m2;;Bar Deutsches Theater;19450905;;;;;;;;;;;;;;Spaten;
+p15/m3;;Bar Deutsches Theater;19461206;Fernsprecher Nr. 53476;Schwanthalerstraße 13;48.1372132,11.5604613;;;;;;"„Achtung!
+Auf Befehl des Provost Marshall und auf Anordnung des Münchner Polizei-Präsidenten ist die Abgabe von Speisen an die Angehörigen der Alliierten Streitkräfte verboten.
+Dem Personal ist es strengstens untersagt an Zivilisten markenpflichtige Speisen ohne Marken abzugeben.
+Der Betriebsleiter“
+
+„10% Bedienungszuschlag“, „Das Personal ist angewiesen, größte Höflichkeit und Zuvorkommenheit an den Tag zu legen. Dolmetscher in verschiedene Sprachen vorhanden.“, „Mit Genehmigung des Münchner Polizeipräsidenten ist das Mitbringen von alkoholischen Getränken jeder Art verboten.“(08.11.1947)";;;;;Spaten;
+p15/m4;;Bar Deutsches Theater;19450907;;;;;;;;;;;;;;;
+p15/m5;;Bar Deutsches Theater;19471107;;;;;;;;;;;;;;;
+p15/m6;;Bar Deutsches Theater;19450909;;;;;;;;Getränkekarte auf Englisch;"Hs.: „für Americaner-Tage!“
+„American - Officers - Nightclub“";;;;;;
+p15/m7;;Gaststätte Deutsches Theater;19451005;Fernsprecher Nr. 53476;Schwanthalerstraße 13;48.1372132,11.5604613;;Bar und Gaststätte mutmaßlich in einem. Daher Angaben übernommen.;;;s.o.;;;;;;;
+p15/m8;;Gaststätte Deutsches Theater;19471108;;;48.1372132,11.5604613;;;;;Getränkepreise jewl „ohne Konzert“ und „mit Konzert“;;;;;;;
+p15/m9;;Gaststätte Deutsches Theater;19461009;;;48.1372132,11.5604613;;;;;;;;;;;;
+p15/m10;;Gaststätte Deutsches Theater;19450911;;;48.1372132,11.5604613;;;;;;;;;;;;
+p15/m11;;Gaststätte Deutsches Theater;19450821;;;48.1372132,11.5604613;;;;;;;;;;;;
+p15/m12;;Gaststätte Deutsches Theater;19450927;;;48.1372132,11.5604613;;;;;;;;;;;;
+p16/m1;;Donisl am Marienplatz ????????????????;;;;;;;bearbeiten!;;;;;;;;;
+p16/m2;;Donisl am Marienplatz ????????????????;;;;;;;;;;;;;;;;
+p16/m3;;Donisl am Marienplatz ????????????????;;;;;;;;;;;;;;;;
+p16/m4;;Donisl am Marienplatz ????????????????;;;;;;;;;;;;;;;;
+p17/m1;;Hotel Drei Könige;19380821;;[Schwanthalerstraße 38];;"http://genwiki.genealogy.net/w/index.php?title=Datei:Muenchen-AB-1938.djvu&page=981&page=981
+
+Fonbuch1916";Adresse hs. Vermerk;;;;;;;;;;
+p18/m1;Strawberry Spezialiätenrestaurant im Hotel Drei Löwen;Drei Löwen, Hotel;19741028 - 19741116;"Telefon (089)595521
+Telex 05-23867
+Telegramme: Löwenhotel";8 München 2 - Schillerstraße 8;48.1385099,11.5610212;;Feinschmeckerrestaurant im Hotel Drei Löwen;;;Bayerische Schmankerl Wochen;;;;;;;
+p18/m2;Strawberry Spezialiätenrestaurant im Hotel Drei Löwen;Drei Löwen, Hotel;19721120 - 19721223;;;;;;;;Kulinarische Wochen;;;;;;;
+p18/m3;Strawberry Spezialiätenrestaurant im Hotel Drei Löwen;Drei Löwen, Hotel;197107;;;;;;;;Rohkostbuffet;„Einfach ideal für die warme Jahreszeit . . . . oder zur Schlankheitskur . . . .“;;;;;;
+p18/m4;Strawberry Spezialiätenrestaurant im Hotel Drei Löwen;Drei Löwen, Hotel;197105;;;;;;;;Spargel-Wochen;;;;;;;
+p19/m1;;Drei Raben, Hotel;19370717;;Schillerstraße 6;48.1387094,11.5587336;;;;;;"„Eigene Metzgerei
+Eigene Conditorei“
+„Prima Schoppenweine
+Erstklassige Flaschenweine
+Verlangen Sie bitte die Weinkarte!“";;;;;;
+p19/m2;;Drei Raben, Hotel;19380827;;;;;;;;;;;;;;;
+p20/m1;;Eckel, Weinrestaurant;19190715;;[Sparkassenstraße];;"http://wiki-de.genealogy.net/w/index.php?title=Datei:Muenchen-AB-1919.djvu&page=139&page=139 ; Telefonbuch1919 ; https://picclick.de/AK-1915-gelaufen-M%C3%9CNCHEN-Weinhaus-Eckel-mit-Schoppenstube-143101970370.html";Adresse nicht ermittelbar, vielleicht auch Burgstr. 17;"Telefonbuch – nicht eindeutig
+
+Branchenbuch?";;;„Fisch Majonaise“;;;;;;
+p21/m1;Hotel Europäischer Hof (Katholisches Hospiz);Europäischer Hof, Hotel;19380827;Fernsprech-Nummer 53404 (Hauszentrale;Bayerstraße 31;48.139037,11.5577213;;"noch dort
+
+Name auf Karte abweichend";;;;"„10% Bedienungsaufschlag“
+
+„Unser Hotel ist das wohlgepflegte und gemütliche Heim für jeden Reisenden“
+„Fließendes warmes und kaltes Wasser
+Privatbäder
+Staatstelefon in den Zimmern
+Lichtsignale statt Klingeln
+Moderne Entstaubung“";;;;;;
+p22/m1;Geisel’s Gaststätten im Hotel Excelsior München;"Excelsior, Hotel
+";19380709;;Schützenstraße 11;48.1398263,11.5621496;;"Name auf Karte abweichend
+
+existiert noch";;;"versch. Menues
+
+große Weinkarte";"„1/1 jg. deutsches Mastküken a. Spieß, Frühlingssalate, Mirabellen Daufinkartoffel (25 Minuten)“
+";;;;;;
+p22/m2;Geisel’s Gaststätten im Hotel Excelsior München;Excelsior Weinkarte;;;Schützenstraße 12;48.1398263,11.5621496;;Laut data_pubs id ‚= p23. Da identisch mit p22 zu p22/m2 geändert;;;;;;;;;;
+p24/m1;Cafe Fahrig;"Fahrig, Gaststätte
+";19170208;;[Neuhauser Straße 20];48.139104, 11.567116;http://www.hitlerpages.com/pagina19.html;;;;"Kiegskarte (Fleischtag)
+
+https://www.muenchenwiki.de/wiki/Cafe_Fahrig_am_Karlstor
+Vgl. Zitate
+
+http://www.hitlerpages.com/pagina19.html";;;"GND118601121
+GND118553739
+GND
+118551655";;;;
+p25/m1;;Festwiese, Gasthaus zur;19390712;57175;Schwanthalerstraße 85;48.1374172, 11.5534967;;existiert noch;;;;"„Kl. Schwedenplatte""";;;;;;
+p25/m2;;Festwiese, Gasthaus zur;19390716;;;;;;;;;;;;;;;
+p26/m1;;Fischer-Vroni;1965;;;[48.13475, 11.54980];https://www.muenchen.de/veranstaltungen/oktoberfest/besucher-service/wiesnplan.html;existiert noch;;;;„Die Tradition der „Fischer-Vroni“: Steckerlfische ab 3.-“;;;;;;
+p27/m1;;Frankfurter Hof, Hotel und Gaststätte;19381019;51748;Schillerstraße 49;[48.1345389,11.5587408];;Heute Hotel Kraft;;;https://www.literaturportal-bayern.de/gedenkorte?task=lpbplace.default&id=807;"„Gemütlich eingerichtete Fremdenzimmer mit fließendem Kalt- und Warmwasser; Zentralheizung“";;"GND118625896
+GND118560247";;;;
+p28/m1;;Fränkische Weinstube;191609;;Münzstrasse 7;[48.1377937,11.5774029];;Heute Hard Rock Cafe;;;„Weltkrieg 1914/16“;;;;Franz Wechs;;;
+p28/m2;;Fränkische Weinstube;191609;;;;;;;;;;;;;;;
+p28/m3;;Fränkische Weinstube;19161212;;;;;;;;;;;;;;;
+p28/m4;;Fränkische Weinstube;191611;;;;;;;;;;;;;;;
+p29/m1;;Fränkischer Hof, Hotel;19380710;Fernsprecher 50259 und 57483;Senefelderstraße 2-3;[48.1388771,11.5582113];;;;;Menus;"„Schweinskron gesotten, Meerettich 1.-“
+„Illustrierte Gurke 1.50 Umstandsbrot“
+„Schweinskäs“
+„Jockeyschnitte“
+„Knöcherl-Sulz“
+„Aal in Gelee“
+„Echte Schildkrötensuppe (Tasse) -.70“";;;;;;
+p29/m2;;Fränkischer Hof, Hotel;19390716;;;;;;;;;;;;;;;
+p30/m1;;Franziskaner, Gaststätte;19140808;3371;"Gegenüber der Hauptpost
+Residenzstraße 9";48.139399,11.577265;;Existiert noch;bearbeiten!;;;„Gegründet im Jahre 1802“;;;Johann Buchner;;Löwenbräu;
+p30/m2;;Franziskaner, Gaststätte;19190412;;;48.139399,11.577265;;Existiert noch;;;;;;;;;;
+p30/m3;;Franziskaner, Gaststätte;19200506;;;48.139399,11.577265;;Existiert noch;;;;;;;;;;
+p30/m4;;Franziskaner, Gaststätte;19751212;;;48.139399,11.577265;;Existiert noch;;;;;;;;;Löwenbräu;
+p30/m5;;Franziskaner, Gaststätte;19770225;;;48.139399,11.577265;;Existiert noch;;;;„Urkundlich nachgewiesen seit 1574“;;;;;Löwenbräu;
+p31/m1;;Fraunhofer-Garten, Gaststätte;19180904;;Fraunhoferstraße 10;48.1307438,11.570394;;;;;"Kriegskarte
+
+Seit 1774
+Denkmalgeschütztes Interieur
+
+https://www.fraunhofertheater.de/ueber_das_wirtshaus";;"Q1495666
+";;;;;
+p32/m1;;Friedensengel, Restaurant;19750914;478841;Ismaninger Straße 45;48.1414887,11.5981935;;urspr. auch mit p33 als id belegt. gelöscht.;;;Große Fischkarte;;;;;;;
+p32/m2;;Friedensengel, Restaurant;19750914;;Ismaninger Straße 45;48.1414887,11.5981935;;;;;;;;;;;;
+p34/m1;;Gassner, Kaffee-Restaurant;19380827;Fernruf 50925;Bayerstraße 37/39;48.139059,11.5570002;;;;;;"„Kalbskopfomlette, mit Salat“
+„Weiche Eier Prinzeß“
+
+„Die verehrten Gäste werden gebeten bei Bestellung die erforderlichen Marken unaufgefordert abzugeben, auch Brotm. !“
+
+„Rinderbraten mit Maccaronie und Kartoffeln (50 gr.Fl.M.)(10 gr.F.M.)(25 gr.Teigw.M.)“";;;;;;
+p34/m2;;Gassner, Kaffee-Restaurant;19430101;Fernruf 50925;Bayerstraße 37/439;48.139059,11.5570002;;;;;;;;;;;;
+p36/m1;;Germania, Hotel;19390716;Ruf 50235;"Schwanthalerstr. 28
+Ecke Senefelderstraße";48.1380499,11.5593251;;Tagesmenüs;;;;"„Kalbskopf en tortue mit saurer Gurke u. Salzkartfl.“
+„Kalbsherz vom Rost mit g a r n i e r t“
+„Münchener Bürger-Kotelette“
+„Moctortlesuppe“";;;;;;
+p36/m2;;Germania, Hotel;19420703;Ruf 50235;"Schwanthalerstr. 28
+Ecke Senefelderstraße";48.1380499,11.5593251;;;;;;;;;;;;
+p37/m1;;Goethe-Burg, Gaststätte;19380826;Telefon 57356;Goethestr. 51;48.133292,11.5566502;;;;;;"„Gratbraten“
+„Goetheburg Schmanckerl“
+
+„Bei Konzert 15 Pfg. Aufschlag.“";;;;;;
+p37/m2;;Goethe-Burg, Gaststätte;19380826 - 19380827;;;48.133292,11.5566502;;;;;Weinkarte;;;;;;;
+p37/m3;;Goethe-Burg, Gaststätte;19380827;;;48.133292,11.5566502;;;;;;;;;;;;
+p38/m1;;Goethehof, Gaststätte;19380826;;Goethestraße 35;48.1345976,11.5567608;;;;;;„Milzwurst in Brotsuppe“;;;;;;
+p39/m1;;Goldenes Lamm, Hotel und Gaststätte;19390716;;"Zweigstr. 4
+3 Min. Vom Hauptbahnhof";48.1389085,11.5600267;;;;;;"„Hirn mit Ei“
+„Brustspitz mit Salat“";;;;;;
+p40/m1;;Grosser Rosengarten, Hotel;19380710;50459 u. 53779;Schützenstr. 3 / Bayerstr. 6;"48.1395815,11.5609472 [Schützenstr. 3] ; 48.1395222,11.5604065 [Bayerstr. 6] ";https://www.sueddeutsche.de/muenchen/hotels-im-test-easy-palace-oben-ohne-aus-der-gemeinschaftsdusche-1.755063;"Filialen!
+
+Heute „Easy Palace“";;;;"„Sämtliche Speisen werden mit Butter zubereitet“ ; „Eigene Hausmetzgerei“ ; „Kalbskopf vinaigrette“ ; „Hoppl-Poppl 1.50“ ; „beefsteak à la Maier“ (1938)
+
+1943 Eingeklebte Marke: ""Vollkornbrot ist besser und gesunder - Verlangen Sie es auch hier“";;;;;;
+p40/m2;;Grosser Rosengarten, Hotel;19430130;;;;;;;;;;;;;;;
+p41/m1;;Grüner Hof, Hotel und Gaststätte;19430309;Fernruf 57889;Bayersstraße 35;48.139,11.5571313;;;;;Illustrativer Vergleich zw.  Karte Vorkriegs-/Kriegszeit  ;"„Münchener Pickfein 2.30“ ; „Eigene Schlächterei“
+";;;;;;
+p41/m2;;Grüner Hof, Hotel und Gaststätte;19380827;;;;;;;;;;;;;;;
+p42/m1;;Hackerbräu, Festhalle;;;;;;;;;;;;;;;;
+p43/m1;;Hacker-Bräustübl;19380826;Telefon 55246;"Eingang Grasserstraße an der Hackerbrücke
+
+[Bayerstraße 34]";48.1391184,11.5478145;Adresse ermittelt: http://www.rijo.homepage.t-online.de/pdf_2/DE_MU_33_lokale.pdf;heute: Europäisches Patentamt;;;;"„Gutgepflegte Hackerbräu-Biere“ ; „Jeden Samstag und Sonntag Stimmungs-Konzert“";;;;;;
+p44/m1;;Hahn, Gourmet-Restaurant;1967;;Theatinerstraße 48;48.1394148,11.5737285;;;;;;"„Helgoländer Hummer nach Ihrer Wahl aus unserem Meerwasserbassin werden für Sie frisch abgekocht (30—40 Minuten). Preis nach Gewicht.“
+
+„Öffnungszeiten „täglich von 11-15 Uhr, Samstag von 11-14 Uhr.“";;;;;;
+p45/m1;;Hauptbahnhof Gaststätten München ;19380827;Fernsprecher 57167;Nordbau III. Klasse [= Adresse?];[48.1402669,11.559998];;;;;;„Mittagessen RM —.75 Abendessen RM —.75“;;;;;;
+p46/m1;;Helgoland, Restaurant;19160506;Telephon 24574;[Fraunhoferst. 39];48.1286764,11.5733122;http://genwiki.genealogy.net/w/index.php?title=Datei:Muenchen-AB-1938.djvu&page=982&page=982;auch: Restaurant zur Insel Helgoland;;;;"„Trambahnhaltestellen nach allen Richtungen“ ; „Kitzleber gedünstet“ ; „Kron gesotten“ ; „Wienerhirn“ ; „Gansherzl“ ; „Kitzköpferl abgebräunt“ ; „Illustrierte Gurke“";;;;;;
+p46/m2;;Helgoland, Restaurant;19161020;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m3;;Helgoland, Restaurant;19220713;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m4;;Helgoland, Restaurant;19220727;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m5;;Helgoland, Restaurant;19220515;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m6;;Helgoland, Restaurant;19220614;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m7;;Helgoland, Restaurant;19220728;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m8;;Helgoland, Restaurant;19220621;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m9;;Helgoland, Restaurant;192305;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m10;;Helgoland, Restaurant;19230925;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m11;;Helgoland, Restaurant;19231105;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m12;;Helgoland, Restaurant;19241029;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m13;;Helgoland, Restaurant;19220803;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m14;;Helgoland, Restaurant;19231125;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m15;;Helgoland, Restaurant;19161105;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m16;;Helgoland, Restaurant;19160330;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m17;;Helgoland, Restaurant;19170714;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m18;;Helgoland, Restaurant;19171120;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m19;;Helgoland, Restaurant;19170202;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m20;;Helgoland, Restaurant;19170201;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m21;;Helgoland, Restaurant;191702;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m22;;Helgoland, Restaurant;191702;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m23;;Helgoland, Restaurant;191702;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m24;;Helgoland, Restaurant;191702;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p46/m25;;Helgoland, Restaurant;191702;;;;;auch: Restaurant zur Insel Helgoland;;;;;;;;;;
+p47/m1;;Hippodrom, Festzelt;;;;;;;;;;;;;;;;
+;;Hofbäuhaus, Festhalle;1965;;;;;;Id vergeben;;;;;;;;;
+p48/m1;;Hofbräuhaus, Münchner;19100419;;Platzl 9;48.1376134,11.5777366;;Abend-Karte;Bearbeiten;;;;;;Karl Mittermüller;;Hofbräu;
+p48/m2;;Hofbräuhaus, Münchner;19150920;;Platzl 9;48.1376134,11.5777366;;;;;;;;;;;;
+p48/m3;;Hofbräuhaus, Münchner;19111031;;Platzl 9;48.1376134,11.5777366;;;;;;;;;;;;
+p48/m4;;Hofbräuhaus, Münchner;19191001;;Platzl 9;48.1376134,11.5777366;;;;;;;;;;;;
+p48/m5;;Hofbräuhaus, Münchner;192305;;Platzl 9;48.1376134,11.5777366;;;;;;;;;;;;
+p48/m6;;Hofbräuhaus, Münchner;192306;;Platzl 9;48.1376134,11.5777366;;;;;;;;;;;;
+p48/m7;;Hofbräuhaus, Münchner;1906;;Platzl 9;48.1376134,11.5777366;;Mittag-Karte;;;;;;;;;;
+p48/m8;;Hofbräuhaus, Münchner;ca. 1955;;Platzl 9;48.1376134,11.5777366;;;;;;;;;;;;
+p48/m9;;Hofbräuhaus, Münchner;19590905 - 19590906;;Platzl 9;48.1376134,11.5777366;;;;;;;;;;;;
+p48/m10;;Hofbräuhaus, Münchner;19591106;;Platzl 9;48.1376134,11.5777366;;;;;;;;;;;;
+p48/m11;;Hofbräuhaus, Münchner;19591107 - 19591108;;Platzl 9;48.1376134,11.5777366;;;;;;;;;;;;
+p48/m12;;Hofbräuhaus, Münchner;19590908;;Platzl 9;48.1376134,11.5777366;;;;;;;;;;;;
+p48/m13;;Hofbräuhaus, Münchner;19591109;;Platzl 9;48.1376134,11.5777366;;;;;;;;;;;;
+p48/m14;;Hofbräuhaus, Münchner;19590910;;Platzl 9;48.1376134,11.5777366;;;;;;;;;;;;
+p48/m15;;Hofbräuhaus, Münchner;1906;;Platzl 9;48.1376134,11.5777366;;;;;;;;;;;;
+p48/m16;;Hofbräuhaus, Münchner;ca. 1906;;Platzl 9;48.1376134,11.5777366;;;;;;;;;;;;
+p49/m1;Das Wirtshaus im Spessart;Hoffmann Hotelbetriebe KG;1959;Tel.: 762909;im Ausstellungspark;;;;"Telefonbuch
+
+Disambiguieren";;"Flyer in Form einer Pistole
+";"„Bärenschinken mit Butter und Brot“
+
+„Original Flimmer-Bauten aus Geiselgasteig“
+
+„Das Abendlokal mit Pfiff und Knall“
+
+„So Ihr zufrieden waret, kömmet wieder; so nicht, schicket Eure leiben Verwandten!“";;;;;;
+p49/m2;;Hoffmann Hotelbetriebe KG [Name nicht ermittelbar];19680921 - 1968092;;Prinzregentenstraße 1;48.1441726,11.5836662;http://genwiki.genealogy.net/w/index.php?title=Datei:Muenchen-AB-1966.djvu&page=196&page=196;Adresse ist Firmensitz laut Telefonbuch. Unklar, ob Caterer oder Lokal.;Telefonbuch;;;„Scharlachberg Meisterbrand“;;;;;;
+p50/m1;;Holzkirchner Bahnhof, Gaststätten am;19380827;55989;Bayerstraße 14;48.1393422,11.5530728;;;;;;„Schweinszüngerl mit Kraut“;;;Karl Gutmann;;Pschorr;
+p51/m1;;Holzmüllerstuben;19490301;Telefon Nummer 31644;Augustenstraße 10;48.1450707,11.5584315;;;;;Zeichnung d. Tischanordnung;"„Heringe Robert“
+„Omelette mit Hirn 10 gr. Fett“
+
+Zeichnung d. Tischanordnung";;;Johann Holzmüller;;;
+p52/m1;;Humplmayr;1959;;Maximiliansplatz 16;48.1416664,11.5700175;;;;;"Große Weinkarte
+
+Weitere Speisekarte: http://menus.nypl.org/menus/26801
+
+https://www.muenchenwiki.de/wiki/Humplmayr";"„Fasane, Rebhühner, Schnepfen nach Saison“
+„Gayelord Hauser Platte“
+„Echte Schildkrötensuppe mit altem Sherry“
+„Beilagen nach Wunsch: pommes frites, pommes chips, pommes provençale, pommes paille, pommes sautées“
+";;"Q76820
+Q216431
+";;;;
+p52/m2;;Humplmayr;1959;;;;;Carte des Vins;;;;;;;;;;
+p53/m1;;Indisches Restaurant;nach 1957;;;;;nicht datierbar/lokalisierbar;;;;„Presented by the Gaylord Restaurants Bombay and New Delhi“;;;;;;
+p54/m1;;Johne's Goldenes Fassl, Weinfestzelt Café Bar;1965;;;;;;Bearbeiten;;;;;;;;;
+p55/m1;;Käfer;19840125 - 19840204;Telefon (089)41681 - Telex 523073;Prinzregentenstraße 73;48.14052,11.5996513;;existiert noch;;;Ungarische Woche;"„Unsere Speisekarte wird täglich gewechselt“
+„Ziegenkitz-Zunge, Hirn und Bries gebacken, auf Morchelrahm, Broccoli 15,50“";;;;;;
+p55/m2;;Käfer;19840114;;Prinzregentenstraße 73;48.14052,11.5996513;;;;;;;;;;;;
+p56/m1;;Kaiserglocke, Gaststätte;19370924;Telefon Nr. 59412;Schwanthaler-Straße 90;48.13778,11.5499413;;;;;Menüs;;;;Georg und Paula Weidinger;;Pschorr;
+p57/m1;;Kaiserhof, Café Restaurant Hotel;19380827;;Schützenstraße 12;48.1400607,11.5602951;;;;;;"„Weißbrotschnitte belegt mit Streichwurst, Ei, Hering oder Bierkäs; 25 Pfennig“";;;Gebr. Greif;;;
+p58/m1;;Karikatu, Dresdner Kunstgenossenschaft +++++++++++++++++++++++++++;;;;;;in Dresden;;;;;;;;;;
+p59/m1;;Klösterl, Restaurant zum;19881020;476198;Schneckenburgerstraße 31;48.1378869,11.6061328;;;;;;;;;Familie Rettinger;;Hacker-Pschorr;
+p60/m1;;Kriegs-Speisenkarten München, ohne Nennung der Gaststätte;19430308;;;;;;Abgleichen mit anderen Kriegskarten - versuchen zu identifizieren;;;;;;;;;
+p60/m2;;Kriegs-Speisenkarten München, ohne Nennung der Gaststätte;19430314;;;;;;Abgleichen mit anderen Kriegskarten - versuchen zu identifizieren;;;;;;;;;
+p60/m3;;Kriegs-Speisenkarten München, ohne Nennung der Gaststätte;19421216;;;;;;Abgleichen mit anderen Kriegskarten - versuchen zu identifizieren;;;;;;;;;
+p60/m4;;Kriegs-Speisenkarten München, ohne Nennung der Gaststätte;19181017;;;;;;Abgleichen mit anderen Kriegskarten - versuchen zu identifizieren;;;;;;;;;
+p61/m1;;Künstlerhaus;ca. 1968;;;48.140167,11.568013;;Café, Conditorei;"bearbeiten!
+
+Disambiguieren";;;;;;;;;
+p61/m2;;Künstlerhaus;19110110;;;48.140167,11.568013;;Menu;bearbeiten!;;;;;;;;;
+p61/m3;;Künstlerhaus;19120612;;;48.140167,11.568013;;Menu;bearbeiten!;;;;;;;;;
+p61/m4;;Künstlerhaus;ca. 1975;;;48.140167,11.568013;;;bearbeiten!;;;;;;;;;
+p61/m5;;Künstlerhaus;ca. 1968;;;48.140167,11.568013;;;bearbeiten!;;;;;;;;;
+p61/m6;;Künstlerhaus;ca. 1972;;;48.140167,11.568013;;;bearbeiten!;;;;;;;;;
+p61/m7;;Künstlerhaus;1968;;;48.140167,11.568013;;Standardkarte;bearbeiten!;;;;;;;;;
+p61/m8;;Künstlerhaus;1968;;;48.140167,11.568013;;Standardkarte;bearbeiten!;;;;;;;;;
+p61/m9;;Künstlerhaus;ca. 1959;;;48.140167,11.568013;;Weinkarte;bearbeiten!;;;;;;;;;
+p62/m1;;Kurtz, Weinrestaurant;19151109;;[Augustinerstrasse 1];48.1384673,11.5698779;Telefonbuch 1916;1917 evtl. transkribieren (interessant: Markenaufschlüsselung);;;;"Hs. Vermerk: „fleischverbot“ (19151109)
+Hs. Verwerk: „fleischloser Tag“ (19151105)";;;;;;
+p62/m2;;Kurtz, Weinrestaurant;19171217;;[Augustinerstrasse 1];48.1384673,11.5698779;;;;;;;;;;;;
+p62/m3;;Kurtz, Weinrestaurant;19151105;;[Augustinerstrasse 1];48.1384673,11.5698779;;;;;;;;;;;;
+p63/m1;Gastwirtschaft zum Landsknecht, Spezial-Gaststätte in Wiener Küche;Landsknecht, Gastwirtschaft zum;19390715;58813;Landwehrstraße 47;48.1363656,11.556439;;;;;;"„Schau nicht auf’s Herz allein, auch auf den Magen! Was Du im „Landsknecht“ ißt, kann er vertragen!“
+
+„Was Du beim „Landsknecht“ ißt, merk Dir’s genau! Kocht auch nicht besser Deine Frau!“
+
+„Rauchwaren zu Ladenpreisen“";;;Franz und Maria Felsl;;;
+p64/m1;;Le Médoc;ca. 1980;(089) 536670;Haberlstraße 1;48.1288333,11.556472;;Abendkarte;;;;"„Büro Lunch“
+
+„Schildkrötensuppe „Lady Curzen“ mit Currysahne überbacken DM 9.50“
+
+„Froschschenkel „Nicaise“ mit Baguette DM 12.-“";;;;;Moravia Pils;
+p64/m2;;Le Médoc;;;Haberlstraße 1;48.1288333,11.556472;;Tageskarte;;;;;;;;;;
+p64/m3;;Le Médoc;;;Haberlstraße 1;48.1288333,11.556472;;Weinkarte;;;;;;;;;;
+p65;;Logenrestaurant, Berlin-Steglitz, Albrechtstr. (vermutlich) Nr. 111 oder 114???????????????;;;;;;in Berlin;;;;;;;;;;
+;;Löwenbräu, Festhalle;ca. 1959;;;;;;Id vergeben;;;;;;;;;
+;;Löwenbräu, Festhalle;ca. 1961;;;;;;Id vergeben;;;;;;;;;
+p66/m1;;Löwenbräu-Keller;1906;553021 (1959);Nymphenburgerstraße 2 (Stiegelmayerplatz);48.1479122,11.5563958;;existiert noch, auch Löwenbräukeller;;;"Prächtige Speisekarte!
+
+Alle 135 Mitarbeiter namentlich mit pers. Beschreibung und Funktion aufgelistet
+
+(= 1906)
+";"„Täglich große Regimentsmusik-Concerte“ von einem oder mehrerern Musikcorps.“
+„Die Besichtigung der großen Hauptküche mit ihren neuesten, vorzüglichsten maschinellen Einrichtungen, nebst Schlachthaus, Fischbrunnen und Vorrathskammern etc. ist den verehrl. Gästen gerne gestattet, und können dort auf Wunsch Speisen direkt in Empfang genommen werden.“
+„Das Schenkpersonal ist aufs strengste angewiesen, gut einzuschenken.“
+„Beschwerden über ungenügendes Einschenken bittet man am Büffet anzubringen.“
+
+„Permanenter Ausschank von vorzüglichem Sommer-Lager-Bier (Versandt-Bier) aus der Actienbrauerei zum Löwenbräu, München.“
+
+„feine preiswürdige Havanna, Hamburger und Bremer Cigarren, Cigaretten und österreichische Virginia.“
+
+(= 1906)
+
+#################
+
+„Jeden Mittwoch 15 Uhr Große Hausfrauenparty“ (=1959)
+";"Q874045
+
+";"Q64747
+Q295935
+Q352
+";"G. M. Erwig
+Xaver Heilmannseder";;Löwenbräu;
+p66/m2;;Löwenbräu-Keller;19590921;;;;;Speisenkarte und Weinkarte;;;;;;;;;;
+p67/m1;;Märzen Keller;19380827;52382;Bayerstrasse 27;48.1391648,11.5582791;;;;;;"„Jllustrierte Gurke“
+„Hirn mit Ei und Kompott“";;;;;;
+p68/m1;Mathäser Bierstadt;Mathäser Festsaal;ca. 1960;;[Bayerstraße 5];48.1390784,11.5616589;"https://de.wikipedia.org/wiki/Math%C3%A4ser; http://wiki-de.genealogy.net/w/index.php?title=Datei:Muenchen-AB-1961.djvu&page=167&page=167";[= Mathäser Bierstadt];;;;„Alle Preise verstehen sich inc. 10% städtischer Getränkesteuer.“;;;Georg und Rosa Reiss;;Löwenbräu;
+p68/m6;;Mathäser Bierstadt;ca.1957;;[Bayerstraße 5];48.1390784,11.5616589;;;;;;;;;;;;
+p68/m7;;Mathäser Bierstadt;ca. 1958;;[Bayerstraße 5];48.1390784,11.5616589;;;;;;;;;;;;
+p68/m8;;Mathäser Bierstadt;ca. 1960;;[Bayerstraße 5];48.1390784,11.5616589;;;;;;;;;;;;
+p68/m2;;Mathäser Weißbierhalle;19421224;58593;[Bayerstraße 1];48.139141,11.562069;"https://de.wikipedia.org/wiki/Math%C3%A4ser; http://wiki-de.genealogy.net/w/index.php?title=Datei:Muenchen-AB-1961.djvu&page=167&page=167";;;;;„1a Lunge -.30“ (1938);;;Konrad Gottschall;;Löwenbräu;
+p68/m3;;Mathäser Weißbierhalle;19421225;;[Bayerstraße 1];48.139141,11.562069;;;;;;;;;;;;
+p68/m4;;Mathäser Weißbierhalle;19380827;;[Bayerstraße 1];48.139141,11.562069;;;;;;;;;;;;
+p68/m5;;Mathäser-Bierstadt Max und Moritz im Mathäser;ca. 1965;;Bayerstraße 3;48.1390944,11.5617302;https://de.wikipedia.org/wiki/Math%C3%A4ser;;;;;"„Stramme Hähnchen so wie diese
+Drehn sich lustig hier am Spieße
+Grade so wie Witwe Bolte
+Sie am Abend essen wollte
+Doch die beiden bösen Brüder
+Stahlen Ihr die Hähnchen wieder
+Dieses sei zur Lehre Dir
+Esse gleich dein Hähnchen h i e r !“";;;Georg und Rosa Reiss;;;
+p68/m9;;"Mathäserbräu-Bierhallen
+";19161030 / 19161031 /;;[Bayerstraße 3];48.1390944,11.5617302;https://de.wikipedia.org/wiki/Math%C3%A4ser;;;;"Kriegskarte
+Erfindung der „Russenmaß“";"„Heute fettloser Tag“ (19161030)
+
+„Mein Schankpersonal ist angewiesen gut einzuschenken und ersuche höflichst, ungenügend gefüllte Krüge nachschenken zu lassen.“
+
+„Ochsengaumensalat“ (1921)";"Q1908775
+";"Q76440
+Q44540
+";B. Rechthaler;;Löwenbräu;
+p68/m10;;"Mathäserbräu-Bierhallen
+";19211016;;[Bayerstraße 3];48.1390944,11.5617302;;s. Mathäserbräu-Bierhallen;;;;;;;;;;
+p68/m11;;"Mathäserbräu-Bierhallen
+";19170420;;[Bayerstraße 3];48.1390944,11.5617302;;;;;;;;;;;;
+p68/m12;;"Mathäserbräu-Bierhallen
+";19170111;;[Bayerstraße 3];48.1390944,11.5617302;;;;;;;;;;;;
+p68/m13;;"Mathäserbräu-Bierhallen
+";19161031;;[Bayerstraße 3];48.1390944,11.5617302;;;;;;;;;;;;
+p68/m14;;"Mathäserbräu-Bierhallen
+";19430121;;[Bayerstraße 3];48.1390944,11.5617302;;;;;;;;;;;;
+p68/m15;;"Mathäserbräu-Bierhallen
+";19380827;;[Bayerstraße 3];48.1390944,11.5617302;;;;;;;;;;;;
+p69/m1;;Milan;ca. 1980;;;;;ohne Adresse;Telefonbuch;;;;;;;;;
+p70/m1;;Mönchtaler Hirtenstube;1971;0811/241115;Petersplatz 8;48.1360127,11.5738177;;;;;Menüvorschläge von DM 9.50 bis DM 45.—;;;;Peter und Gisela Meisen;;Paulaner;
+p70/m2;;Mönchtaler Hirtenstube;1971;;Petersplatz 8;48.1360127,11.5738177;;Speisen- und Getränkekarte;;;;;;;;;;
+p70/m3;;Mönchtaler Hirtenstube;1971;;Petersplatz 8;48.1360127,11.5738177;;Weinkarte;;;;;;;;;;
+p71/m1;;Mövenpick, im Künstlerhaus;1974;089/557865;im Künstlerhaus - Lenbachplatz 8;48.1402368,11.5655236;;;;;;"„Brunch (sprich: Brantsch) = Breakfast und Lunch“
+„Jeden Sonntag 10:30 Uhr für genießerische Langschläfer Familin-Brunch (Breakfast und Lunch in einem) á discrétion (soviel man mag) im vollklimatisierten Mövenpick im Künstlerhaus 1. Stock“";;GND108476138;K. H. Steitz;;;
+p71/m2;;Mövenpick, im Künstlerhaus;19740513 - 19740518;089/557865;im Künstlerhaus - Lenbachplatz 9;48.1402368,11.5655236;;;;;;„Maître Cavestri, der Meister der Meister französischer Kochkunst, Weltmeister und Saucier-Goldmedaillen-Gewinner der Jahre 1959/70 und 1972, zelebriert direkt vor Ihren Augen Gala-Vorstellungen französischer Küche - Dem Feinschmecker zur Augenweide und Gaumenfreude. Abends ab 19.00 Uhr läßt Giovanni Cavestri an Ihrem Tisch seine flambierten Genüsse zu einem unvergeßlichen Erlebnis werden.“;;;;;;
+p72/m1;;Münchner Imbißhalle;19380827;51123;Bayerstraße 15;48.1392104,11.560151;;auch: Imbiß-Halle;;;;„Imbiß-Hallen-Platte“;;;;;;
+p72/m2;;;19390716;;;;;;;;;;;;;;;
+p73/m1;Hotel National;National Langmeier, Hotel;19380708;53087;[Senefelderstraße 5];48.1384756,11.5580984;http://genwiki.genealogy.net/w/index.php?title=Datei:Muenchen-AB-1938.djvu&page=854&page=854;;;;;„Umstandsbrot“;;;Käthe Langmeier;;;
+p74/m1;zur Trinkstube;Neuner, Weinrestaurant;19180429;;[Herzogspitalstraße 20];48.138043,11.5651218;"Telefonbuch 1916;
+http://www.rijo.homepage.t-online.de/pdf_2/DE_MU_33_lokale.pdf";"existiert noch
+laut Webseite schon immer in deer Herzogspitalstr. 8";untersch. ‚Adresse klären;;"Kriegskarte
+";„Bringt Euren Goldschmuck der Goldkaufstelle im Rathaus.“;;;;;;
+p75/m1;;Nürnberger Hof, Gaststätte;19380827;Telefon 57206;Bayerstraße 53;48.1390415,11.5540117;;;;;;„Abendessen zu 30 Rpf.“;;;Anton Steiner;;Hacker;
+p76/m1;;Ochsen-Braterei, Münchner;;;;;;;Bearbeiten;;;;;;;;;
+p77/m1;;Opatija, Restaurant;1962;Fernsprecher 591202;Briennerstr. 41;48.1276216,11.5604187;http://www.opatija-restaurant.com/;heute an anderem Ort;;;;„Dzingis-Khan Spieß (5 Personen) 40.—“;;"Q4457
+Q66519
+Q45542
+Q155236
+";Franc Soba;;;
+p78/m1;;P1, Das fidele Atelier im Haus der Kunst;ca. 1960;;[Prinzregentenstraße 1];48.1441745,11.5849268;https://de.wikipedia.org/wiki/P1_(M%C3%BCnchen);Heute Disco;;;"Getränkekarte in Form einer Palette
+
+";„P1SPecial 3.50“;"Q1324601
+";;;;;
+p78/m2;;P1, Das fidele Atelier im Haus der Kunst;ca. 1962;;[Prinzregentenstraße 1];48.1441745,11.5849268;https://de.wikipedia.org/wiki/P1_(M%C3%BCnchen);Heute Disco;;;"Getränkekarte in Form einer Palette
+
+";„P1SPecial 3.50“;"Q1324601
+";;;;;
+p79/m1;;Palmenhaus, Schlosscafé im;;;;;;;;;;;;;;;;Ja
+P80/m1;Parc-Restaurant;Parc, Hotel;ca. 1960;;[Maximiliansplatz 1];48.1419094,11.5677962;http://wiki-de.genealogy.net/w/index.php?title=Datei:Muenchen-AB-1961.djvu&page=167&page=167;Name falsch;;;"Karte in Form einer barocken Muschel
+
+3 Sorten Austern";;;;;;;
+P80/m2;Parc-Restaurant;Parc, Hotel;;;[Maximiliansplatz 1];48.1419094,11.5677962;;Weinkarte;;;;;;;;;;
+p81;;Parkhotel, Fankfurt am Main;;;;;;in FFM;;;;;;;;;;
+p82/m1;;Paul Heyse, Hotel und Gaststätte;19290716;Fernruf 56783;Paul Heysestraße 22;48.1365313,11.5534819;;;;;;"„Rosenspitz m. Macc.“
+„Paul-Heyseplatte“";;;Willi Löffelmeier;;Löwenbräu;
+p83/m1;;Paulaner-Thomasbräu-Festhalle;1965;;;;;;Bearbeiten;;;;;;;;;
+p84/m1;;Peterhof, Hotel und Café-Restaurant;191511;;Marienplatz 26;48.1370141,11.572967;;;;;;"Hs. Vermerk: „Dienstag und Freitag fleischlose Tage“
+„Täglich Abends Konzert der Bauernkapelle“";;;Hans Schwojer;;;
+p85/m1;Hotel-Restaurant Pfälzer Hof;Pfälzer Hof;19380827;;Schommerstraße 14b;48.1382193,11.5598459;;"Heute Adolf-Kolping-Str. - ungewiss, ob Hausnummer sich mit heutiger deckt.
+https://www.muenchenwiki.de/wiki/Schommer_Stra%C3%9Fe";Bearbeiten;;;"„Rumsteak garniert“
+„Filet engl. pommes fruits“";;;Edigna Probst;;;
+p84/m2;;Peterhof-Gaststätten;19600505;;[Marienplatz 22];48.1368649,11.5730797;http://wiki-de.genealogy.net/w/index.php?title=Datei:Muenchen-AB-1961.djvu&page=167&page=167;"Fehlt in data_pub
+erledigt: gehört zu p84 ";;;;"„Geburtstätte der Münchner Weißwurst“
+
+„Restaurationsbrot“
+„Kalbsbeuscherl mit Semmelknödel“
+„2 Stk. Kälberfüße gebacken, Kart.-Salat“
+
+„Parken für 500 Wagen - Einfahrt Rindermarkt 16 gegenüber Kustermann“";;"Q707636
+";;ja;Hacker;
+p86/m1;;Platzl;1967;;[Platzl 1A];48.1379398,11.5774666;https://www.ayinger-am-platzl.de/wirtshaus-ayinger-am-platzl/geschichte/;"existiert noch (Wirtshaus Ayinger (?))
+
+Adresse richtig?";Adresse in Telefonbuch verifizieren;;;"„Auch Deine Lieblingsspeise wird serviert, wenn Deinen Wunsch Du äußerst ungeniert.“
+„Platzl Faßl (ca. 3 Liter)“";;;Carl Gross;ja;Ayinger;
+p87/m1;Gasthof und Hotel Zur Post;Post, Gasthof und Hotel;19390716;Telefon 596843;Bayerstraße 45;48.1390762,11.5553189;;;;;;"„Franziskaner-Leistbräu-Ausschank“
+„Eigene Schlächterei“";;;Friedrich Schneider;;Franziskaner-Leistbräu;
+p87/m2;Gasthof und Hotel Zur Post;"Post, Gasthof und Hotel
+";19380716;Telefon 596843;Bayerstraße 45;48.1390762,11.5553189;;;;;;"„Franziskaner-Leistbräu-Ausschank“
+„Eigene Schlächterei“";;;Friedrich Schneider;;Franziskaner-Leistbräu;
+p88/m1;Gasthof „Zur Post“, Pasing;Post, Gasthof zur, Pasing;19130122;;;;;"Namenvariante: Gasthof z. Post - Pasing
+
+Telefonbuch 1916:
+entweder Agnes Bernauerstraße 16 1/2
+oder Donnersbergerstraße 22a";Katasterkarte ?;;;„Speisen- und Weinkarte zum Haus- und Bürgerball am 22. Januar 1913“;;;Hans Wörl;;;
+p88/m2;Gasthof „Zur Post“, Pasing;Post, Gasthof zur, Pasing;19160510;;;;;"Namensvariante: Gasthof zur Post
+
+Telefonbuch 1916:
+entweder Agnes Bernauerstraße 16 1/2
+oder Donnersbergerstraße 22a";Katasterkarte ?;;;"„Mittagstisch von 12—2 Uhr
+ä Couvert M.—.80
+M.1.30 und höher
+im Abonnement billiger";;;Hans Wörl;;Löwenbräu;
+p88/m3;Gasthof „Zur Post“, Pasing;Post, Gasthof zur, Pasing;19160421;;;;;"Telefonbuch 1916:
+entweder Agnes Bernauerstraße 16 1/2
+oder Donnersbergerstraße 22a";Katasterkarte ?;;;;;;Hans Wörl;;;
+p88/m4;Gasthof „Zur Post“, Pasing;Post, Gasthof zur, Pasing;ca. 1916;;;;;"Telefonbuch 1916:
+entweder Agnes Bernauerstraße 16 1/2
+oder Donnersbergerstraße 22a";Katasterkarte ?;;;"„Mittagstisch von 12—2 Uhr
+ä Couvert M.—.80
+M.1.30 und höher
+im Abonnement billiger";;;Hans Wörl;;Löwenbräu;
+p89/m1;;Pschorrbräu;19080807;;;;;identisch mit Pschorrbräu-Bierhallen?;;;Kriegskarte;;;;;;Pschorr;
+p89/m2;;Pschorrbräu;19170815;;[Neuhauserstraße 11];48.13822,11.5682413;;"vermutl. identisch mit Pschorrbräu-Bierhallen (Besitzer)
+
+Selbe id vergeben";;;;"„Fleischtag“
+„Rotaugen gebraten 1.70“
+„Eitel sauer Wurzel 1.60“
+
+„Markenfreies Fleisch
+Kitz, Gänse, Enten, Tauben, Indian, Hasen, Gemsen, Wildgeflügel, Wildaufbruch, Eingeweise vom Schlachtvieh, Hirn, Lunge, Kutteln, Gekröse, Euter“";;;Lorenz Friedrich;;Pschorr;
+p89/m3;;Pschorrbräu;19170608;;[Neuhauserstraße 11];48.13822,11.5682413;;vermutl. identisch mit Pschorrbräu-Bierhallen (Besitzer);;;;;;;Lorenz Friedrich;;Pschorr;
+p89/m4;;Pschorrbräu-Bierhallen;19160911;;[Neuhauserstraße 11];48.13822,11.5682413;;;;;;„Hamburger Brötchen“;;;Lorenz Friedrich;;Pschorr;
+p89/m5;;Pschorrbräu-Bierhallen;1959;;Neuhauserstraße 11;48.13822,11.5682413;;;;;;"„Münchner Schmankerl“
+„Vom Infra-Grill“";;;Toni Steiner;ja;Pschorr;
+p89/m6;;Pschorrbräu-Bierhallen;19591107;Telefon 20859;Neuhauserstraße 11;48.13822,11.5682413;;;;;;„Besser schmeckt das Essen Dir, trinkst Du dazu Pschorrbräu-Bier!“;;;Toni Steiner;;Pschorr;
+p90/m1;;Quisisana, Vegetarische Gaststätte und Café;19380824;Telefon 53044;Landwehrstraße 4/1;48.1364487,11.5617937;;;;;;"„Jllustrierte Abendplatte -.80“
+„Eine Englische Spezialitätenplatte 1.10
+„Wiener Mehlspeisenplatte (sehr reichhaltig) 1.—„";;;H. Buhl;;;
+p91/m1;;Ratskeller, München;19190125;;[Marienplatz 8];48.1377938,11.5759876;http://www.rijo.homepage.t-online.de/pdf_2/DE_MU_33_lokale.pdf;existiert noch;;;"Kriegskarte
+
+berühmtestes Gemälde von Heinrich Schlitt: „Schlacht der Bierkrüge gegen die Champagnerflaschen“ dort.";„Hirnsuppe“;;"Q1598744
+Q45399";August Kämmerling;;;
+p91/m2;;Ratskeller, München;Undatiert;;[Marienplatz 8];48.1377938,11.5759876;http://www.rijo.homepage.t-online.de/pdf_2/DE_MU_33_lokale.pdf;existiert noch;;;"Leere Speisekarte
+
+berühmtestes Gemälde von Heinrich Schlitt: „Schlacht der Bierkrüge gegen die Champagnerflaschen“ dort.";;;"Q1598744
+Q45399";;ja;;
+p92/m1;;Regina Palast Hotel;ca. 1972;;[Maximilianplatz 5];48.1424914,11.5680918;"http://www.wikiwand.com/de/Regina-Palast-Hotel; 
+https://de.wikipedia.org/wiki/Regina-Palast-Hotel";Speisen;;;Karte auf deutsch/englisch/französisch/italienisch;;Q48665523;"Q66107
+Q1293460
+Q76618
+Q57604
+Q44608";;;;
+p92/m2;;Regina Palast Hotel;ca. 1972;;;48.1424914,11.5680918;;Drinks-Karte;;;;;;;;;;
+p92/m3;;Regina Palast Hotel;19580901;;[Maximilianplatz 5];48.1424914,11.5680918;s.o.;Getränke;;;;;s.o.;s.o.;;;;
+p92/m4;;Regina Palast Hotel;19591002;;[Maximilianplatz 5];48.1424914,11.5680918;s.o.;;;;;"„Gedeck DM 8.—
+ohne Vorspeise DM 6.—
+Gefüllte Eier „Admiral“
+auf Gemüsesalat, Toast
+Blumenkohlsuppe
+Heilbuttschnitte v. Rost, Sc.Tartar,
+Salzkartoffeln und Endiviensalat“";s.o.;s.o.;;;;
+p92/m5;;Regina Palast Hotel;19591003;;[Maximilianplatz 5];48.1424914,11.5680918;s.o.;;;;;„Legierte Krebssuppe 1.20“;s.o.;s.o.;;;;
+p92/m6;;Regina Palast Hotel;19591006;;[Maximilianplatz 5];48.1424914,11.5680918;s.o.;;;;;"„Afrik. Schildkrötensuppe 1.50“
+„Pökelzunge mit Aspik - Gemüsesalat, Toast und Butter 4.60“";s.o.;s.o.;;;;
+p92/m7;;Regina Palast Hotel;19590618;;[Maximilianplatz 5];48.1424914,11.5680918;s.o.;;;;;;s.o.;s.o.;;;;
+p92/m8;;Regina Palast Hotel;19591022;;[Maximilianplatz 5];48.1424914,11.5680918;s.o.;;;;;;s.o.;s.o.;;;;
+p92/m9;;Regina Palast Hotel;19591023;;[Maximilianplatz 5];48.1424914,11.5680918;s.o.;;;;;;s.o.;s.o.;;;;
+p92/m10;;Regina Palast Hotel;19581026;;[Maximilianplatz 5];48.1424914,11.5680918;s.o.;;;;;;s.o.;s.o.;;;;
+p92/m11;;Regina Palast Hotel;19590927;;[Maximilianplatz 5];48.1424914,11.5680918;s.o.;;;;;;s.o.;s.o.;;;;
+p92/m12;;Regina Palast Hotel;19590728;;[Maximilianplatz 5];48.1424914,11.5680918;s.o.;;;;;;s.o.;s.o.;;;;
+p92/m13;;Regina Palast Hotel;19590930;;[Maximilianplatz 5];48.1424914,11.5680918;s.o.;;;;;;s.o.;s.o.;;;;
+p93/m1;;Reichshof, Hotel;19160310;;[Sonnenstraße 15];48.1372568,11.563325;;;;;Abendkarte;„Verlorene Eier in Tomatentunke 80“;;;[Carl Bischoff];;;
+p93/m2;;Reichshof, Hotel;1916;;Sonnenstraße 15;48.1372568,11.563325;;;;;;„Westfälische Sondergerichte“;;;Carl Bischoff;ja;Franziskaner-Leistbräu;
+p93/m3;;Reichshof, Hotel;1916;Telef. 50615;[Sonnenstraße 15];48.1372568,11.563325;;;;;;„Speisenfolge. Fettlos!“;;;[Carl Bischoff];;;
+p93/m4;;Reichshof, Hotel;19161008;;[Sonnenstraße 15];48.1372568,11.563325;;;;;;;;;;;;
+p93/m5;;Reichshof, Hotel;19161106;;[Sonnenstraße 15];48.1372568,11.563325;;;;;;;;;;;;
+p93/m6;;Reichshof, Hotel;19161107;;[Sonnenstraße 15];48.1372568,11.563325;;;;;;;;;;;;
+p94/m1;;Reinhof-Gaststätten und Bierstuben im Hotel Reinischer Hof;19380827;;Bayerstr. [21];48.1391298,11.5593971;;Komma aus Name entfernt;;;;"„Die BEILAGEN bei den M e n ü s können aus betriebstechnischen Gründen nicht oder nur gegen A u f s c h l a g gewechselt werden.“
+
+„Ofnerbeef mit Spätzl“
+„Karbonnadl, garniert“
+„Nachtisch:
+Reis Trautmannsdorf“";;;Carl Geisel Sen.;;Löwenbräu;
+p95/m1;;Ringelnatz, Café;ca. 1975;;;;;Adresse nicht ermittelbar;Telefonbuch;;;Rumpsteak „Ringelnatz“;;;Franz + Thea Trimborn;;Spaten;
+p96/m1;;Rischart's Backhaus, Café;1975;;Fraunhoferstraße [44];48.1280403,11.5735406;;Fillialadressen von Speisekarte entnommen;;;;„Frühstückskarte von 9—11 Uhr“;;;;;;
+p96/m1;;Rischart's Backhaus, Café;1975;;Marienplatz 18;48.1367573,11.5741019;;"Fillialadressen von Speisekarte entnommen
+
+Gleiche id vergeben, wie andere Filiale, das selbe Speisekarte";;;;„Frühstückskarte von 9—11 Uhr“;;;;;;
+p97/m1;;Roter Hahn, Hotel-Restaurant;19161231;;[Karlsplatz 11];48.1386813,11.5636138;Telefonbuch 1916;;;;Kriegskarte;"„Schlussbraten m. Rotkraut“
+„Dunstobst gemischt“
+„Speisen ohne Getränke 20 Pfg. Erhöhung.“";;;;;;
+p98/m1;;Rutsch'n, Wiener;1965;342165/242102;Hohenzollernstraße 42-44;48.1599863,11.5781503;;;;;;„Heurigenplatte“;;;;ja;Pschorr;
+p99/m1;;Sängerwarte, Gaststätte;19380710;Tel. 596240;Pettenkoferstraße 48;48.13543,11.5512013;;;;;;„Meine Speisen werden nur mit reiner Butter und Schweineschmalz hergestellt!“;;;Johann und Therese Bauer;;Hacker;
+p100/m1;;Schelling-Salon, Wiener Café und Restaurant;19160814;;[Barerstraße 43];48.1513711,11.571055;Telefonbuch 1916;;;;Abend-Speisenkarte;„Kaiserschnitz“;;;E. Mehr;ja;;
+p101/m1;;Schneider, Weinhaus;2008;;Sparkassenstraße 1;;;;;;"12 versch. Fonduearten
+";;;;;;;
+p102/m1;;Schönen Münchnerin, Zur, Café im Sonnenhof;1965;;[Sonnenstraße 12];48.1369669,11.56211;Telefonbuch 1961;;;;;"„Unsere Ladenspezialitäten
+Pralinen
+Rohkost-Pralinen
+Spezial-Pralinen
+Teegebäck
+Schweizer Spezialgebäck
+Dattelgebäck
+Baumkuchenspitzen
+Floretten
+Mandelflans“";;;;;;
+p103/m1;;Schottenhammel, Festzelt;1965;;;;;;;;;;;;;;;
+p104/m1;;Schwabinger Bräu;1964;;[Leopoldstr. 82];48.1612932,11.5846513;https://www.literaturportal-bayern.de/ortelexikon?task=lpbplace.default&id=792;;;;;„Geschabtes Steak, Leipziger Allerlei, Kartoffeln“;;;Franz und Thea Trimborn;ja;Spaten;
+p105/m1;;Schwarzer Adler, Hotel;ca. 1930;;[Landwehrstraße 32a];48.1364788,11.5582114;Telefonbuch1938;;;;;"„Restaurationsbrot“
+„Münchner Pickfein“";;;;;;
+p106/m1;;Schwarzwälder's Naturweinhaus;19600201;Gästeruf: 227216 - Büroruf: 222929;Hartmannstraße 8;48.1394553,11.5704967;;;;;;„Doppelte Kraftbrühe „Dubarry“ —.60“;;;;ja;;
+p106/m2;;Schwarzwälder's Naturweinhaus;19590306;Gästeruf: 227216 - Büroruf: 222930;Hartmannstraße 9;48.1394553,11.5704967;;;;;;;;;;;;
+p106/m3;;Schwarzwälder's Naturweinhaus;19591214;Gästeruf: 227216 - Büroruf: 222931;Hartmannstraße 10;48.1394553,11.5704967;;;;;;;;;;;;
+p106/m4;;Schwarzwälder's Naturweinhaus;19590917;Gästeruf: 227216 - Büroruf: 222932;Hartmannstraße 11;48.1394553,11.5704967;;;;;;;;;;;;
+p106/m5;;Schwarzwälder's Naturweinhaus;19590623;Gästeruf: 227216 - Büroruf: 222933;Hartmannstraße 12;48.1394553,11.5704967;;;;;;„Feinste Blätterteig Käsestangen (Spezialität) —.40“;;;;;;
+p107/m1;;Schweizer Haus;1962;;[Schwanthalerstr. 146];48.1379926,11.5425373;Telefonbuch 1961;;;;;„Schwabinger Woche 1962 Schweizer Haus München - präsentiert von Auberge-Patron H. Bernard unter Assistenz von Schwabings Zukunftswirtin Erika Fuchs“;;;;ja;Kronenbourg;
+p108/m1;;Schweizer Hof;19810619;;Planeggerstr. 14;48.144206,11.4556342;;"existiert noch
+
+Speisen- und Getränkekarte";;;;„Tellerfleisch mit Meerrettich“;;;;;Augustiner;
+p108/m2;;Schweizer Hof;19810619;;;;;Tageskarte;;;;;;;;;;
+p109/m1;;Sell's Schoppenstube;19380825;;Schommerstr. 19;48.1379988,11.5593563;;"Heute Adolf-Kolping-Str. - ungewiss, ob Hausnummer sich mit heutiger deckt.
+https://www.muenchenwiki.de/wiki/Schommer_Stra%C3%9Fe";;;;"„Meine Spezialität: Karpfen gebacken auf fränkische Art“
+„Ei im Glas —.20“";;;;ja;;
+p110/m1;;Sommer, Friedrich, Wein-Restaurant;1902;;Rosenstrasse 11/1;48.1367611,11.5718946;;;;;;"„Diners à Couvert von Mark 1,20, 1,50 bis Mark 3.- Zu höheren Preisen auf Vorausbestellung.“
+„1 Portion Astrachan-Caviar“
+„Gothaer Cervelat“";;;;ja;;
+p111/m1;;Spaten-Bräuhallen;197304;557750;Arnulfstraße 10;48.1418725,11.556588;;Heute Rechthaler Hof;;;Spaten-Bräuhallen Zeitung;"„Billiger essen mit „Bräuhallen-Gutscheinheft““
+
+„Das ist die Siegerin!
+836 Bräuhallen-Gäste entschieden sich für das „Bayrische Dirndl“
+Wir danken unseren Gästen für die rege Teilnahme an unserem März-Wettbewerb. 85 % wählten das „Bayrische Dirndl“ als neues Kleid für die SPATEN-Christll, die vor einem Jahr als „Olympia-Mädchen“ die Besucher Münchens begrüßte. Nur 3 Teilnehmer gefiel der „schwabing Look“. Das „Münchner Kindl“ erzielte 14 % Stimmen.“";;;Gerhard F. Hahn;ja;Spaten;
+p111/m2;;Spaten-Bräuhallen;197303;557750;Arnulfstraße 10;48.1418725,11.556588;;Heute Rechthaler Hof;;;Spaten-Bräuhallen Zeitung;40 Minuten hat diese junge Dame Zeit, um mit ihren Kollegen in den Bräuhallen Mittagspause zu machen. — 40 Sekunden braucht sie jedoch nur, um Ihnen Ihre Urlaubsreise zu bestätigen. Beachten Sie bitte Seite 4.“;;;;ja;Spaten;
+p112/m1;;Spatenhaus, Gaststätte;19591027;Fernsprecher 27841-42;Residenzstraße 12;48.1399057,11.5749558;;2 Filialen - selbe id vergeben;;;;„6.- Isarhuchen gek., zerl.Butter, Salzkart.“;;;Ludwig Noack;ja;Spaten;
+p112/m1;;Spatenhaus, Gaststätte;19591028;Fernsprecher 27841-42;Perusastraße 3;48.1397315,11.5744544;;2 Filialen - selbe id vergeben;;;;„Ferngespräche bitte bei der Bedienung anmelden“;;;Ludwig Noack;ja;Spaten;
+p113/m1;;Spöckmeier, Zum;1977;;am Roseneck;48.1368324,11.5739749;;existiert noch;;;"Spezialkarte 150 Jahre Salvator-Ausschank
+
+Alte Rezepte mitabgedruckt.
+
+geschichtlicher Einführungstext";"„150 Jahre Salvator-Ausschank beim Spöckmeier“
+
+„Die obengenannten Speisen entstammen alten Münchner Speisekarten der letzten 150 Jahre. Einige Gerichte sind dem „Allerneusten Münchner Kochbuch“ entnommen.“
+
+„Kuttelflecksuppe“
+„Gedämpfte Ochsenweich mit Kartoffelschnitz“
+„Ausgezogene Kucheln“
+„Schusterloabe“";;;Richard Süßmeier;ja;Paulaner;
+p113/m2;;Spöckmeier, Zum;19770203;;am Roseneck;48.1368324,11.5739749;;;;;;„Aus dem Garten, respektive Treibhaus“;;;Richard Süßmeier;ja;Paulaner;
+p113/m3;;Spöckmeier, Zum;19770204;;am Roseneck;48.1368324,11.5739749;;Tageskarte;;;;„Die Spöckmeier-Hauschronik“;;;Richard Süßmeier;;Paulaner;
+p114/m1;;St. Paul, Gaststätte;ca. 1938;;Landwehrstraße 72;48.1365776,11.5512442;;;;;;"„Geräuchertes Wammerl m Kraut“
+
+„Bestgepflegte Spaten-Biere“
+„Eigene Schlächterei“";;;Fritz Schön;;Spaten;
+p115/m1;;Stadt Wien, Restaurant;19410603;;Bayerstraße 27/29;48.1391648,11.5582791;http://www.rijo.homepage.t-online.de/pdf_2/DE_MU_33_lokale.pdf;Adresse von 1932;;;;„Speise-Restaurant:Cafe & Spielsaal;;;;;;
+p116/m1;;Starnberger Bahnhof;19380827;;[Arnulfstraße 7];48.1418612,11.5541279;Telefonbuch 1938;Ursprünglich auch p117 als id vergeben. Gelöscht.;;;;"„Wartesäle 1. und 2. Klasse“
+„Pfannengerichte Zubereitungszeit 15 Minuten“";;;Josef Sagstetter;;;
+p118/m1;;Straßburger Keller;ca. 1968;343874;Leopoldstraße 42;48.1568067,11.5827489;;Carte Permanente;;;;„Original elsässer Bauernwurstplatte nach Strassburger Art mit Kümmelbrot“;;;;ja;Kronenbourg;
+p118/m2;;Straßburger Keller;1963;;[Leopoldstraße 42];48.1568067,11.5827489;;Getränkekarte;;;;;;;;;Kronenbourg;
+p118/m3;;Straßburger Keller;1963;;Leopoldstraße 42;48.1568067,11.5827489;;Speisekarte;;;;„Spezialitäten von Straßburg, um Straßburg und um Straßburg herum“;;;;ja;Kronenbourg;
+p118/m4;;Straßburger Keller;1971;;[Leopoldstraße 42];48.1568067,11.5827489;;Tageskarte;;;;"„Muscheln gefüllt mit feinem Kalbsragout, mit Käse überbacken, Toast“
+„Ein Schnitzel nach der Stadt Wien benannt, mit frisc hen Salaten und goldgelben Kartoffelstäbchen“";;;;ja;Kronenbourg;
+p119/m1;;Tafelmeyer, Anton, Gasthaus;ca. 1855;;[Ottostraße 2];48.1410796,11.5653304;https://opacplus.bsb-muenchen.de/Vta2/bsb10378722/bsb:4273876?queries=tafelmeyer&language=de&c=default;;;;;"""Geräuchertes mit Kraut“";;;;;;Ja
+p120/m1;;Tasca Valenciana;ca. 1965;;;;;Nichts gefunden;;;;;;;;;;
+p120/m2;;Tasca Valenciana;ca. 1965;;;;;Nichts gefunden;;;Karte in Weinflaschenform;;;;;;;
+p121/m1;;Theaterbetriebe;1966;293741-43;Max-Joseph-Platz 2;48.1397307,11.5765952;;zahlreiche Illustrationen;"""Bernkasteler Badstube""";;;"""Smörrebred von Aal mit Rührei""
+""Melone oder Spargelspitzen""
+""Diätteller""";;;;ja;;
+P122/m1;;Torggelstube, Fränkisches Weinhaus zur;ca. 1958;;Platzl 8;48.13791,11.5780114;"https://www.literaturportal-bayern.de/ortelexikon?task=lpbplace.default&id=803
+https://www.sueddeutsche.de/muenchen/alfons-schuhbeck-der-herrscher-vom-platzl-1.686940-2";Weinkarte;;;;"""Was ist Wein? Sonnenschein,
+den die Reben selig in sich sogen, 
+Sonnenschein kommt mit dem 
+Wein in's Herz gezogen.""
+""Escherndorfer Berg""
+""Sulzfelder Altenberg""
+""Leistadter Herrenmorgen""";;Q61722,Q57619,Q77024,Q77925;Inhaber Karl und Fränzi Schorer;ja;Hofbräu;
+P122/m2;;Torggelstube, Fränkisches Weinhaus zur;19591103;;Platzl 8;48.13791,11.5780114;"https://www.literaturportal-bayern.de/ortelexikon?task=lpbplace.default&id=803
+https://www.sueddeutsche.de/muenchen/alfons-schuhbeck-der-herrscher-vom-platzl-1.686940-2";Speisenkarte und Tageskarte;;;;"""Schnitzel Holstein, reich garniert""
+""2 Stück gebackene Eier amerikanisch""
+""Echte Schildkrötensuppe""
+""Indische Schildkrötensuppe""
+""Dänische Hummersuppe""
+""Westfälisches Bauernstilleben""";;Q61722,Q57619,Q77024,Q77926;Inhaber Karl und Fränzi Schorer;ja;Hofbräu;
+P122/m3;;Torggelstube, Fränkisches Weinhaus zur;1960;;Platzl 8;48.13791,11.5780114;"https://www.literaturportal-bayern.de/ortelexikon?task=lpbplace.default&id=803
+https://www.sueddeutsche.de/muenchen/alfons-schuhbeck-der-herrscher-vom-platzl-1.686940-3";12 Seiten Weinkarte mit zahlreichen Abbildungen;;;;"""SPEZIALITÄT: 
+Bowle in der Kanne aus Saisonfrucht
+Zusammenstellung nach Wunsch.""";;Q61722,Q57619,Q77024,Q77927;"Peter Vaitl
+Inh. Karl Schorer";ja;;
+P122/m4;;Torggelstube, Fränkisches Weinhaus zur;1974;;Platzl 6-8;48.13791,11.5780114;"https://www.literaturportal-bayern.de/ortelexikon?task=lpbplace.default&id=803
+https://www.sueddeutsche.de/muenchen/alfons-schuhbeck-der-herrscher-vom-platzl-1.686940-3";;;;;"""Wurzelsuppe mit Rindfleisch und Mark""
+""Klare Schildkrötensuppe mit Chesterhörnchen""
+""Blaue Zipfel""
+""Surhaxl auf Kraut""
+""O'Batzder""";;Q61722,Q57619,Q77024,Q77927;;ja;;
+p123/m1;;Tribüne, Münchner Kriminaltheater;1968;;;;;Adresse nicht zu ermitteln http://wiki-de.genealogy.net/w/index.php?title=Datei:Muenchen-AB-1966.djvu&page=35;;;Mit Sektwerbung;"""Schwedenplatte (16 kleine Brötchen)""
+""Nordheimer Vögelein, Bocksbeutel""";;Q107837;;;;
+p124/m1;;Tsing-Tien, Restaurant;1959;;"München-Neuhausen
+Nymphenburger Str. 193";48.1567326,11.5279503;;Auf Deutsch und Englisch;;;;"""Schwalbennestersuppe""
+""Haifischflossensuppe""
+""Fu Jung mit Fleisch""
+""Hühner Chow Mein""";;;Chen Tsing-Hui;nein;;
+P125/m1;;Union, Hotel;19160901;Fernruf 9300;Barerstraße 7;48.1434975,11.5659318;;Kriegs-Speisenkarte;;;;"""Hohlnudel überkrustet""
+""Brötchen mit geschabtem Fleisch""
+""Eiersalat (Kopfsalat)""";;;;ja;;
+P125/m2;;Union, Hotel;19160829;Fernruf 9300;Barerstraße 7;48.1434975,11.5659318;;Kriegs-Speisenkarte, keine Fleischspeisen;;;;;;;;ja;;
+P125/m3;;Union, Hotel;1917;;;48.1434975,11.5659318;;Kriegsspeisenkarte Fleischtag, anderes Design;;;;;;;;nein;;
+P125/m4;;Union, Hotel;1916;Fernruf 9300;Barerstraße 7;48.1434975,11.5659318;;Kriegs-Speisenkarte;;;;;;;;ja;;
+p126/m1;;Valentin-Musäum, Turmstüberl im;ca. 1980;;Im Tal 50;48.1349507,11.5817428;https://www.valentin-musaeum.de/de/turmstueberl.php;Existiert noch, Adresse ist ermittelt;;;Aufklappkarte, enthält eine Gebrauchsanweisung für das Lokal (Humor), kuriose Abbildungen;"""Kaffee Portion 'Tante Paula'""
+""Wanningerbrotzeit (Kalte Platte)""";Q264209;Q45255;;ja;;
+p127/m1;;Vier Jahreszeiten, Hotel;19260226;;Maximilianstraße 4;48.1391167,11.5800359;;Adresse lautet heute anders, sollte aber das gleiche Gebäude sein, heutige Adresse ist Grundlage für Koordinaten;;;;"""Stubenzucht Ente""
+""Lammnüsschen auf Husaren Art""
+""Scotch Wood Cock""
+""Bisquittkrustela mit Früchten""
+""Florenzer Taube""";Q1388047;Q2492,Q76425,Q225993,Q19943,Q8016,Q130853,Q9682,Q150782,Q13894,Q41309,Q80621,Q7304,Q47120,Q152505,Q57065,Q2831,Q2808,Q44517,Q17293,Q43252,Q1448439,Q7747,Q78469,Q34851,Q55796,Q47875;;;;
+p128/m1;;Viktoria, Café Restaurant;19160516;Telephon 20291;Maximilianstraße 17;48.1391131,11.5800359;;Abendkarte;;;;"""Viktoria-Siegesplatte""
+""Viktoria-Gemisch""
+""Viktoria-Salat""
+""Weiche Eier, das Stück""
+""Brathäring""
+""Junghäring""
+""Naturhäring""
+""Weinkarte liegt auf!""
+""Eigene Feinbäckerei""
+""Vor und nach den Theatern auswahlreiche Abendkarte""";;;Bernhard Heckl Besitzer;ja;;
+p128/m16;;Viktoria, Café Restaurant;19160516;Telephon 20291;Maximilianstraße 17;48.1391131,11.5800359;;"Abendkarte, gedruckter Teil wie oben, handschriftliche Karte weicht ab
+ZWEITE VERSION DER GLEICHEN KARTE";;;;;;;Bernhard Heckl Besitzer;ja;;
+p128/m3;;Viktoria, Café Restaurant;19160611;Telephon 20291;Maximilianstraße 17;48.1391131,11.5800359;;"Abendkarte
+gedruckter Teil wie oben, handschriftliche Karte weicht ab";;;markenfreie Speisen aufgelistet;;;;Bernhard Heckl Besitzer;ja;;
+p128/m4;;Viktoria, Café Restaurant;19160616;Telephon 20291;Maximilianstraße 17;48.1391131,11.5800359;;"Abendkarte
+gedruckter Teil wie oben, handschriftliche Karte weicht ab";;;;"""Fischkarbonade m. Salat""";;;Bernhard Heckl Besitzer;ja;;
+p128/m12;;Viktoria, Café Restaurant;19160610;Telephon 20291;Maximilianstraße 17;48.1391131,11.5800359;;Abendkarte, gedruckter Teil wie oben, handschriftliche Karte weicht ab;;;markenfreie Speisen aufgelistet;;;;Bernhard Heckl Besitzer;ja;;
+p128/m13;;Viktoria, Café Restaurant;19160610;Telephon 20291;Maximilianstraße 17;48.1391131,11.5800359;;"Abendkarte, gedruckter Teil wie oben, handschriftliche Karte weicht ab
+ZWEITE VERSION DER GLEICHEN KARTE";;;markenfreie Speisen aufgelistet;;;;Bernhard Heckl Besitzer;ja;;
+p128/m2;;Viktoria, Café Restaurant;19160612;Telephon 20291;Maximilianstraße 17;48.1391131,11.5800359;;Abendkarte, gedruckter Teil wie oben, handschriftliche Karte weicht ab;;;markenfreie Speisen aufgelistet;"""Kalbskopf auf Schildkrötenart""";;;Bernhard Heckl Besitzer;ja;;
+p128/m14;;Viktoria, Café Restaurant;19160614;Telephon 20291;Maximilianstraße 17;48.1391131,11.5800359;;Abendkarte, gedruckter Teil wie oben, handschriftliche Karte weicht ab;;;markenfreie Speisen aufgelistet;;;;Bernhard Heckl Besitzer;ja;;
+p128/m15;;Viktoria, Café Restaurant;19160615;Telephon 20291;Maximilianstraße 17;48.1391131,11.5800359;;Abendkarte, gedruckter Teil wie oben, handschriftliche Karte weicht ab;;;;"""Kalbsfüsse eingemacht m. Knödl""";;;Bernhard Heckl Besitzer;ja;;
+p128/m10;;Viktoria, Café Restaurant;19160615;Telephon 20291;Maximilianstraße 17;48.1391131,11.5800359;;"Abendkarte, gedruckter Teil wie oben, handschriftliche Karte weicht ab
+ZWEITE VERSION DER GLEICHEN KARTE";;;;"""Kalbsfüsse eingemacht m. Knödl""";;;Bernhard Heckl Besitzer;ja;;
+p128/m5;;Viktoria, Café Restaurant;19160609;Telephon 20291;Maximilianstraße 17;48.1391131,11.5800359;;Mittagskarte;;;;"""Amaul""
+""Gratbraten""
+""Speisen ohne Getränke 10 Pfennig mehr""";;;Bernhard Heckl Besitzer;ja;;
+p128/m6;;Viktoria, Café Restaurant;19160611;Telephon 20291;Maximilianstraße 17;48.1391131,11.5800359;;"Mittagskarte
+gedruckter Teil wie oben, handschriftliche Karte weicht ab";;;;;;;Bernhard Heckl Besitzer;ja;;
+p128/m17;;Viktoria, Café Restaurant;19160612;Telephon 20291;Maximilianstraße 17;48.1391131,11.5800359;;"Mittagskarte
+gedruckter Teil wie oben, handschriftliche Karte weicht ab";;;;"""1/6 junge Gans 100gr""";;;Bernhard Heckl Besitzer;ja;;
+p128/m7;;Viktoria, Café Restaurant;19160614;Telephon 20291;Maximilianstraße 17;48.1391131,11.5800359;;"Mittagskarte
+gedruckter Teil wie oben, handschriftliche Karte weicht ab";;;;"""Merlaus gebraten m Kart""";;;Bernhard Heckl Besitzer;ja;;
+p128/m8;;Viktoria, Café Restaurant;19160615;Telephon 20291;Maximilianstraße 17;48.1391131,11.5800359;;"Mittagskarte
+gedruckter Teil wie oben, handschriftliche Karte weicht ab";;;;"""Einlaufsuppe""";;;Bernhard Heckl Besitzer;ja;;
+p128/m9;;Viktoria, Café Restaurant;19160616;Telephon 20291;Maximilianstraße 17;48.1391131,11.5800359;;"Mittagskarte
+gedruckter Teil wie oben, handschriftliche Karte weicht ab";;;;"""Kirschenstrudel""";;;Bernhard Heckl Besitzer;ja;;
+p128/m10;;Viktoria, Café Restaurant;19160618;Telephon 20291;Maximilianstraße 17;48.1391131,11.5800359;;"Mittagskarte
+gedruckter Teil wie oben, handschriftliche Karte weicht ab";;;;;;;Bernhard Heckl Besitzer;ja;;
+p129/m1;;Wagner, Hotel;19161226;Fernsprecher Nr. 50529, 50564;Sonnenstr. Nr. 21-23;48.1358581,11.5632589;;https://img.oldthing.net/7580/32550619/0/n/8325229/AK-Muenchen-Hotel-Wagner-in-der-Sonnenstrasse-21-23-und-Landwehrstrasse-8-10.jpg;;;;"""Alle Wünsche und Beschwerden bitte ich zum Zwecke geeigneter Erledigung gütigst an mich oder meinen Direktor stellen zu wollen. Hans Wagner.""
+""Ochsengaumensalat"" [gestrichen]
+""Schwedenplatte""
+""Wagnerplatte""
+""Spinatpuddin garniert m Tomatensosse""
+""Hohlnudeln m Tomatensosse Käse""
+""Alkoholfreier Apfelsaft""
+""Knickebein""";;;Hans Wagner;ja;Wagnerbräu;
+p130/m1;Wartburg-Hospiz;Wartburg, Christliches Hospiz;19380825;54696;Landwehrstraße 16;48.1364776,11.5605595;;;;;;„Speisen und Getränke wollen im Speisezimmer bezahlt werden.“;;;;;;Ja
+p130/m2;Wartburg-Hospiz;Wartburg, Christliches Hospiz;19380827;54696;Landwehrstraße 16;48.1364776,11.5605595;;;;;;„Auf Speisen und Getränke 10% Bedienungszuschlag“;;;;;;
+p131/m1;;Weichandhof;ca. 1980;Telefon 8111621;München-Obermenzing Betzenweg 81;48.1671736,11.4556235;https://restaurant-weichandhof.de/;"Existiert noch
+Tageskarte und Tagesspezialität fehlen
+Rudolf J. Praetorius (hat Geschichte unterzeichnet)";;;Karte enthält längeren Text über Geschichte des Hofes;"""Klare Schildkrötensuppe 'Lacroix' mit altem Sherry""
+""Schildkrötensuppe 'Lady Curzon'""
+""Omas Eistopf""
+""Zitroneneis mit Sekt aufgegossen""
+""Bitte verlangen Sie unsere Vorschläge für Extraessen!""
+""Bitte verlangen Sie unsere Flaschenwein-Karte""""";;GND107023679;Wirstleut: Peter und Evi Hiebl;ja;;
+p132/m1;;Weinstadl, Der Weinschenk im;ca. 1974;Telefon 221047;München Burgstrasse 5;48.1375965,11.5752398;;"- ausschließlich Weine auf der Speisekarte - 
+Rudolf J. Praetorius (hat Geschichte unterzeichnet)";;;"""Pfälzer Weinkeller im ältesten Haus Münchens"" 
+
+Karte enthält eine Chronik des Anwesens (eine Seite Text) ";"""Mußbacher Eselshaut""
+""ERBGUT""";;GND107023679;;ja;;
+p133/m1;;Weißbräuhaus-Bierhallen;19380827;Telefon 51343;Bayerstraße 33;48.1391107,11.5573314;;;;;"""Täglich ab 4 Uhr Konzert""";"""Eigene Schlächterei""
+""Prima Weiß- und Bratwürste""
+""Maschinen-Rostbraten""
+""Ochsenmaulsalat""
+""Spaghetti mit Müllernaise""
+""Lumpenbrotzeit""
+""Knöcherlsulz""";;;Peter Rogenhofer;ja;Schneider;
+p133/m2;;Weißbräuhaus-Bierhallen;19420815;;;;;mit Marken;;;;;;;Peter Rogenhofer jun.;nein;;
+p133/m3;;Weißbräuhaus-Bierhallen;19439394;;;;;mit Marken;;;;;;;;;;
+p134/m1;;Weisses Bräuhaus;19880403;Telefon 089/299875;München im Tal;48.1360212,11.5760611;;Adresse so in Karte, eigentlich heute: Tal 8;;;"Kälberfüße in mehreren Variationen 
+
+Ostersonntagskarte! ""Osterteller"" und ""Oster-K I T Z""
+
+""Vom Grill und aus der Pfanne - und nicht aus der Fritteuse!""";"""Besonders hinweisen möchten wir unsere verehrten Gäste darauf, daß wir unsere Nudeln- und Teigwaren mit Frischei alle im Hause herstellen;
+unsere Speisen können sie auch in Thermoschalen (aromaversiegelt und w a r m h a l t e n d ) mit nach Hause nehmen!""
+
+""";;;"Wirtsleut
+Rosemarie & Christian Döbler";ja;Schneider;
+p135/m1;;Wendelstein, Gaststätte zum;1938;Telefon 59027;Schwanthalerstr. 46 (Ecke Mittererstraße);48.1375905,11.5547915;;;Foto ausschneiden und für Restaurantseite verwenden;;Auf der letzten Seite Foto von Restaurant!;"""Bestgepflegte dunkle und helle Biere""
+
+""Eigene Schlächterei / Hausgemachte Wurstwaren""";;;Pächter: Georg und Anna Eller;ja;Spaten;
+p63/m2;;Wiener Küche, Spezial-Gaststätte;19370716;Fernsprecher 58813;Landwehr - Straße 47;48.1363656,11.556439;;"= Landsknecht
+
+urspr. p136. Identisch mit p63, daher p63/m2";;;Aufgeklebte Schnapswerbung in der Karte;"""Rauchwaren zu Ladenpreisen!""
+
+""Stets frischen Bohnenkaffee 30 Pfg.""
+
+""Speisenzubereitung nach Münchner und Wiener Art""
+""Verwendung von Frischfleisch allerbester Qualität unter
+Zunahme von reiner Butter, Öl und prima Fett""
+
+
+
+
+";;;Franz und Maria Felsl;;Paulaner;
+P137/m1;;Zirbelstube, Eden-Hotel-Wolff;19741017 - 19741024;;[Arnulfstraße 4, 80335 München];48.1416193,11.5593612;https://www.eden-hotel-wolff.de/restaurant-peter-wolff;existiert noch;transkribieren - interessante Karte;;"
+";"Küchenchef: Peter Schimanski 
+Saucier: Ulrich Altzinger
+Meister der Kochkunst: Pan Erich Menzel
+Entremetier: Johann Lederer
+stellvertr. Küchenchef: Theophil Gartner
+Gardemanger: Alfons Wax
+
+""120 Jahre alt wirst Du ohne Witz, trinkst Du täglich Slivoviz von Jelinek aus Vizovic.""
+
+""Last uns essen damit der Bauch nicht denkt, daß die Zähne schon zum Teufel sind. Slowakisches Sprichwort""
+
+In den Preisen sind 10% Bedienungsgeld und 11% Mehrwertsteuer enthalten.";;;;;;

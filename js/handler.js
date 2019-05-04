@@ -353,7 +353,10 @@ var data = {
 	"number_old" : $("[geo-number_old").val(),
 	"comment" : $("[geo-comment").val()
 },
-"target" : app_state.pubid,
+"target" : {
+  "pubid" : app_state.pubid,
+"menu" : app_state.menu
+},
 "creator" : {
 	"id" : user_state.timestamp,
   "identity" : user_state.identity,
@@ -582,7 +585,7 @@ function showMapPubDialog(){
   drawThumb($("#map-info-popup").find("[geo-rating]"));
   //prerender view of pub when clicking this
   //redrawPubs(this.pubid);
-  app_state.pubs = this.target;
+  app_state.pubs = this.target.pubid;
   redrawPubs(app_state.pubs);
   console.log(map_pubinfo_dialog);
 
@@ -1198,11 +1201,11 @@ annotation_info_dialog.open();
   var anno_info = result;
   app_state.anno_id = anno_info.id;
   app_state.anno_type = anno_info.annotype;
-  app_state.pubs = result.target;
+  app_state.pubs = result.target.pubid;
 
   redrawMapPubDialog(result.body.latlng, result);
   drawThumb($("#map-info-popup").find("[geo-rating]"));
-  app_state.pubs = this.target; //prerender Pubs-Dialog
+  app_state.pubs = this.target.pubid; //prerender Pubs-Dialog
   redrawPubs(app_state.pubs);
   map_pubinfo_dialog.open();
   }).catch(function(err){

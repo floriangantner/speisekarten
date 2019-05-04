@@ -133,7 +133,7 @@ function redrawPubsAdressList(){
       $.each(doc.rows, function (index, value) {
         console.log(value);
         console.log(app_state.pubs);
-        if(value.doc.target === app_state.pubs){
+        if(value.doc.language != "query" && value.doc.target.pubid === app_state.pubs){
               var list = newAdressListElement(value.doc);
               console.log(list);
               $("#pubs-adress-list").prepend(list);
@@ -693,7 +693,7 @@ drawThumb($("[anno-rating]"));
 function redrawMapPubDialog(latlng, infos){
   var addressinfo = infos.body;
   console.log(latlng);
-  DBpubs.get(infos.target).then( function(doc){
+  DBpubs.get(infos.target.pubid).then( function(doc){
       //var list = newPubListElement(doc.rows);
       console.log(doc);
       //$("#pubs-list").html('');
@@ -939,7 +939,7 @@ function getGeoStatistic(pubsid){
   return new Promise(function(resolve, reject){
 
   DBgeo.find({
-    selector: {target : pubsid},
+    selector: {'target.pubid' : pubsid},
   }, function (err, result) {
     obj.geo = result.docs.length;
     resolve(obj);

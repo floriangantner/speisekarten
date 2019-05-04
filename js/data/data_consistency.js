@@ -43,7 +43,7 @@ DBpubs.bulkDocs(data_pubs).then(function (result) {
   }).then(function(result){
     return DBgeo.createIndex({
       index: {
-        fields: ['target']
+        fields: ['target.pubid']
       }});
   }).then(function(result){
     console.log("Datastructure filled from sample data")
@@ -95,7 +95,7 @@ function dataStructure_check(){
           }).then(function(result2){
             return DBgeo.createIndex({
               index: {
-                fields: ['target']
+                fields: ['target-pubid']
               }})
             }).then(function(result2){
               console.log("Indexes created");
