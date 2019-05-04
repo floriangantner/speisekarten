@@ -176,9 +176,11 @@ function newMenuListElement(data){
      var card_html = '';
   console.log(data);
     card_html += `<h3 mdc-typography mdc-typography--headline6>${data.name} (${data.date}) - ${data.typ}</h3><ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list">`;
+    //get preview image from iiif server
     $.each(data.menupages, function (index1, value1) {
+      var img_url = config['iiifserver'] + value1.filepath.replace(/\//g, "%2F") + "/full/!200,200/0/default.jpg";
       card_html += `<li class="mdc-image-list__item" data-id="${value1.id}">
-        <img class="mdc-image-list__image" src="assets/${value1.filepath}">
+        <img class="mdc-image-list__image" src="${img_url}" alt="Nicht gefunden"'>
         <div class="mdc-image-list__supporting">Beschreibung der Liste
         </div>
       </li>`;
@@ -324,10 +326,16 @@ DBmenu.allDocs({
 function newMenuCard(data){
       //generated Code for Entry.
       //using images
+
       console.log(data);
+      //encoding not working properly with iiif-server, thus replacing
+      var uri = config['iiifserver'] + data.filepath.replace(/\//g, "%2F") + "/info.json";
+      console.log(uri);
+      loadTileLayer(uri);
 
       $("#card-menu-detail > div > .mdc-card__primary-action > .demo-card__primary > h2 ").html(`${data.name} - ${data.date} - ${data.typ} - ID: ${data.category}`);
       $("#card-menu-detail > div > .mdc-card__primary-action > .mdc-card__media ").attr('style', `background-image: url(assets/${data.filename})`);
+
       app_state.menupage = data.id;
      //TODO: change some menu card
 }

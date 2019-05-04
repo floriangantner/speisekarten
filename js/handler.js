@@ -141,7 +141,6 @@ $('#dishes-detail-menupage').on('click', function(evt){
 $("#card-dishes-detail").hide();
 redrawMenu(app_state.menupage);
 //TODO: add to redrawMenu
-//  initIIIFMap();
 $( "#card-menu-detail" ).show();
 })
 
@@ -187,8 +186,9 @@ $( "#card-pubs-detail" ).hide();
     app_state.menupage = $(this).attr('data-id');
     console.log(app_state.menupage);
     redrawMenu(app_state.menupage);
+    $(".pubs-menu-element").hide();
+    $(".pubs-menu-element[data-tab=map]").show();
     //TODO: add to redrawMenu
-  //  initIIIFMap();
 $( "#card-menu-detail" ).show();
 
 });

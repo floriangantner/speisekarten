@@ -6,12 +6,15 @@ var map_iiif = L.map('iiifmap', {
   anno: false
 });
 map_iiif.invalidateSize();
-var baseLayer = L.tileLayer.iiif(
+
+//var baseLayer = L.tileLayer.iiif(
   //
-  'http://localhost:8182/iiif/2/214-2.png/info.json'
+  //'http://localhost:8182/iiif/2/testinfo%2Fzelt.jpg/info.json'
+  //'http://localhost:8182/iiif/2/Armbrustschützenzelt%2FArmbrustschützenzelt_Speisenkarte_20.09.1957%2FArmbrustschützenzelt_Speisenkarte_20.09.1975_01.jpg/info.json'
+  //'http://localhost:8182/iiif/2/214-2.png/info.json'
   //'http://localhost:8080/tetons/info.json'
 
-).addTo(map_iiif);
+//).addTo(map_iiif);
 
 var markerLayer = L.featureGroup();
 markerLayer.addTo(map_iiif);
@@ -19,7 +22,7 @@ markerLayer.anno = true;
 map_iiif.anno = false;
 
 var editableLayers = new L.featureGroup()
-map_iiif.addLayer(editableLayers);
+editableLayers.addTo(map_iiif);
 var drawControl = new L.Control.Draw({
   edit: {
     featureGroup: editableLayers
@@ -75,21 +78,24 @@ map_iiif.invalidateSize();
 
 
 function loadTileLayer(url){
-
-if (map_iiif != undefined){
+//if (map_iiif != undefined){
 map_iiif.eachLayer(function (layer) {
     map_iiif.removeLayer(layer);
 });
 
   var iiif_layer = L.tileLayer.iiif(url);
-  //iiif_layer.addTo(map_iiif);
-}
-}
+  iiif_layer.addTo(map_iiif);
 
-function initIIIFMap(){
-  loadTileLayer('https://stacks.stanford.edu/image/iiif/hg676jb4964%2F0380_796-44/info.json');
-  //addButtons();
+  console.log(iiif_layer);
+  iiif_layer.setZIndex(4);
+
+  editableLayers = new L.featureGroup()
+  editableLayers.addTo(map_iiif);
+  editableLayers.setZIndex(50);
   map_iiif.invalidateSize();
+
+//}
+console.log(url);
 }
 
 function iiifaddExistingAnnotations(){
