@@ -671,6 +671,7 @@ $("#annotation-info-content").html(html);
 }else if(anno.annotype === "Other"){
   $("#annotation-info-title").html(``);
   html += `<p><i class="material-icons-outlined"></i> ${anno.body.comment}</p></div><p>`;
+  html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
   $("#annotation-info-content").html(html);
 }else if(anno.annotype === "Image"){
     $("#annotation-info-title").html(`Werbeanzeige:`);

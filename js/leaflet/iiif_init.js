@@ -16,6 +16,11 @@ map_iiif.invalidateSize();
 
 //).addTo(map_iiif);
 
+L.drawLocal.draw.handlers.rectangle.tooltip.start = 'Klicke und Ziehe eine Rechteck';
+L.drawLocal.draw.handlers.simpleshape.tooltip.end = 'Maus loslassen zum Beenden';
+L.drawLocal.draw.toolbar.actions.text = 'Abbrechen';
+
+
 var markerLayer = L.featureGroup();
 markerLayer.addTo(map_iiif);
 markerLayer.anno = true;
@@ -36,14 +41,16 @@ var drawControl = new L.Control.Draw({
     rectangle: {
       repeatMode: false,
       showRadius: false,
+      showArea:false,
       shapeOptions: {
-                    color: '#bada55',
+        color: '#bada55',
       }
     }
 }
 })
 map_iiif.addControl(drawControl);
-    L.drawLocal.draw.handlers.rectangle.tooltip.start = 'Zeichne ein Rechteck';
+
+$("#iiifmap").find(".leaflet-draw-edit-edit").parent("div").hide();
 
 
 // Add a new editable rectangle when clicking on the button.

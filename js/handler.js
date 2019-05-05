@@ -208,27 +208,29 @@ $("#button-pubs-menu-back").click(function(evt){
 
 $("#button-menu-detail-add-dish").click(function(evt){
   //evt.preventDefault();
+  //enable drawing mode, if nothing has been selected
+if(editableLayers.getLayers()[0] == undefined || editableLayers.getLayers()[0] == null){
+  showTextOnSnackbar("Wähle zuerst einen Bereich aus", 4000)
+drawControl._toolbars.draw._modes.rectangle.handler.enable()
+}else{
   var listelemtofill = $("#annotation-dishes-popup").find("[anno-dishes-category]");
   newCategoryList(listelemtofill);
-
-  console.log(annotation_dishes_dialog);
   annotation_dishes_dialog.open();
   //Get Coordinates, print Error
-  if(editableLayers && editableLayers.getLayers()[0] && editableLayers.getLayers()[0]._parts.length > 0 ){
-    $("#dialog-dishes-coord-found").html('Bereich markiert!');
-    console.log(editableLayers.getLayers()[0]._parts);
-  }else{
-    $("#dialog-dishes-coord-found").html('');
-  }//  $( "#card-pubs-detail" ).show();
+  }
 });
 
 $("#button-menu-detail-add-openinghours").click(function(evt){
+  if(editableLayers.getLayers()[0] == undefined || editableLayers.getLayers()[0] == null){
+    showTextOnSnackbar("Wähle zuerst einen Bereich aus", 4000)
+  drawControl._toolbars.draw._modes.rectangle.handler.enable()
+  }else{
   evt.preventDefault();
   //annotation_openinghours_dialog.close();
 
   annotation_open_dialog.open();
 //  $( "#card-pubs-detail" ).show();
-
+}
 });
 
 $("#button-menu-detail-add-other").click(function(evt){
@@ -432,7 +434,7 @@ var data = {
 "type" : "Annotation",
 "annotype" : "Other",
 "body" : {
-	"comment" : $("#annotation-other-comment > input"),
+	"comment" : $("#annotation-other-comment > textarea").val(),
 },
 "target" : {
 	"pubid":app_state.pubs,
@@ -689,10 +691,16 @@ $(".pubs-menu-element[data-tab="+clicked+"]").show();
 
 $("#button-menu-detail-add-category").on("click", function(evt){
 //TODO: check actual categories of menu
+
+if(editableLayers.getLayers()[0] == undefined || editableLayers.getLayers()[0] == null){
+  showTextOnSnackbar("Wähle zuerst einen Bereich aus", 4000)
+drawControl._toolbars.draw._modes.rectangle.handler.enable()
+}else{
+
 var listelemtofill = $("#annotation-category-popup").find("[category-upperselect]");
 newCategoryList(listelemtofill);
 annotation_category_dialog.open();
-
+}
 });
 
 $("#annotation-category-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
@@ -768,22 +776,35 @@ anno_menu.open = true;
 $('#pubs-adress-list').on('click', '.mdc-list-item', function(evt){
 $( "#card-pubs-detail" ).hide();
 var geoid = $(this).attr('data-id');
-var lat, lng, data;
+var lat, lng, data, coord_check = true;;
 //check for pubid -> multiple -> mark on popup and change marker -> change map
 DBgeo.allDocs({
     include_docs: true
   },function(err, doc){
     $.each(doc.rows, function (index, value) {
       if(value.doc.id === geoid){
+        if(value.doc.body.latlng === null){
+          coord_check = false;
+          spot = value.doc;
+
+        }else{
         lat = value.doc.body.latlng[0];
         lng = value.doc.body.latlng[1];
         spot = value.doc;
+        }
       }
     });
     //add more info from actual pubs
     //
-    if(lat === undefined || lng === undefined){
+    if(coord_check === false){
       showTextOnSnackbar("Koordinaten nicht gefunden!", 4000);
+        getSingleTeaserInfo($("#map-info-popup").find("[map-teaser]"));
+        redrawMapPubDialog([lat,lng], this.spot);
+        drawThumb($("#map-info-popup").find("[geo-rating]"));
+        //MapShowPubID($(this).attr('data-id'), lat, lng);
+        mapAllPubsAdd();
+        map_pubinfo_dialog.open();
+
   }else{
     getSingleTeaserInfo($("#map-info-popup").find("[map-teaser]"));
     redrawMapPubDialog([lat,lng], this.spot);
@@ -798,13 +819,24 @@ $("#card-map").show();
 });
 
 $("#button-menu-detail-add-ads").click(function(evt){
+
+  if(editableLayers.getLayers()[0] == undefined || editableLayers.getLayers()[0] == null){
+    showTextOnSnackbar("Wähle zuerst einen Bereich aus", 4000)
+  drawControl._toolbars.draw._modes.rectangle.handler.enable()
+  }else{
   evt.preventDefault();
   annotation_ads_dialog.open();
+  }
 });
 
 $("#button-menu-detail-add-image").click(function(evt){
+  if(editableLayers.getLayers()[0] == undefined || editableLayers.getLayers()[0] == null){
+    showTextOnSnackbar("Wähle zuerst einen Bereich aus", 4000)
+  drawControl._toolbars.draw._modes.rectangle.handler.enable()
+  }else{
   evt.preventDefault();
   annotation_image_dialog.open();
+}
 });
 
 $("#annotation-ads-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
