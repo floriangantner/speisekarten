@@ -67,11 +67,10 @@
     <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
       <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;sample-data/p66_m1_ima11.jpg&quot;);"></div>
       <div class="demo-card__primary">
-        <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Tripadviswurst</h2>
+        <h2 class="demo-card__title mdc-typography mdc-typography--headline6"></h2>
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
       </div>
       <div class="demo-card__secondary mdc-typography mdc-typography--body2">Willkommen bei Tripadviswurst, deinem Kraut Saußing-Tool zum Entdecken neuer, skuriller und alltäglicher Gerichte aus fernen Zeiten.</div>
-      <a href="#" onclick="annotation_dishes_dialog.open()">Link Test</a>
       <div role="progressbar" class="mdc-linear-progress" id="progress-loader">
         <div class="mdc-linear-progress__buffering-dots"></div>
         <div class="mdc-linear-progress__buffer"></div>
@@ -477,6 +476,7 @@
     </div>
     <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
       <div class="demo-card__secondary mdc-typography mdc-typography--body2">Infos, Preis, Wikipedia-Link <span dish-rating></span>
+        <span iiif-preview></span>
       <span dish-type></span><span dish-comment></span><span dish-amount></span><span dish-price></span><span dish-currency></span>
     <span dish-category></span></div>
       <ul class="mdc-list mdc-list--two-line" id="dishes-rating-list">
@@ -1446,13 +1446,6 @@ var geo_textField11 = new mdc.textField.MDCTextField(document.querySelector('#di
 //annotation_category_dialog.listen('MDCDialog:opened', () => {
 //  annotation_category_select.layout();
 //});
-
-/*
-var textField6 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-address'));
-var textField11 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-lat'));
-var textField12 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-lng'));
-var textField7 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-city'));
-*/
 const rate_dishes_dialog = new mdc.dialog.MDCDialog(document.querySelector('#rate-dishes-popup'));
 var rate_textField9 = new mdc.textField.MDCTextField(document.querySelector('#dialog-rate-dishes-comment'));
 var rate_textField10 = new mdc.textField.MDCTextField(document.querySelector('#dialog-rate-dishes-stars'));

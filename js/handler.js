@@ -149,17 +149,18 @@ $( "#card-menu-detail" ).show();
 $('#dishes-all-list').on('click', '.mdc-list-item', function(evt){
 console.log("clicked");
 $( "#card-dishes-all" ).hide();
-app_state.dishes = $(this).attr('data-id');
-    redrawDishes(app_state.dishes);
+app_state.anno_id = $(this).attr('data-id');
+app_state.anno_typ = "Dishes"
+    redrawDishes(app_state.anno_id);
 $( "#card-dishes-detail" ).show();
 
 });
 
 $('#pubs-dishes-list').on('click', '.mdc-list-item', function(evt){
-console.log("clicked");
 $( "#card-pubs-detail" ).hide();
-app_state.dishes = $(this).attr('data-id');
-    redrawDishes(app_state.dishes);
+app_state.anno_id = $(this).attr('data-id');
+app_state.anno_typ = "Dishes"
+    redrawDishes(app_state.anno_id);
     $( "#card-dishes-detail" ).show();
 });
 
@@ -183,10 +184,8 @@ redrawPubsDishesList(app_state.pubs);
 });
 
 $('#pubs-menu-list').on('click', '.mdc-image-list__item', function(evt){
-console.log("clicked");
 $( "#card-pubs-detail" ).hide();
     app_state.menupage = $(this).attr('data-id');
-    console.log(app_state.menupage);
     redrawMenu(app_state.menupage);
     $(".pubs-menu-element").hide();
     $(".pubs-menu-element[data-tab=map]").show();
@@ -298,7 +297,7 @@ showTextOnSnackbar("Gericht hinterlegt!", 5000);
 
 });
 
-$("#annotation-openinghours-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
+$("#annotation-open-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //look for
 //menupageid
 var data = {
@@ -376,12 +375,28 @@ showTextOnSnackbar("Adresse hinterlegt!", 5000);
 
 function getAnnoFragment(){
 //read xywh from actual segment
-console.log(editableLayers);
-console.log(editableLayers.length);
-  if(map_iiif.hasLayer(editableLayers) && editableLayers.getLayers() != undefined && editableLayers.getLayers()[0] != undefined && editableLayers.getLayers()[0]._parts != undefined && editableLayers.getLayers()[0]._parts.length > 0){
+
+//consider with total image view!
+//go through all layers, find layer.typ === "iiif";
+//get coordinates and total width
+
+//compare with selected area and shown width
+
+  if(map_iiif.hasLayer(editableLayers) && editableLayers.getLayers() != undefined && editableLayers.getLayers()[0] != undefined && editableLayers.getLayers()[0]._latlngs != undefined && editableLayers.getLayers()[0]._latlngs.length > 0){
   // change selected area to xywh and latlng coordinates
-  var part = editableLayers.getLayers()[0]._parts[0];
-  var selectorstring = "xywh="+(part[1].x+","+part[1].y)+","+(part[2].x-part[1].x)+","+(part[3].y-part[2].y);
+  var part = editableLayers.getLayers()[0]._latlngs[0];
+
+  var point1 = map_iiif.project(part[1], map_iiif.getMaxZoom()); //using max Zoom should consider the latlng to the original coordinates. Important for IIIf
+  var point2 = map_iiif.project(part[3], map_iiif.getMaxZoom());
+  let p = {
+    x: Math.floor(point1.x),
+    y: Math.floor(point1.y),
+    w: Math.floor(point2.x - point1.x),
+    h: Math.floor(point2.y - point1.y),
+  }
+  console.log(p);
+  //wrong
+  var selectorstring = "xywh="+p.x+","+p.y+","+p.w+","+p.h;
   return {
     "type": "FragmentSelector",
     "conformsTo": "http://www.w3.org/TR/media-frags/",
@@ -408,7 +423,7 @@ function getAnnoCoord(){
 }
 };
 
-$("#dialog-other-popup").find('[data-mdc-dialog-action="accept"]').click(function(){
+$("#annotation-other-popup").find('[data-mdc-dialog-action="accept"]').click(function(){
 //look for
 //menupageid
 
@@ -417,7 +432,7 @@ var data = {
 "type" : "Annotation",
 "annotype" : "Other",
 "body" : {
-	"comment" : $("#dialog-other-comment > input"),
+	"comment" : $("#annotation-other-comment > input"),
 },
 "target" : {
 	"pubid":app_state.pubs,
@@ -634,7 +649,7 @@ var data = {
   	"pubid": app_state.pubs,
   	"menu" : app_state.menu,
   	"menupage": app_state.menupage,
-  	"anno_id" : app_state.dishes,
+  	"anno_id" : app_state.anno_id,
   	"anno_typ" : "Dish"
   },
   "creator" : {
@@ -858,7 +873,7 @@ $("#annotation-image-popup").find('[data-mdc-dialog-action="accept"]').click(fun
 
   console.log(data);
   DBaddnew(data, DBimage);
-  showTextOnSnackbar("Werbung hinterlegt!", 5000);
+  showTextOnSnackbar("Bild hinterlegt!", 5000);
 
 });
 

@@ -45,6 +45,7 @@ var drawControl = new L.Control.Draw({
 map_iiif.addControl(drawControl);
     L.drawLocal.draw.handlers.rectangle.tooltip.start = 'Zeichne ein Rechteck';
 
+
 // Add a new editable rectangle when clicking on the button.
 //button.addEventListener('click', function(event) {
   //event.preventDefault();
@@ -54,6 +55,7 @@ map_iiif.on(L.Draw.Event.CREATED, function (e) {
   editableLayers.clearLayers();
   var type = e.layerType
   var layer = e.layer;
+  console.log(layer);
 
   // Do whatever else you need to. (save to db, add to map etc)
   layer.id = 'anno_coord';
@@ -77,13 +79,24 @@ map_iiif.invalidateSize();
 */
 
 
-function loadTileLayer(url){
+function loadTileLayer(url, attribution){
 //if (map_iiif != undefined){
 map_iiif.eachLayer(function (layer) {
     map_iiif.removeLayer(layer);
 });
 
-  var iiif_layer = L.tileLayer.iiif(url);
+
+  if(attribution != undefined || attribution === ""){
+    attribution = "Monacensia: " + attribution;
+  }else{
+    attribution = "Monacensia: ohne Nr.";
+  }
+  var iiif_layer = L.tileLayer.iiif(url, {
+    attribution: attribution
+  });
+  //iiif_layer.typ = "iiif";
+
+
   iiif_layer.addTo(map_iiif);
 
   console.log(iiif_layer);
@@ -93,6 +106,7 @@ map_iiif.eachLayer(function (layer) {
   editableLayers.addTo(map_iiif);
   editableLayers.setZIndex(50);
   map_iiif.invalidateSize();
+
 
 //}
 console.log(url);
@@ -109,20 +123,15 @@ if(map_iiif.anno === false){
 DBdishes.allDocs({
     include_docs: true
   },function(err, doc){
-    console.log(doc)
       for(var doc2 in doc.rows){
         var objdoc = doc.rows[doc2].doc;
         //where coord is not empty
-        console.log(objdoc);
-        console.log(app_state.menupage);
         if(!objdoc.language && objdoc.target.menupage && (objdoc.target.menupage === app_state.menupage)){
-          console.log(objdoc.target.menupage);
           if(objdoc.target.coord && objdoc.target.coord.value != ""){
             //create rectangle and add to markerLayer
             var latlng = objdoc.target.coord.value.split("=");
             latlng = latlng[1].split(",");
             var bounds = [[latlng[0], latlng[1]], [latlng[2], latlng[3]]];
-            console.log(bounds);
     // add rectangle passing bounds and some basic styles
         var rect = L.rectangle(bounds, {color: "red", weight: 5});
         rect.name = objdoc.body.name;

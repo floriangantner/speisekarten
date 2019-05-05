@@ -131,8 +131,6 @@ function redrawPubsAdressList(){
     },function(err, doc){
       $("#pubs-adress-list").html('');
       $.each(doc.rows, function (index, value) {
-        console.log(value);
-        console.log(app_state.pubs);
         if(value.doc.language != "query" && value.doc.target.pubid === app_state.pubs){
               var list = newAdressListElement(value.doc);
               console.log(list);
@@ -217,7 +215,7 @@ logo = 'local_drink';
 }else if(logo === "other"){
 logo = 'device_unknown';
   }
-   card_html += `<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.doc.id}">
+   card_html += `<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.doc._id}">
      <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">${logo}</span>
      <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.doc.body.name}</span>
      <span class="mdc-list-item__secondary-text">${value.doc.body.description}</span></span>
@@ -230,6 +228,7 @@ logo = 'device_unknown';
 
 //return List of all Pubs
 function redrawDishes(id){
+  console.log(id);
 DBdishes.get(id).then( function(doc){
     newDishesCard(doc)
     //var list = newPubListElement(doc.rows);
@@ -239,8 +238,11 @@ DBdishes.get(id).then( function(doc){
     var elem = $("#card-dishes-detail").find("[dish-rating]");
     console.log(elem);
     drawThumb(elem);
-
-    });
+    return getIIIfPreviewSnippetUrl(doc._id, doc.target);
+  }).then(function(result){
+    let url = config.iiifserver + result;
+    $("#dish-iiif-preview").attr("src",url);
+  });
 };
 
 function newDishesCard(data){
@@ -259,10 +261,11 @@ $("#card-dishes-detail").find("[dish-amount]").html(data.body.amount);
 $("#card-dishes-detail").find("[dish-price]").html(data.body.price);
 $("#card-dishes-detail").find("[dish-currency]").html(data.body.currency);
 $("#card-dishes-detail").find("[dish-category]").html(data.body.category);
+$("#card-dishes-detail").find("[iiif-preview]").html(`<div><img id="dish-iiif-preview" alt="Kein Bild"></div>`);
 
 
 DBrating.find({
-  selector: {'target.anno_id' : data.id, 'target.anno_typ' : 'Dish' },
+  selector: {'target.anno_id' : data._id, 'target.anno_typ' : 'Dish' },
 }, function (err, result) {
   console.log(result);
   if (err) { return console.log(err); }
@@ -331,7 +334,7 @@ function newMenuCard(data){
       //encoding not working properly with iiif-server, thus replacing
       var uri = config['iiifserver'] + data.filepath.replace(/\//g, "%2F") + "/info.json";
       console.log(uri);
-      loadTileLayer(uri);
+      loadTileLayer(uri, data.category);
 
       $("#card-menu-detail > div > .mdc-card__primary-action > .demo-card__primary > h2 ").html(`${data.name} - ${data.date} - ${data.typ} - ID: ${data.category}`);
       $("#card-menu-detail > div > .mdc-card__primary-action > .mdc-card__media ").attr('style', `background-image: url(assets/${data.filename})`);
@@ -366,7 +369,7 @@ function newPubsDishesListElement(data){
    logo = 'device_unknown';
    }
 
-   card_html +=`<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.id}">
+   card_html +=`<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value._id}">
      <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">${logo}</span>
      <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.body.name}</span>
      <span class="mdc-list-item__secondary-text">${value.body.description}</span></span>
@@ -640,14 +643,18 @@ if(anno.body.type === "meal"){
 }else if(anno.body.type === "other"){
   html += `<p><i class="material-icons-outlined">device_unknown</i>`;
 }
-html += ` </p><p>Kategorie: ${anno.body.categoryName}</p><p>Preis: ${anno.body.price} ${anno.body.price_currency}</p>
+html += ` </p><div class="mdc-chip mdc-chip--selected">
+  <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">category</i>
+  <div class="mdc-chip__text">${anno.body.categoryName}</div>
+</div><p>Preis: ${anno.body.price} ${anno.body.price_currency}</p>
 <p>Anzahl: ${anno.body.amount}</p><p>Beschreibung: ${anno.body.description}</p><p></div>`; //TODO: Link zur Kategorie
-html += `<div><img src="${config.iiifserver}`+getIIIfPreviewSnippetUrl(anno._id, anno.target)+`" alt="Kein Bild">"</div>`
+html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
 $("#annotation-info-content").html(html);
 
 }else if(anno.annotype === "OpeningHours"){
   $("#annotation-info-title").html(`Öffnungszeiten`);
   html += `<p><i class="material-icons-outlined">access_time</i> ${anno.body.value}</p></div>`;
+  html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
   $("#annotation-info-content").html();
 }else if(anno.annotype === "Category"){
     $("#annotation-info-title").html($(anno.body.name));
@@ -658,6 +665,8 @@ $("#annotation-info-content").html(html);
       html += `(keine Oberkategorie)`;
     }
     html += `</p></div>`;
+    html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
+
     $("#annotation-info-content").html(html);
 }else if(anno.annotype === "Other"){
   $("#annotation-info-title").html(``);
@@ -675,17 +684,28 @@ $("#annotation-info-content").html(html);
         html += `<i class="material-icons">device_unknown</i>`;
     }
     html += `</p><p> ${anno.body.comment}</p></div>`;
+    html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
     $("#annotation-info-content").html(html);
 
 }else if(anno.annotype === "Ads"){
   $("#annotation-info-title").html(`Werbeanzeige:`);
   html += `<p>Beworbene Marke/Geschäft: ${anno.body.brand}</p><p><i class="material-icons-outlined"></i> ${anno.body.comment}</p></div>`;
+  html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
   $("#annotation-info-content").html(html);
 
 }else if (anno.annotype === "Geo"){
 //not implemented, own dialog on map
 
 }
+//add iiif-image
+
+getIIIfPreviewSnippetUrl(anno._id, anno.target).then(function(result){
+  let link = config.iiifserver + result;
+  $("#anno-iiif-preview").attr("src", link);
+}).catch(function(err){
+  console.log(err);
+})
+
 drawThumb($("[anno-rating]"));
 };
 
@@ -1161,6 +1181,8 @@ elem.html(html);
 }
 
 function getIIIfPreviewSnippetUrl(id, target){
+
+  return new Promise(function(resolve, reject){
 //get File from Menupage
 //access iiif-server and generate URL for the Snippet
 //TODO: faster querys with mango possible?
@@ -1172,11 +1194,13 @@ DBmenu.query((doc, emit) => {
           }
         }).then((result) => {
           for (let row of result.rows) {
-            console.log(row);
             value = row.key;
-            return value.filepath.replace(/\//g, "%2F") + "/full/!200,200/0/default.jpg";
+            //Koordinaten bestimmen
+            var coord = target.selector.value.split("=");
+            console.log(value.filepath.replace(/\//g, "%2F") + "/" +coord[1] +"/!200,200/0/default.jpg")
+            resolve(value.filepath.replace(/\//g, "%2F") + "/" +coord[1] + "/!200,200/0/default.jpg")
 
           }
         })
-
+});
 }
