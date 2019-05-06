@@ -206,6 +206,13 @@ $("#button-pubs-menu-back").click(function(evt){
   $( "#card-pubs-detail" ).show();
 });
 
+$("#chip-pubs-menu-back").click(function(evt){
+  evt.preventDefault();
+  $( "main" ).hide();
+  $( "#card-pubs-detail" ).show();
+});
+
+
 $("#button-menu-detail-add-dish").click(function(evt){
   //evt.preventDefault();
   //enable drawing mode, if nothing has been selected
@@ -710,7 +717,7 @@ $("#annotation-category-popup").find('[data-mdc-dialog-action="accept"]').click(
 
 //dialog-category-select-upper
 //$("#dialog-category-select-upper > select").val(),
-var cat = $("#annotation-category-popup").find("[category-upperselect]").text();
+var cat = $("#annotation-category-popup").find("[category-upperselect]:selected").text();
 var cat_id = $("#annotation-category-popup").find("[category-upperselect]").val();
 if(cat === "none"){
   cat = null;
@@ -755,8 +762,9 @@ showTextOnSnackbar("Kategorie hinterlegt!", 5000);
 function showAnnotationInfoDialog(){
   //infos are saved in map object or list-object
   var anno_info = this.obj;
-app_state.anno_id = anno_info.id;
+app_state.anno_id = anno_info._id;
 app_state.anno_type = anno_info.annotype;
+console.log(this.obj);
   redrawAnnotationInfoDialog(anno_info);
   annotation_info_dialog.open();
 //Get info about Put
@@ -921,6 +929,7 @@ var down_votes = 0;
 var user_vote = null;
 var html = '';
 console.log(app_state.anno_typ); // not checked. typ is defined by anno_id and thumb-attribute
+console.log(app_state.anno_id);
 //count entries
 DBrating.find({
   selector: { 'target.anno_id' : app_state.anno_id},
@@ -945,18 +954,18 @@ DBrating.find({
 console.log(result);
 
 html += `<div class="rating-thumb">
- <button class="mdc-icon-button thumbUp">
- <span class="mdc-button__label">`+up_votes+`</span>
-<i class="material-icons-outlined  mdc-icon-button__icon">thumb_up</i>
+ <button class="demo-button mdc-button mdc-button--raised mdc-ripple-upgraded thumbUp">
+ <i class="material-icons-outlined mdc-button__icon">thumb_up</i>
+ <span class="mdc-button__label">`+up_votes+`</span
  </button>
-  <button class="mdc-icon-button thumbDown">
+  <button class="demo-button mdc-button mdc-button--raised mdc-ripple-upgraded thumbDown">
+  <i class="material-icons-outlined mdc-button__icon">thumb_down</i>
   <span class="mdc-button__label">`+down_votes+`</span>
-  <i class="material-icons-outlined mdc-icon-button__icon-">thumb_down</i>
   </button>
 </div`;
 
 elem.html(html);
-if(user_vote == true){
+if(user_vote === true){
 
   $(".thumbUp:visible").attr("disabled", true);
   $(".thumbDown:visible").attr("disabled", true);
@@ -972,13 +981,11 @@ $(".thumbDown:visible").find("i").toggleClass("material-icons").toggleClass("mat
 
 }
 
-
-
 //check, if user has already pressed any button
-
 
 function actionThumbUp(){
 //create new rating with thumb down
+console.log("thumbUp");
 var data = {
 "@context" : "http://www.w3.org/ns/anno.jsonld",
 "type" : "Annotation",
@@ -1013,6 +1020,7 @@ DBaddnew(data, DBrating);
 }
 function actionThumbDown(){
 //create new rating with thumb false
+console.log("ThumbDown");
 var data = {
 "@context" : "http://www.w3.org/ns/anno.jsonld",
 "type" : "Annotation",
@@ -1098,12 +1106,45 @@ $("#map-info-popup").on("click", ".thumbDown", function(evt){
   actionThumbUp();
 });
 
+$("#annotation-list").on("click", ".thumbUp", function(evt){
+  console.log(this);
+  var th = parseInt(($(this).closest("button").find("span").text())) + 1;
+  console.log("Up" + th);
+  $(".thumbUp:visible").attr("disabled", true);
+  $(".thumbDown:visible").attr("disabled", true);
+  $(".thumbUp:visible").find("i").toggleClass("material-icons").toggleClass("material-icons-outlined");
+  $(this).closest("button").find("span").html(th);
+  actionThumbUp();
+});
+
+$("#annotation-list").on("click", ".thumbDown", function(evt){
+  console.log(this);
+  var th = parseInt(($(this).closest("button").find("span").text())) + 1;
+  console.log("Up" + th);
+  $(".thumbUp:visible").attr("disabled", true);
+  $(".thumbDown:visible").attr("disabled", true);
+  $(".thumbUp:visible").find("i").toggleClass("material-icons").toggleClass("material-icons-outlined");
+  $(this).closest("button").find("span").html(th);
+
+  actionThumbUp();
+});
+
+function checkHelp(topic){
+//check if help page has been shown already
+//if(){
+redrawHelp(topic);
+//}
+}
+
 function redrawHelp(topic){
-if(topic === "annotation"){
+if(topic === "geo-annotation"){
   $("#help-title").html('');
   $("#help-content").html('');
   $("#help-go").html('');
+  //set handler for next action, e.g. click on accept button
+  //open
 }
+
 }
 
 $("#pubs-list-sort").click(function(){
@@ -1206,8 +1247,9 @@ db = DBimage;
 }
 db.get($(this).attr("data-id")).then(function(result){
 var anno_info = result;
-app_state.anno_id = anno_info.id;
+app_state.anno_id = anno_info._id;
 app_state.anno_type = anno_info.annotype;
+console.log(anno_info);
 redrawAnnotationInfoDialog(anno_info);
 annotation_info_dialog.open();
 
@@ -1240,8 +1282,9 @@ db = DBimage;
 if(db != null){
 db.get($(this).attr("data-id")).then(function(result){
 var anno_info = result;
-app_state.anno_id = anno_info.id;
+app_state.anno_id = anno_info._id;
 app_state.anno_type = anno_info.annotype;
+console.lot(annotype)
 redrawAnnotationInfoDialog(anno_info);
 annotation_info_dialog.open();
 }).catch(function(err){
@@ -1250,7 +1293,7 @@ annotation_info_dialog.open();
 }else if($(this).attr('data-type') === "Geo"){
   DBgeo.get($(this).attr("data-id")).then(function(result){
   var anno_info = result;
-  app_state.anno_id = anno_info.id;
+  app_state.anno_id = anno_info._id;
   app_state.anno_type = anno_info.annotype;
   app_state.pubs = result.target.pubid;
 
@@ -1282,5 +1325,14 @@ $("#map-random-pub").click(function(){
 console.log(randomProperty);
 MapShowPubID(randomProperty.spot.targer, randomProperty._latlng.lat, randomProperty._latlng.lng);
 showTextOnSnackbar("Zufällige Gaststätte ausgewählt!", 5000);
+
+})
+
+$("[filter-category]").click(function(evt){
+anno_filter_menu.open = true;
+
+})
+$("[you-filter-category]").click(function(evt){
+you_filter_menu.open = true;
 
 })

@@ -15,7 +15,8 @@ const user_state = {
 	'account_created' : false,
 	'identity' : "",
 	'timestamp' : 0,
-	'name' : ""
+	'name' : "",
+	'help' : {}
 };
 //contains infos about the view. Information and id's for the view.
 //Should avoid useless jquery-querys and easier access to render new pages

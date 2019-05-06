@@ -28,10 +28,6 @@ $.each(data, function (index, value) {
       elem.append(card_html);
     })
 
-
-
-
-
 console.log(data.length + " Pubs written to PubsList");
 }
 
@@ -84,6 +80,9 @@ DBpubs.allDocs({
     elem = $("#pubs-list");
     elem.html('');
     newPubListElement(doc.rows, elem);
+    if($.trim($(elem).html()) === ''){
+      elem.html('Es wurden keine Gasthäuser gefunden.');
+    };
 
     enrichPubListwithStatistic(elem);
     //enrich with statistics?
@@ -154,7 +153,6 @@ function newAdressListElement(data){
 
 function redrawMenuList(pubid){
 //TODO: refine query
-console.log("Hallo" + pubid);
 
 DBmenu.find({
   selector: {pub : pubid},
@@ -163,6 +161,11 @@ DBmenu.find({
 $("#pubs-menu-list").html('');
   $.each(result.docs, function (index, value) {
   var list = newMenuListElement(value);
+  if($.trim($("#pubs-menu-list").html()) === ''){
+    elem.html('Zurzeit gibt es in diesem Gasthaus keine Speisekarten. Versuche es später noch einmal, vielleicht finden wir noch eine..');
+  };
+
+
   $(" #pubs-menu-list").append(list);
   });
 });
@@ -173,15 +176,24 @@ function newMenuListElement(data){
       //using images
      var card_html = '';
   console.log(data);
-    card_html += `<h3 mdc-typography mdc-typography--headline6>${data.name} (${data.date}) - ${data.typ}</h3><ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list">`;
+    card_html += `<h3 mdc-typography mdc-typography--headline6>${data.name}</h3>
+    <div class="mdc-chip mdc-chip--selected">
+          <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">date_range</i>
+          <div class="mdc-chip__text">${data.date}</div>
+        </div>
+        <div class="mdc-chip mdc-chip--selected">
+              <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">date_range</i>
+              <div class="mdc-chip__text" menupage-search-type>${data.typ}</div>
+            </div>
+    <ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list">`;
     //get preview image from iiif server
     $.each(data.menupages, function (index1, value1) {
       var img_url = config['iiifserver'] + value1.filepath.replace(/\//g, "%2F") + "/full/!200,200/0/default.jpg";
       card_html += `<li class="mdc-image-list__item" data-id="${value1.id}">
-        <img class="mdc-image-list__image" src="${img_url}" alt="Nicht gefunden"'>
-        <div class="mdc-image-list__supporting">Beschreibung der Liste
-        </div>
-      </li>`;
+        <img class="mdc-image-list__image" src="${img_url}" alt="Kein Bild">`;
+        //<div class="mdc-image-list__supporting">Beschreibung der Liste
+        //card_html += `</div>`;
+      card_html += `</li>`;
 
       //<span class="mdc-image-list__label">${value1.category}</span>
 
@@ -191,6 +203,7 @@ function newMenuListElement(data){
 };
 
   function redrawDishesAllList(){
+    //deprecated?
   var List = [];
   DBdishes.allDocs({
       include_docs: true
@@ -254,13 +267,30 @@ app_state.menupage = data.target.menupage;
 app_state.anno_id = data._id;
 app_state.anno_typ = data.annotype;
 
+let logo = data.body.type;
+if(logo === "drink"){
+logo = `<span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">restaurant</span>`;
+}else if(logo === "meal"){
+logo = `<span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">local_drink</span>`;
+}else if(logo === "other"){
+logo = `<span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">device_unknown</span>`;
+}
 $("#card-dishes-detail").find("[dish-name]").html(data.body.name);
-$("#card-dishes-detail").find("[dish-type]").html(data.body.type);
-$("#card-dishes-detail").find("[dish-comment]").html(data.body.comment);
+$("#card-dishes-detail").find("[dish-type]").html(logo);
+$("#card-dishes-detail").find("[dish-comment]").html(data.body.description);
 $("#card-dishes-detail").find("[dish-amount]").html(data.body.amount);
 $("#card-dishes-detail").find("[dish-price]").html(data.body.price);
-$("#card-dishes-detail").find("[dish-currency]").html(data.body.currency);
-$("#card-dishes-detail").find("[dish-category]").html(data.body.category);
+$("#card-dishes-detail").find("[dish-currency]").html(data.body.price_currency);
+
+let category = data.body.categoryName;
+if(category === "none"){
+  category = "in keiner Kategorie";
+}
+$("#card-dishes-detail").find("[dish-category]").html(`<div class="mdc-chip mdc-chip--selected">
+  <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">category</i>
+  <div class="mdc-chip__text">${category}</div>
+</div>`);
+
 $("#card-dishes-detail").find("[iiif-preview]").html(`<div><img id="dish-iiif-preview" alt="Kein Bild"></div>`);
 
 
@@ -336,10 +366,14 @@ function newMenuCard(data){
       console.log(uri);
       loadTileLayer(uri, data.category);
 
-      $("#card-menu-detail > div > .mdc-card__primary-action > .demo-card__primary > h2 ").html(`${data.name} - ${data.date} - ${data.typ} - ID: ${data.category}`);
-      $("#card-menu-detail > div > .mdc-card__primary-action > .mdc-card__media ").attr('style', `background-image: url(assets/${data.filename})`);
+      $("#card-menu-detail").find("[menupage-name]").html(data.name);
+      $("#card-menu-detail").find("[menupage-date]").html(data.date);
+      $("#card-menu-detail").find("[menupage-typ]").html(data.typ);
+      //$("#card-menu-detail > div > .mdc-card__primary-action > .mdc-card__media ").attr('style', `background-image: url(assets/${data.filename})`);
 
       app_state.menupage = data.id;
+      let menu = app_state.menupage.split("/")
+      app_state.menu = menu[0] + "/" + menu[1];
      //TODO: change some menu card
 }
 
@@ -349,7 +383,13 @@ function redrawPubsDishesList(pubid){
   }, function (err, result) {
     if (err) { return console.log(err); }
     var list = newPubsDishesListElement(result);
-    console.log(list)
+
+    if($.trim($(list).html()) === ''){
+      list = `<li class="mdc-ripple-upgraded" tabindex="0"">
+      Noch sind für dieses Gasthaus keine Gerichte bekannt.
+      Sei der erste Gast hier und probiere ein paar Gerichte.
+      </li>`;
+    }
     $("#pubs-dishes-list").html('');
     $("#pubs-dishes-list").append(list);
     // handle result
@@ -633,64 +673,92 @@ function saveImage(blob) {
 function redrawAnnotationInfoDialog(anno){
   //get Data from klicked Annotation
   //distinguish different AnnotationTypes -> TODO: first only for dishes
-var html = `<div anno-rating></div><div><p>${anno.creator.name},`+timeDifference(Date.now(), anno.created)+`:</p></div><div>`;
+  let creator_name;
+  if(anno.creator.name === undefined || anno.creator.name == ""){
+    creator_name = "Anonym";
+  }
+var html = `<div anno-rating></div><div><p>${creator_name}, `+timeDifference(Date.now(), anno.created)+`:</p></div><div>`;
 if(anno.annotype === "Dishes"){
 $("#annotation-info-title").html(`${anno.body.name}`);
+let icon = ``;
 if(anno.body.type === "meal"){
-  html += `<p><i class="material-icons-outlined">restaurant</i>`;
+  icon += `<i class="material-icons">restaurant</i> `;
 }else if(anno.body.type === "drink"){
-  html += `<p><i class="material-icons-outlined">local_drink</i>`;
+ icon += `<i class="material-icons">local_drink</i> `;
 }else if(anno.body.type === "other"){
-  html += `<p><i class="material-icons-outlined">device_unknown</i>`;
+  icon += `<i class="material-icons">device_unknown</i> `;
 }
-html += ` </p><div class="mdc-chip mdc-chip--selected">
+$("#annotation-info-title").prepend(icon);
+let category = anno.body.categoryName;
+if(category === "none" || category === undefined){
+  category = "in keiner Kategorie";
+}
+html += `<div class="mdc-chip mdc-chip--selected">
   <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">category</i>
-  <div class="mdc-chip__text">${anno.body.categoryName}</div>
-</div><p>Preis: ${anno.body.price} ${anno.body.price_currency}</p>
+  <div class="mdc-chip__text">${category}</div>
+</div>`;
+html += `<p>Preis: ${anno.body.price} ${anno.body.price_currency}</p>
 <p>Anzahl: ${anno.body.amount}</p><p>Beschreibung: ${anno.body.description}</p><p></div>`; //TODO: Link zur Kategorie
 html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
 $("#annotation-info-content").html(html);
 
 }else if(anno.annotype === "OpeningHours"){
   $("#annotation-info-title").html(`Öffnungszeiten`);
-  html += `<p><i class="material-icons-outlined">access_time</i> ${anno.body.value}</p></div>`;
-  html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
-  $("#annotation-info-content").html();
-}else if(anno.annotype === "Category"){
-    $("#annotation-info-title").html($(anno.body.name));
-    html += `<p><i class="material-icons-outlined">category</i>`;
-    if(anno.body.upperCategoryID != undefined && anno.body.upperCategoryID != "null"){
-      html += `(Unterkategorie von ${anno.body.value})`; //TODO: Link zur Kategorie
-    }else{
-      html += `(keine Oberkategorie)`;
-    }
-    html += `</p></div>`;
-    html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
-
-    $("#annotation-info-content").html(html);
-}else if(anno.annotype === "Other"){
-  $("#annotation-info-title").html(``);
-  html += `<p><i class="material-icons-outlined"></i> ${anno.body.comment}</p></div><p>`;
+  $("#annotation-info-title").prepend(`<i class="material-icons-outlined">access_time</i> `);
+  html += `<div><p> ${anno.body.value}</p></div>`;
   html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
   $("#annotation-info-content").html(html);
-}else if(anno.annotype === "Image"){
-    $("#annotation-info-title").html(`Werbeanzeige:`);
-    if(anno.body.type === "photo"){
-      html += `<i class="material-icons">camera_roll</i>`;
-    }else if(anno.body.type === "draw"){
-      html += `<i class="material-icons">border_color</i>`;
-    }else if(anno.body.type === "ornament"){
-      html += `<i class="material-icons">polymer</i>`;
-    }else if(anno.body.type === "other"){
-        html += `<i class="material-icons">device_unknown</i>`;
+
+}else if(anno.annotype === "Category"){
+    $("#annotation-info-title").html(anno.body.name);
+    $("#annotation-info-title").prepend(`<i class="material-icons-outlined">category</i> `);
+    let category = anno.body.upperCategoryName;
+    if(category === "none" || category === undefined){
+      category = "in keiner Kategorie";
     }
-    html += `</p><p> ${anno.body.comment}</p></div>`;
+      html+= `<div class="mdc-chip mdc-chip--selected">
+          <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">category</i>
+          <div class="mdc-chip__text">${category}</div>
+        </div>`;
+    html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
+    $("#annotation-info-content").html(html);
+
+}else if(anno.annotype === "Other"){
+  $("#annotation-info-title").html(``);
+  $("#annotation-info-title").prepend(`<i class="material-icons-outlined">device_unknown</i> `);
+  html += `<p><i class="material-icons-outlined"></i> ${anno.body.comment}</p></div>`;
+  html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
+  $("#annotation-info-content").html(html);
+
+}else if(anno.annotype === "Image"){
+    $("#annotation-info-title").html(`Bild`);
+    let icon = ``;
+    if(anno.body.type === "photo"){
+      icon += `<i class="material-icons">camera_roll</i> `;
+    }else if(anno.body.type === "draw"){
+      icon += `<i class="material-icons">border_color</i> `;
+    }else if(anno.body.type === "ornament"){
+      icon += `<i class="material-icons">polymer</i> `;
+    }else if(anno.body.type === "other"){
+      icon += `<i class="material-icons">device_unknown</i> `;
+    }
+    $("#annotation-info-title").prepend(icon);
+    let desc = anno.body.comment
+    if(anno.body.comment === "" || anno.body.comment === undefined || anno.body.comment === null){
+      desc = "(ohne Beschreibung)"
+    }
+    html += `<p> ${desc}</p></div>`;
     html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
     $("#annotation-info-content").html(html);
 
 }else if(anno.annotype === "Ads"){
-  $("#annotation-info-title").html(`Werbeanzeige:`);
-  html += `<p>Beworbene Marke/Geschäft: ${anno.body.brand}</p><p><i class="material-icons-outlined"></i> ${anno.body.comment}</p></div>`;
+  $("#annotation-info-title").html(`Werbeanzeige`);
+  let desc = anno.body.comment
+  if(anno.body.comment === "" || anno.body.comment === undefined || anno.body.comment === null){
+    desc = "(ohne Beschreibung)"
+  }
+  $("#annotation-info-title").prepend(`<i class="material-icons-outlined">format_paint</i> `);
+  html += `<p>Beworbene Marke/Geschäft: ${anno.body.brand}</p><p> ${desc}</p></div>`;
   html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
   $("#annotation-info-content").html(html);
 
@@ -708,6 +776,7 @@ getIIIfPreviewSnippetUrl(anno._id, anno.target).then(function(result){
 })
 
 drawThumb($("[anno-rating]"));
+
 };
 
 function redrawMapPubDialog(latlng, infos){
@@ -765,6 +834,7 @@ function identity_check(){
             	user_state.account_created = true,
             	user_state.identity = docs[0].identity;
             	user_state.timestamp = docs[0].id;
+              user_state.help = docs[0].help;
 
               console.log("Identity Data found: " + user_state.identity + " -> Skipping.")
               DBhist_persons.get(user_state.identity).then(function(result){
@@ -796,6 +866,8 @@ function identity_check(){
     });
     return false;
 }
+
+
 
 function redrawYourDishes(){
 //Go through Dishes and Ratings and view all from this user
@@ -1003,7 +1075,7 @@ function getGeoStatistic(pubsid){
     var by_user_created = "", user_created_logo = ""
     var timestamp = JSON.stringify(data.created);
     var coord = "", coord_logo = "";
-    if(data.target.coord && data.target.coord.value != ""){
+    if(data.target.coord && data.target.coord.value == ""){
       coord = "coord-missing";
       coord_logo = '<i class="material-icons" title="Nicht auf der Karte">location_disabled</i>';
     };
@@ -1065,8 +1137,6 @@ function getGeoStatistic(pubsid){
   function drawPersonAnnotationList(list){
     //find all Annotations by this user
     //include Geo and Rating (special mode needed to access these)
-
-
     DBdishes.find({
       selector: {'creator.id' : user_state.timestamp},
     }).then(function(result){
@@ -1112,7 +1182,20 @@ function getGeoStatistic(pubsid){
                 console.log(value);
                 addToAnnotationList(value, list);
                 }
+                //if AnnotationList is emptyImageUrl
+
+
           });
+          console.log(list);
+
+          if($.trim($(list).html()) === ''){
+            var list_other = `<li class="mdc-ripple-upgraded" tabindex="0">
+            Noch hast du kein Gasthaus besucht. Stöber durch das Verzeichnis oder Entdecke neues auf der Karte
+            und probiere ein paar Gerichte.
+            </li>`;
+            console.log("Keine Annotationen gefunden!")
+            list.append(list_other);
+          }
 
     }).catch(function(err){
 console.log(err);

@@ -328,6 +328,14 @@ DBimage.allDocs({
           addToAnnotationList(objdoc, target_list);
 
         }
+        if($.trim($(target_list).html()) === ''){
+          var list_other = `<li class="mdc-ripple-upgraded" tabindex="0">
+          Für diese Speisekarte sind noch keine Gerichte verzeichnet. Nutze die Karte, markiere den passenden Bereich
+          und füge eine Art von Kategorie mit dem Button hinzu.
+          </li>`;
+          console.log("Keine Annotationen gefunden!")
+          target_list.append(list_other);
+        }
     };
 });
     markerLayer.addTo(map_iiif);
