@@ -1106,7 +1106,7 @@ $("#map-info-popup").on("click", ".thumbDown", function(evt){
   actionThumbUp();
 });
 
-$("#annotation-list").on("click", ".thumbUp", function(evt){
+$("#annotation-info-popup").on("click", ".thumbUp", function(evt){
   console.log(this);
   var th = parseInt(($(this).closest("button").find("span").text())) + 1;
   console.log("Up" + th);
@@ -1117,7 +1117,7 @@ $("#annotation-list").on("click", ".thumbUp", function(evt){
   actionThumbUp();
 });
 
-$("#annotation-list").on("click", ".thumbDown", function(evt){
+$("#annotation-info-popup").on("click", ".thumbDown", function(evt){
   console.log(this);
   var th = parseInt(($(this).closest("button").find("span").text())) + 1;
   console.log("Up" + th);
@@ -1167,10 +1167,10 @@ $("#pubs-list-sort").click(function(){
 
 })
 
-$(".filter-sort > span").on("click", function (evt){
+$(".filter-sort > .filter-buttons  > button").on("click", function (evt){
 //find next list and filter or sort
 console.log(this);
-var list = $(this).closest("div").find("ul:visible");
+var list = $(this).closest("div .filter-sort").find("ul:visible");
 if($(this).attr('filter-user') != undefined){
 if($(this).attr("user-filter-active") != undefined){
 list.find("li").show();
@@ -1226,9 +1226,27 @@ function dec_sort(a, b){
   return ($(b).find('mdc-list-item__primary-text').text()) > ($(a).find('mdc-list-item__primary-text').text()) ? 1 : -1;
 }
 
+}else if($(this).attr('filter-category-button') != undefined){
+//toggle filter
+//add event handlers
+//container:
+var category = $(this).closest("div .filter-sort").find(".filter-category-options").toggle();
+
+//register event handlers
 };
 });
 
+$(".filter-category-options").on('click', '.mdc-chip', function(evt){
+$(this).toggleClass("mdc-chip--selected");
+var data_type = $(this).attr("data-type");
+//find next visible list and hide all and show all categories with activated filters
+$(this).closest("div .filter-sort").find("ul:visible").find(`[data-type=`+data_type+`]`).toggle();
+//show entries with this data-type or hide entries with this data-type
+
+console.log("hide entries");
+
+
+});
 
 $("#annotation-list").on("click", ".mdc-list-item", function(){
 var db = null;
@@ -1282,9 +1300,9 @@ db = DBimage;
 if(db != null){
 db.get($(this).attr("data-id")).then(function(result){
 var anno_info = result;
+console.log(anno_info);
 app_state.anno_id = anno_info._id;
 app_state.anno_type = anno_info.annotype;
-console.lot(annotype)
 redrawAnnotationInfoDialog(anno_info);
 annotation_info_dialog.open();
 }).catch(function(err){
@@ -1309,6 +1327,19 @@ annotation_info_dialog.open();
 
 }else if($(this).attr('data-type') === "Rating"){
 //Comment Dishes-Funktion here
+DBrating.get($(this).attr("data-id")).then(function(result){
+var anno_info = result;
+app_state.anno_id = anno_info._id;
+app_state.anno_type = anno_info.annotype;
+app_state.pubs = result.target.pubid;
+
+drawThumb($("#map-info-popup").find("[geo-rating]"));
+app_state.pubs = this.target.pubid; //prerender Pubs-Dialog
+redrawPubs(app_state.pubs);
+map_pubinfo_dialog.open();
+}).catch(function(err){
+  console.log(err);
+});
 
 }
 //data-id data-type
@@ -1325,14 +1356,5 @@ $("#map-random-pub").click(function(){
 console.log(randomProperty);
 MapShowPubID(randomProperty.spot.targer, randomProperty._latlng.lat, randomProperty._latlng.lng);
 showTextOnSnackbar("Zufällige Gaststätte ausgewählt!", 5000);
-
-})
-
-$("[filter-category]").click(function(evt){
-anno_filter_menu.open = true;
-
-})
-$("[you-filter-category]").click(function(evt){
-you_filter_menu.open = true;
 
 })

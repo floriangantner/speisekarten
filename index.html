@@ -403,38 +403,53 @@
 <!--<div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">-->
     <!--<div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>-->
     <div class="demo-card__secondary mdc-typography mdc-typography--body2">
-        <div>
-        <p class="filter-sort">
-        <span><i class="material-icons" filter-category>filter_list</i></span>
-        <div class="mdc-menu mdc-menu-surface" tabindex="-1" id="anno-filter-category-list">
-  <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" id="">
-    <li>
-      <ul class="mdc-menu__selection-group">
-        <li class="mdc-list-item" role="menuitem">
-          <span class="mdc-list-item__graphic mdc-menu__selection-group-icon">
-            ...
-          </span>
-          <span class="mdc-list-item__text">Single</span>
-        </li>
-        <li class="mdc-list-item" role="menuitem">
-          <span class="mdc-list-item__graphic mdc-menu__selection-group-icon">
-           ...
-          </span>
-          <span class="mdc-list-item__text">1.15</span>
-        </li>
-      </ul>
-    </li>
-    <li class="mdc-list-divider" role="separator"></li>
-    <li class="mdc-list-item" role="menuitem">
-      <span class="mdc-list-item__text">Add space before paragraph</span>
-    </li>
-    ...
-  </ul>
-        </div>
-        <span filter-user><i class="material-icons" >person_pin</i></span>
-        <span sort-time><i class="material-icons" >hourglass_full</i></span>
-        <span filter-coord><i class="material-icons" >location_disabled</i></span>
-      </p>
+        <div class="filter-sort">
+        <div class="filter-buttons">
+          <button class="mdc-button mdc-ripple-upgraded" filter-category-button>
+          <i class="material-icons-outlined mdc-button__icon">filter_list</i>
+          <span class="mdc-button__label"></span>
+          </button>
+          <button class="mdc-button mdc-ripple-upgraded" filter-user>
+          <i class="material-icons-outlined mdc-button__icon">person_pin</i>
+          <span class="mdc-button__label"></span>
+          </button>
+          <button class="mdc-button mdc-ripple-upgraded" sort-time>
+          <i class="material-icons-outlined mdc-button__icon">hourglass_full</i>
+          <span class="mdc-button__label"></span>
+          </button>
+          <button class="mdc-button mdc-ripple-upgraded" filter-coord>
+          <i class="material-icons-outlined mdc-button__icon">location_disabled</i>
+          <span class="mdc-button__label"></span>
+          </button>
+      </div>
+          <div class="filter-category-options">
+            <div class="mdc-chip-set mdc-chip-set--filter">
+             <div class="mdc-chip" data-type="Category">
+              <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">category</i>
+              <div class="mdc-chip__text">Kategorie</div>
+            </div>
+            <div class="mdc-chip" data-type="OpeningHours">
+               <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">alarm</i>
+               <div class="mdc-chip__text">Öffnungszeiten</div>
+             </div>
+              <div class="mdc-chip" data-type="Dishes">
+                 <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">note_add</i>
+                 <div class="mdc-chip__text">Gerichte</div>
+               </div>
+               <div class="mdc-chip" data-type="Other">
+                  <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">announcement</i>
+                  <div class="mdc-chip__text">Anderes</div>
+                </div>
+                <div class="mdc-chip" data-type="Image">
+                   <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">image</i>
+                   <div class="mdc-chip__text">Bilder</div>
+                 </div>
+                 <div class="mdc-chip" data-type="Ads">
+                    <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">format_paint</i>
+                    <div class="mdc-chip__text">Werbeanzeigen</div>
+                  </div>
+          </div>
+      </div>
         <ul class="mdc-list anno-list mdc-list--two-line" id="annotation-list">
           <li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.id}">
             <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">${logo}</span>
@@ -443,6 +458,7 @@
             <span class="mdc-list-item__meta" aria-hidden="true">${value.body.price} ${value.body.price_currency}</span>
           </li>
         </ul>
+        <p>
       </div>
   </div>
 </div>
@@ -592,25 +608,28 @@
       </h3>
     </div>
     <div class="demo-card__secondary mdc-typography mdc-typography--body2">
-      <div>
-      <p class="filter-sort">
-      <span><i class="material-icons" you-filter-category>filter_list</i></span>
-
+      <div class="filter-sort">
+      <div class="filter-buttons">
+        <button class="mdc-button mdc-ripple-upgraded" filter-category-button>
+        <i class="material-icons-outlined mdc-button__icon">filter_list</i>
+        <span class="mdc-button__label"></span>
+        </button>
+<!--
       <div class="mdc-menu mdc-menu-surface" tabindex="-1" id="you-filter-category-list">
 <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" id="">
   <li>
     <ul class="mdc-menu__selection-group">
       <li class="mdc-list-item" role="menuitem">
         <span class="mdc-list-item__graphic mdc-menu__selection-group-icon">
-          ...
+          restaurant
         </span>
-        <span class="mdc-list-item__text">Single</span>
-      </li>
+        <span class="mdc-list-item__text">Gerichte</span>
+        </li>
       <li class="mdc-list-item" role="menuitem">
         <span class="mdc-list-item__graphic mdc-menu__selection-group-icon">
-         ...
+          category
         </span>
-        <span class="mdc-list-item__text">1.15</span>
+        <span class="mdc-list-item__text">Category</span>
       </li>
     </ul>
   </li>
@@ -619,11 +638,54 @@
     <span class="mdc-list-item__text">Add space before paragraph</span>
   </li>
 </ul>
-      </div>
+</div> -->
+<button class="mdc-button raised mdc-ripple-upgraded" sort-atoz>
+<i class="material-icons-outlined mdc-button__icon">sort_by_alpha</i>
+<span class="mdc-button__label"></span>
+</button>
 
-      <span sort-atoz><i class="material-icons">sort_by_alpha</i></span>
-      <span sort-time><i class="material-icons" >hourglass_full</i></span>
-    </p>
+<button class="mdc-button mdc-ripple-upgraded" sort-time>
+<i class="material-icons-outlined mdc-button__icon">hourglass_full</i>
+<span class="mdc-button__label"></span>
+</button>
+</div>
+    <div class="filter-category-options">
+      <div class="mdc-chip-set mdc-chip-set--filter">
+       <div class="mdc-chip" data-type="Category">
+        <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">category</i>
+        <div class="mdc-chip__text">Kategorie</div>
+      </div>
+      <div class="mdc-chip" data-type="OpeningHours">
+         <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">alarm</i>
+         <div class="mdc-chip__text">Öffnungszeiten</div>
+       </div>
+        <div class="mdc-chip" data-type="Dishes">
+           <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">note_add</i>
+           <div class="mdc-chip__text">Gerichte</div>
+         </div>
+         <div class="mdc-chip" data-type="Other">
+            <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">announcement</i>
+            <div class="mdc-chip__text">Anderes</div>
+          </div>
+          <div class="mdc-chip" data-type="Image">
+             <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">image</i>
+             <div class="mdc-chip__text">Bilder</div>
+           </div>
+           <div class="mdc-chip" data-type="Ads">
+              <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">format_paint</i>
+              <div class="mdc-chip__text">Werbeanzeigen</div>
+            </div>
+            <div class="mdc-chip" data-type="Geo">
+               <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">location_on</i>
+               <div class="mdc-chip__text">Adressen</div>
+             </div>
+             <div class="mdc-chip" data-type="Rating">
+                <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">comment</i>
+                <div class="mdc-chip__text">Bewertungen</div>
+              </div>
+    </div>
+  </div>
+    <div>
       <ul class="mdc-list anno-list mdc-list--two-line" id="list-anno-you">
         <li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.id}">
           <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">${logo}</span>
@@ -632,6 +694,7 @@
           <span class="mdc-list-item__meta" aria-hidden="true">${value.body.price} ${value.body.price_currency}</span>
         </li>
       </ul>
+    </div>
     </div>
     </div>
   </div>
@@ -1426,8 +1489,8 @@ console.log(mdc);
 mdc.ripple.MDCRipple.attachTo(document.querySelector('#menu '));
 const snackbar = new mdc.snackbar.MDCSnackbar(document.querySelector('.mdc-snackbar'));
 const anno_menu = new mdc.menu.MDCMenu(document.querySelector('#anno-add-menu'));
-const anno_filter_menu = new mdc.menu.MDCMenu(document.querySelector('#anno-filter-category-list'));
-const you_filter_menu = new mdc.menu.MDCMenu(document.querySelector('#you-filter-category-list'));
+//const anno_filter_menu = new mdc.menu.MDCMenu(document.querySelector('#anno-filter-category-list'));
+//const you_filter_menu = new mdc.menu.MDCMenu(document.querySelector('#you-filter-category-list'));
 
 const pubs_tabbar = new mdc.tabBar.MDCTabBar(document.querySelector('#pubs-tabbar'));
 const pubs_tabbar_indicator = new mdc.tabIndicator.MDCTabIndicator(document.querySelector('.mdc-tab-scroller'));
