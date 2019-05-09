@@ -7,6 +7,7 @@ const DBpubs = new PouchDB('pubs');
 const DBmenu = new PouchDB('menu');
 const DBhist_persons = new PouchDB('persons_hist');
 const DBuser = new PouchDB('user');
+const DBplayer = new PouchDB('player');
 
 const DBmenu_info = new PouchDB('menu_info'); //contains image/teaser material
 const DBmenu_status = new PouchDB('menu_status'); //contains menupaged finishes status

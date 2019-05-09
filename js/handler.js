@@ -396,7 +396,7 @@ var data = {
 	"comment" : $("[geo-comment").val()
 },
 "target" : {
-  "pubid" : app_state.pubid,
+  "pubid" : app_state.pubs,
 "menu" : app_state.menu
 },
 "creator" : {
@@ -637,14 +637,15 @@ function showMapPubDialog(){
   //Map event on click marker
   console.log(this);
   redrawMapPubDialog(this._latlng, this.spot);
-  getSingleTeaserInfo($("#map-info-popup").find("[map-teaser]"));
+  app_state.pubs = this.target.pubid;
   app_state.anno_id = this.spot._id;
   app_state.anno_typ = this.spot.annotype;
+
+  getSingleTeaserInfo($("#map-info-popup").find("[map-teaser]"));
 
   drawThumb($("#map-info-popup").find("[geo-rating]"));
   //prerender view of pub when clicking this
   //redrawPubs(this.pubid);
-  app_state.pubs = this.target.pubid;
   redrawPubs(app_state.pubs);
   console.log(map_pubinfo_dialog);
 
@@ -816,28 +817,22 @@ $( "#card-pubs-detail" ).hide();
 var geoid = $(this).attr('data-id');
 var lat, lng, data, coord_check = true;;
 //check for pubid -> multiple -> mark on popup and change marker -> change map
-DBgeo.allDocs({
-    include_docs: true
-  },function(err, doc){
-    $.each(doc.rows, function (index, value) {
-      if(value.doc.id === geoid){
-        if(value.doc.body.latlng === null){
+console.log("GEOID: "+ geoid);
+DBgeo.get(geoid).then(function(result){
+     if(result.body.latlng === null){
           coord_check = false;
-          spot = value.doc;
-
+          spot = result;
         }else{
-        lat = value.doc.body.latlng[0];
-        lng = value.doc.body.latlng[1];
-        spot = value.doc;
+        lat = result.body.latlng[0];
+        lng = result.body.latlng[1];
+        spot = result;
         }
-      }
-    });
+
     //add more info from actual pubs
-    //
     if(coord_check === false){
       showTextOnSnackbar("Koordinaten nicht gefunden!", 4000);
         getSingleTeaserInfo($("#map-info-popup").find("[map-teaser]"));
-        redrawMapPubDialog([lat,lng], this.spot);
+        redrawMapPubDialog([lat,lng], spot);
         drawThumb($("#map-info-popup").find("[geo-rating]"));
         //MapShowPubID($(this).attr('data-id'), lat, lng);
         mapAllPubsAdd();
@@ -845,12 +840,11 @@ DBgeo.allDocs({
 
   }else{
     getSingleTeaserInfo($("#map-info-popup").find("[map-teaser]"));
-    redrawMapPubDialog([lat,lng], this.spot);
+    redrawMapPubDialog([lat,lng], spot);
     drawThumb($("#map-info-popup").find("[geo-rating]"));
     MapShowPubID($(this).attr('data-id'), lat, lng);
     mapAllPubsAdd();
     map_pubinfo_dialog.open();
-
   }
 });
 $("#card-map").show();
@@ -1130,10 +1124,10 @@ $("#map-info-popup").on("click", ".thumbDown", function(evt){
   console.log("Down" + th);
   $(".thumbUp:visible").attr("disabled", true);
   $(".thumbDown:visible").attr("disabled", true);
-  $(".thumbUp:visible").find("i").toggleClass("material-icons").toggleClass("material-icons-outlined");
+  $(".thumbDown:visible").find("i").toggleClass("material-icons").toggleClass("material-icons-outlined");
   $(this).closest("button").find("span").html(th);
 
-  actionThumbUp();
+  actionThumbDown();
 });
 
 $("#annotation-info-popup").on("click", ".thumbUp", function(evt){
@@ -1153,10 +1147,10 @@ $("#annotation-info-popup").on("click", ".thumbDown", function(evt){
   console.log("Up" + th);
   $(".thumbUp:visible").attr("disabled", true);
   $(".thumbDown:visible").attr("disabled", true);
-  $(".thumbUp:visible").find("i").toggleClass("material-icons").toggleClass("material-icons-outlined");
+  $(".thumbDown:visible").find("i").toggleClass("material-icons").toggleClass("material-icons-outlined");
   $(this).closest("button").find("span").html(th);
 
-  actionThumbUp();
+  actionThumbDown();
 });
 
 function checkHelp(topic){
@@ -1345,8 +1339,9 @@ annotation_info_dialog.open();
   app_state.anno_type = anno_info.annotype;
   app_state.pubs = result.target.pubid;
 
-  getSingleTeaserInfo($("#map-info-popup").find("[map-teaser]"));
   redrawMapPubDialog(result.body.latlng, result);
+  getSingleTeaserInfo($("#map-info-popup").find("[map-teaser]"));
+
   drawThumb($("#map-info-popup").find("[geo-rating]"));
   app_state.pubs = this.target.pubid; //prerender Pubs-Dialog
   redrawPubs(app_state.pubs);
@@ -1417,5 +1412,21 @@ console.log(data);
 DBaddnew(data, DBmenu_status);
 //redraw PubMenuList with new Status
 redrawMenuList(app_state.pubs);
+
+});
+
+$(document).on("click", ".playerinfo", function(evt){
+  player_id = $(this).attr("data-id");
+  evt.preventDefault();
+  $( "main" ).hide();
+
+  if(player_id === user_state.timestamp || player_id == undefined){
+    $( "#card-about-you" ).show();
+  }else{
+    redrawPlayerInfo(player_id, $("#card-about-other"));
+    $( "#card-about-other" ).show();
+  }
+  drawer.open = false;
+
 
 });

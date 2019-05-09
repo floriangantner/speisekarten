@@ -70,6 +70,12 @@ background-color: #FAFAD2;
   right: 25px;
 }
 
+.playerinfo > img {
+  border-radius: 5px 5px 5px 5px;
+
+
+}
+
 /* stylelint-disable
 CSS
 TODO: Adapt, if needed. Else delete

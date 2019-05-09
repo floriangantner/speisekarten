@@ -361,31 +361,36 @@ $("#card-dishes-detail").find("[iiif-preview]").html(`<div class="iiif-image"><i
 
 
 DBrating.find({
-  selector: {'target.anno_id' : data._id, 'target.anno_typ' : 'Dish' },
-}, function (err, result) {
+  selector: {'target.anno_id' : data._id, 'target.anno_typ' : 'Dish' }
+}).then(function (result){
   console.log(result);
-  if (err) { return console.log(err); }
   $("#dishes-rating-list").html('');
   for(var doc in result.docs){
-    console.log(doc)
+    console.log(doc);
     if(result.docs[doc].target.anno_typ === "Dish" && result.docs[doc].body.comment != null && result.docs[doc].body.comment != undefined){
     var list = newDishesRatingElement(result.docs[doc]);
     }
     console.log(list)
     $("#dishes-rating-list").prepend(list);
+    //  drawPersonShortInfo(data.creator, data.created).then(function(result){
   }
+  //$.each("#dishes-rating-list").children("li").
   // handle result
+}).catch(function(err){
+  console.log(err);
 });
 }
 
 function newDishesRatingElement(data){
   //TODO: Sterne und Zeit formatieren
-return `<li class="mdc-list-item" tabindex="0" data-id="${data._id}">
-<span class="mdc-list-item__text">
-<span class="mdc-list-item__primary-text">${data.body.comment} `+ visualizeRating(data.body.rating) +`</span>
-<span class="mdc-list-item__secondary-text">${data.creator.name} : ` + timeDifference(Date.now(), data.created) + `</span>
-</span>
-</li>`;
+
+    return `<li class="mdc-list-item" tabindex="0" data-id="${data._id}">
+    <span class="mdc-list-item__text">
+    <span class="mdc-list-item__primary-text">${data.body.comment} `+ visualizeRating(data.body.rating) +`</span>
+    <span class="mdc-list-item__secondary-text" rating-person></span>
+    </span>
+    </li>`;
+
 }
 
 function redrawMenu(menupageid){
@@ -517,6 +522,8 @@ var player = {"_id" : timestamp,
 "id" : timestamp,
 "identity" : identity_id,
 "coord" : coord }
+console.log(img2DB);
+
 //write player data to DB, get data and add image attachement
 //DBadd(player, DBuser);
 //var url = URL.createObjectURL(img2DB);
@@ -537,7 +544,14 @@ return DBuser.get(timestamp)
   return DBuser.getAttachment(timestamp, imagename);
 }).then(function(blob) {
   redrawUserImage(blob);
- }).catch(function(err){
+  return DBplayer.put(player);
+}).then(function(result2){
+  return DBplayer.get(timestamp);
+}).then(function(result3){
+return DBplayer.putAttachment(result3._id, imagename, result3._rev, img2DB, 'image/jpeg');
+}).then(function(result4){
+  console.log("written in Player database")
+}).catch(function(err){
   console.log(err);
 });
 user_state.setAccount = true;
@@ -612,6 +626,23 @@ DBhist_persons.get(byID).then( function(doc){
 
 function getPlayerInfos(byID){
 //get Player Infos, like the blob or name
+
+}
+
+function redrawPlayerInfo(id, elem){
+//redraw Infos from this Player to elem
+app_state.player = id;
+DBplayer.get(id).then(function(result){
+  $(elem).find("[player-content]").html(JSON.stringify(result));
+  return DBhist_persons.get(result.identity);
+}).then(function(result2){
+  $("#card-about-other").find("[player-name]").html(`${doc.name}`);
+  $("#card-about-other").find("[player-job]").html(`${doc.job[0]}`);
+  $("#card-about-other").find(`[player-status]`).append(` (${doc.birthdate} - ${doc.deathdate})`);
+  $(elem).append(JSON.stringify(result2));
+}).catch(function(err){
+  console.log(err);
+})
 
 }
 
@@ -730,6 +761,7 @@ $('#person-selector-image').imgAreaSelect({remove:true});
 console.log(coord);
 
 canvas_img.toBlob(saveImage, 'image/jpeg');
+
 //callback function from toBlob
 function saveImage(blob) {
   console.log(blob);
@@ -742,102 +774,134 @@ function saveImage(blob) {
   }
   //$("#person-selector").show();
 
+function drawPersonShortInfo(data, timestamp){
+//Prints image and Personname and Timestamp
+//data.identity is also given
+return new Promise(function(resolve, rejected){
+  var creator_name = data.name;
+  if(data.name === undefined || data.name == "" || data.name === null){
+    creator_name = "Anonym";
+  }else if(data.id === user_state.timestamp ){
+    creator_name = "Du";
+  }
+  /*
+  DBplayer.find({
+    selector: {'_id' : data.creator.id},
+  }).then(function(result){
+        return */
+        var imagename = data.id + "_" + data.identity + ".jpeg"
+        console.log(data);
+        DBuser.getAttachment(data.id, imagename).then(function(result2){
+        var url = URL.createObjectURL(result2);
+        console.log(result2);
+        resolve(`<p class="playerinfo" data-id="${data.id}"><img src="${url}" width="64px" height="auto" alt=":-(" /> ${creator_name} , `+timeDifference(Date.now(), timestamp) + `:</p>`);
+  }).catch(function(error){
+    if(data.id === ""){
+      resolve(`<p class="playerinfo"> ${creator_name} , `+timeDifference(Date.now(), timestamp) + `:</p>`);
+    }
+    console.log(error);
+  })
+});
+}
+
+
 function redrawAnnotationInfoDialog(anno){
   //get Data from klicked Annotation
   //distinguish different AnnotationTypes -> TODO: first only for dishes
-  let creator_name;
-  if(anno.creator.name === undefined || anno.creator.name == ""){
-    creator_name = "Anonym";
-  }
-var html = `<div anno-rating></div><div><p>${creator_name}, `+timeDifference(Date.now(), anno.created)+`:</p></div><div>`;
-if(anno.annotype === "Dishes"){
-$("#annotation-info-title").html(`${anno.body.name}`);
-let icon = ``;
-if(anno.body.type === "meal"){
-  icon += `<i class="material-icons">restaurant</i> `;
-}else if(anno.body.type === "drink"){
- icon += `<i class="material-icons">local_drink</i> `;
-}else if(anno.body.type === "other"){
-  icon += `<i class="material-icons">device_unknown</i> `;
-}
-$("#annotation-info-title").prepend(icon);
-let category = anno.body.categoryName;
-if(category === "none" || category === undefined){
-  category = "in keiner Kategorie";
-}
-html += `<div class="mdc-chip mdc-chip--selected">
-  <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">category</i>
-  <div class="mdc-chip__text">${category}</div>
-</div>`;
-html += `<p>Preis: ${anno.body.price} ${anno.body.price_currency}</p>
-<p>Anzahl: ${anno.body.amount}</p><p>Beschreibung: ${anno.body.description}</p><p></div>`; //TODO: Link zur Kategorie
-html += `<div class="iiif-image"><img id="anno-iiif-preview" alt="Kein Bild"></div>`
-$("#annotation-info-content").html(html);
+  //drawPersonShortInfo(data, timestamp)
+  drawPersonShortInfo(anno.creator, anno.created).then(function(result){
 
-}else if(anno.annotype === "OpeningHours"){
-  $("#annotation-info-title").html(`Öffnungszeiten`);
-  $("#annotation-info-title").prepend(`<i class="material-icons-outlined">access_time</i> `);
-  html += `<div><p> ${anno.body.value}</p></div>`;
+  var html = `<div anno-rating></div><div>`+result+`</div><div>`;
+  if(anno.annotype === "Dishes"){
+  $("#annotation-info-title").html(`${anno.body.name}`);
+  let icon = ``;
+  if(anno.body.type === "meal"){
+    icon += `<i class="material-icons">restaurant</i> `;
+  }else if(anno.body.type === "drink"){
+   icon += `<i class="material-icons">local_drink</i> `;
+  }else if(anno.body.type === "other"){
+    icon += `<i class="material-icons">device_unknown</i> `;
+  }
+  $("#annotation-info-title").prepend(icon);
+  let category = anno.body.categoryName;
+  if(category === "none" || category === undefined){
+    category = "in keiner Kategorie";
+  }
+  html += `<div class="mdc-chip mdc-chip--selected">
+    <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">category</i>
+    <div class="mdc-chip__text">${category}</div>
+  </div>`;
+  html += `<p>Preis: ${anno.body.price} ${anno.body.price_currency}</p>
+  <p>Anzahl: ${anno.body.amount}</p><p>Beschreibung: ${anno.body.description}</p><p></div>`; //TODO: Link zur Kategorie
   html += `<div class="iiif-image"><img id="anno-iiif-preview" alt="Kein Bild"></div>`
   $("#annotation-info-content").html(html);
 
-}else if(anno.annotype === "Category"){
-    $("#annotation-info-title").html(anno.body.name);
-    $("#annotation-info-title").prepend(`<i class="material-icons-outlined">category</i> `);
-    let category = anno.body.upperCategoryName;
-    if(category === "none" || category === undefined){
-      category = "in keiner Kategorie";
-    }
-      html+= `<div class="mdc-chip mdc-chip--selected">
-          <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">category</i>
-          <div class="mdc-chip__text">${category}</div>
-        </div>`;
+  }else if(anno.annotype === "OpeningHours"){
+    $("#annotation-info-title").html(`Öffnungszeiten`);
+    $("#annotation-info-title").prepend(`<i class="material-icons-outlined">access_time</i> `);
+    html += `<div><p> ${anno.body.value}</p></div>`;
     html += `<div class="iiif-image"><img id="anno-iiif-preview" alt="Kein Bild"></div>`
     $("#annotation-info-content").html(html);
 
-}else if(anno.annotype === "Other"){
-  $("#annotation-info-title").html(``);
-  $("#annotation-info-title").prepend(`<i class="material-icons-outlined">device_unknown</i> `);
-  html += `<p><i class="material-icons-outlined"></i> ${anno.body.comment}</p></div>`;
-  html += `<div class="iiif-image"><img id="anno-iiif-preview" alt="Kein Bild"></div>`
-  $("#annotation-info-content").html(html);
+  }else if(anno.annotype === "Category"){
+      $("#annotation-info-title").html(anno.body.name);
+      $("#annotation-info-title").prepend(`<i class="material-icons-outlined">category</i> `);
+      let category = anno.body.upperCategoryName;
+      if(category === "none" || category === undefined){
+        category = "in keiner Kategorie";
+      }
+        html+= `<div class="mdc-chip mdc-chip--selected">
+            <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">category</i>
+            <div class="mdc-chip__text">${category}</div>
+          </div>`;
+      html += `<div class="iiif-image"><img id="anno-iiif-preview" alt="Kein Bild"></div>`
+      $("#annotation-info-content").html(html);
 
-}else if(anno.annotype === "Image"){
-    $("#annotation-info-title").html(`Bild`);
-    let icon = ``;
-    if(anno.body.type === "photo"){
-      icon += `<i class="material-icons">camera_roll</i> `;
-    }else if(anno.body.type === "draw"){
-      icon += `<i class="material-icons">border_color</i> `;
-    }else if(anno.body.type === "ornament"){
-      icon += `<i class="material-icons">polymer</i> `;
-    }else if(anno.body.type === "other"){
-      icon += `<i class="material-icons">device_unknown</i> `;
-    }
-    $("#annotation-info-title").prepend(icon);
+  }else if(anno.annotype === "Other"){
+    $("#annotation-info-title").html(``);
+    $("#annotation-info-title").prepend(`<i class="material-icons-outlined">device_unknown</i> `);
+    html += `<p><i class="material-icons-outlined"></i> ${anno.body.comment}</p></div>`;
+    html += `<div class="iiif-image"><img id="anno-iiif-preview" alt="Kein Bild"></div>`
+    $("#annotation-info-content").html(html);
+
+  }else if(anno.annotype === "Image"){
+      $("#annotation-info-title").html(`Bild`);
+      let icon = ``;
+      if(anno.body.type === "photo"){
+        icon += `<i class="material-icons">camera_roll</i> `;
+      }else if(anno.body.type === "draw"){
+        icon += `<i class="material-icons">border_color</i> `;
+      }else if(anno.body.type === "ornament"){
+        icon += `<i class="material-icons">polymer</i> `;
+      }else if(anno.body.type === "other"){
+        icon += `<i class="material-icons">device_unknown</i> `;
+      }
+      $("#annotation-info-title").prepend(icon);
+      let desc = anno.body.comment
+      if(anno.body.comment === "" || anno.body.comment === undefined || anno.body.comment === null){
+        desc = "(ohne Beschreibung)"
+      }
+      html += `<p> ${desc}</p></div>`;
+      html += `<div class="iiif-image"><img id="anno-iiif-preview" alt="Kein Bild"></div>`
+      $("#annotation-info-content").html(html);
+
+  }else if(anno.annotype === "Ads"){
+    $("#annotation-info-title").html(`Werbeanzeige`);
     let desc = anno.body.comment
     if(anno.body.comment === "" || anno.body.comment === undefined || anno.body.comment === null){
       desc = "(ohne Beschreibung)"
     }
-    html += `<p> ${desc}</p></div>`;
+    $("#annotation-info-title").prepend(`<i class="material-icons-outlined">format_paint</i> `);
+    html += `<p>Beworbene Marke/Geschäft: ${anno.body.brand}</p><p> ${desc}</p></div>`;
     html += `<div class="iiif-image"><img id="anno-iiif-preview" alt="Kein Bild"></div>`
     $("#annotation-info-content").html(html);
 
-}else if(anno.annotype === "Ads"){
-  $("#annotation-info-title").html(`Werbeanzeige`);
-  let desc = anno.body.comment
-  if(anno.body.comment === "" || anno.body.comment === undefined || anno.body.comment === null){
-    desc = "(ohne Beschreibung)"
+  }else if (anno.annotype === "Geo"){
+  //not implemented, own dialog on map
+
   }
-  $("#annotation-info-title").prepend(`<i class="material-icons-outlined">format_paint</i> `);
-  html += `<p>Beworbene Marke/Geschäft: ${anno.body.brand}</p><p> ${desc}</p></div>`;
-  html += `<div class="iiif-image"><img id="anno-iiif-preview" alt="Kein Bild"></div>`
-  $("#annotation-info-content").html(html);
-
-}else if (anno.annotype === "Geo"){
-//not implemented, own dialog on map
-
-}
+  drawThumb($("[anno-rating]"));
+  } )
 //add iiif-image
 
 getIIIfPreviewSnippetUrl(anno._id, anno.target).then(function(result){
@@ -847,7 +911,6 @@ getIIIfPreviewSnippetUrl(anno._id, anno.target).then(function(result){
   console.log(err);
 })
 
-drawThumb($("[anno-rating]"));
 
 };
 
@@ -861,13 +924,17 @@ function redrawMapPubDialog(latlng, infos){
       //$(" #pubs-list").append(list);
 
       $("#map-info-title").html(`${doc.name}`);
-
       $("#map-info-content").html(`<div>
-        <p>${infos.creator.name} meldete `+timeDifference(Date.now(), infos.created )+`:</p>
         <p>${addressinfo.street} ${addressinfo.number}, ${addressinfo.zip} ${addressinfo.city}</p>
         <p>${addressinfo.comment}</p></div>`);
-
-      });
+ return drawPersonShortInfo(infos.creator, infos.created);
+}).then(function(result){
+  console.log(result);
+  $("#map-info-creator").html(`<div>${result}</div>`).show();
+}).catch(function(err){
+  //if no image can be founded
+  console.log(err);
+});
 
     }
 
@@ -1258,7 +1325,7 @@ function getSingleTeaserInfo(elem){
 
 //returns one or two of available Infos, Image or Comment
 DBmenu_info.find({
-  selector: {'target.pubid' : app_state.pubid},
+  selector: {'target.pubid' : app_state.pubs},
 }).then(function(result){
   console.log(result);
   var random = result.docs[ result.docs.length * Math.random() << 0];
@@ -1335,10 +1402,13 @@ DBmenu.query((doc, emit) => {
           for (let row of result.rows) {
             value = row.key;
             //Koordinaten bestimmen
+            if(target.selector == undefined || target.selector == null){
+            resolve("");
+          }else{
             var coord = target.selector.value.split("=");
             console.log(value.filepath.replace(/\//g, "%2F") + "/" +coord[1] +"/!200,200/0/default.jpg")
             resolve(value.filepath.replace(/\//g, "%2F") + "/" +coord[1] + "/!200,200/0/default.jpg")
-
+          }
           }
         })
 });
@@ -1347,22 +1417,18 @@ DBmenu.query((doc, emit) => {
 
 function redrawCompleteDialog(menupage){
 //check, if given menupage has been marked complete yet and redraw Dialog
+var comment1 = '';
 DBmenu_status.find({
   selector: {'target.menupage': menupage},
 }).then(function(result){
   //only one entry should exist
   if(result.docs.length > 0){
     var result = result.docs[0];
-    var creatorname = result.creator.name;
-    if(creatorname === "" || creatorname === undefined){
-      creatorname = "Anonym";
-    }
-var html_out = `<div><p> meldete ${creatorname} `+timeDifference(result.created, Date.now())+`</p><p>Kommentar: ${result.body.comment}</p></div>`;
-$("#dialog-complete").find("[complete-anno-status]").html(html_out);
+console.log(result);
+
 $("#dialog-complete-title").html('<i class="material-icons">done_all</i> Seite ist komplett!');
 $("#dialog-complete").find("#dialog-complete-input").hide();
 $("#dialog-complete").find('[data-mdc-dialog-action="accept"]').attr("disabled", "true");
-$("#dialog-complete").find("[complete-anno-status]").show();
 $("#dialog-complete").find("[complete-not-yet]").hide();
 $("#dialog-complete-title").html();
 
@@ -1374,6 +1440,11 @@ $("#dialog-complete").find("[complete-not-yet]").show();
 $("#dialog-complete").find("#dialog-complete-input").show();
 $("#dialog-complete").find('[data-mdc-dialog-action="accept"]').removeAttr("disabled");
 }
+comment1 = result.body.comment;
+return drawPersonShortInfo(result.creator, result.created);
+}).then(function(result2){
+var html_out = `<div><p>`+result2+`</p><p>Kommentar: ${comment1}</p></div>`;
+$("#dialog-complete").find("[complete-anno-status]").show().html(html_out);
 
 }).catch(function(err){
   console.log(err)
@@ -1452,5 +1523,7 @@ console.log(err);
           })
 
 });
+
+
 
 }

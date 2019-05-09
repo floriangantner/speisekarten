@@ -48,7 +48,7 @@
         <a class="mdc-list-item" href="#" tabindex="-1" id="nav-dishes-all"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">restaurant</i>Alle Gerichte</a>
 
         <hr class="mdc-list-divider">
-        <h6 class="mdc-list-group__subheader">Labels</h6>
+        <h6 class="mdc-list-group__subheader"></h6>
         <a class="mdc-list-item" href="#" tabindex="-1" id="nav-about-you"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">face</i>Personas</a>
         <a class="mdc-list-item" href="#" tabindex="-1" id="nav-anno-you"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">local_dining</i>Von dir entdeckt</a>
         <a class="mdc-list-item" href="#" tabindex="-1" id="nav-about-us">
@@ -627,11 +627,12 @@
 <main class="maincard" id="card-about-other">
   <div class="mdc-card demo-card demo-basic-with-header">
     <div class="demo-card__primary">
-      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Über andere Personen</h2>
-      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">Name, Vorname, Portrait</h3>
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6" player-name>Über andere Personen</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2" player-job>Name, Vorname, Portrait</h3>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2" player-status>Name, Vorname, Portrait</h3>
     </div>
     <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
-      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Was haben andere Personen bewertet oder besucht?</div>
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2" player-content>Was haben andere Personen bewertet oder besucht?</div>
     </div>
   </div>
 </main>
@@ -808,10 +809,12 @@
 </div>
 <footer class="mdc-dialog__actions">
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
-    <span class="mdc-button__label">Abbrechen <i class="material-icons mdc-icon-button__icon">clear</i></span>
+    <span class="mdc-button__label">Abbrechen</span>
+    <i class="material-icons mdc-icon-button__icon">clear</i>
   </button>
-  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
-    <span class="mdc-button__label">Okay <i class="material-icons mdc-icon-button__icon" id="help-go">check_circle</i></span>
+  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept" id="help-go">
+    <span class="mdc-button__label">Okay</span>
+    <i class="material-icons mdc-icon-button__icon">check_circle</i>
   </button>
 </footer>
 </div>
@@ -833,10 +836,12 @@
 </div>
 <footer class="mdc-dialog__actions">
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
-    <span class="mdc-button__label">Abbrechen <i class="material-icons mdc-icon-button__icon">clear</i></span>
+    <span class="mdc-button__label">Abbrechen</span>
+    <i class="material-icons mdc-icon-button__icon">clear</i>
   </button>
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
-    <span class="mdc-button__label">Okay <i class="material-icons mdc-icon-button__icon">check_circle</i></span>
+    <span class="mdc-button__label">Okay</span>
+    <i class="material-icons mdc-icon-button__icon">check_circle</i>
   </button>
 </footer>
 </div>
@@ -889,10 +894,12 @@
 </div>
 <footer class="mdc-dialog__actions">
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
-    <span class="mdc-button__label">Abbrechen <i class="material-icons mdc-icon-button__icon">clear</i></span>
+    <span class="mdc-button__label">Abbrechen </span>
+    <i class="material-icons mdc-icon-button__icon">clear</i>
   </button>
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
-    <span class="mdc-button__label">Okay <i class="material-icons mdc-icon-button__icon">check_circle</i></span>
+    <span class="mdc-button__label">Okay</span>
+    <i class="material-icons mdc-icon-button__icon">check_circle</i>
   </button>
 </footer>
 </div>
@@ -911,16 +918,19 @@
    --></h2>
    <span geo-rating></span>
       <div class="mdc-dialog__content">
+        <span id="map-info-creator"></span>
         <span id="map-info-content"></span>
 
         <span map-teaser></span>
 </div>
 <footer class="mdc-dialog__actions">
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
-    <span class="mdc-button__label">Abbrechen <i class="material-icons mdc-icon-button__icon">clear</i></span>
+    <span class="mdc-button__label">Abbrechen</span>
+     <i class="material-icons mdc-icon-button__icon">clear</i>
   </button>
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
-    <span class="mdc-button__label">Okay <i class="material-icons mdc-icon-button__icon">check_circle</i></span>
+    <span class="mdc-button__label">Okay</span>
+    <i class="material-icons mdc-icon-button__icon">check_circle</i>
   </button>
 </footer>
 </div>
@@ -958,10 +968,12 @@
 </div>
 <footer class="mdc-dialog__actions">
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
-    <span class="mdc-button__label">Abbrechen <i class="material-icons mdc-icon-button__icon">clear</i></span>
+    <span class="mdc-button__label">Abbrechen</span>
+     <i class="material-icons mdc-icon-button__icon">clear</i>
   </button>
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
-    <span class="mdc-button__label">Okay <i class="material-icons mdc-icon-button__icon">check_circle</i></span>
+    <span class="mdc-button__label">Okay</span>
+    <i class="material-icons mdc-icon-button__icon">check_circle</i>
   </button>
 </footer>
 </div>
@@ -996,10 +1008,12 @@
 </div>
 <footer class="mdc-dialog__actions">
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close" onclick="alert(Osterei!);">
-    <span class="mdc-button__label">Abbrechen <i class="material-icons mdc-icon-button__icon">clear</i></span>
+    <span class="mdc-button__label">Abbrechen</span>
+    <i class="material-icons mdc-icon-button__icon">clear</i>
   </button>
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
-    <span class="mdc-button__label">Okay <i class="material-icons mdc-icon-button__icon">check_circle</i></span>
+    <span class="mdc-button__label">Okay</span>
+    <i class="material-icons mdc-icon-button__icon">check_circle</i>
   </button>
 </footer>
 </div>
@@ -1045,10 +1059,12 @@
 </div>
 <footer class="mdc-dialog__actions">
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close" onclick="alert(Osterei!);">
-    <span class="mdc-button__label">Abbrechen <i class="material-icons mdc-icon-button__icon">clear</i></span>
+    <span class="mdc-button__label">Abbrechen</span>
+    <i class="material-icons mdc-icon-button__icon">clear</i>
   </button>
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
-    <span class="mdc-button__label">Okay <i class="material-icons mdc-icon-button__icon">check_circle</i></span>
+    <span class="mdc-button__label">Okay</span>
+    <i class="material-icons mdc-icon-button__icon">check_circle</i>
   </button>
 </footer>
 </div>
@@ -1119,10 +1135,10 @@
 </div>
 <footer class="mdc-dialog__actions">
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close" onclick="alert(Osterei!);">
-    <span class="mdc-button__label">Abbrechen <i class="material-icons mdc-icon-button__icon">clear</i></span>
+    <span class="mdc-button__label">Abbrechen </span><i class="material-icons mdc-icon-button__icon">clear</i>
   </button>
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
-    <span class="mdc-button__label">Okay <i class="material-icons mdc-icon-button__icon">check_circle</i></span>
+    <span class="mdc-button__label">Okay </span><i class="material-icons mdc-icon-button__icon">check_circle</i>
   </button>
 </footer>
 </div>
@@ -1223,10 +1239,10 @@
 </div>
 <footer class="mdc-dialog__actions">
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
-    <span class="mdc-button__label">Abbrechen <i class="material-icons mdc-icon-button__icon">clear</i></span>
+    <span class="mdc-button__label">Abbrechen</span><i class="material-icons mdc-icon-button__icon">clear</i>
   </button>
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
-    <span class="mdc-button__label">Okay <i class="material-icons mdc-icon-button__icon">check_circle</i></span>
+    <span class="mdc-button__label">Okay</span><i class="material-icons mdc-icon-button__icon">check_circle</i>
   </button>
 </footer>
 </div>
@@ -1268,10 +1284,10 @@
 </div>
 <footer class="mdc-dialog__actions">
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
-    <span class="mdc-button__label">Abbrechen <i class="material-icons mdc-icon-button__icon">clear</i></span>
+    <span class="mdc-button__label">Abbrechen </span><i class="material-icons mdc-icon-button__icon">clear</i>
   </button>
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
-    <span class="mdc-button__label">Okay <i class="material-icons mdc-icon-button__icon">check_circle</i></span>
+    <span class="mdc-button__label">Okay </span><i class="material-icons mdc-icon-button__icon">check_circle</i>
   </button>
 </footer>
 </div>
@@ -1309,10 +1325,10 @@
 </div>
 <footer class="mdc-dialog__actions">
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
-    <span class="mdc-button__label">Abbrechen <i class="material-icons mdc-icon-button__icon">clear</i></span>
+    <span class="mdc-button__label">Abbrechen </span><i class="material-icons mdc-icon-button__icon">clear</i>
   </button>
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
-    <span class="mdc-button__label">Okay <i class="material-icons mdc-icon-button__icon">add_box</i></span>
+    <span class="mdc-button__label">Okay </span><i class="material-icons mdc-icon-button__icon">add_box</i>
   </button>
 </footer>
 </div>
@@ -1364,10 +1380,12 @@
       </div>
       <footer class="mdc-dialog__actions">
         <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
-          <span class="mdc-button__label">Abbrechen <i class="material-icons mdc-icon-button__icon">clear</i></span>
+          <span class="mdc-button__label">Abbrechen </span>
+          <i class="material-icons mdc-icon-button__icon">clear</i>
         </button>
         <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
-          <span class="mdc-button__label">Hinterlegen <i class="material-icons mdc-icon-button__icon">add_box</i></span>
+          <span class="mdc-button__label">Hinterlegen </span>
+          <i class="material-icons mdc-icon-button__icon">add_box</i>
         </button>
       </footer>
     </div>
@@ -1491,10 +1509,12 @@ noch nicht gepflegt
 </div>
       <footer class="mdc-dialog__actions">
         <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
-          <span class="mdc-button__label">Abbrechen <i class="material-icons mdc-icon-button__icon">clear</i></span>
+          <span class="mdc-button__label">Abbrechen </span>
+          <i class="material-icons mdc-icon-button__icon">clear</i>
         </button>
         <button type="button" class="mdc-button mdc-dialog__button--default mdc-dialog__button" data-mdc-dialog-action="accept">
-          <span class="mdc-button__label">Hinterlegen <i class="material-icons mdc-icon-button__icon">add_box</i></span>
+          <span class="mdc-button__label">Hinterlegen </span>
+          <i class="material-icons mdc-icon-button__icon">add_box</i>
         </button>
       </footer>
     </div>
