@@ -15,7 +15,6 @@ var map = L.map('mapid',  {  zoomControl: true,
 	zoomControl: false
 }).setView([48.14376046470259, 11.56906379032135], 13);
 
-
 var titleControl = L.Control.extend({
   options: {
     position: 'topleft'

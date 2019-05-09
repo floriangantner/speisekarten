@@ -40,7 +40,7 @@ document.execCommand("copy");
 
 })
 
-  var geos = [], pubcounter = [], geoid = 4;
+  var geos = [], pubcounter = [], geoid = 1;
   var time_start = new Date().getTime();
   var fileInput = document.getElementById("csv"),
       readFile = function () {
@@ -58,15 +58,15 @@ document.execCommand("copy");
                 allRows[index] = null;
                 allRows[index] = {
                   'id' : value_split[0],
-                  'name_other' : value_split[1],
-                  'lokal' : value_split[2],
-                  'jahr' : value_split[3],
-                  'tel' : value_split[4],
-                  'adresse' : value_split[5],
+                  'lokal' : value_split[1],
+                  'jahr' : value_split[2],
+                  'tel' : value_split[3],
+                  'street' : value_split[4],
+                  'streetno' : value_split[5],
                   'latlng' : value_split[6],
-                  'quelle' : value_split[7],
-                  'bemerkung' : value_split[8],
-                  'misc' : value_split[9] //und waas danach kommt
+                  'speisekarte' : value_split[7],
+                  'fremdID' : value_split[8],
+                  'Personen' : value_split[9] //und waas danach kommt
                 }
               });
 
@@ -119,13 +119,9 @@ newgeo = {
 	"country" : "",
 	"city" : "",
 	"zip" : "",
-	"street" : thisentry.adresse,
-	"number" : "",
-	"street_old" : "",
-	"zip_old" : "",
-	"city_old" : "",
-	"number_old" : "",
-	"comment" : thisentry.bemerkung + " | Quelle:" + thisentry.quelle
+	"street" : thisentry.street,
+	"number" : thisentry.streetno,
+	"comment" : "",
 },
 "target" : {"pubid": id,
 "menu" : menu_id},

@@ -610,6 +610,11 @@ DBhist_persons.get(byID).then( function(doc){
 
 }
 
+function getPlayerInfos(byID){
+//get Player Infos, like the blob or name
+
+}
+
 function newIdentityInfo(data){
   console.log(data);
   var selectImg = $("#person-selector-image");
