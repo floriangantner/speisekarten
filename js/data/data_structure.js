@@ -59,6 +59,31 @@ Menu & Menupage ->
 	]
 }
 
+Menu-Infos -> {
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"id" : "",
+"_id" : "",
+"type" : "Annotation",
+"annotype" : "Menufinished",
+"body" : {
+	"status" : "true",
+	"comment" : ""
+},
+"target" : {"pubid":"p1",
+"menu" : "p1/m1",
+"menupage" : "p1/m1/mp1"},
+"creator" : {
+	"id" : "",
+	"name" : "",
+	"identity" : ""
+},
+"generator" : {
+	"name" : "tripadviswurst"
+},
+"created" : "timestamp",
+"motivation" : "assessing"
+}
+
 Player ->
 {
 	"_id" : JSON.stringify(timestamp),

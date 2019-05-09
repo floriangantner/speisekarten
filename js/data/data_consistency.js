@@ -32,9 +32,15 @@ DBpubs.bulkDocs(data_pubs).then(function (result) {
 //Create Indexes for Searching
   return DBmenu.createIndex({
     index: {
-      fields: ['menupages', 'pub']
+      fields: ['menupages']
     }});
 }).then(function(result){
+  return DBmenu.createIndex({
+    index: {
+      fields: ['pub']
+    }});
+  }).then(function(result){
+
   return DBdishes.createIndex({
     index: {
       fields: ['pubid', 'playerid']
@@ -85,8 +91,13 @@ function dataStructure_check(){
         //creating indexes for search
         DBmenu.createIndex({
           index: {
-            fields: ['menupages', 'pub']
+            fields: ['menupages']
           }}).then(function(result2){
+            DBmenu.createIndex({
+              index: {
+                fields: ['pub']
+              }})
+            }).then(function(result2){
         return DBdishes.createIndex({
           index: {
             fields: ['pubid']
@@ -99,7 +110,7 @@ function dataStructure_check(){
           }).then(function(result2){
             return DBgeo.createIndex({
               index: {
-                fields: ['target-pubid']
+                fields: ['target.pubid']
               }})
             }).then(function(result2){
               console.log("Indexes created");

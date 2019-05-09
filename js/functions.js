@@ -54,7 +54,7 @@ $.each(data, function (index, value) {
       card_html = `<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.id}">
         <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.doc.name}</span>
         <span class="mdc-list-item__secondary-text"><span data-stat></span><span data-geo></span></span></span>
-        <span class="mdc-list-item__meta" aria-hidden="true" data-status><i class="material-icons">check</i></span>
+        <span class="mdc-list-item__meta" aria-hidden="true" data-status><i class="material-icons">explore</i></span>
       </li>`;
       elem.append(card_html);
     })
@@ -72,29 +72,30 @@ function enrichPubListwithStatistic(elem){
   var counter = 0;
 elem.find("li").each(function(index, value){
   let id = $(this).attr("data-id");
-getPubsStatistic(id).then(function(result){
-$(value).find("[data-stat]").html(`${result.menupage} <i class="material-icons">chrome_reader_mode</i>`)
-return getGeoStatistic(id)
-}).then(function(result){
-  if(result.geo <= 0){
+getCompleteStatusOfPub(id).then(function(result){
+$(value).find("[data-stat]").html(`${result.menu} <i class="material-icons">chrome_reader_mode</i>`);
+var percentage = Math.floor((result.finished/result.total) * 100);
+
+if(result.finished === 0){
+$(value).attr("data-complete", "0").find("[data-status]").html(`${percentage} %`);
+}else if(result.finished === result.total){
+$(value).attr("data-complete", "100").find("[data-status]").html(`${percentage} % <i class="material-icons">done_all</i>`);
+}else{
+  //TODO Check with menupages, if all are finished
+
+$(value).attr("data-complete", percentage).find("[data-status]").html(`${percentage} %`);
+}
+return getGeoStatistic(id);
+}).then(function(result2){
+  if(result2.geo <= 0){
 $(value).find("[data-geo]").html(`<i class="material-icons">location_off</i>`)
-}else if(result.geo === 1){
+}else if(result2.geo === 1){
 $(value).find("[data-geo]").html(`<i class="material-icons">location_on</i>`)
 }else{
-$(value).find("[data-geo]").html(`${result.geo}<i class="material-icons">location_on</i>`)
+$(value).find("[data-geo]").html(`${result2.geo}<i class="material-icons">location_on</i>`)
 }
-counter += result.geo;
-if(counter === 0){
-$(value).find("[data-status]").html(`<i class="material-icons">help_outline</i>`)
-}else if(counter < 4){
-$(value).find("[data-status]").html(`<i class="material-icons">done</i>`)
-}else if(counter > 4){
-  //TODO Check with menupages, if all are finished
-$(value).find("[data-status]").html(`<i class="material-icons">done_all</i>`)
-
 }
-
-}).catch(function(err){
+).catch(function(err){
   console.log(err);
 })
 
@@ -142,6 +143,7 @@ function newPubCard(data){
   $("#pubs-detail-tabs-info > .demo-card__primary > h2  ").text(`${data.name}`);
   redrawPubsAdressList();
   redrawPubsRatingInfo();
+  console.log(getCompleteStatusOfPub(app_state.pubs));
 
 }
 
@@ -194,7 +196,37 @@ var list = "";
   $.each(result.docs, function (index, value) {
   list += newMenuListElement(value);
   });
-  $(" #pubs-menu-list").append(list);
+  $("#pubs-menu-list").append(list);
+  //load Infos for MenuData
+  $("#pubs-menu-list").find(".mdc-image-list").children("li").each(function(index, value){
+    //getCompleteStatusOfMenupage(value1._id).then(function(result){
+    getCompleteStatusOfMenupage($(value).attr("data-id")).then(function(result){
+      console.log($(value).attr("data-id"));
+      if(result === true){
+        $(value).find("[menupage-status-label]").html('<i class="material-icons">done_all</i>');
+      }else {
+      $(value).find("[menupage-status-label]").html('<i class="material-icons">explore</i>');
+
+    }
+    });
+    });
+    let menupage_header = $("#pubs-menu-list").find("[menupage-complete-status]");
+    $.each(menupage_header, function (index, value) {
+      getCompleteStatusOfMenu($(value).attr("data-menuid")).then(function(result2){
+        var percentage = Math.floor((result2.finished / result2.total) * 100);
+        if(percentage === 100){
+          $(value).find("[menupage-complete-status-percentage]").html('done_all');
+        }else{
+          $(value).find("[menupage-complete-status-percentage]").html('explore');
+        }
+        $(value).find("[menupage-complete-status-text]").html(percentage + " %");
+
+      });
+
+      //menupage-complete-status-text
+      //menupage-complete-status-percentage
+
+    });
 
   if($.trim($("#pubs-menu-list").html()) === ''){
     list = 'Der Wirt hat gerade die Speisekarte verlegt. Versuche es später noch einmal, vielleicht findet er sie ja..';
@@ -217,21 +249,23 @@ function newMenuListElement(data){
               <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">date_range</i>
               <div class="mdc-chip__text" menupage-search-type>${data.typ}</div>
             </div>
-    <ul class="mdc-image-list mdc-image-list--masonry my-masonry-image-list">`;
+            <div class="mdc-chip mdc-chip--selected" menupage-complete-status data-menuid="${data._id}">
+                  <i class="material-icons mdc-chip__icon mdc-chip__icon--leading" menupage-complete-status-percentage>%</i>
+                  <div class="mdc-chip__text" menupage-complete-status-text></div>
+                </div>
+                <ul class="mdc-image-list my-image-list">`;
+
     //get preview image from iiif server
     $.each(data.menupages, function (index1, value1) {
       var img_url = config['iiifserver'] + value1.filepath.replace(/\//g, "%2F") + "/full/!200,200/0/default.jpg";
-      card_html += `<li class="mdc-image-list__item" data-id="${value1.id}">
-        <img class="mdc-image-list__image" src="${img_url}" alt="Kein Bild">`;
-        //<div class="mdc-image-list__supporting">Beschreibung der Liste
-        //card_html += `</div>`;
+      card_html += `<li class="mdc-image-list__item iiif-image" data-id="${value1.id}">
+      <div class="mdc-image-list__image-aspect-container ">
+        <img class="mdc-image-list__image" src="${img_url}" alt="Kein Bild"></div>
+        <div class="mdc-image-list__supporting"><span class="mdc-image-list__label" menupage-status-label>e</span></div>`;//card_html += `</div>`;
       card_html += `</li>`;
-
-      //<span class="mdc-image-list__label">${value1.category}</span>
-
-  });
-  card_html += `</ul>`;
-    return card_html;
+})
+card_html += `</ul>`;
+  return card_html;
 };
 
   function redrawDishesAllList(){
@@ -433,7 +467,6 @@ function redrawPubsDishesList(pubid){
 function newPubsDishesListElement(data){
   var card_html = '';
  $.each(data.docs, function (index, value) {
-   console.log(value)
    var logo = value.body.type;
    if(logo === "drink"){
    logo = 'restaurant';
@@ -1034,31 +1067,7 @@ for(; counter_printed < 5; counter_printed++){
 return text_html;
 }
 
-
 //get PubsData
-function getPubsStatistic(pubsid){
-//get infos about all menupages, numbers, ratings and status, and geolocation infos
-//returned in object
-//DFS Search
-return new Promise(function(resolve, reject){
-var obj = { menu : 0,
-menupage : 0};
-/*DBmenu.find({
-  selector: {pub : pubsid},
-}, function (err, result) {
-  $.each(result.docs, function (index, value) {
-  obj.menu += 1;
-  obj.menupage += value.menupages.length;
-  });
-*/
-  resolve(obj);
-
-// });
-
-});
-
-}
-
 function getGeoStatistic(pubsid){
   var obj = { geo : 0};
   return new Promise(function(resolve, reject){
@@ -1274,9 +1283,10 @@ function getAllTeaserInfo(elem){
 elem.html('');
 var html = '';
   DBmenu_info.find({
-    selector: {'target.pubid' : app_state.pubid},
+    selector: {'target.pubid' : app_state.pubs},
   }).then(function(result){
     console.log(result);
+    console.log(app_state.pubs);
     //TODO:limit to only some pictures 4 - 5
     html = `<div data-slick='{"slidesToShow": 2, "slidesToScroll": 1, "arrows":true}'> style='width:100%'`;
     $.each(result.docs, function (index, value) {
@@ -1332,23 +1342,53 @@ DBmenu.query((doc, emit) => {
 
 function redrawCompleteDialog(menupage){
 //check, if given menupage has been marked complete yet and redraw Dialog
+DBmenu_status.find({
+  selector: {'target.menupage': menupage},
+}).then(function(result){
+  //only one entry should exist
+  if(result.docs.length > 0){
+    var result = result.docs[0];
+    var creatorname = result.creator.name;
+    if(creatorname === "" || creatorname === undefined){
+      creatorname = "Anonym";
+    }
+var html_out = `<div><p> meldete ${creatorname} `+timeDifference(result.created, Date.now())+`</p><p>Kommentar: ${result.body.comment}</p></div>`;
+$("#dialog-complete").find("[complete-anno-status]").html(html_out);
+$("#dialog-complete-title").html('<i class="material-icons">done_all</i> Seite ist komplett!');
+$("#dialog-complete").find("#dialog-complete-input").hide();
+$("#dialog-complete").find('[data-mdc-dialog-action="accept"]').attr("disabled", "true");
+$("#dialog-complete").find("[complete-anno-status]").show();
+$("#dialog-complete").find("[complete-not-yet]").hide();
+$("#dialog-complete-title").html();
 
-//get menu_state by menupage
+}else{
+  $("#dialog-complete-title").html('<i class="material-icons">info</i> Seite komplett?');
+$("#dialog-complete").find("[complete-anno-status]").hide();
+$("#dialog-complete").find("[complete-not-yet]").show();
 
+$("#dialog-complete").find("#dialog-complete-input").show();
+$("#dialog-complete").find('[data-mdc-dialog-action="accept"]').removeAttr("disabled");
 }
 
-function getStatusOfMenupage(menupage){
+}).catch(function(err){
+  console.log(err)
+})
+
+//get menu_state by menupage
+}
+
+function getCompleteStatusOfMenupage(menupage){
   //return Status of this menupage
   return new Promise(function(resolve, reject){
-  DBmenu_info.find({
-    selector: {'target.menupage': pubid},
+  DBmenu_status.find({
+    selector: {'target.menupage': menupage},
   }).then(function(result){
+    console.log(result);
     //only one entry should exist
-    if(result.rows[0] != undefined){
+    if(result.docs.length > 0){
       //entry exists
       resolve(true);
       //else:
-
     }else{
       resolve(false)
     }
@@ -1360,16 +1400,51 @@ function getStatusOfMenupage(menupage){
 
 }
 
-function getStatusOfMenu(menu){
+function getCompleteStatusOfMenu(menuid){
+  var numberofMenupages = 0;
   return new Promise(function(resolve, reject){
     //get all Menupages of Menu, then get Status for all Menupages
-
-});
-
+    DBmenu.find({
+      selector: { _id : menuid},
+    }).then(function(result){
+      numberofMenupages += result.docs[0].menupages.length;
+      return  DBmenu_status.find({
+        selector: { 'target.menu' : menuid},
+      });
+    }).then(function(result2){
+      console.log(result2);
+            var counter = {"total" : numberofMenupages,
+                          "finished" : result2.docs.length};
+            resolve(counter);
+          })
+          })
+    //return numbers of finished menupages and number of menupages
 }
 
-function getStatusOfPub(pub){
+function getCompleteStatusOfPub(pubid){
+  var totalnumberofMenupages = 0
+  var totalnumberofMenu = 0
+  //get total numbers of
   return new Promise(function(resolve, reject){
+    DBmenu.find({
+      selector: { 'pub' : pubid},
+    }).then(function(result){
+      $.each(result.docs, function (index, value) {
+        totalnumberofMenupages += value.menupages.length;
+        totalnumberofMenu += 1
+      });
+      return  DBmenu_status.find({
+        selector: { 'target.pubid' : pubid},
+      });
+    }).then(function(result2){
+            var counter = {"total" : totalnumberofMenupages,
+                            "menu" : totalnumberofMenu,
+                          "finished" : result2.docs.length};
+            resolve(counter);
+
+          }).catch(function(err){
+console.log(err);
+          })
 
 });
 

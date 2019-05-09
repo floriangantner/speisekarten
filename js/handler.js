@@ -139,9 +139,10 @@ $("#button-tutorial-go").click(function(evt){
 });
 
 $('#pubs-list').on('click', '.mdc-list-item', function(evt){
+app_state.pubs = $(this).attr('data-id');
 console.log("clicked");
 $( "#card-pubs-list" ).hide();
-  app_state.pubs = $(this).attr('data-id');
+
   getAllTeaserInfo($("#pubs-detail-tabs-info").find("[teaser-info-ext]"));
     redrawPubs(app_state.pubs);
     $(".pubs-tab-element").hide();
@@ -1385,5 +1386,36 @@ complete_dialog.open();
 
 $("#dialog-complete").find('[data-mdc-dialog-action="accept"]').click(function(evt){
 //save new entry
+var data = {
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"type" : "Annotation",
+"annotype" : "Menufinished",
+"body" : {
+  "status" : true,
+  "comment" : complete_comment.value,
+},
+"target" : {
+  "pubid":app_state.pubs,
+  "menu" : app_state.menu,
+  "menupage": app_state.menupage,
+  "selector": null,
+  "coord" : null,
+},
+"creator" : {
+  "id" : user_state.timestamp,
+  "name" : user_state.name,
+  "identity" : user_state.identity
+},
+"generator" : {
+  "name" : "tripadviswurst"
+},
+"created" : JSON.stringify(Date.now()),
+"motivation" : "commenting"
+};
+
+console.log(data);
+DBaddnew(data, DBmenu_status);
+//redraw PubMenuList with new Status
+redrawMenuList(app_state.pubs);
 
 });

@@ -935,15 +935,19 @@
       <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
 
       <h2 class="mdc-dialog__title" id="dialog-complete-title"><!--
-     -->Ist diese Seite komplett?<!--
+     -->Seite als komplett markieren<!--
    --></h2>
-      <div class="mdc-dialog__content"><div class="mdc-text-field mdc-text-field--textarea" id="dialog-complete-title">
-        <div class="mdc-text-field-character-counter">0 / 120</div>
-        <textarea class="mdc-text-field__input" rows="4" cols="30" required minlength="5" maxlength="120"></textarea>
+      <div class="mdc-dialog__content">
+        <span complete-anno-status></span>
+        <span complete-not-yet>
+          Wurden auf dieser Speisenkarten-Seite alle Gerichte und Markierungen richtig erfasst?</span>
+        <div class="mdc-text-field mdc-text-field--textarea" id="dialog-complete-input">
+        <div class="mdc-text-field-character-counter">0 / 200</div>
+        <textarea class="mdc-text-field__input" rows="4" cols="30" maxlength="200"></textarea>
         <div class="mdc-notched-outline">
           <div class="mdc-notched-outline__leading"></div>
           <div class="mdc-notched-outline__notch">
-            <label for="textarea" class="mdc-floating-label">Wurden auf dieser Speisenkarten-Seite alle Gerichte und Markierungen richtig erfasst?</label>
+            <label for="textarea" class="mdc-floating-label">Kommentar</label>
           </div>
           <div class="mdc-notched-outline__trailing"></div>
         </div>
@@ -1667,6 +1671,7 @@ var rate_textField10 = new mdc.textField.MDCTextField(document.querySelector('#d
 //var textFields = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));
 
 const complete_dialog = new mdc.dialog.MDCDialog(document.querySelector('#dialog-complete'));
+var complete_comment = new mdc.textField.MDCTextField(document.querySelector('#dialog-complete-input'));
 
 
 const Ratingslider = new mdc.slider.MDCSlider(document.querySelector('#rating-stars-slider'));

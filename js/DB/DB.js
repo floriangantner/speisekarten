@@ -9,7 +9,7 @@ const DBhist_persons = new PouchDB('persons_hist');
 const DBuser = new PouchDB('user');
 
 const DBmenu_info = new PouchDB('menu_info'); //contains image/teaser material
-const DBmenu_status = new PouchDB(''); //contains menupaged finishes status
+const DBmenu_status = new PouchDB('menu_status'); //contains menupaged finishes status
 const DBdishes = new PouchDB('dishes');
 const DBrating = new PouchDB('rating');
 const DBopeninghours = new PouchDB('openinghours');
