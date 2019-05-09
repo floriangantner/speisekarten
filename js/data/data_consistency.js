@@ -27,7 +27,7 @@ DBpubs.bulkDocs(data_pubs).then(function (result) {
 }).then(function(result){
   return DBcategory.bulkDocs(data_category);
 }).then(function(result){
-    return DBmenu_infos.bulkDocs(data_menu_infos);
+    return DBmenu_info.bulkDocs(data_menu_infos);
   }).then(function(result){
 //Create Indexes for Searching
   return DBmenu.createIndex({

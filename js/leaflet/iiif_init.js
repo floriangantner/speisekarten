@@ -7,6 +7,29 @@ var map_iiif = L.map('iiifmap', {
 });
 map_iiif.invalidateSize();
 
+var annoControl = L.Control.extend({
+  options: {
+    position: 'topleft'
+    //control position - allowed: 'topleft', 'topright', 'bottomleft', 'bottomright'
+  },
+onAdd: function (map) {
+    var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom material-icons-outlined');
+    //container.type = 'button';
+    container.title = 'Annotationen anzeigen';
+    container.innerHTML = 'comment';
+    container.style.backgroundColor = 'white';
+    container.style.width = '30px';
+    container.style.height = '30px';
+
+    container.onclick = function(){
+      showAnnotationsonMap();
+    }
+    return container;
+  }
+
+});
+
+map_iiif.addControl(new annoControl ());
 //var baseLayer = L.tileLayer.iiif(
   //
   //'http://localhost:8182/iiif/2/testinfo%2Fzelt.jpg/info.json'
@@ -19,7 +42,6 @@ map_iiif.invalidateSize();
 L.drawLocal.draw.handlers.rectangle.tooltip.start = 'Klicke und Ziehe eine Rechteck';
 L.drawLocal.draw.handlers.simpleshape.tooltip.end = 'Maus loslassen zum Beenden';
 L.drawLocal.draw.toolbar.actions.text = 'Abbrechen';
-
 
 var markerLayer = L.featureGroup();
 markerLayer.addTo(map_iiif);
@@ -88,10 +110,20 @@ map_iiif.invalidateSize();
 
 function loadTileLayer(url, attribution){
 //if (map_iiif != undefined){
+console.log(url);
 map_iiif.eachLayer(function (layer) {
+  if(layer.typ === "iiif" || layer.typ === "anno"){
+    //remove only iiif or anno layers.
+    console.log(layer);
+    if(map_iiif.hasLayer(layer)){
+      console.log(map_iiif.hasLayer(layer));
     map_iiif.removeLayer(layer);
-});
+    //map_iiif.remove(layer);
 
+  }
+  }
+
+});
 
   if(attribution != undefined || attribution === ""){
     attribution = "Monacensia: " + attribution;
@@ -101,12 +133,8 @@ map_iiif.eachLayer(function (layer) {
   var iiif_layer = L.tileLayer.iiif(url, {
     attribution: attribution
   });
-  //iiif_layer.typ = "iiif";
-
-
+  iiif_layer.typ = "iiif";
   iiif_layer.addTo(map_iiif);
-
-  console.log(iiif_layer);
   iiif_layer.setZIndex(4);
 
   editableLayers = new L.featureGroup()
@@ -117,6 +145,11 @@ map_iiif.eachLayer(function (layer) {
 
 //}
 console.log(url);
+}
+
+function showAnnotationsonMap(){
+  iiifaddExistingAnnotations();
+
 }
 
 function iiifaddExistingAnnotations(){
@@ -338,6 +371,7 @@ DBimage.allDocs({
         }
     };
 });
+markerLayer.typ = "anno";
     markerLayer.addTo(map_iiif);
     showTextOnSnackbar("Annotationen aktiv!", 5000);
     map_iiif.invalidateSize();

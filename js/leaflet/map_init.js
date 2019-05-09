@@ -11,14 +11,38 @@
 var map = L.map('mapid',  {  zoomControl: true,
 		//minZoom: 13,
 	//maxZoom: 19,
-	attributionControl: false
-}).setView([48.14376146470259, 11.59856379032135], 18);
+	attributionControl: false,
+	zoomControl: false
+}).setView([48.14376046470259, 11.56906379032135], 13);
+
+
+var titleControl = L.Control.extend({
+  options: {
+    position: 'topleft'
+    //control position - allowed: 'topleft', 'topright', 'bottomleft', 'bottomright'
+  },
+onAdd: function (map) {
+    var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+    //container.type = 'button';
+    container.title = `Der Stadtplan`;
+    container.innerHTML = `<span class="mdc-typography mdc-typography--subtitle2">
+<i class="material-icons">map</i> Stadtplan</span>`;
+    container.style.backgroundColor = 'white';
+    container.style.width = '90px';
+    container.style.height = '30px';
+    return container;
+  }
+
+});
+
+map.addControl(new titleControl ());
+var zoomcontrol = new L.Control.Zoom({ position: 'topleft' }).addTo(map);
 
 //#### Tile Layer
 //var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 var osmUrl = 'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png';
 	//define some maximal bounds for the map
-var boundsMap = new L.LatLngBounds(new L.LatLng(48.03264168282481, 11.419601440429688), new L.LatLng(48.24251013172835,  11.766357421875));
+var boundsMap = new L.LatLngBounds(new L.LatLng(47.90, 11.40), new L.LatLng(48.30,  11.80));
 //var boundsMap = new L.LatLngBounds(new L.LatLng(49.862554540037856, 10.842304229736326), new L.LatLng(49.926803449543186,10.94186782836914));
 var osmLayer = new L.TileLayer(osmUrl, {
 	minZoom: 12,
@@ -27,7 +51,7 @@ var osmLayer = new L.TileLayer(osmUrl, {
     attribution: 'Map data © OpenStreetMap contributors',
 		attributionControl: false
 	});
-	L.control.attribution({position: 'topright'}).addTo(map);
+	L.control.attribution({position: 'bottomleft'}).addTo(map);
 	//add Tile Layer to map
 	map.addLayer(osmLayer);
 
@@ -105,3 +129,38 @@ pubsListSureLayer.addTo(map);
 //taskContainerLayer.addTo(map);
 //playerPositionLayer.addTo(map);
 //GOTOplacesLayer.addTo(map);
+
+var randomControl = L.Control.extend({
+  options: {
+    position: 'topleft'
+    //control position - allowed: 'topleft', 'topright', 'bottomleft', 'bottomright'
+  },
+onAdd: function (map) {
+    var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom material-icons-outlined');
+    //container.type = 'button';
+    container.title = 'Zufälliges Wirtshaus';
+    container.innerHTML = 'shuffle';
+    container.style.backgroundColor = 'white';
+    container.style.width = '30px';
+    container.style.height = '30px';
+
+    container.onclick = function(){
+      showRandomPub();
+    }
+    return container;
+  }
+
+});
+
+map.addControl(new randomControl ());
+
+
+
+function showRandomPub(){
+	var keys = Object.keys(pubsListSureLayer._layers)
+	var randomProperty = pubsListSureLayer._layers[keys[ keys.length * Math.random() << 0]];
+console.log(randomProperty);
+MapShowPubID(randomProperty.spot.targer, randomProperty._latlng.lat, randomProperty._latlng.lng);
+showTextOnSnackbar("Zufälliges Wirtshaus ausgewählt!", 5000);
+
+}

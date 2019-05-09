@@ -25,6 +25,18 @@ $("#nav-pubs-list").click(function(evt){
   $( "#card-pubs-list" ).show();
 });
 
+$("#nav-dash").click(function(evt){
+  map.invalidateSize();
+  evt.preventDefault();
+  $( "main" ).hide();
+  drawer.open = false;
+  //Add all Pubs by Default
+  mapAllPubsAdd();
+  $( "#card-dash" ).show();
+   map.invalidateSize();
+
+});
+
 $("#nav-map").click(function(evt){
   map.invalidateSize();
   evt.preventDefault();
@@ -82,6 +94,18 @@ $("#nav-tutorial").click(function(evt){
   $( "main" ).hide();
   drawer.open = false;
   $( "#card-tutorial" ).show();
+});
+
+$("#dash-menu-random").click(function(evt){
+  evt.preventDefault();
+  $( "main" ).hide();
+  //select random menupage for editing
+  redrawRandomMenu();
+  showTextOnSnackbar("Zufällige Speisekarte gefunden", "4000");
+  drawer.open = false;
+  $( "#card-menu-detail" ).show();
+  $(".pubs-menu-element").hide();
+  $(".pubs-menu-element[data-tab=map]").show();
 });
 
 //Intro Button
@@ -173,6 +197,17 @@ $("#button-pubs-menu").click(function(evt){
   $( "#card-pubs-menu-list" ).show();
 });
 
+$("#dash-sync").click(function(evt){
+  var remoteDB = new PouchDB(config.couchDB+'tripadviswurst_dishes');
+  DBdishes.sync(remoteDB).on('complete', function () {
+    showTextOnSnackbar("Neueste Auflage der Restaurantzeitung gekauft.", 4001);
+  }).on('error', function (err) {
+    // boo, we hit an error!
+    console.log("err");
+    showTextOnSnackbar("Keine Neuigkeiten!", 4002);
+  });
+
+})
 
 $("#button-pubs-dishes").click(function(evt){
   evt.preventDefault();
@@ -199,13 +234,13 @@ $(".dishes-list .mdc-list-item").click(function(evt){
   $( "main" ).hide();
   $( "#card-dishes-detail" ).show();
 });
-
+/*
 $("#button-pubs-menu-back").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
   $( "#card-pubs-detail" ).show();
 });
-
+*/
 $("#chip-pubs-menu-back").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
@@ -770,12 +805,6 @@ console.log(this.obj);
 //Get info about Put
 
 }
-
-$("#button-map-anno").click( function(evt){
-//addAnnos(null);
-iiifaddExistingAnnotations();
-
-});
 
 function onAddedRectMapClick(){
 anno_menu.open = true;
@@ -1348,13 +1377,13 @@ map_pubinfo_dialog.open();
 //redraw Dialog and open
 });
 
-$("#map-random-pub").click(function(){
-//go to random pub of markerLAyer
-
-    var keys = Object.keys(pubsListSureLayer._layers)
-    var randomProperty = pubsListSureLayer._layers[keys[ keys.length * Math.random() << 0]];
-console.log(randomProperty);
-MapShowPubID(randomProperty.spot.targer, randomProperty._latlng.lat, randomProperty._latlng.lng);
-showTextOnSnackbar("Zufällige Gaststätte ausgewählt!", 5000);
+$("#button-menu-complete-add").click(function(evt){
+  redrawCompleteDialog(app_state.menupage);
+complete_dialog.open();
 
 })
+
+$("#dialog-complete").find('[data-mdc-dialog-action="accept"]').click(function(evt){
+//save new entry
+
+});

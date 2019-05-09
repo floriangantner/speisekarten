@@ -55,6 +55,21 @@ bottom: 10px;
 left: 50%;
   }
 
+.iiif-image{
+padding: 4px;
+background-color: lightgrey;
+ border-radius: 5px 5px 5px 5px
+}
+
+.slick-prev {
+  left: 25px;
+  color:black
+  z-index: 1;
+}
+.slick-next {
+  right: 25px;
+}
+
 /* stylelint-disable
 CSS
 TODO: Adapt, if needed. Else delete

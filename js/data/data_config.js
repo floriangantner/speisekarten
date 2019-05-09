@@ -4,6 +4,7 @@
 //common configuration settings
 const config = {
 'iiifserver' : "http://localhost:8182/iiif/2/",//path to iiifserver, e.g. http://localhost:8182/iiif/2/
+'couchDB' : "http://localhost:5984/",
 'path_folder_images' : "", //path to images, relative from index.html file
 'url' : "" //path to index.html
 };

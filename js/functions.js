@@ -15,6 +15,37 @@ identity_check();
 
 }
 
+function redrawRandomMenu(){
+//redrawMenu(app_state.menupage);
+//get random Menupage id, set app_state
+DBmenu.info().then(function(response) {
+  let max = response.doc_count;
+  let min = 1;
+  let rand = Math.floor(Math.random() * (max - min + 1)) + min;
+  console.log(min + " <-> " + max + " <-> " + rand);
+  return DBmenu.find({
+     selector: {_id: {$gte : '1'}},
+     limit : 1,
+     skip : rand-1,
+  });
+}).then(function(result){
+  var result2 = result.docs[0];
+  //only one output is expected
+  app_state.pubs = result2.pub;
+  app_state.menu = result2._id;
+  console.log(result2);
+  var menupage = result2.menupages[Math.floor(Math.random()*result2.menupages.length)];
+  console.log(menupage)
+  //redraw Pub, if person switches back
+  redrawPubs(app_state.pubs);
+  app_state.menupage = menupage._id;
+  redrawMenu(app_state.menupage);
+
+}).catch(function(err){
+  console.log(err)
+});
+}
+
 function newPubListElement(data, elem){
   //generated Code for Entry.
  var card_html = '';
@@ -81,7 +112,7 @@ DBpubs.allDocs({
     elem.html('');
     newPubListElement(doc.rows, elem);
     if($.trim($(elem).html()) === ''){
-      elem.html('Es wurden keine Gasthäuser gefunden.');
+      elem.html('Es wurden keine Wirtshäuser gefunden.');
     };
 
     enrichPubListwithStatistic(elem);
@@ -159,15 +190,16 @@ DBmenu.find({
 }, function (err, result) {
   console.log(result);
 $("#pubs-menu-list").html('');
+var list = "";
   $.each(result.docs, function (index, value) {
-  var list = newMenuListElement(value);
+  list += newMenuListElement(value);
+  });
+  $(" #pubs-menu-list").append(list);
+
   if($.trim($("#pubs-menu-list").html()) === ''){
-    elem.html('Zurzeit gibt es in diesem Gasthaus keine Speisekarten. Versuche es später noch einmal, vielleicht finden wir noch eine..');
+    list = 'Der Wirt hat gerade die Speisekarte verlegt. Versuche es später noch einmal, vielleicht findet er sie ja..';
   };
 
-
-  $(" #pubs-menu-list").append(list);
-  });
 });
 }
 
@@ -291,7 +323,7 @@ $("#card-dishes-detail").find("[dish-category]").html(`<div class="mdc-chip mdc-
   <div class="mdc-chip__text">${category}</div>
 </div>`);
 
-$("#card-dishes-detail").find("[iiif-preview]").html(`<div><img id="dish-iiif-preview" alt="Kein Bild"></div>`);
+$("#card-dishes-detail").find("[iiif-preview]").html(`<div class="iiif-image"><img id="dish-iiif-preview" alt="Kein Bild"></div>`);
 
 
 DBrating.find({
@@ -375,6 +407,8 @@ function newMenuCard(data){
       let menu = app_state.menupage.split("/")
       app_state.menu = menu[0] + "/" + menu[1];
      //TODO: change some menu card
+     iiifaddExistingAnnotations();
+     $(".filter-category-options").hide();
 }
 
 function redrawPubsDishesList(pubid){
@@ -386,7 +420,7 @@ function redrawPubsDishesList(pubid){
 
     if($.trim($(list).html()) === ''){
       list = `<li class="mdc-ripple-upgraded" tabindex="0"">
-      Noch sind für dieses Gasthaus keine Gerichte bekannt.
+      Noch sind für dieses Wirtshaus keine Gerichte bekannt.
       Sei der erste Gast hier und probiere ein paar Gerichte.
       </li>`;
     }
@@ -699,14 +733,14 @@ html += `<div class="mdc-chip mdc-chip--selected">
 </div>`;
 html += `<p>Preis: ${anno.body.price} ${anno.body.price_currency}</p>
 <p>Anzahl: ${anno.body.amount}</p><p>Beschreibung: ${anno.body.description}</p><p></div>`; //TODO: Link zur Kategorie
-html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
+html += `<div class="iiif-image"><img id="anno-iiif-preview" alt="Kein Bild"></div>`
 $("#annotation-info-content").html(html);
 
 }else if(anno.annotype === "OpeningHours"){
   $("#annotation-info-title").html(`Öffnungszeiten`);
   $("#annotation-info-title").prepend(`<i class="material-icons-outlined">access_time</i> `);
   html += `<div><p> ${anno.body.value}</p></div>`;
-  html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
+  html += `<div class="iiif-image"><img id="anno-iiif-preview" alt="Kein Bild"></div>`
   $("#annotation-info-content").html(html);
 
 }else if(anno.annotype === "Category"){
@@ -720,14 +754,14 @@ $("#annotation-info-content").html(html);
           <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">category</i>
           <div class="mdc-chip__text">${category}</div>
         </div>`;
-    html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
+    html += `<div class="iiif-image"><img id="anno-iiif-preview" alt="Kein Bild"></div>`
     $("#annotation-info-content").html(html);
 
 }else if(anno.annotype === "Other"){
   $("#annotation-info-title").html(``);
   $("#annotation-info-title").prepend(`<i class="material-icons-outlined">device_unknown</i> `);
   html += `<p><i class="material-icons-outlined"></i> ${anno.body.comment}</p></div>`;
-  html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
+  html += `<div class="iiif-image"><img id="anno-iiif-preview" alt="Kein Bild"></div>`
   $("#annotation-info-content").html(html);
 
 }else if(anno.annotype === "Image"){
@@ -748,7 +782,7 @@ $("#annotation-info-content").html(html);
       desc = "(ohne Beschreibung)"
     }
     html += `<p> ${desc}</p></div>`;
-    html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
+    html += `<div class="iiif-image"><img id="anno-iiif-preview" alt="Kein Bild"></div>`
     $("#annotation-info-content").html(html);
 
 }else if(anno.annotype === "Ads"){
@@ -759,7 +793,7 @@ $("#annotation-info-content").html(html);
   }
   $("#annotation-info-title").prepend(`<i class="material-icons-outlined">format_paint</i> `);
   html += `<p>Beworbene Marke/Geschäft: ${anno.body.brand}</p><p> ${desc}</p></div>`;
-  html += `<div><img id="anno-iiif-preview" alt="Kein Bild"></div>`
+  html += `<div class="iiif-image"><img id="anno-iiif-preview" alt="Kein Bild"></div>`
   $("#annotation-info-content").html(html);
 
 }else if (anno.annotype === "Geo"){
@@ -1190,7 +1224,7 @@ function getGeoStatistic(pubsid){
 
           if($.trim($(list).html()) === ''){
             var list_other = `<li class="mdc-ripple-upgraded" tabindex="0">
-            Noch hast du kein Gasthaus besucht. Stöber durch das Verzeichnis oder Entdecke neues auf der Karte
+            Noch hast du kein Wirtshaus besucht. Stöber durch das Verzeichnis oder Entdecke neues auf der Karte
             und probiere ein paar Gerichte.
             </li>`;
             console.log("Keine Annotationen gefunden!")
@@ -1214,16 +1248,17 @@ DBmenu_info.find({
 }).then(function(result){
   console.log(result);
   var random = result.docs[ result.docs.length * Math.random() << 0];
-  value = result.docs[random];
+  console.log(random);
+  value = random;
   var html = "<div>"
-  if(value.type === "photo"){
-    html += `<p><img src="assets/${value.filename}" alt="Kein Bild vorhanden"></p>`;
-  }else if (value.type === "comment" ){
-    html += `<p>$(value.comment)</p>`;
-  }else if(value.type === "skuril"){
-    html += `<p>$(value.comment)</p>`;
-  }else if(value.type === "rating"){
-    html += `<p>$(value.comment)</p>`;
+  if(value.body.type === "photo"){
+    html += `<p><img src="assets/${value.body.filename}" width="150px" alt="Kein Bild vorhanden"></p>`;
+  }else if (value.body.type === "comment" ){
+    html += `<p>${value.body.comment}</p>`;
+  }else if(value.body.type === "skuril"){
+    html += `<p>${value.body.comment}</p>`;
+  }else if(value.body.type === "rating"){
+    html += `<p>${value.body.comment}</p>`;
   }
 
   html += "</div>"
@@ -1242,26 +1277,31 @@ var html = '';
     selector: {'target.pubid' : app_state.pubid},
   }).then(function(result){
     console.log(result);
+    //TODO:limit to only some pictures 4 - 5
+    html = `<div data-slick='{"slidesToShow": 2, "slidesToScroll": 1, "arrows":true}'> style='width:100%'`;
     $.each(result.docs, function (index, value) {
 
-    var html2 = "<div>"
-    if(value.type === "photo"){
-      html2 += `<p><img src="assets/${value.filename}" alt="Kein Bild vorhanden"></p>`;
-    }else if (value.type === "comment" ){
-      html2 += `<p>$(value.comment)</p>`;
-    }else if(value.type === "skuril"){
-      html2 += `<p>$(value.comment)</p>`;
-    }else if(value.type === "rating"){
-      html2 += `<p>$(value.comment)</p>`;
+    var html2 = "<div style='max-width:300px; max-height:300px'>"
+    if(value.body.type === "photo"){
+      html2 += `<img src="assets/${value.body.filename}" width="300px" alt="Kein Bild vorhanden">`;
+    }else if (value.body.type === "comment" ){
+      html2 += `<p>${value.body.comment}</p>`;
+    }else if(value.body.type === "skuril"){
+      html2 += `<p>${value.body.comment}</p>`;
+    }else if(value.body.type === "rating"){
+      html2 += `<p>${value.body.comment}</p>`;
     }
-    html2 += "</div>"
-    html.append(html2);
+    html += html2 + "</div>";
   });
+  html = html + "</div>";
+
+  elem.html(html);
+  elem.find("[data-slick]").slick({"dots":true, "slidesToShow" : 2, "slidesToShowScroll" : 1, "variableWidth":true, "arrows":true});
+
 }).catch(function(err){
   console.log(err);
 })
 
-elem.html(html);
 }
 
 function getIIIfPreviewSnippetUrl(id, target){
@@ -1287,4 +1327,50 @@ DBmenu.query((doc, emit) => {
           }
         })
 });
+
+}
+
+function redrawCompleteDialog(menupage){
+//check, if given menupage has been marked complete yet and redraw Dialog
+
+//get menu_state by menupage
+
+}
+
+function getStatusOfMenupage(menupage){
+  //return Status of this menupage
+  return new Promise(function(resolve, reject){
+  DBmenu_info.find({
+    selector: {'target.menupage': pubid},
+  }).then(function(result){
+    //only one entry should exist
+    if(result.rows[0] != undefined){
+      //entry exists
+      resolve(true);
+      //else:
+
+    }else{
+      resolve(false)
+    }
+  }).catch(function(err){
+    console.log(err)
+  })
+
+});
+
+}
+
+function getStatusOfMenu(menu){
+  return new Promise(function(resolve, reject){
+    //get all Menupages of Menu, then get Status for all Menupages
+
+});
+
+}
+
+function getStatusOfPub(pub){
+  return new Promise(function(resolve, reject){
+
+});
+
 }
