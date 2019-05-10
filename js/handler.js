@@ -1417,16 +1417,23 @@ redrawMenuList(app_state.pubs);
 
 $(document).on("click", ".playerinfo", function(evt){
   player_id = $(this).attr("data-id");
+  app_state.player = player_id;
   evt.preventDefault();
-  $( "main" ).hide();
-
-  if(player_id === user_state.timestamp || player_id == undefined){
-    $( "#card-about-you" ).show();
-  }else{
-    redrawPlayerInfo(player_id, $("#card-about-other"));
-    $( "#card-about-other" ).show();
-  }
-  drawer.open = false;
-
-
+  showTextOnSnackbarButton("Profilseite anzeigen?", 6000, "Ja", "showprofile");
 });
+
+$("#snackbar").find(".mdc-snackbar__action").on("click", function(evt){
+  console.log("snackbar clicked");
+var action = $("#snackbar").attr("action");
+  if(action === "showprofile"){
+    let player_id = app_state.player;
+    $( "main" ).hide();
+    if(player_id === user_state.timestamp || player_id == undefined){
+      $( "#card-about-you" ).show();
+    }else{
+      redrawPlayerInfo(player_id, $("#card-about-other"));
+      $( "#card-about-other" ).show();
+    }
+    drawer.open = false;
+  }
+})

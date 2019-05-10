@@ -366,29 +366,33 @@ DBrating.find({
   console.log(result);
   $("#dishes-rating-list").html('');
   for(var doc in result.docs){
-    console.log(doc);
-    if(result.docs[doc].target.anno_typ === "Dish" && result.docs[doc].body.comment != null && result.docs[doc].body.comment != undefined){
-    var list = newDishesRatingElement(result.docs[doc]);
+    let rating = result.docs[doc];
+    console.log(rating);
+    if(rating.target.anno_typ === "Dish" && rating.body.comment != null && rating.body.comment != undefined){
+      drawPersonShortInfo(rating.creator, rating.created).then(function(result){
+        var list = newDishesRatingElement(rating, result);
+
+      $("#dishes-rating-list").prepend(list);
+
+    });
     }
     console.log(list)
-    $("#dishes-rating-list").prepend(list);
-    //  drawPersonShortInfo(data.creator, data.created).then(function(result){
   }
-  //$.each("#dishes-rating-list").children("li").
-  // handle result
 }).catch(function(err){
   console.log(err);
 });
 }
 
-function newDishesRatingElement(data){
+function newDishesRatingElement(data, personInfo){
   //TODO: Sterne und Zeit formatieren
 
-    return `<li class="mdc-list-item" tabindex="0" data-id="${data._id}">
-    <span class="mdc-list-item__text">
+    return `<li class="" tabindex="0" data-id="${data._id}">
+    <p>
+    <span class="mdc-list-item__text">${personInfo}
     <span class="mdc-list-item__primary-text">${data.body.comment} `+ visualizeRating(data.body.rating) +`</span>
     <span class="mdc-list-item__secondary-text" rating-person></span>
     </span>
+    </p>
     </li>`;
 
 }
@@ -794,10 +798,10 @@ return new Promise(function(resolve, rejected){
         DBuser.getAttachment(data.id, imagename).then(function(result2){
         var url = URL.createObjectURL(result2);
         console.log(result2);
-        resolve(`<p class="playerinfo" data-id="${data.id}"><img src="${url}" width="64px" height="auto" alt=":-(" /> ${creator_name} , `+timeDifference(Date.now(), timestamp) + `:</p>`);
+        resolve(`<span class="playerinfo" data-id="${data.id}"><img src="${url}" width="64px" height="auto" alt=":-(" /> ${creator_name} , `+timeDifference(Date.now(), timestamp) + `:</span>`);
   }).catch(function(error){
     if(data.id === ""){
-      resolve(`<p class="playerinfo"> ${creator_name} , `+timeDifference(Date.now(), timestamp) + `:</p>`);
+      resolve(`<span class="playerinfo"> ${creator_name} , `+timeDifference(Date.now(), timestamp) + `:</span>`);
     }
     console.log(error);
   })
