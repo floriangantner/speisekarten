@@ -1,11 +1,11 @@
 {
-  "short_name": "menu_menu",
-  "name": "Tripadviswurst",
+  "short_name": "gastgr",
+  "name": "Gastgrantler",
   "display": "standalone",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/assets/app_192x192.png",
+      "src": "/assets/logo/app_192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     }

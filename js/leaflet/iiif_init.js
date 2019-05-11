@@ -137,6 +137,11 @@ map_iiif.eachLayer(function (layer) {
   iiif_layer.addTo(map_iiif);
   iiif_layer.setZIndex(4);
 
+  iiif_layer.on('tileerror', function(error, tile) {
+      console.log(error);
+      console.log(tile);
+  });
+
   editableLayers = new L.featureGroup()
   editableLayers.addTo(map_iiif);
   editableLayers.setZIndex(50);

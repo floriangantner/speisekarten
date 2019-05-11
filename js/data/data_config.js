@@ -3,8 +3,8 @@
 //##############################################################################
 //common configuration settings
 const config = {
-'iiifserver' : "http://localhost:8182/iiif/2/",//path to iiifserver, e.g. http://localhost:8182/iiif/2/
-'couchDB' : "http://localhost:5984/",
+'iiifserver' : "http://localhost:8182/iiif/2/", //path to iiifserver, e.g. http://localhost:8182/iiif/2/
+'couchDB' : "http://localhost:5984/", //path to couchDB instance
 'path_folder_images' : "", //path to images, relative from index.html file
 'url' : "" //path to index.html
 };
@@ -17,7 +17,7 @@ const user_state = {
 	'identity' : "",
 	'timestamp' : 0,
 	'name' : "",
-	'help' : {}
+	'help' : []
 };
 //contains infos about the view. Information and id's for the view.
 //Should avoid useless jquery-querys and easier access to render new pages
@@ -30,5 +30,6 @@ const app_state = {
 'player' : "",
 'histperson' : "",
 'intro' : 0,
-'help' : [], //add help-intros here to check, if help dialog has been shown
+'help' : [], //add help-intros here to check, if help dialog has been shown,
+'sw' : null
 };

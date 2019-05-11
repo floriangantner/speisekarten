@@ -525,7 +525,8 @@ var timestamp = JSON.stringify(Date.now());
 var player = {"_id" : timestamp,
 "id" : timestamp,
 "identity" : identity_id,
-"coord" : coord }
+"coord" : coord,
+"help" : []}
 console.log(img2DB);
 
 //write player data to DB, get data and add image attachement
@@ -795,7 +796,7 @@ return new Promise(function(resolve, rejected){
         return */
         var imagename = data.id + "_" + data.identity + ".jpeg"
         console.log(data);
-        DBuser.getAttachment(data.id, imagename).then(function(result2){
+        DBplayer.getAttachment(data.id, imagename).then(function(result2){
         var url = URL.createObjectURL(result2);
         console.log(result2);
         resolve(`<span class="playerinfo" data-id="${data.id}"><img src="${url}" width="64px" height="auto" alt=":-(" /> ${creator_name} , `+timeDifference(Date.now(), timestamp) + `:</span>`);
@@ -977,6 +978,7 @@ function identity_check(){
             	user_state.account_created = true,
             	user_state.identity = docs[0].identity;
             	user_state.timestamp = docs[0].id;
+              user_state.rev = docs[0]._rev;
               user_state.help = docs[0].help;
 
               console.log("Identity Data found: " + user_state.identity + " -> Skipping.")

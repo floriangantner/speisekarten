@@ -198,17 +198,27 @@ $("#button-pubs-menu").click(function(evt){
   $( "#card-pubs-menu-list" ).show();
 });
 
-$("#dash-sync").click(function(evt){
+$("#dash-sync-up").click(function(evt){
   var remoteDB = new PouchDB(config.couchDB+'tripadviswurst_dishes');
-  DBdishes.sync(remoteDB).on('complete', function () {
-    showTextOnSnackbar("Neueste Auflage der Restaurantzeitung gekauft.", 4001);
+  DBdishes.replicate.to(remoteDB).on('complete', function () {
+    showTextOnSnackbar("Infos dem Restaurantführer gemeldet", 4001);
   }).on('error', function (err) {
     // boo, we hit an error!
     console.log("err");
-    showTextOnSnackbar("Keine Neuigkeiten!", 4002);
+    showTextOnSnackbar("Kein Restaurantführer gefunden", 4002);
   });
 
 })
+$("#dash-sync-down").click(function(evt){
+    var remoteDB = new PouchDB(config.couchDB+'tripadviswurst_dishes');
+    DBdishes.replicate.from(remoteDB).on('complete', function () {
+      showTextOnSnackbar("Neueste Auflage des Restaurantführers geholt!", 4001);
+    }).on('error', function (err) {
+      // boo, we hit an error!
+      console.log("err");
+      showTextOnSnackbar("Kein Restaurantführer gefunden", 4002);
+    });
+});
 
 $("#button-pubs-dishes").click(function(evt){
   evt.preventDefault();
@@ -1155,17 +1165,19 @@ $("#annotation-info-popup").on("click", ".thumbDown", function(evt){
 
 function checkHelp(topic){
 //check if help page has been shown already
-//if(){
+if(user_state.help){
+
+}
 redrawHelp(topic);
 //}
 }
 
 function redrawHelp(topic){
+  //set handler for next action, e.g. click on accept button and open other things, or
 if(topic === "geo-annotation"){
   $("#help-title").html('');
   $("#help-content").html('');
   $("#help-go").html('');
-  //set handler for next action, e.g. click on accept button
   //open
 }
 
@@ -1437,3 +1449,102 @@ var action = $("#snackbar").attr("action");
     drawer.open = false;
   }
 })
+
+/* for add-to-home-screen functionality. Only if supperted*/
+let deferredPrompt;
+$("#tutorial-serviceworker-a2hs-button").hide();
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent Chrome 67 and earlier from automatically showing the prompt
+  console.log("A2HS is supported");
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e;
+  // Update UI to notify the user they can add to home screen
+  $("#tutorial-serviceworker-a2hs-button").show();
+  $("#tutorial-serviceworker-a2hs-button").click(function(evt){
+
+    // Show the prompt
+    deferredPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the A2HS prompt');
+        } else {
+          console.log('User dismissed the A2HS prompt');
+        }
+        deferredPrompt = null;
+      });
+      })
+  });
+//check initial state
+if(Notification.permission === "default"){
+$("#tutorial-serviceworker-push-button").html('Push Notifications deaktiviert <i class="material-icons mdc-icon-button__icon">notifications_none</i>');
+}
+if(Notification.permission === "granted"){
+$("#tutorial-serviceworker-push-button").html('Push Notifications aktiviert <i class="material-icons mdc-icon-button__icon">notifications</i>');
+}
+if(Notification.permission === "denied"){
+$("#tutorial-serviceworker-push-button").html('Push Notifications deaktiviert <i class="material-icons mdc-icon-button__icon">notifications_off</i>');
+}
+
+$("#tutorial-serviceworker-push-button").click(function(evt){
+  console.log(Notification.permission);
+  if(Notification.permission === "granted"){
+    showTextOnSnackbarButton("Zum Deaktivieren Browsereinstellungen ändern", "6000", "Okay");
+
+  }
+      const requestNotificationPermission = async () => {
+      const permission = window.Notification.requestPermission();
+      // value of permission can be 'granted', 'default', 'denied'
+      // granted: user has accepted the request
+      // default: user has dismissed the notification permission popup by clicking on x
+      // denied: user has denied the request.
+      /*if(permission !== 'granted'){
+          throw new Error('Permission not granted for Notification');
+      }
+      */
+      if(permission === "denied"){
+        $("#tutorial-serviceworker-push-button").html('Push Notifications deaktiviert <i class="material-icons mdc-icon-button__icon">notifications_off</i>');
+        showTextOnSnackbar("Notifications abgelehnt", "6000");
+
+      }else if(permission === "granted"){
+        $("#tutorial-serviceworker-push-button").html('Push Notifications aktiviert <i class="material-icons mdc-icon-button__icon">notifications</i>');
+        showTextOnSnackbar("Notifications aktiviert", "6000");
+
+      }else if(permission == "default"){
+        $("#tutorial-serviceworker-push-button").html('Push Notifications deaktiviert <i class="material-icons mdc-icon-button__icon">notifications_off</i>');
+        showTextOnSnackbar("Notifications nicht aktiviert", "6000");
+
+      }
+      }
+
+    const checkPush = async () => {
+      if (!('PushManager' in window)) {
+      throw new Error('No Push API Support!')
+      showTextOnSnackbar("Browser unterstützt Funktionalität nicht", "6000");
+      }
+    const permission =  await requestNotificationPermission();
+    //set new checked
+
+
+    }
+
+    checkPush();
+  })
+
+  $("#tutorial-serviceworker-push-send").click(function(evt){
+    if(Notification.permission === "granted"){
+
+    console.log("Send local Notification!");
+    var options = {};
+    //console.log(swRegistration);
+    console.log(app_state.sw);
+    var text = "Timestamp : " + Date.now() + " : Push-Benachrichtigungen sind aktiviert";
+    app_state.sw.showNotification(text, {
+      "icon" : "assets/logo/app_192x192.png",
+    });
+  }else{
+    showTextOnSnackbar("Push Notifications sind nicht aktiviert", "3000")
+  }
+});
