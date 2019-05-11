@@ -1345,7 +1345,7 @@ DBmenu_info.find({
   }else if(value.body.type === "skuril"){
     html += `<p>${value.body.comment}</p>`;
   }else if(value.body.type === "rating"){
-    html += `<p>${value.body.comment}</p>`;
+    html += `<h4>${value.body.heading}</h4><p>${value.body.comment}</p><p>`+visualizeRating(value.body.rating)+`</p>`;
   }
 
   html += "</div>"
@@ -1366,7 +1366,7 @@ var html = '';
     console.log(result);
     console.log(app_state.pubs);
     //TODO:limit to only some pictures 4 - 5
-    html = `<div data-slick='{"slidesToShow": 2, "slidesToScroll": 1, "arrows":true}'> style='width:100%'`;
+    html = `<div data-slick='{"slidesToShow": 2, "slidesToScroll": 1, "arrows":true}'>`;
     $.each(result.docs, function (index, value) {
 
     var html2 = "<div style='max-width:300px; max-height:300px'>"
@@ -1377,7 +1377,7 @@ var html = '';
     }else if(value.body.type === "skuril"){
       html2 += `<p>${value.body.comment}</p>`;
     }else if(value.body.type === "rating"){
-      html2 += `<p>${value.body.comment}</p>`;
+      html2 += `<h4>${value.body.heading}</h4><p>${value.body.comment}`+visualizeRating(value.body.rating)+`</p>`;
     }
     html += html2 + "</div>";
   });

@@ -199,8 +199,8 @@ $("#button-pubs-menu").click(function(evt){
 });
 
 $("#dash-sync-up").click(function(evt){
-  var remoteDB = new PouchDB(config.couchDB+'tripadviswurst_dishes');
-  DBdishes.replicate.to(remoteDB).on('complete', function () {
+  DBdishes.replicate.to(DBremote_dishes).on('complete', function () {
+    //TODO: add other databases
     showTextOnSnackbar("Infos dem Restaurantführer gemeldet", 4001);
   }).on('error', function (err) {
     // boo, we hit an error!
@@ -210,8 +210,8 @@ $("#dash-sync-up").click(function(evt){
 
 })
 $("#dash-sync-down").click(function(evt){
-    var remoteDB = new PouchDB(config.couchDB+'tripadviswurst_dishes');
-    DBdishes.replicate.from(remoteDB).on('complete', function () {
+    DBdishes.replicate.from(DBremote_dishes).on('complete', function () {
+      //TODO: add other databases
       showTextOnSnackbar("Neueste Auflage des Restaurantführers geholt!", 4001);
     }).on('error', function (err) {
       // boo, we hit an error!

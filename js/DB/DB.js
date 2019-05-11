@@ -2,7 +2,21 @@
 //contains Definition of pouchDB
 
 //DBupd
+//Remote Databases:
+var DBremote_dishes = new PouchDB(config.couchDB+'dishes');
+var DBremote_rating = new PouchDB(config.couchDB+'ratingdishes');
+var DBremote_geo = new PouchDB(config.couchDB+'geo');
+var DBremote_opening = new PouchDB(config.couchDB+'opening');
+var DBremote_other = new PouchDB(config.couchDB+'other');
+var DBremove_category = new PouchDB(config.couchDB+'category');
+var DBremote_ads = new PouchDB(config.couchDB+'ads');
+var DBremote_image = new PouchDB(config.couchDB+'image');
+var DBremote_heads = new PouchDB(config.couchDB+'heads');
+var DBremote_player = new PouchDB(config.couchDB+'player');
+
 //DBadd
+//Local Databases:
+
 const DBpubs = new PouchDB('pubs');
 const DBmenu = new PouchDB('menu');
 const DBhist_persons = new PouchDB('persons_hist');

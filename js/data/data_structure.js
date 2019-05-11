@@ -489,6 +489,8 @@ Menu TeaserInfo ->
 		"type" : "photo | comment | rating | skuril",
 		"filename" : "",
 		"comment" : "",
+		"rating" : "",
+		"heading" : "",
 		"cite" : "",
 	},
 	"target" : {
