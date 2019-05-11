@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<h1>Programm zum Einlesen der Teaser-Bewertungen</h1>
+<h1>Programm zum Einlesen der Teaser-Bilder</h1>
 <div>
 <p>Excel in csv umwandeln und generierter Json-Code in data_samples.js reinkopieren oder damit eine Datenbank füllen</p>
 <p><a href="https://jsoneditoronline.org/">Json Editor online zum Betrachten</a></p>
@@ -58,35 +58,41 @@ document.execCommand("copy");
                 var value_split = value.split(';');
                 allRows[index] = null;
                 allRows[index] = {
-                  'pubid' : value_split[0],
-                  'header' : value_split[1],
-                  'text' : value_split[2],
-                  'rating' : value_split[3],
-                  'other' : value_split[4],
-                  }
+                  'id' : value_split[0],
+                  'filename' : value_split[1],
+                  'lokal' : value_split[2]
+                //andere Felder sind nicht interessant
+              }
               });
               //write thing
               for(var it = 1; it < allRows.length; it++){
+                var thisentry = allRows[it];
+console.log(thisentry);
+                if((thisentry.filename != "" && thisentry.filename != undefined) && (thisentry.filename.endsWith(".jpg") || thisentry.filename.endsWith(".jpeg"))){
+                var menu = thisentry.id.replace(/(\r\n|\n|\r)/gm, "");
+                var menu1 = menu.split("/");
 
-                  var thisentry = allRows[it];
+                var pubid = menu1[0];
+                var menu2 = menu1[1];
+
                   var newrating =
                   	{
-                      "_id" : "teasercom" + ratingcounter,
-                      "id" : "teasercom" + ratingcounter,
+                    "_id" : "teaserimg" + ratingcounter,
+                    "id" : "teaserimg" + ratingcounter,
                   	"@context" : "http://www.w3.org/ns/anno.jsonld",
                   	"type" : "Info",
                   	"annotype" : "TeaserInfo",
                   	"body" : {
-                  		"type" : "rating",
-                  		"filename" : "",
-                  		"comment" : thisentry.text,
-                      "rating" : thisentry.rating,
-                      "heading" : thisentry.header,
+                  		"type" : "photo",
+                  		"filename" : thisentry.filename,
+                  		"comment" : "",
+                      "rating" : "",
+                      "heading" : "",
                   		"cite" : "",
                   	},
                   	"target" : {
-                  		"pubid": thisentry.pubid.replace(/(\r\n|\n|\r)/gm, ""),
-                  		"menu" : "",
+                  		"pubid": pubid,
+                  		"menu" : menu,
                   		"menupage": "",
                   		"selector": null,
                   			"coord" : null
@@ -106,15 +112,16 @@ document.execCommand("copy");
       ratingcounter++;
 
       rating_output.push(newrating);
+      }
                 };
 
                 var time_end = new Date().getTime();
                 //push last menu-object to array
-                console.log("Erkannt: " + allRows.length + " Einträge insgesamt || ");
+                console.log("Erkannt: " + allRows.length + " Einträge insgesamt  bei " + ratingcounter + " Teaser-Bildern");
                 var time_seconds = Math.round((time_end - time_start) / 10) / 100;;
                 console.log( "in " + time_seconds + " Sekunden");
                 //statistiken ausgeben:
-                $("#statistic").html("Erkannt: " + allRows.length + " Einträge insgesamt ||");
+                $("#statistic").html("Erkannt: " + allRows.length + " Einträge insgesamt || bei " + ratingcounter + " Teaser-Bildern");
                 $("#out").html(JSON.stringify(rating_output));
                 };
           // start reading the file. When it is done, calls the onload event defined above.
