@@ -1,0 +1,153 @@
+<html>
+<head>
+  <title>Speisekarten - CSV - Parser</title>
+  <!--<link rel="stylesheet" href="css/material-components-web.min.css">
+  <link rel="stylesheet" href="css/app.css">-->
+  <script src="../js/jquery/jquery-3.3.1.min.js"></script>
+  <style>
+  #out, #out2 {
+  font-family: Consolas, monaco, monospace;
+  font-size:10pt;
+  }
+  </style>
+</head>
+<body>
+
+<h1>Programm zum Einlesen der Gaststätten und -Speisekarteninformationen von der csv-Datei</h1>
+<div>
+<p>generierter Json-Code in data_samples.js reinkopieren oder damit eine Datenbank füllen</p>
+<p><a href="https://jsoneditoronline.org/">Json Editor online zum Betrachten</a></p>
+<p>Select local CSV File:</p>
+<input id="csv" type="file">
+</div><div>
+<output id="statistic">Statistiken:</output><br />
+  <button id="show-pub">Gaststätten anzeigen und kopieren</button><br />
+  <button id="show-menu">Speisekarten anzeigen und kopieren</button>
+
+</div>
+<div><textarea id="out" cols="50" rows="10">
+    file contents will appear here
+</textarea>
+<textarea id="out2" cols="50" rows="10">
+  file contents will appear here
+</textarea>
+</div>
+<script>
+
+//Gaststätten und Speisekarten sind im Dokument durch die Reihenfolge zusammenhängend (also untereinanderstehende Einträge)
+
+$(document).ready(function() {
+$("#show-pub").click(function(){
+$("#out2").toggle().select();
+ document.execCommand("copy");
+})
+
+$("#show-menu").click(function(){
+$("#out").toggle().select();
+document.execCommand("copy");
+
+})
+
+  var pubs = [], menus = [];
+  var time_start = new Date().getTime();
+  var fileInput = document.getElementById("csv"),
+      readFile = function () {
+          var reader = new FileReader();
+          reader.onload = function () {
+                //print readed filed
+                //$("#out").html(reader.result);
+                //Teile Zeilen
+                var allRows = reader.result.split(/\r?\n|\r/);
+                $.each(allRows, function(index, value){
+                //Teile Zeilen in Teile
+                // DIR und Datum = leer -> Gaststätte
+                //add pub beginning from 1
+                var value_split = value.split(';');
+                allRows[index] = null;
+                allRows[index] = {
+                  'filename' : value_split[0],
+                  'name' : value_split[1],
+                  'category' : value_split[2],
+                  'typ' : value_split[3],
+                  'date' : value_split[4],
+                  'number' : value_split[5],
+                  'format' : value_split[6],
+                  'filesize' : value_split[7]
+                }
+              });
+                var counter = 1; //counter for pubs-identifikator
+                var menu_counter = 1; //counter for menu-idenfikator
+                var objRoot = null; //root-object of an pub
+                var objMenuRootId = null;
+                for(var it = 1; it < allRows.length; it++){
+
+                  var thisentry = allRows[it];
+                  if(thisentry == null){
+                    console.log("Error or empty line at line " + it)
+                    break;
+                  }
+                  if(thisentry.format === "DIR" && (thisentry.date === "")){
+                    //if root element,pub
+                    thisentry._id = "p" + counter;
+                    thisentry.id = thisentry._id;
+                    counter++;
+                    delete thisentry.kategorie;
+                    delete thisentry.typ;
+                    pubs.push(thisentry);
+                    if(objRoot == null || !thisentry.name.includes(objRoot.name)){
+                    //define new root / pub element, if name changed
+                    objRoot = thisentry;
+                    menu_counter = 1;
+                    }
+                  }else if(thisentry.format === "DIR" && (thisentry.data != "") && (!thisentry.filename.includes(".jpg"))){
+                    //if menu
+                    thisentry.pub = objRoot._id;
+                    thisentry._id = objRoot._id + "/m" + menu_counter;
+                    thisentry.id = thisentry._id;
+                    thisentry.folderpath = objRoot.filename + "/" + thisentry.filename + "/";
+                    thisentry.menupages = [];
+
+                    menu_counter++;
+                    //push last MenuObject to Array
+                    if(objMenuRootId != null){
+                    menus.push(allRows[objMenuRootId]);
+                    }
+                    objMenuRootId = it;
+                  }else if(thisentry.filename.includes(".jpg")){
+                  //if menupage
+                    thisentry._id = allRows[objMenuRootId]._id + "/mp" + thisentry.number;
+                    thisentry.id = thisentry._id;
+                    //adjust filepath
+                    thisentry.filename = thisentry.filename;
+                    thisentry.filepath = allRows[objMenuRootId].folderpath + thisentry.filename;
+
+                    thisentry.category = allRows[objMenuRootId].category;
+                    allRows[objMenuRootId].menupages.push(thisentry);
+                    //adjust filepath
+                  }
+                }
+                var time_end = new Date().getTime();
+                //push last menu-object to array
+                console.log("Erkannt: " + allRows.length + " Einträge insgesamt || " + pubs.length + " Gaststätten" + menus.length + " Speisekarten & Speisekartenseiten")
+                var time_seconds = Math.round((time_end - time_start) / 10) / 100;;
+                console.log( "in " + time_seconds + " Sekunden");
+                //statistiken ausgeben:
+                $("#statistic").html(allRows.length + " Einträge insgesamt || " + pubs.length + " Gaststätten" + menus.length + " Speisekarten & Speisekartenseiten || Dauer: " + time_seconds + " Sekunden");
+                $("#out").html(JSON.stringify(menus));
+                $("#out2").html(JSON.stringify(pubs));
+          };
+          // start reading the file. When it is done, calls the onload event defined above.
+          // reader.readAsBinaryString(fileInput.files[0]);
+          reader.readAsText(fileInput.files[0], 'utf8');
+      };
+  fileInput.addEventListener('change', readFile);
+
+
+
+//
+
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Read XML - File</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Florian Gantner">
+<script src="../js/jquery/jquery-3.3.1.min.js"></script>
+<script>
+
+//This file turns data from xml into json
+//import from xml file/request
+
+//TODO: add function to read every single file in the specified directory
+const hist_persons = [];
+$(document).ready(function(){
+//View existing entries:
+
+$("#upcvr").on("click", function(){
+  var input = document.getElementById('multiupload');
+  var list = document.getElementById('temp-files');
+
+  //empty list for now...
+  while (list.hasChildNodes()) {
+  	list.removeChild(ul.firstChild);
+  }
+
+  //for every file...
+  for (var x = 0; x < input.files.length; x++) {
+  	//add to list
+  	var li = document.createElement('li');
+  	li.innerHTML = 'File ' + (x + 1) + ':  ' + input.files[x].name;
+  	list.append(li);
+
+  }
+
+for(var x = 0; x < input.files.length; x++){
+      readFile = function () {
+          var reader = new FileReader();
+          reader.onload = function () {
+                //print readed filed
+                //Teile Zeilen
+                xml = reader.result;
+
+                          //var xmlDoc = $.parseXML( xml );   <------------------this line
+                //if single item
+                //$("#temp").append(xml);
+
+                        var person = {};
+                //var person = $(xml2).find('description').text();
+                //console.log(person);
+                //but if it's multible items then loop
+
+                //dargestellte Person, Hauptname
+
+                $(xml).find('lido\\:subject[lido\\:type="portrait"]').each(function(){
+                  //präferierter Name der Darstellung
+                  $(this).find('lido\\:subjectActor > lido\\:actor > lido\\:nameActorSet > lido\\:appellationValue[lido\\:pref="preferred"]').each(function(){
+                   $("#temp").append('<li>' + $(this).text() + '</li>');
+                   person.name = $(this).text();
+                  });
+                  //Array von Berufen
+                  //richtig in LIDO adressieren?
+                  person.job = [];
+                  $(this).find('lido\\:term').each(function(){
+                    person.job.push($(this).text());
+                  });
+                    //Geburts- und Sterbedatum
+                    person.birthdate = $(this).find('lido\\:vitalDatesActor lido\\:earliestDate').text();
+                    person.deathdate = $(this).find('lido\\:vitalDatesActor lido\\:latestDate').text();
+                });
+
+                //Datei-Identifikator
+                //Pfad zur allerkleinsten jpeg:
+                    $(xml).find('lido\\:resourceSet ').each(function(){
+                    person.fileid = $(this).find('lido\\:resourceID[lido\\:type="local"]').text();
+                    person._id = person.fileid;
+                    person.id = person.fileid;
+                    person.file = person.fileid + ".jpg";
+                    person.xmlfile = "http://www.digiporta.net/opendata/dm/xml/" + person.id + ".xml";
+                    person.filejpeg_small = $(this).find('lido\\:resourceRepresentation[lido\\:type="size_1"] lido\\:linkResource[lido\\:formatResource="jpg"]').text();
+                    });
+                  //Geburts- und Todesdatum
+                  hist_persons.push(person);
+                  console.log(person);
+                  console.log(hist_persons);
+
+                //Bild-Infos: zur API
+                /*
+                    var img = $("<img />").attr('src', person.filejpeg_small)
+                        .on('load', function() {
+                            if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+                                alert('broken image!');
+                            } else {
+                                $("#temp").append(img);
+                            }
+                        });
+                        */
+
+              }
+          reader.readAsText(input.files[x], 'utf8');
+            }
+            readFile();
+}
+$("#output").html(JSON.stringify(hist_persons));
+
+});
+
+$("#clean").on("click", function(){
+//Clean view of historic persons
+$("#temp").html("");
+$("#output").html("");
+$("#temp-files").html("");
+hist_persons = [];
+});
+
+$("#refresh").on("click", function(){
+  $("#output").html(JSON.stringify(hist_persons));
+  console.log(hist_persons.length + " Einträge gefunden");
+})
+
+});
+
+</script>
+ </head>
+
+<body>
+<h2>XML-Datei importieren</h2>
+<div>Liest Infos, also die wichtigen festgelegten Infos, aus der XML-Datei zu den Datensätzen des Dt. Museum.
+Erstellt aus den Daten dann ein JSON. Diese können in den data_sample.js  abgespeichert werden.
+Dadurch werden die unnnötigen xml-Formatierungen weggeworfen und die 20MB Xml-Daten eingespart.
+ . In der Konsole logbar.</div>
+ <div><p>* Dateien aus dem gleichen Ordner auswählen<form enctype="multipart/form-data">
+   <input type="file" id="multiupload" name="uploadFiledd[]" multiple >
+   <button type="button" id="upcvr" class="btn btn-primary">Start Upload</button>
+   <button type="button" id="refresh">Liste aktualisieren</button>
+   <button type="button" id="clean">Leeren</button>
+</form></p>
+<p>
+<textarea id="output" rows="20" cols="40">JSON-Code</textarea>
+ </div>
+</p>
+ <div>
+   <p>Liste der Dateien:
+<ul id="temp-files" color="green"></ul>
+</p><p> Liste der Personen:
+ <ul id="temp" color="red"></ul>
+</p>
+</div>
+
+
+<!--
+ <form enctype="multipart/form-data">
+     <input id="upload" type=file  name="files[]">
+ </form>
+
+     <textarea class="form-control" rows=35 cols=120 id="xlx_json"></textarea>
+   <script>
+         document.getElementById('upload').addEventListener('change', handleFileSelect, false);
+
+     </script>
+-->
+</body>
+</html>

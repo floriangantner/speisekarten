@@ -1,0 +1,16 @@
+{
+  "short_name": "gastgr",
+  "name": "Gastgrantler",
+  "display": "standalone",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/assets/logo/app_192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "index.html?launcher=true",
+  "theme_color": "#d4d4d4",
+  "background_color": "#eee"
+}

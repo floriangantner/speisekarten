@@ -1,0 +1,252 @@
+/*  */
+#mapid {
+  width: 80%;
+  height: 80%;
+  min-width: 300px;
+  min-height:300px;
+  }
+
+  #iiifmap {
+    width:300px;
+    height:400px;
+    min-width: 300px;
+    min-height:300px;
+    max-width:80%;
+    min-width:75%
+    }
+
+#person-selector-image {
+width:75%;
+height:75%;
+}
+
+#annotation-info-popup {
+  /*move before leaflet-map*/
+  z-index: 900;
+}
+/* for image-list */
+#pubs-menu-list {
+
+}
+/*for every masonry-list*/
+.my-masonry-image-list {
+  @include mdc-image-list-masonry-columns(3);
+  max-width: 93%  ;
+  column-count:3;
+  column-width:33%;
+}
+.my-masonry-image-list > .mdc-image-list__item {
+max-width:30%;
+}
+
+
+
+#video-selector > #video-selector-video{
+  border-radius: 40px;
+  }
+
+#video-overlay{
+  position: absolute;
+float: left;
+width: 640px;
+align-content: center;
+z-index: 300000;
+bottom: 10px;
+left: 50%;
+  }
+
+.iiif-image{
+padding: 4px;
+background-color: #FAFAD2;
+ border-radius: 5px 5px 5px 5px
+}
+
+.slick-prev {
+  left: 25px;
+  color:black
+  z-index: 1;
+}
+.slick-next {
+  right: 25px;
+}
+
+.playerinfo > img {
+
+
+}
+
+#nav-image {
+  border-radius: 30px 30px 30px 30px;
+  width: 100px;
+  min-width:50px;
+  max-height:200px;
+  border: 3px solid grey;
+  margin-top: 5px;
+}
+
+/* stylelint-disable
+CSS
+TODO: Adapt, if needed. Else delete
+
+
+
+
+html, body {
+  height: 100%;
+  background-color: #f2f2f2;
+  background-size: cover;
+}
+
+.panel {
+  display:none;
+}
+.active {
+  display:inherit;
+}
+#dash-indicator {
+  color: orange;
+}
+
+#overlay {
+    opacity: 1;
+    background-color: white;
+}
+
+.navi-button {
+  color: lightgrey;
+  padding: 0px 8px 0px 8px;
+}
+.navi-button-active {
+  color: orange;
+}
+
+#navi-buttons a {
+  text-decoration: none;
+}
+
+.app-content-card {
+  margin: 0 margin;
+  */
+  /*width: 375px;*/
+  /*
+  max-height: auto;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  padding-bottom: 10px;
+  background-color: white;
+}
+
+.app-content-card__image {
+  padding-bottom: 10px;
+}
+
+
+.app-content-card__map-dark {
+  border-radius: 4px;
+  background-color: #f2f2f2;
+}
+
+.mdc-card__buttons-spacing {
+ min-height: 72px;
+ margin-right: +60px;
+}
+
+.mdc-button.secondary-filled-button:not(:disabled) {
+    background-color: #e55f37;
+    color:white;
+}
+
+.mdc-theme--dark {
+        background-color: #303030;
+      }
+
+.dialog-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+.mdc-card__buttons-row {
+  min-height: 72px;
+  min-width:120px;
+  margin-left: 60px;
+}
+
+.mdc-card__media {
+  background-size: cover;
+	background-repeat: no-repeat;
+	height: 200px;
+}
+
+.arrow-left {
+          position: relative;
+          margin:5px;
+          left: 5px;
+          float: left;
+          background-color: #e55f37;
+          color: white;
+        }
+
+.arrow-right {
+                  position: relative;
+                  margin:5px;
+                  right: 5px;
+                  float: right;
+                  background-color: #e55f37;
+                  color: white;
+                }
+
+.hiddenMain {
+display: none;
+}
+
+main {
+  //hide main by default
+//display: none;
+
+}
+*/
+
+/*Map-Details*/
+
+/*
+#map-locate {
+  background-color: yellow;
+  color: black;
+  margin: 5px;
+  z-index: 2;
+}
+
+#map-zoomin {
+  z-index: 2;
+}
+
+#map-zoomout {
+  z-index: 2;
+}
+
+.map-button-zoom {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  float:left;
+
+}
+.map-button-locate {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+}
+
+.zoombuttons {
+  left: 5px;
+  background-color: black;
+  color: yellow;
+  margin: 5px;
+
+}
+.zoomDe {
+background-color: lightgrey;
+color: darkgrey;
+}
+*/

@@ -1,0 +1,245 @@
+<html>
+<head>
+  <title>Dishes - CSV - Parser</title>
+  <!--<link rel="stylesheet" href="css/material-components-web.min.css">
+  <link rel="stylesheet" href="css/app.css">-->
+  <script src="../js/jquery/jquery-3.3.1.min.js"></script>
+  <style>
+  #out, #out2 {
+  font-family: Consolas, monaco, monospace;
+  font-size:10pt;
+  }
+  </style>
+</head>
+<body>
+
+<h1>Programm zum Einlesen der Informatonen zu den Speisekarten aus der Excel-Datei</h1>
+<div>
+<p>Excel in csv umwandeln und generierter Json-Code in data_samples.js reinkopieren oder damit eine Datenbank füllen</p>
+<p><a href="https://jsoneditoronline.org/">Json Editor online zum Betrachten</a></p>
+<p>Select local CSV File:</p>
+<input id="csv" type="file" >
+<input id="pub" type="text" placeholder="p1">
+<input id="menu" type="text" placeholder="p1/m1">
+<input id="menupage" type="text" placeholder="p1/m1/mp1">
+
+</div><div>
+<output id="statistic">Statistiken:</output><br />
+  <button id="show-dishes">Gerichte anzeigen und kopieren</button><br />
+  <button id="show-category">Kategorien anzeigen und kopieren</button><br />
+
+</div>
+<div><textarea id="out" cols="50" rows="10">
+    file contents will appear here
+</textarea>
+</div>
+<div><textarea id="out2" cols="50" rows="10">
+    file contents will appear here
+</textarea>
+</div>
+<script>
+
+//Gaststätten und Speisekarten sind im Dokument durch die Reihenfolge zusammenhängend (also untereinanderstehende Einträge)
+
+$(document).ready(function() {
+
+$("#show-dishes").click(function(){
+$("#out").toggle().select();
+document.execCommand("copy");
+
+})
+
+$("#show-category").click(function(){
+$("#out2").toggle().select();
+document.execCommand("copy");
+
+})
+
+  var pubid = $("#pub").val();
+  var menuid = $("#menu").val();
+  var menupageid = $("#menupage").val();
+  var dishes_output = [], category_output = [], dishcounter = 1;
+  var cat = {};
+  var cat_counter = 0;
+  var time_start = new Date().getTime();
+  var fileInput = document.getElementById("csv"),
+      readFile = function () {
+          var reader = new FileReader();
+          reader.onload = function () {
+                //print readed filed
+                //$("#out").html(reader.result);
+                //Teile Zeilen
+                var allRows = reader.result.split(/\  r?\n|\r/);
+                $.each(allRows, function(index, value){
+                //Teile Zeilen in Teile
+                // DIR und Datum = leer -> Gaststätte
+                //add pub beginning from 1
+                var value_split = value.split(';');
+                allRows[index] = null;
+                allRows[index] = {
+                  'karte' : value_split[0],
+                  'typ' : value_split[1],
+                  'kategorie' : value_split[2],
+                  'gericht' : value_split[3],
+                  'beschreibung' : value_split[4],
+                  'preis' : value_split[5],
+                  'waehrung' : value_split[6],
+                  'menge' : value_split[7],
+                  'unbekannt' : value_split[8],
+                  'skuril' : value_split[9], //und waas danach kommt
+                  'kommentar' : value_split[10]
+                }
+              });
+
+              for(var it = 1; it < allRows.length; it++){
+                //get Categorys
+                //Map Categorys with id's
+                //Upper Category: nons
+                 //var cat_id = cat.get(allRows[it].kategorie);
+                 var exists = false;
+                 Object.keys(cat).forEach(function(key,index) {
+                   if(cat[key] === allRows[it].kategorie){
+                     exists = true;
+                   }
+                    });
+                 if(exists === false && (allRows[it].kategorie != undefined)){
+                     var cat_key = menupageid + "/c" + cat_counter;
+                     cat[cat_key] = allRows[it].kategorie;
+                     cat_counter++;
+                     var newcat = {
+                     "@context" : "http://www.w3.org/ns/anno.jsonld",
+                     "id" : cat_key,
+                     "_id" : cat_key,
+                     "type" : "Annotation",
+                     "annotype" : "Category",
+                     "body" : {
+                       "name" : allRows[it].kategorie,
+                       "upperCategoryName" : "",
+                       "upperCategoryID" : ""
+                     },
+                     "target" : {
+                       "pubid":pubid,
+                       "menu" : menuid,
+                       "menupage": menupageid,
+                       "selector": null, /*{
+                         "type": "FragmentSelector",
+                         "conformsTo": "http://www.w3.org/TR/media-frags/",
+                         "value": "xywh=0,0,30,60"
+                      }, */
+                         "coord" : null, /* {
+                           "type": "AnnoSelector",
+                           "conformsTo": "",
+                           "value": "lat1lng1lat2lng2=0,0,30,60"
+                         } */
+                     },
+                     "creator" : {
+                       "id" : "1",
+                       "name" : "Heni & Alan",
+                       "identity" : "1"
+                     },
+                     "generator" : {
+                       "name" : "by hand"
+                     },
+                     "created" : "1",
+                     "motivation" : "commenting"
+                     }
+                     category_output.push(newcat);
+                 }
+
+              };
+              console.log(cat);
+
+              for(var it = 1; it < allRows.length; it++){
+
+                  var thisentry = allRows[it];
+                  var newdish = {};
+                  //7Distinguish cases
+                  var type;
+                  if(newdish.typ === "Essen"){
+                    type = "meal";
+                  }else if(newdish.typ === "Trinken" || newdish.typ === "Getränk"){
+                    type = "drink";
+                  }else {
+                    type = "other";
+                  }
+                  //find category name and id by given category
+                  var category_key_id;
+                  Object.keys(cat).forEach(function(key,index) {
+                    if(cat[key] === allRows[it].kategorie){
+                      category_key_id = key
+                    }
+                     });
+newdish = {
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"type" : "Annotation",
+"annotype" : "Dishes",
+"body" : {
+  "type" : type,
+  "name" : newdish.gericht,
+  "price" : newdish.price,
+  "price_currency" : newdish.waehrung,
+  "amount" : newdish.menge,
+	"description" : newdish.beschreibung,
+  "categoryName" : allRows[it].kategorie,
+  "categoryID" : category_key_id
+},
+"target" : {
+	"pubid": pubid,
+  "menu" : menuid,
+	"menupage": menupageid,
+	"selector": null,/*{
+
+		"type": "FragmentSelector",
+		"conformsTo": "http://www.w3.org/TR/media-frags/",
+		"value": "xywh=0,0,30,60"
+		}*/
+		"coord" : null,/*{
+
+			"type": "AnnoSelector",
+			"conformsTo": "",
+			"value": "lat1lng1lat2lng2=0,0,30,60"
+
+		}*/
+},
+"creator" : {
+	"id" : "",
+	"name" : "Heni & Alan",
+	"identity" : "1"
+},
+"generator" : {
+	"name" : "by hand"
+},
+"created" : "1",
+"motivation" : "commenting"
+};
+
+      dishcounter++;
+
+      dishes_output.push(newdish);
+                };
+
+                var time_end = new Date().getTime();
+                //push last menu-object to array
+                console.log("Erkannt: " + allRows.length + " Einträge insgesamt || " + dishes_output.length + " Gerichte in " + category_output.length + " verschiedenen Kategorien" )
+                var time_seconds = Math.round((time_end - time_start) / 10) / 100;;
+                console.log( "in " + time_seconds + " Sekunden");
+                //statistiken ausgeben:
+                $("#statistic").html("Erkannt: " + allRows.length + " Einträge insgesamt || " + dishes_output.length + " Gerichte in " + category_output.length + " verschiedenen Kategorien für Seite: " + menupageid );
+                $("#out").html(JSON.stringify(dishes_output));
+                $("#out2").html(JSON.stringify(category_output));
+                };
+          // start reading the file. When it is done, calls the onload event defined above.
+          // reader.readAsBinaryString(fileInput.files[0]);
+          reader.readAsText(fileInput.files[0], 'utf8');
+      };
+  fileInput.addEventListener('change', readFile);
+
+
+
+//
+
+});
+</script>
+
+</body>
+</html>

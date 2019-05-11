@@ -1,0 +1,30 @@
+//Begriffe, die im model und code verwendet werden
+pubs = Gaststätte
+rating = Bewertung
+dishes = Gericht
+openinghours = Öffnungszeiten
+menu = Speisekarte
+person = Person
+
+-list: gibt Liste zurück
+
+drawer = Menü an der Seite
+nav- = Link im Menü
+
+.maincard = css-Klasse, die alle main views haben
+
+
+Entities:
+Pubs
+Menu
+Menupage
+Category
+Annotation
+Address
+OpeningHours
+Otherthing
+Dishes
+Rating
+Person
+Player
+HistoricPerson
