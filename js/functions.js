@@ -253,17 +253,17 @@ function newMenuListElement(data){
                   <i class="material-icons mdc-chip__icon mdc-chip__icon--leading" menupage-complete-status-percentage>%</i>
                   <div class="mdc-chip__text" menupage-complete-status-text></div>
                 </div>
-                <ul class="mdc-image-list my-image-list">`;
-
+                <ul class="my-image-list mdc-image-list">`;
+                //mdc-image-list
     //get preview image from iiif server
     $.each(data.menupages, function (index1, value1) {
-      var img_url = config['iiifserver'] + value1.filepath.replace(/\//g, "%2F") + "/full/!200,200/0/default.jpg";
-      card_html += `<li class="mdc-image-list__item iiif-image" data-id="${value1.id}">
-      <div class="mdc-image-list__image-aspect-container ">
-        <img class="mdc-image-list__image" src="${img_url}" alt="Kein Bild"></div>
-        <div class="mdc-image-list__supporting"><span class="mdc-image-list__label" menupage-status-label>e</span></div>`;//card_html += `</div>`;
+      var img_url = config['iiifserver'] + value1.filepath.replace(/\//g, "%2F") + "/full/!400,400/0/default.jpg";
+      card_html += `<li class="mdc-image-list__item iiif-image" data-id="${value1.id}" width="300px">
+      <div class="" width="200px">
+        <img class="mdc-image-list__image image-preview" src="${img_url}" alt="Kein Bild" witdh="200px" height="200px" /></div>
+        <div class="mdc-image-list__supporting"><span class="mdc-image-list__label" menupage-status-label></span></div>`;//card_html += `</div>`;
       card_html += `</li>`;
-})
+}) //mdc-image-list__image-aspect-container
 card_html += `</ul>`;
   return card_html;
 };
@@ -389,7 +389,7 @@ function newDishesRatingElement(data, personInfo){
     return `<li class="" tabindex="0" data-id="${data._id}">
     <p>
     <span class="mdc-list-item__text">${personInfo}
-    <span class="mdc-list-item__primary-text">${data.body.comment} `+ visualizeRating(data.body.rating) +`</span>
+    <span class="mdc-list-item__primary-text">${data.body.comment} <br />`+ visualizeRating(data.body.rating) +`</span>
     <span class="mdc-list-item__secondary-text" rating-person></span>
     </span>
     </p>
@@ -794,16 +794,16 @@ return new Promise(function(resolve, rejected){
     selector: {'_id' : data.creator.id},
   }).then(function(result){
         return */
-        var imagename = data.id + "_" + data.identity + ".jpeg"
+        var imagename = data._id + "_" + data.identity + ".jpeg"
         console.log(data);
         DBplayer.getAttachment(data.id, imagename).then(function(result2){
         var url = URL.createObjectURL(result2);
         console.log(result2);
         resolve(`<span class="playerinfo" data-id="${data.id}"><img src="${url}" width="64px" height="auto" alt=":-(" /> ${creator_name} , `+timeDifference(Date.now(), timestamp) + `:</span>`);
   }).catch(function(error){
-    if(data.id === ""){
+    //if(data.id === ""){
       resolve(`<span class="playerinfo"> ${creator_name} , `+timeDifference(Date.now(), timestamp) + `:</span>`);
-    }
+    //}
     console.log(error);
   })
 });
@@ -828,6 +828,7 @@ function redrawAnnotationInfoDialog(anno){
     icon += `<i class="material-icons">device_unknown</i> `;
   }
   $("#annotation-info-title").prepend(icon);
+
   let category = anno.body.categoryName;
   if(category === "none" || category === undefined){
     category = "in keiner Kategorie";
@@ -849,7 +850,9 @@ function redrawAnnotationInfoDialog(anno){
     $("#annotation-info-content").html(html);
 
   }else if(anno.annotype === "Category"){
-      $("#annotation-info-title").html(anno.body.name);
+      $("#annotation-info-title").html(`Kategorie`);
+
+
       $("#annotation-info-title").prepend(`<i class="material-icons-outlined">category</i> `);
       let category = anno.body.upperCategoryName;
       if(category === "none" || category === undefined){
@@ -858,7 +861,7 @@ function redrawAnnotationInfoDialog(anno){
         html+= `<div class="mdc-chip mdc-chip--selected">
             <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">category</i>
             <div class="mdc-chip__text">${category}</div>
-          </div>`;
+          </div><div>${anno.body.name}</div>`;
       html += `<div class="iiif-image"><img id="anno-iiif-preview" alt="Kein Bild"></div>`
       $("#annotation-info-content").html(html);
 
@@ -977,7 +980,7 @@ function identity_check(){
           if(docs.length != 0){
             	user_state.account_created = true,
             	user_state.identity = docs[0].identity;
-            	user_state.timestamp = docs[0].id;
+            	user_state.timestamp = docs[0]._id;
               user_state.rev = docs[0]._rev;
               user_state.help = docs[0].help;
 
@@ -987,7 +990,7 @@ function identity_check(){
               user_state.name = result.name;
               var text = 'Willkommen zurück: ' + result.name ;
               showTextOnSnackbar(text , 4500, "OK");
-              var path = user_state.timestamp+'_'+user_state.identity+'.jpeg';
+              var path = user_state.timestamp+'_'+user_state.identity+'.jpg';
               //redrawUserImage(docs[0]._attachments[0].data);
               console.log(path);
               $("#card-about-you > div > div > img[user-image]").attr('src', 'assets/'+result.file).attr('width', '50%').attr('height','auto%');
@@ -995,6 +998,7 @@ function identity_check(){
 
               return DBuser.getAttachment(docs[0]._id, path);
             }).then(function(blob){
+              console.log(blob);
               redrawUserImage(blob);
 
             }).catch(function(err){

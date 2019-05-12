@@ -58,7 +58,7 @@ left: 50%;
 .iiif-image{
 padding: 4px;
 background-color: #FAFAD2;
- border-radius: 5px 5px 5px 5px
+ border-radius: 10px 10px 10px 10px
 }
 
 .slick-prev {
@@ -84,6 +84,12 @@ background-color: #FAFAD2;
   margin-top: 5px;
 }
 
+
+.image-preview{
+  width: 100px;
+  border-radius: 5px 5px 5px 5px;
+  botder: 1px solid grey;
+}
 /* stylelint-disable
 CSS
 TODO: Adapt, if needed. Else delete

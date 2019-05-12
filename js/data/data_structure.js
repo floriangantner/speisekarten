@@ -115,7 +115,7 @@ Identity ->
 {
 "name":"Abbe, Ernst",
 "job":
-["Astronom","Physiker","Physiker","Astronom","Astronomie/Astrophysik","Physik","Optik","http://d-nb.info/gnd/118646419","http://de.wikipedia.org/wiki/Ernst_Abbe","https://www.deutsche-digitale-bibliothek.de/entity/118646419","http://www.deutsche-biographie.de/pnd118646419.html?anchor=index","http://www.herder-institut.de/gnd/118646419","http://cgi-host.uni-marburg.de/~omgesa/gs/xs1.php?f1=pnd&s1=118646419","Deutschland"],
+["","",""],
 "birthdate":"1840-01-23",
 "deathdate":"1905-01-14",
 "fileid":"PT_00001_02_GF",
@@ -289,7 +289,7 @@ Category -> {
 "annotype" : "Category",
 "body" : {
 	"name" : "somewhat",
-	"upperCategoryName" : "",
+	"upperCategory" : "",
 	"upperCategoryID" : ""
 	}
 },
