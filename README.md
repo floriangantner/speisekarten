@@ -3,7 +3,7 @@
 Speisekarten App  
 Cod1ng da V1nc1 Süd 2019  
 
-![Bild des Gastrograntler Intro-Screens](screens/gastrograntler.png)
+![Bild des Gastrograntler Intro-Screens](screens/gastrograntler_intro.PNG)
 
 Installationsanleitung:  
 Gastrograntler läuft zurzeit nur offline, da uns die Kapazitäten für einen Serverbetrieb (> 10 GB Speicherplatz für die Bilder) fehlen.  
@@ -31,42 +31,42 @@ Einige Browser (Chrome) brauchen den Aufruf von einen Webserver für Funktionali
 
 Screens:
 Suchfunktion in der Liste der Wirtshäuser:
-![Suchfunktion in der Liste der Wirtshäuser](screens/pubs-list-search.png)
+![Suchfunktion in der Liste der Wirtshäuser](screens/pubs-list-search.PNG)
 
 Detailansicht des Wirtshaus Augustiner:
-![Detailansicht des Wirtshaus Augustiner](screens/pubs-detail.png)
+![Detailansicht des Wirtshaus Augustiner](screens/pubs-detail.PNG)
 
 Detailansicht der Speisekarten des Wirtshaus Augustiner:
-![Detailansicht der Speisekarten des Wirtshaus Augustiner](screens/pubs-menu-list.png)
+![Detailansicht der Speisekarten des Wirtshaus Augustiner](screens/pubs-menu-list.PNG)
 
 Detailansicht einer eingezoomten Speisekartenseite:
-![Detailansicht einer eingezoomten Speisekartenseite](screens/pubs-menupage-detail.png)
+![Detailansicht einer eingezoomten Speisekartenseite](screens/pubs-menupage-detail.PNG)
 
 Auswählen einer Kategorie nach dem Zeichnen einer Fläche
-![Auswählen einer Kategorie nach dem Zeichnen einer Fläche](screens/pubs-menupage-anno-select.png)
+![Auswählen einer Kategorie nach dem Zeichnen einer Fläche](screens/pubs-menupage-anno-select.PNG)
 
 Info-Dialog zu Kategorie ausfüllen
-![Info-Dialog zu Kategorie ausfüllen](screens/pubs-menupage-add-category.png)
+![Info-Dialog zu Kategorie ausfüllen](screens/pubs-menupage-add-category.PNG)
 
 Info-Dialog zu Gericht ausfüllen
-![Info-Dialog zu Gericht ausfüllen](screens/pubs-dishes-add.png)
+![Info-Dialog zu Gericht ausfüllen](screens/pubs-dishes-add.PNG)
 
 Anzeige der Info aus einer Annotation
-![Anzeige der Info aus einer Annotation](screens/pubs-menupage-showinfo.png)
+![Anzeige der Info aus einer Annotation](screens/pubs-menupage-showinfo.PNG)
 
 Stadtplan mit ausgewähltem Wirtshaus
-![Stadtplan mit ausgewähltem Wirtshaus](screens/map-info.png)
+![Stadtplan mit ausgewähltem Wirtshaus](screens/map-info.PNG)
 
 Deine Bewertungen und Annotationen
-![Deine Bewertungen und Annotationen](screens/your-ratings.png)
+![Deine Bewertungen und Annotationen](screens/your-ratings.PNG)
 
 
 Alle Gerichte eines Gasthauses anzeigen
-![Alle Gerichte eines Gasthauses anzeigen](screens/pubs-list-detail.png)
+![Alle Gerichte eines Gasthauses anzeigen](screens/pubs-list-detail.PNG)
 
 Bewertung zu einem Gericht hinterlassen
-![Bewertung zu einem Gericht hinterlassen](screens/pubs-dish-rating.png)
+![Bewertung zu einem Gericht hinterlassen](screens/pubs-dish-rating.PNG)
 
 Bewertungen zu einem Gericht anzeigen
-![Bewertung zu einem Gericht anzeigen](screens/pubs-dishes-rating-show.png)
+![Bewertung zu einem Gericht anzeigen](screens/pubs-dishes-rating-show.PNG)
 
