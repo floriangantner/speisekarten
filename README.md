@@ -3,9 +3,7 @@
 Speisekarten App  
 Cod1ng da V1nc1 Süd 2019  
 
-Grafischer Überblick über die Software
-https://unibamberg-my.sharepoint.com/:p:/g/personal/florian-klaus_gantner_stud_uni-bamberg_de/EYbUfkd5_O5Pg-BMUjGNSRIBnU9IK6_Wuz1XOGwYiAPvVQ?e=vZc6ia
-(Online-Office, jeder mit dem Link kann bearbeiten)
+![Bild des Gastrograntler Intro-Screens](screens/gastrograntler.png)
 
 Installationsanleitung:  
 Gastrograntler läuft zurzeit nur offline, da uns die Kapazitäten für einen Serverbetrieb (> 10 GB Speicherplatz für die Bilder) fehlen.  
@@ -24,9 +22,51 @@ Ein Sync der lokal gespeicherte Browserdaten mit einer zentralen Datenbank kann 
 - Optional: unter js/data/data_config.js config.couchDB den Aufrufpfad (Url/port/Ordner/) zur CouchDB-Server ändern. Defaultmäßig ist dieser http://localhost:5984/  
 
 
-Ausführen:   
+**Ausführen: **     
 index.html aufrufen.
 
 Einige Browser (Chrome) brauchen den Aufruf von einen Webserver für Funktionalitäten des ServiceWorkers:  
 - python -m http.server,
 - dann localhost:8000
+
+Screens:
+Suchfunktion in der Liste der Wirtshäuser:
+![Suchfunktion in der Liste der Wirtshäuser](screens/pubs-list-search.png)
+
+Detailansicht des Wirtshaus Augustiner:
+![Detailansicht des Wirtshaus Augustiner](screens/pubs-detail.png)
+
+Detailansicht der Speisekarten des Wirtshaus Augustiner:
+![Detailansicht der Speisekarten des Wirtshaus Augustiner](screens/pubs-menu-list.png)
+
+Detailansicht einer eingezoomten Speisekartenseite:
+![Detailansicht einer eingezoomten Speisekartenseite](screens/pubs-menupage-detail.png)
+
+Auswählen einer Kategorie nach dem Zeichnen einer Fläche
+![Auswählen einer Kategorie nach dem Zeichnen einer Fläche](screens/pubs-menupage-anno-select.png)
+
+Info-Dialog zu Kategorie ausfüllen
+![Info-Dialog zu Kategorie ausfüllen](screens/pubs-menupage-add-category.png)
+
+Info-Dialog zu Gericht ausfüllen
+![Info-Dialog zu Gericht ausfüllen](screens/pubs-dishes-add.png)
+
+Anzeige der Info aus einer Annotation
+![Anzeige der Info aus einer Annotation](screens/pubs-menupage-showinfo.png)
+
+Stadtplan mit ausgewähltem Wirtshaus
+![Stadtplan mit ausgewähltem Wirtshaus](screens/map-info.png)
+
+Deine Bewertungen und Annotationen
+![Deine Bewertungen und Annotationen](screens/your-ratings.png)
+
+
+Alle Gerichte eines Gasthauses anzeigen
+![Alle Gerichte eines Gasthauses anzeigen](screens/pubs-list-detail.png)
+
+Bewertung zu einem Gericht hinterlassen
+![Bewertung zu einem Gericht hinterlassen](screens/pubs-dish-rating.png)
+
+Bewertungen zu einem Gericht anzeigen
+![Bewertung zu einem Gericht anzeigen](screens/pubs-dishes-rating-show.png)
+

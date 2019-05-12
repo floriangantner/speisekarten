@@ -103,7 +103,7 @@ document.execCommand("copy");
                    }
                     });
                  if(exists === false && (allRows[it].kategorie != undefined)){
-                     var cat_key = menupageid + "/c" + cat_counter;
+                     var cat_key = menuid + "/c" + cat_counter;
                      cat[cat_key] = allRows[it].kategorie;
                      cat_counter++;
                      var newcat = {
@@ -155,9 +155,9 @@ document.execCommand("copy");
                   var newdish = {};
                   //7Distinguish cases
                   var type;
-                  if(newdish.typ === "Essen"){
+                  if(thisentry.typ === "Essen"){
                     type = "meal";
-                  }else if(newdish.typ === "Trinken" || newdish.typ === "Getränk"){
+                  }else if(thisentry.typ === "Trinken" || thisentry.typ === "Getränk"){
                     type = "drink";
                   }else {
                     type = "other";
@@ -165,22 +165,24 @@ document.execCommand("copy");
                   //find category name and id by given category
                   var category_key_id;
                   Object.keys(cat).forEach(function(key,index) {
-                    if(cat[key] === allRows[it].kategorie){
+                    if(cat[key] === thisentry.kategorie){
                       category_key_id = key
                     }
                      });
-newdish = {
+var newdish = {
+  "_id" : "dish"+dishcounter,
+  "id" : "dish"+dishcounter,
 "@context" : "http://www.w3.org/ns/anno.jsonld",
 "type" : "Annotation",
 "annotype" : "Dishes",
 "body" : {
   "type" : type,
-  "name" : newdish.gericht,
-  "price" : newdish.price,
-  "price_currency" : newdish.waehrung,
-  "amount" : newdish.menge,
-	"description" : newdish.beschreibung,
-  "categoryName" : allRows[it].kategorie,
+  "name" : thisentry.gericht,
+  "price" : thisentry.price,
+  "price_currency" : thisentry.waehrung,
+  "amount" : thisentry.menge,
+	"description" : thisentry.beschreibung,
+  "category" : thisentry.kategorie,
   "categoryID" : category_key_id
 },
 "target" : {

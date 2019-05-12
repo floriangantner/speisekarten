@@ -323,8 +323,8 @@ var data = {
   "price_currency" : $("#annotation-dishes-popup").find("[anno-dishes-currency]").val(),
   "amount" : $("#annotation-dishes-popup").find("[anno-dishes-amount]").val(),
 	"description" : $("#annotation-dishes-popup").find("#dialog-dishes-description > textarea").val(),
-  "categoryName" : $("#annotation-dishes-popup").find("[anno-dishes-category]").val(),
-  "categoryID" : $("#annotation-dishes-popup").find("[anno-dishes-category] option:selected").text()
+  "categoryName" : $("#annotation-dishes-popup").find("[anno-dishes-category]  option:selected").text(),
+  "categoryID" : $("#annotation-dishes-popup").find("[anno-dishes-category]").val()
 },
 "target" : {
 	"pubid":app_state.pubs,

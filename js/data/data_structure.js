@@ -289,7 +289,7 @@ Category -> {
 "annotype" : "Category",
 "body" : {
 	"name" : "somewhat",
-	"upperCategoryName" : "",
+	"upperCategory" : "",
 	"upperCategoryID" : ""
 	}
 },
