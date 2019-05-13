@@ -104,28 +104,28 @@ Player ->
 
 Identity ->
 {
-"id" : "1",
-"_id" : "1",
-"name" : "Max",
-"firstname" : "Mustermann",
-"job" : "Restaurantkenner",
-"file" : "http://www.digiporta.net/ires/DMA/s0/DMA_PT_00001_02_GF.jpg"
-}
-
-{
-"name":"Abbe, Ernst",
-"job":
-["","",""],
-"birthdate":"1840-01-23",
-"deathdate":"1905-01-14",
-"fileid":"PT_00001_02_GF",
-"_id":"PT_00001_02_GF",
-"id":"PT_00001_02_GF",
-"file":"PT_00001_02_GF.jpg",
-"xmlfile" : "http://www.digiporta.net/opendata/dm/xml/PT_00001_02_GF.xml",
-"filejpeg_small":"http://www.digiporta.net/ires/DMA/s1/DMA_PT_00001_02_GF.jpg"
-},
-
+"name": thisentry.name,
+"vorname" : thisentry.Vorname,
+"job":  [thisentry.job],
+"gnd" : thisentry.gnd,
+"motto" : thisentry.Motto,
+"gender" : thisentry.gender,
+"birthdate": thisentry.gebDay + "." + thisentry.gebMonth + "." + thisentry.gebYear,
+"birthday" : thisentry.gebDay,
+"birthmonth" : thisentry.gebMonth,
+"birthyear" : thisentry.gebYear,
+"deathdate": thisentry.deathDay + "." + thisentry.deathMonth + "." + thisentry.deathYear,
+"deathday" : thisentry.deathDay,
+"deathmonth" : thisentry.deathMonth,
+"deathyear" : thisentry.deathYear,
+"fileid" : thisentry.imageID,
+"personid" : personid,
+"personid_count" : "person" + personid,
+"_id": thisentry.imageID,
+"id": thisentry.imageID,
+"file": thisentry.imageID + ".jpg",
+"xmlfile" : "http://www.digiporta.net/opendata/dm/xml/"+thisentry.imageID+".xml",
+};
 Annotations:
 //using some modified and extended https://www.w3.org/TR/annotation-model/
 //f.e. no geo information is conidered in protocol

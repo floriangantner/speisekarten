@@ -1,0 +1,139 @@
+<html>
+<head>
+  <title>Person - CSV - Parser</title>
+  <!--<link rel="stylesheet" href="css/material-components-web.min.css">
+  <link rel="stylesheet" href="css/app.css">-->
+  <script src="../js/jquery/jquery-3.3.1.min.js"></script>
+  <style>
+  #out, #out2 {
+  font-family: Consolas, monaco, monospace;
+  font-size:10pt;
+  }
+  </style>
+</head>
+<body>
+
+<h1>Programm zum Einlesen von PersonenDaten aus der Excel-Datei || Alternative zum Parsen der Dt. Museum LIDO-Datei</h1>
+<div>
+<p>Excel in csv umwandeln und generierter Json-Code in data_samples.js reinkopieren oder damit eine Datenbank füllen</p>
+<p><a href="https://jsoneditoronline.org/">Json Editor online zum Betrachten</a></p>
+<p>Select local CSV File:</p>
+<input id="csv" type="file">
+</div><div>
+<output id="statistic">Statistiken:</output><br />
+  <button id="show-geo">Personen anzeigen und kopieren</button><br />
+
+</div>
+<div><textarea id="out" cols="50" rows="10">
+    file contents will appear here
+</textarea>
+</div>
+<script>
+
+//Gaststätten und Speisekarten sind im Dokument durch die Reihenfolge zusammenhängend (also untereinanderstehende Einträge)
+
+$(document).ready(function() {
+
+$("#show-geo").click(function(){
+$("#out").toggle().select();
+document.execCommand("copy");
+
+})
+
+  var persons = [], pubcounter = [], personid = 1;
+  var time_start = new Date().getTime();
+  var fileInput = document.getElementById("csv"),
+      readFile = function () {
+          var reader = new FileReader();
+          reader.onload = function () {
+                //print readed filed
+                //$("#out").html(reader.result);
+                //Teile Zeilen
+                var allRows = reader.result.split(/\  r?\n|\r/);
+                $.each(allRows, function(index, value){
+                //Teile Zeilen in Teile
+                // DIR und Datum = leer -> Gaststätte
+                //add pub beginning from 1
+                var value_split = value.split(';');
+                allRows[index] = null;
+                allRows[index] = {
+                  'ID' : value_split[0],
+                  'imageID' : value_split[1],
+                  'name' : value_split[2] + " " + value_split[3],
+                  'Vorname' : value_split[2],
+                  'Nachname' : value_split[3],
+                  'job' : value_split[4],
+                  'gnd' : value_split[5],
+                  'Motto' : value_split[6],
+                  'gebYear' : value_split[7],
+                  'gebMonth' : value_split[8],
+                  'gebDay' : value_split[9],
+                  'deathYear' : value_split[10],
+                  'deathMonth' : value_split[11],
+                  'deathDay' : value_split[12],
+                  'gender' : value_split[13] //und waas danach kommt
+                }
+              });
+
+              for(var it = 1; it < allRows.length; it++){
+
+                  var thisentry = allRows[it];
+                  var newperson = {};
+                  if(thisentry == null){
+                    console.log("Error or empty line at line " + it)
+                    break;
+                  }
+                  var personid =  thisentry.ID.replace(/(\r\n|\n|\r)/gm, "");
+ newperson = {
+ "name": thisentry.name,
+ "vorname" : thisentry.Vorname,
+ "job":  [thisentry.job],
+ "gnd" : thisentry.gnd,
+ "motto" : thisentry.Motto,
+ "gender" : thisentry.gender,
+ "birthdate": thisentry.gebDay + "." + thisentry.gebMonth + "." + thisentry.gebYear,
+ "birthday" : thisentry.gebDay,
+ "birthmonth" : thisentry.gebMonth,
+ "birthyear" : thisentry.gebYear,
+ "deathdate": thisentry.deathDay + "." + thisentry.deathMonth + "." + thisentry.deathYear,
+ "deathday" : thisentry.deathDay,
+ "deathmonth" : thisentry.deathMonth,
+ "deathyear" : thisentry.deathYear,
+ "fileid" : thisentry.imageID,
+ "personid" : personid,
+ "personid_count" : "person" + personid,
+ "_id": thisentry.imageID,
+ "id": thisentry.imageID,
+ "file": thisentry.imageID + ".jpg",
+ "xmlfile" : "http://www.digiporta.net/opendata/dm/xml/"+thisentry.imageID+".xml",
+};
+
+      personid++;
+
+      persons.push(newperson);
+                };
+
+                var time_end = new Date().getTime();
+                //push last menu-object to array
+                console.log("Erkannt: " + allRows.length + " Einträge insgesamt || " + persons.length + " Personen " )
+                var time_seconds = Math.round((time_end - time_start) / 10) / 100;;
+                console.log( "in " + time_seconds + " Sekunden");
+                //statistiken ausgeben:
+                $("#statistic").html(allRows.length + " Einträge insgesamt || " + persons.length + " Personsn  " );
+                $("#out").html(JSON.stringify(persons));
+                };
+          // start reading the file. When it is done, calls the onload event defined above.
+          // reader.readAsBinaryString(fileInput.files[0]);
+          reader.readAsText(fileInput.files[0], 'utf8');
+      };
+  fileInput.addEventListener('change', readFile);
+
+
+
+//
+
+});
+</script>
+
+</body>
+</html>

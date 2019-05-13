@@ -959,7 +959,7 @@ function redrawUserInfo(){
     DBhist_persons.get(user_state.identity).then(function(doc){
       $("[user-name]").html(`${doc.name}`);
       $("[user-status]").html(`${doc.job[0]}`);
-      $("#card-about-you").find(`[user-status]`).append(` (${doc.birthdate} - ${doc.deathdate})`);
+      $("#card-about-you").find(`[user-status]`).append(` (${doc.birthdate} - ${doc.deathdate}) <br>Motto: ${doc.motto}`);
       user_state.name = doc.name; // set display name
     });
 
