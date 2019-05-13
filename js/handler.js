@@ -1185,13 +1185,13 @@ if(topic === "geo-annotation"){
 
 }
 
-$("#pubs-list-sort").click(function(){
-  if($("#pubs-list-sort").hasClass('sort_asc')){
+$("#pubs-list-sort-atoz").click(function(){
+  if($("#pubs-list").hasClass('sort_asc')){
     $("#pubs-list li").sort(asc_sort).appendTo('#pubs-list');
-    $("#pubs-list-sort").removeClass('sort_asc')
+    $("#pubs-list").removeClass('sort_asc')
   }else{
     $("#pubs-list li").sort(dec_sort).appendTo('#pubs-list');
-    $("#pubs-list-sort").addClass('sort_asc')
+    $("#pubs-list").addClass('sort_asc')
   }
   // accending sort
   function asc_sort(a, b){
@@ -1204,6 +1204,28 @@ $("#pubs-list-sort").click(function(){
   }
 
 })
+
+$("#pubs-list-sort-progress").click(function(){
+  if($("#pubs-list").hasClass('sort_pro')){
+    $("#pubs-list li").sort(asc_sort).appendTo('#pubs-list');
+    $("#pubs-list").removeClass('sort_pro')
+  }else{
+    $("#pubs-list li").sort(dec_sort).appendTo('#pubs-list');
+    $("#pubs-list").addClass('sort_pro')
+  }
+  // accending sort
+  function asc_sort(a, b){
+      return ($(b).attr('data-complete')) < ($(a).attr('data-complete')) ? 1 : -1;
+  }
+
+  // decending sort
+  function dec_sort(a, b){
+      return ($(b).attr('data-complete') ) > ($(a).attr('data-complete')) ? 1 : -1;
+  }
+
+})
+
+
 
 $(".filter-sort > .filter-buttons  > button").on("click", function (evt){
 //find next list and filter or sort
