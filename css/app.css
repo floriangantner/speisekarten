@@ -90,12 +90,20 @@ background-color: #FAFAD2;
   border-radius: 5px 5px 5px 5px;
   botder: 1px solid grey;
 }
+
+.gastrograntler-topbarlogo{
+  width : 28px;
+  height : 28px;
+
+}
+.gastrograntler-smalllogo{
+  width : 28px;
+  height : 28px
+}
+
 /* stylelint-disable
 CSS
 TODO: Adapt, if needed. Else delete
-
-
-
 
 html, body {
   height: 100%;

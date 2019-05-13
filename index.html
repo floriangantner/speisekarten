@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Florian Gantner">
   <link rel="manifest" href="/manifest.json">
-  <link rel="icon" sizes="192x192" href="assets/logo/app_192x192.png">
+  <link rel="icon" sizes="192x192" href="assets/logo/Gastro_Grantler_favicon.png">
   <!-- https://material.io/static/images/simple-lp/favicons/components-192x192.png -->
   <link rel="shortcut icon" href="https://material.io/static/images/simple-lp/favicons/components-72x72.png">
   <!-- include stylesheets -->
@@ -58,20 +58,22 @@
           <!--<a class="mdc-list-item" href="#" tabindex="-1"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">bookmark</i>Lesezeichen</a>-->
           <hr class="mdc-list-divider">
             <a class="mdc-list-item" href="#" tabindex="-1" id="nav-tutorial"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">announcement</i>Help &amp; feedback</a>
+            <a class="mdc-list-item" href="#" tabindex="-1" id="nav-gastro-about"><i class="material-icons mdc-list-item__graphic" aria-hidden="true"><img src="assets/logo/Gastro_Grantler_favicon.png" class="gastrograntler-smalllogo" /></i> @ 2019</a>
           </nav></div>
             </aside>
               <div class="mdc-drawer-scrim"></div>
         <div class="drawer-frame-app-content">
           <header class="mdc-top-app-bar--short drawer-top-app-bar--short"><div class="mdc-top-app-bar__row"><section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
           <button class="material-icons mdc-top-app-bar__navigation-icon mdc-ripple-upgraded--unbounded mdc-ripple-upgraded" style="--mdc-ripple-fg-size:28px; --mdc-ripple-fg-scale:1.7142857142857142; --mdc-ripple-left:10px; --mdc-ripple-top:10px;" id="menu">menu</button>
-          <span class="mdc-top-app-bar__title">Gastrograntler</span></section></div></header>
+          <img src="assets/logo/Gastro_Grantler_klein192.png" class="gastrograntler-topbarlogo" />
+          <span class="mdc-top-app-bar__title"> Gastrograntler</span></section></div></header>
         </div>
 <!-- Liste von Model Cards-->
 
 <main class="maincard" id="card-intro">
   <div class="mdc-card demo-card">
     <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
-      <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;sample-data/p66_m1_ima11.jpg&quot;);"></div>
+      <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;assets/p66_m1_ima11.jpg&quot;);"></div>
       <div class="demo-card__primary">
         <h2 class="demo-card__title mdc-typography mdc-typography--headline6"></h2>
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
@@ -612,26 +614,29 @@
 </main>
 
 <main class="maincard" id="card-about-us">
-  <div class="mdc-card demo-card demo-basic-with-header">
+
+  <div class="mdc-card demo-card">
+  <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+  <!--  <div class="mdc-card__media mdc-card__media--16-9 demo-card__media"></div> -->
     <div class="demo-card__primary">
-      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Über uns</h2>
-      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">Coding da Vinci Süd 2019</h3>
+      <img src="assets/logo/Gastro_Grantler_klein192.png">
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Gastrograntler</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2">by Henni & Alan & Flo @2019</h3>
     </div>
-    <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
-      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Datensätze</div>
-    </div>
-    <div class="mdc-card__actions">
-      <div class="mdc-card__action-buttons">
-        <button class="mdc-button mdc-card__action mdc-card__action--button">Mehr darüber</button>
-      </div>
-      <div class="mdc-card__action-icons">
-        <button class="mdc-icon-button mdc-card__action mdc-card__action--icon--unbounded" aria-pressed="false" aria-label="Add to favorites" title="Add to favorites">
-          <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">favorite</i>
-          <i class="material-icons mdc-icon-button__icon">favorite_border</i>
-        </button>
-      </div>
-    </div>
+    <div class="demo-card__secondary mdc-typography mdc-typography--body2">
+      Weitere Infos gibt es auf unserer Projektseite: <a href="https://hackdash.org/projects/5cab9babae89117e1661da83">Tripadviswurst auf Hackdash</a><br>
+      Als Datensätze verwenden wir historische Speisekarten von der <a href="https://codingdavinci.de/daten/#monacensia">Monacensia im Hildebrandhaus</a> und Porträtdarstellungen aus der Porträtsammlung des <a href="https://codingdavinci.de/daten/#deutsches-museum">Deutschen Museums</a>.</div>
+</div>
   </div>
+  <div class="mdc-card__actions">
+    <div class="mdc-card__action-icons">
+      <button class="mdc-icon-button mdc-card__action mdc-card__action--icon--unbounded" aria-pressed="false" aria-label="Add to favorites" title="Add to favorites" id="about-us-like">
+        <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">favorite</i>
+        <i class="material-icons mdc-icon-button__icon">favorite_border</i>
+      </button>
+  </div>
+  </div>
+</div>
 </main>
 
 <main class="maincard" id="card-about-you">
@@ -675,31 +680,6 @@
         <i class="material-icons-outlined mdc-button__icon">filter_list</i>
         <span class="mdc-button__label"></span>
         </button>
-<!--
-      <div class="mdc-menu mdc-menu-surface" tabindex="-1" id="you-filter-category-list">
-<ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" id="">
-  <li>
-    <ul class="mdc-menu__selection-group">
-      <li class="mdc-list-item" role="menuitem">
-        <span class="mdc-list-item__graphic mdc-menu__selection-group-icon">
-          restaurant
-        </span>
-        <span class="mdc-list-item__text">Gerichte</span>
-        </li>
-      <li class="mdc-list-item" role="menuitem">
-        <span class="mdc-list-item__graphic mdc-menu__selection-group-icon">
-          category
-        </span>
-        <span class="mdc-list-item__text">Category</span>
-      </li>
-    </ul>
-  </li>
-  <li class="mdc-list-divider" role="separator"></li>
-  <li class="mdc-list-item" role="menuitem">
-    <span class="mdc-list-item__text">Add space before paragraph</span>
-  </li>
-</ul>
-</div> -->
 <button class="mdc-button mdc-ripple-upgraded" sort-atoz>
 <i class="material-icons-outlined mdc-button__icon">sort_by_alpha</i>
 <span class="mdc-button__label"></span>

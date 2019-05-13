@@ -12,7 +12,6 @@ identity_check();
   progress_loader.progress = 1;
   $("#menu").attr("disabled", false);
   $("#button-intro-go").attr("disabled", false);
-
 }
 
 function redrawRandomMenu(){

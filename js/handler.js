@@ -10,6 +10,7 @@ $( "main" ).hide(); //hide by default in css code
 $("#card-intro").show();
 $("#button-intro-go").attr("disabled", true);
 $("#menu").attr("disabled", true);
+$("#menu").hide();
 
 //loading data etc...
 //show main intro
@@ -114,7 +115,8 @@ $("#button-intro-go").click(function(evt){
   $( "#card-intro" ).hide();
   drawer.open = false;
   //TODO: add check for data loaded
-
+  //show menu
+  $("#menu").show();
   //TODO: Check, if Person was selected
   if(user_state.account_created == false || user_state.account_created === undefined){
   $("#button-identity-confirm").hide();
@@ -1540,11 +1542,26 @@ $("#tutorial-serviceworker-push-button").click(function(evt){
     var options = {};
     //console.log(swRegistration);
     console.log(app_state.sw);
-    var text = "Timestamp : " + Date.now() + " : Push-Benachrichtigungen sind aktiviert";
+    var text = "Timestamp : " + Date.now() + " : Push-Benachrichtigungen sind aktiviert. Noch nutzt GastroGrantler dieses Feature aber nicht!";
     app_state.sw.showNotification(text, {
-      "icon" : "assets/logo/app_192x192.png",
+      "icon" : "assets/logo/Gastro_Grantler_favicon.png",
     });
   }else{
     showTextOnSnackbar("Push Notifications sind nicht aktiviert", "3000")
   }
 });
+
+$("#about-us-like").click(function(evt){
+  showTextOnSnackbarButton("Schön, dass dir diese Anwendung gefällt. Empfehl uns doch anderen Leuten Weiter", "10000", "Wird gemacht!")
+})
+
+
+$("#about-us-like").click(function(evt){
+  showTextOnSnackbarButton("Schön, dass dir diese Anwendung gefällt. Empfehl uns doch anderen Leuten Weiter", "10000", "Wird gemacht!")
+})
+
+$("#nav-gastro-about").click(function(evt){
+  var text = "Gastrograntler || + Version: " +config.version;
+  showTextOnSnackbarButton(text, "10000", "OKAY")
+
+})
