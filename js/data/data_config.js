@@ -6,7 +6,8 @@ const config = {
 'iiifserver' : "http://localhost:8182/iiif/2/", //path to iiifserver, e.g. http://localhost:8182/iiif/2/
 'couchDB' : "http://localhost:5984/", //path to couchDB instance
 'path_folder_images' : "", //path to images, relative from index.html file
-'url' : "" //path to index.html
+'url' : "", //path to index.html,
+'version' : "0.1 alpha"
 };
 
 //contains global variables

@@ -10,6 +10,7 @@ $( "main" ).hide(); //hide by default in css code
 $("#card-intro").show();
 $("#button-intro-go").attr("disabled", true);
 $("#menu").attr("disabled", true);
+$("#menu").hide();
 
 //loading data etc...
 //show main intro
@@ -86,7 +87,7 @@ $("#nav-about-us").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
   drawer.open = false;
-  $( "#card-about-us" ).show();
+  showHelp("A2HS", false, $( "#card-about-us" ));
 });
 
 $("#nav-tutorial").click(function(evt){
@@ -114,7 +115,8 @@ $("#button-intro-go").click(function(evt){
   $( "#card-intro" ).hide();
   drawer.open = false;
   //TODO: add check for data loaded
-
+  //show menu
+  $("#menu").show();
   //TODO: Check, if Person was selected
   if(user_state.account_created == false || user_state.account_created === undefined){
   $("#button-identity-confirm").hide();
@@ -1163,33 +1165,13 @@ $("#annotation-info-popup").on("click", ".thumbDown", function(evt){
   actionThumbDown();
 });
 
-function checkHelp(topic){
-//check if help page has been shown already
-if(user_state.help){
-
-}
-redrawHelp(topic);
-//}
-}
-
-function redrawHelp(topic){
-  //set handler for next action, e.g. click on accept button and open other things, or
-if(topic === "geo-annotation"){
-  $("#help-title").html('');
-  $("#help-content").html('');
-  $("#help-go").html('');
-  //open
-}
-
-}
-
-$("#pubs-list-sort").click(function(){
-  if($("#pubs-list-sort").hasClass('sort_asc')){
+$("#pubs-list-sort-atoz").click(function(){
+  if($("#pubs-list").hasClass('sort_asc')){
     $("#pubs-list li").sort(asc_sort).appendTo('#pubs-list');
-    $("#pubs-list-sort").removeClass('sort_asc')
+    $("#pubs-list").removeClass('sort_asc')
   }else{
     $("#pubs-list li").sort(dec_sort).appendTo('#pubs-list');
-    $("#pubs-list-sort").addClass('sort_asc')
+    $("#pubs-list").addClass('sort_asc')
   }
   // accending sort
   function asc_sort(a, b){
@@ -1202,6 +1184,28 @@ $("#pubs-list-sort").click(function(){
   }
 
 })
+
+$("#pubs-list-sort-progress").click(function(){
+  if($("#pubs-list").hasClass('sort_pro')){
+    $("#pubs-list li").sort(asc_sort).appendTo('#pubs-list');
+    $("#pubs-list").removeClass('sort_pro')
+  }else{
+    $("#pubs-list li").sort(dec_sort).appendTo('#pubs-list');
+    $("#pubs-list").addClass('sort_pro')
+  }
+  // accending sort
+  function asc_sort(a, b){
+      return ($(b).attr('data-complete')) < ($(a).attr('data-complete')) ? 1 : -1;
+  }
+
+  // decending sort
+  function dec_sort(a, b){
+      return ($(b).attr('data-complete') ) > ($(a).attr('data-complete')) ? 1 : -1;
+  }
+
+})
+
+
 
 $(".filter-sort > .filter-buttons  > button").on("click", function (evt){
 //find next list and filter or sort
@@ -1540,11 +1544,26 @@ $("#tutorial-serviceworker-push-button").click(function(evt){
     var options = {};
     //console.log(swRegistration);
     console.log(app_state.sw);
-    var text = "Timestamp : " + Date.now() + " : Push-Benachrichtigungen sind aktiviert";
+    var text = "Timestamp : " + Date.now() + " : Push-Benachrichtigungen sind aktiviert. Noch nutzt GastroGrantler dieses Feature aber nicht!";
     app_state.sw.showNotification(text, {
-      "icon" : "assets/logo/app_192x192.png",
+      "icon" : "assets/logo/Gastro_Grantler_favicon.png",
     });
   }else{
     showTextOnSnackbar("Push Notifications sind nicht aktiviert", "3000")
   }
 });
+
+$("#about-us-like").click(function(evt){
+  showTextOnSnackbarButton("Schön, dass dir diese Anwendung gefällt. Empfehl uns doch anderen Leuten Weiter", "10000", "Wird gemacht!")
+})
+
+
+$("#about-us-like").click(function(evt){
+  showTextOnSnackbarButton("Schön, dass dir diese Anwendung gefällt. Empfehl uns doch anderen Leuten Weiter", "10000", "Wird gemacht!")
+})
+
+$("#nav-gastro-about").click(function(evt){
+  var text = "Gastrograntler || + Version: " +config.version;
+  showTextOnSnackbarButton(text, "10000", "OKAY")
+
+})
