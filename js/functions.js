@@ -61,29 +61,42 @@ $.each(data, function (index, value) {
 console.log(data.length + " Pubs written to PubsList");
 }
 
-function showHelp(topic, helppage, afteraction){
-  console.log(user_state.help);
-if(helppage === false && !checkHelp(topic)){
+function showHelp(topic, helppage, afteraction, afteractiontyp){
+  help_dialog.open();
+
+//const help_dialog = new mdc.dialog.MDCDialog(document.querySelector('#help-popup'));
+app_state.helppage = helppage;
+app_state.afteraction = afteraction;
+app_state.afteractiontyp = afteractiontyp;
+var helpAlreadyShown = checkHelp(topic);
+if(helppage === false && helpAlreadyShown === false){
 redrawHelp(topic);
-help_dialog.open();
 user_state.help.push(topic);
 }else if(helppage === true){
   redrawHelp(topic);
-  help_dialog.open();
+}else{
+  console.log("Other");
 }
+if(helpAlreadyShown === true && helppage === false){
+console.log("Topic closed");
+help_dialog.close();
+}
+
+//help_dialog.open();
+console.log("Closing Dialog Opened");
 //closing action, perform afteraction, show element
 
-help_dialog.listen('MDCDialog:closing', function() {
-  console.log(afteraction);
-if(helppage === false && afteraction !== undefined && afteraction !== null){
+  //if(app_state.helppage === false){
+  //  app_state.afteraction.show();
+  //}
+  /*
+if(app_state.helppage === false && app_state.afteraction != undefined && app_state.afteraction != null){
   //perform afteraction on closing the helppage // f.e. open another dialog or show card
-  afteraction.show();
-}else if(helppage === true){
+  $(app_state.afteraction).show();
+}else if(app_state.helppage === true){
   //show Text on helppage, no afterction
-
 }
-});
-
+*/
 }
 
 function checkHelp(topic){
@@ -91,8 +104,11 @@ function checkHelp(topic){
 //define action after
   if(user_state.help.includes(topic)){
     return true;
+  }else{
+
+    return false;
+
   }
-  return false;
 }
 
 function redrawHelp(topic){
@@ -100,13 +116,29 @@ if(topic === "A2HS"){
 $("#help-title").html(`<i class="material-icons">help</i> Zum Startbildschirm hinzufügen`);
 $("#help-content").html(`Add to Home Screen <i class="material-icons">add_to_home_screen</i> -
 Über das Menü deines Browsers kannst du diese Webseite direkt auf deinem Startbildschirm ablegen.<br>`);
-}else if(topic === "GeoAnno"){
-  $("#help-title").html(`<i class="material-icons-">help</i> Geolokalisierung hinterlegen`);
-  $("#help-content").html(`Etwas zur Geolokalisierung <i class="material-icons">geolocation</i> `);
+}else if(topic === "NavPubsList"){
+  $("#help-title").html(`<i class="material-icons">list</i> Branchenverzeichnis`);
+  $("#help-content").html(`Das Branchenverzeichnis verzeichnet alle bekannten Wirtshäuser <i class="material-icons">home</i>`);
 
 }else if(topic === "ServerSync"){
   $("#help-title").html(`<i class="mateiral-icons">help</i> Geolokalisierung hinterlegen`);
   $("#help-content").html(`Tausche Infos mit dem Server und mit anderen Spielern und hole von diesen Infos ab <i class="material-icons">sync</i> `);
+
+}else if(topic === "NavMap"){
+  $("#help-title").html(`<i class="material-icons">map</i> Karte`);
+  $("#help-content").html(`Die Karte zeigt die die bekannten Positionen der Gasthäuser <i class="material-icons">home</i>`);
+
+}else if(topic === "NavDash"){
+  $("#help-title").html(`<i class="material-icons">dash</i> Gerüchteküche`);
+  $("#help-content").html(`Hier wird gemunkelt und geschunkelt. Hole dir die neuesten Gerüche und Gerüchte aus der Küche und entdecke neues.`);
+
+}else if(topic === "addGeo"){
+  $("#help-title").html(`<i class="material-icons">location</i> Standort hinterlegen`);
+  $("#help-content").html(`Hinterlege Infos zu einen Standort, wie die Adresse, zu einem Wirtshaus. Wenn du Koordinaten angibst, erscheint das Wirtshaus auch auf der Karte`);
+
+}else if(topic === "addRate"){
+  $("#help-title").html(`<i class="material-icons">rate_review</i> Bewertung hinterlassen`);
+  $("#help-content").html(`Du findest dieses Gericht sehr skurill? Hinterlasse hier deinen Senf und gebe ein paar Sterne ab.`);
 
 }
 
@@ -1588,3 +1620,51 @@ console.log(err);
 
 
 }
+
+function redrawTutorial(){
+drawTutorialHelpList($("#tutorial-help-list"));
+
+}
+
+ function drawTutorialHelpList(list){
+   //tutorial-help-list
+   list.html();
+ var html = "";
+   for(help in user_state.help){
+     if(user_state.help[help] === "NavPubsList"){
+       html += `<div class="mdc-chip" data-id="${user_state.help[help]}">
+  <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">list</i>
+  <div class="mdc-chip__text">Branchenverzeichnis</div></div>`;
+     }
+     if(user_state.help[help] === "NavMap"){
+       html += `<div class="mdc-chip" data-id="${user_state.help[help]}">
+  <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">map</i>
+  <div class="mdc-chip__text">Stadtplan</div></div>`;
+     }
+   }
+   list.html(html);
+   }
+
+   function refreshRatingList(){
+     DBrating.find({
+       selector: {'target.anno_id' : app_state.anno_id, 'target.anno_typ' : 'Dish' }
+     }).then(function (result){
+       console.log(result);
+       $("#dishes-rating-list").html('');
+       for(var doc in result.docs){
+         let rating = result.docs[doc];
+         console.log(rating);
+         if(rating.target.anno_typ === "Dish" && rating.body.comment != null && rating.body.comment != undefined){
+           drawPersonShortInfo(rating.creator, rating.created).then(function(result){
+             var list = newDishesRatingElement(rating, result);
+
+           $("#dishes-rating-list").prepend(list);
+
+         });
+         }
+         console.log(list)
+       }
+     }).catch(function(err){
+       console.log(err);
+     });
+   }

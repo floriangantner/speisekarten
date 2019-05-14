@@ -23,7 +23,8 @@ $("#nav-pubs-list").click(function(evt){
   $( "main" ).hide();
   redrawPubList();
   drawer.open = false;
-  $( "#card-pubs-list" ).show();
+  showHelp("NavPubsList", false, $( "#card-pubs-list" ), "card");
+  //$("#card-pubs-list").show();
 });
 
 $("#nav-dash").click(function(evt){
@@ -33,7 +34,7 @@ $("#nav-dash").click(function(evt){
   drawer.open = false;
   //Add all Pubs by Default
   mapAllPubsAdd();
-  $( "#card-dash" ).show();
+  showHelp("NavDash", false, $( "#card-dash" ), "card");
    map.invalidateSize();
 
 });
@@ -45,8 +46,8 @@ $("#nav-map").click(function(evt){
   drawer.open = false;
   //Add all Pubs by Default
   mapAllPubsAdd();
-  $( "#card-map" ).show();
-   map.invalidateSize();
+  showHelp("NavMap", false, $( "#card-map" ), "map");
+  map.invalidateSize();
 
 });
 
@@ -94,6 +95,7 @@ $("#nav-tutorial").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
   drawer.open = false;
+  redrawTutorial();
   $( "#card-tutorial" ).show();
 });
 
@@ -301,8 +303,9 @@ $("#button-menu-detail-add-geolocation").click(function(evt){
   //load existing Adresses of this pub
   //get pubid of this menu
   var pubid = "";
-  annotation_geolocation_dialog.open();
-  Ratingslider.layout();
+  showHelp("addGeo", false, annotation_geolocation_dialog, "dialog");
+  //annotation_geolocation_dialog.open();
+  //Ratingslider.layout();
 
 //  $( "#card-pubs-detail" ).show();
 });
@@ -688,8 +691,10 @@ $("#pubs-search > input").keyup(function(){
 
 $("#button-dishes-rate").click(function(evt){
 //dialog-rate-dishes-comment
-rate_dishes_dialog.open();
-Ratingslider.layout();
+//Ratingslider.layout();
+showHelp("addRate", false, rate_dishes_dialog, "dialog");
+
+//rate_dishes_dialog.open();
 });
 
 $("#rate-dishes-popup").find('[data-mdc-dialog-action="accept"]').click(function(evt){
@@ -725,6 +730,8 @@ var data = {
   console.log(data);
   DBaddnew(data,DBrating);
   showTextOnSnackbar("Bewertung hinterlegt!", 5000);
+  redrawDishes(app_state.anno_id);
+
 
 })
 
@@ -1566,4 +1573,8 @@ $("#nav-gastro-about").click(function(evt){
   var text = "Gastrograntler || + Version: " +config.version;
   showTextOnSnackbarButton(text, "10000", "OKAY")
 
+})
+
+$("#tutorial-help-list").on("click", ".mdc-chip", function(evt){
+  showHelp($(this).attr("data-id"), true, null, null);
 })

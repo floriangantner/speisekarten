@@ -107,9 +107,10 @@
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
       </div>
       <div class="demo-card__secondary mdc-typography mdc-typography--body2">
-        <p id="tutorial-help-list">
+        <h4>Hilfethemen:</h4>
+        <div id="tutorial-help-list">
           Zeige links zu allen Popups die der User bereits besucht hat.
-        </p>
+        </div>
         <p>
             Technisches:
 
@@ -1600,6 +1601,30 @@ const map_pubinfo_dialog = new mdc.dialog.MDCDialog(document.querySelector('#map
 const annotation_info_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-info-popup'));
 const help_dialog = new mdc.dialog.MDCDialog(document.querySelector('#help-popup'));
 
+help_dialog.listen('MDCDialog:closing', function() {
+  if(app_state.afteraction != null){
+    if(app_state.afteractiontyp === "card"){
+      $(app_state.afteraction).show();
+    }else if(app_state.afteractiontyp === "dialog"){
+      app_state.afteraction.open();
+
+    }else if(app_state.afteractiontyp === "map"){
+      $(app_state.afteraction).show();
+      map.invalidateSize();
+    }
+  }
+  console.log("Test");
+});
+help_dialog.listen('MDCDialog:closed', function() {
+  if(app_state.afteraction != null){
+    if(app_state.afteractiontyp === "dialog"){
+      console.log(app_state.afteraction);
+      //app_state.afteraction.open = true;
+    }
+  }
+  console.log("Test");
+});
+
 var search_textField4 = new mdc.textField.MDCTextField(document.querySelector('#pubs-search'));
 var search_textField5 = new mdc.textField.MDCTextField(document.querySelector('#dishes-search'));
 
@@ -1663,6 +1688,8 @@ var rate_textField9 = new mdc.textField.MDCTextField(document.querySelector('#di
 var rate_textField10 = new mdc.textField.MDCTextField(document.querySelector('#dialog-rate-dishes-stars'));
 //var textFields = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));
 
+
+
 const complete_dialog = new mdc.dialog.MDCDialog(document.querySelector('#dialog-complete'));
 var complete_comment = new mdc.textField.MDCTextField(document.querySelector('#dialog-complete-input'));
 
@@ -1670,6 +1697,10 @@ var complete_comment = new mdc.textField.MDCTextField(document.querySelector('#d
 const Ratingslider = new mdc.slider.MDCSlider(document.querySelector('#rating-stars-slider'));
 Ratingslider.listen('MDCSlider:change', function(evt){
 $("#dishes-rating-slider-stars").html('').append(visualizeRating(Ratingslider.value));
+});
+
+rate_dishes_dialog.listen('MDCDialog:opened', () => {
+  Ratingslider.layout();
 });
 
 

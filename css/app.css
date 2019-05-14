@@ -101,6 +101,10 @@ background-color: #FAFAD2;
   height : 28px
 }
 
+#nav-drawer {
+  z-index:8;
+}
+
 /* stylelint-disable
 CSS
 TODO: Adapt, if needed. Else delete
