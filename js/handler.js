@@ -87,7 +87,7 @@ $("#nav-about-us").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
   drawer.open = false;
-  $( "#card-about-us" ).show();
+  showHelp("A2HS", false, $( "#card-about-us" ));
 });
 
 $("#nav-tutorial").click(function(evt){
@@ -1164,26 +1164,6 @@ $("#annotation-info-popup").on("click", ".thumbDown", function(evt){
 
   actionThumbDown();
 });
-
-function checkHelp(topic){
-//check if help page has been shown already
-if(user_state.help){
-
-}
-redrawHelp(topic);
-//}
-}
-
-function redrawHelp(topic){
-  //set handler for next action, e.g. click on accept button and open other things, or
-if(topic === "geo-annotation"){
-  $("#help-title").html('');
-  $("#help-content").html('');
-  $("#help-go").html('');
-  //open
-}
-
-}
 
 $("#pubs-list-sort-atoz").click(function(){
   if($("#pubs-list").hasClass('sort_asc')){

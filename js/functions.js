@@ -61,6 +61,58 @@ $.each(data, function (index, value) {
 console.log(data.length + " Pubs written to PubsList");
 }
 
+function showHelp(topic, helppage, afteraction){
+  console.log(user_state.help);
+if(helppage === false && !checkHelp(topic)){
+redrawHelp(topic);
+help_dialog.open();
+user_state.help.push(topic);
+}else if(helppage === true){
+  redrawHelp(topic);
+  help_dialog.open();
+}
+//closing action, perform afteraction, show element
+
+help_dialog.listen('MDCDialog:closing', function() {
+  console.log(afteraction);
+if(helppage === false && afteraction !== undefined && afteraction !== null){
+  //perform afteraction on closing the helppage // f.e. open another dialog or show card
+  afteraction.show();
+}else if(helppage === true){
+  //show Text on helppage, no afterction
+
+}
+});
+
+}
+
+function checkHelp(topic){
+//check, if Help has to be shown
+//define action after
+  if(user_state.help.includes(topic)){
+    return true;
+  }
+  return false;
+}
+
+function redrawHelp(topic){
+if(topic === "A2HS"){
+$("#help-title").html(`<i class="material-icons">help</i> Zum Startbildschirm hinzufügen`);
+$("#help-content").html(`Add to Home Screen <i class="material-icons">add_to_home_screen</i> -
+Über das Menü deines Browsers kannst du diese Webseite direkt auf deinem Startbildschirm ablegen.<br>`);
+}else if(topic === "GeoAnno"){
+  $("#help-title").html(`<i class="material-icons-">help</i> Geolokalisierung hinterlegen`);
+  $("#help-content").html(`Etwas zur Geolokalisierung <i class="material-icons">geolocation</i> `);
+
+}else if(topic === "ServerSync"){
+  $("#help-title").html(`<i class="mateiral-icons">help</i> Geolokalisierung hinterlegen`);
+  $("#help-content").html(`Tausche Infos mit dem Server und mit anderen Spielern und hole von diesen Infos ab <i class="material-icons">sync</i> `);
+
+}
+
+}
+
+
 function enrichPubListwithStatistic(elem){
   //icons -> done, done_all, help_outline
   //print more information -> Geolocation, if available, number of dishes, number of menu_pages, sterne, total status,
