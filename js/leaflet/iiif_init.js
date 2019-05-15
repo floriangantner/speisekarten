@@ -350,9 +350,13 @@ DBimage.allDocs({
             var latlng = objdoc.target.coord.value.split("=");
             latlng = latlng[1].split(",");
             var bounds = [[latlng[0], latlng[1]], [latlng[2], latlng[3]]];
+            var bounds_logo = L.latLngBounds([[latlng[0], latlng[1]], [latlng[2], latlng[3]]]);
+            bounds_logo.pad(-1);
+            console.log(bounds_logo);
             console.log(bounds);
     // add rectangle passing bounds and some basic styles
         var rect = L.rectangle(bounds, {color: "white", weight: 5});
+        var logo = L.imageOverlay('js/leaflet/images/baseline_image_white_36dp.png', bounds_logo, {opacity:0.5}).addTo(markerLayer);
         rect.name = objdoc.body.name;
         rect.coord = objdoc.target.bounds;
         rect.id = objdoc._id;
@@ -360,6 +364,7 @@ DBimage.allDocs({
 
         rect.on('click', showAnnotationInfoDialog);
         rect.addTo(markerLayer);
+        logo.bringToBack();
         markerLayer.anno = true;
         map_iiif.anno = true;
           }
