@@ -57,7 +57,7 @@ left: 50%;
 
 .iiif-image{
 padding: 4px;
-background-color: #FAFAD2;
+background-color: #b57d29;
  border-radius: 10px 10px 10px 10px
 }
 
@@ -80,7 +80,7 @@ background-color: #FAFAD2;
   width: 100px;
   min-width:50px;
   max-height:200px;
-  border: 3px solid grey;
+  border: 3px solid b57d29;
   margin-top: 5px;
 }
 
@@ -107,6 +107,45 @@ background-color: #FAFAD2;
 
 .mdc-text-field--outlined {
   margin-top : 8px; /* padding for form-fields and notched outlines */
+}
+.mdc-text-field--textarea {
+  margin-top : 8px; /* padding for form-fields and notched outlines */
+}
+
+  .maincard {
+  --mdc-theme-primary: #076394;
+  --mdc-theme-secondary: #b57d29;
+
+}
+.maindialog {
+  --mdc-theme-primary: #b57d29;
+  --mdc-theme-secondary: #076394;
+--mdc-theme-on-surface:#076394;
+}
+
+#pubs-tabbar {
+  --mdc-theme-primary: #b57d29;
+  --mdc-theme-secondary: #076394;
+}
+#menu-tabbar {
+  --mdc-theme-primary: #b57d29;
+  --mdc-theme-secondary: #076394;
+  --mdc-theme-on-surface:#076394;
+}
+
+.mdc-select:not(.mdc-select--disabled).mdc-floating-label{
+  color: #076394;
+}
+
+.mdc-tab-bar {
+  color: #b57d29;
+  --mdc-theme-primary: #b57d29;
+  --mdc-theme-secondary: #076394;
+
+}
+.mdc-tab--active {
+  color: #b57d29;
+  
 }
 
 /* stylelint-disable
