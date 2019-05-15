@@ -102,7 +102,7 @@ background-color: #b57d29;
 }
 
 #nav-drawer {
-  z-index:8;
+  z-index:12;
 }
 
 .mdc-text-field--outlined {
@@ -121,6 +121,7 @@ background-color: #b57d29;
   --mdc-theme-primary: #b57d29;
   --mdc-theme-secondary: #076394;
 --mdc-theme-on-surface:#076394;
+
 }
 
 #pubs-tabbar {
@@ -145,7 +146,11 @@ background-color: #b57d29;
 }
 .mdc-tab--active {
   color: #b57d29;
-  
+
+}
+
+.mdc-dialog {
+  z-index: 10;
 }
 
 /* stylelint-disable

@@ -88,7 +88,8 @@ $("#nav-about-us").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
   drawer.open = false;
-  showHelp("A2HS", false, $( "#card-about-us" ));
+
+  $( "#card-about-us" ).show();
 });
 
 $("#nav-tutorial").click(function(evt){
@@ -97,6 +98,14 @@ $("#nav-tutorial").click(function(evt){
   drawer.open = false;
   redrawTutorial();
   $( "#card-tutorial" ).show();
+});
+
+$("#nav-player-all").click(function(evt){
+  evt.preventDefault();
+  $( "main" ).hide();
+  RedrawPlayerList();
+  drawer.open = false;
+  $( "#card-player-all" ).show();
 });
 
 $("#dash-menu-random").click(function(evt){
@@ -736,7 +745,7 @@ var data = {
 })
 
 $("#anno-add-button").click(function(evt){
-showHelp("addAnnoMap", false, anno_menu, "menu");  
+showHelp("addAnnoMap", false, anno_menu, "menu");
 //anno_menu.open = true;
 
 });
@@ -1474,7 +1483,10 @@ window.addEventListener('beforeinstallprompt', (e) => {
   deferredPrompt = e;
   // Update UI to notify the user they can add to home screen
   $("#tutorial-serviceworker-a2hs-button").show();
+
+
   $("#tutorial-serviceworker-a2hs-button").click(function(evt){
+    showHelp("A2HS", true , null , null);
 
     // Show the prompt
     deferredPrompt.prompt();

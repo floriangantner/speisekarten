@@ -7,6 +7,7 @@ var map_iiif = L.map('iiifmap', {
 });
 map_iiif.invalidateSize();
 
+
 var annoControl = L.Control.extend({
   options: {
     position: 'topleft'
@@ -16,7 +17,14 @@ onAdd: function (map) {
     var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom material-icons-outlined');
     //container.type = 'button';
     container.title = 'Annotationen anzeigen';
-    container.innerHTML = 'comment';
+    container.innerHTML = `<div class="mdc-switch" id="iiif_switch">
+  <div class="mdc-switch__track"></div>
+  <div class="mdc-switch__thumb-underlay">
+    <div class="mdc-switch__thumb">
+        <input type="checkbox" id="basic-switch" class="mdc-switch__native-control" role="switch">
+    </div>
+  </div>
+</div>`;
     container.style.backgroundColor = 'white';
     container.style.width = '30px';
     container.style.height = '30px';
@@ -30,6 +38,8 @@ onAdd: function (map) {
 });
 
 map_iiif.addControl(new annoControl ());
+var iiif_switch = new mdc.switchControl.MDCSwitch(document.querySelector('#iiif_switch'));
+
 //var baseLayer = L.tileLayer.iiif(
   //
   //'http://localhost:8182/iiif/2/testinfo%2Fzelt.jpg/info.json'
@@ -125,7 +135,7 @@ map_iiif.eachLayer(function (layer) {
 
 });
 
-  if(attribution != undefined || attribution === ""){
+  if(attribution != undefined || attribution != ""){
     attribution = "Monacensia: " + attribution;
   }else{
     attribution = "Monacensia: ohne Nr.";
@@ -140,6 +150,7 @@ map_iiif.eachLayer(function (layer) {
   iiif_layer.on('tileerror', function(error, tile) {
       console.log(error);
       console.log(tile);
+      showTextOnSnackbar("Keine Verbindung zum Bilderserver!", "5003");
   });
 
   editableLayers = new L.featureGroup()
@@ -177,6 +188,18 @@ DBdishes.allDocs({
             var latlng = objdoc.target.coord.value.split("=");
             latlng = latlng[1].split(",");
             var bounds = [[latlng[0], latlng[1]], [latlng[2], latlng[3]]];
+            var bounds_logo = L.latLngBounds([[latlng[0], latlng[1]], [latlng[2], latlng[3]]]);
+
+            if(objdoc.body.type != undefined){
+              if(objdoc.body.type === "meal"){
+              var logo = L.imageOverlay('js/leaflet/images/baseline-local_dining-24px.svg', bounds_logo, {opacity:0.2}).addTo(markerLayer).bringToBack();
+            }else if (objdoc.body.type === "drink"){
+              var logo = L.imageOverlay('js/leaflet/images/baseline-local_drink-24px.svg', bounds_logo, {opacity:0.2}).addTo(markerLayer).bringToBack();
+            }else if(objdoc.body.type === "other"){
+              var logo = L.imageOverlay('js/leaflet/images/baseline-device_unknown-24px.svg', bounds_logo, {opacity:0.2}).addTo(markerLayer).bringToBack();
+            }
+            }
+
     // add rectangle passing bounds and some basic styles
         var rect = L.rectangle(bounds, {color: "red", weight: 5});
         rect.name = objdoc.body.name;
@@ -211,6 +234,8 @@ DBopeninghours.allDocs({
             latlng = latlng[1].split(",");
             var bounds = [[latlng[0], latlng[1]], [latlng[2], latlng[3]]];
             console.log(bounds);
+            var bounds_logo = L.latLngBounds([[latlng[0], latlng[1]], [latlng[2], latlng[3]]]);
+            var logo = L.imageOverlay('js/leaflet/images/alarm_add-24px.svg', bounds_logo, {opacity:0.2}).addTo(markerLayer).bringToBack();
     // add rectangle passing bounds and some basic styles
         var rect = L.rectangle(bounds, {color: "orange", weight: 5});
         rect.name = objdoc.body.name;
@@ -245,6 +270,9 @@ DBanno_other.allDocs({
             var bounds = [[latlng[0], latlng[1]], [latlng[2], latlng[3]]];
             console.log(bounds);
     // add rectangle passing bounds and some basic styles
+    var bounds_logo = L.latLngBounds([[latlng[0], latlng[1]], [latlng[2], latlng[3]]]);
+    var logo = L.imageOverlay('js/leaflet/images/baseline-announcement-24px.svg', bounds_logo, {opacity:0.2}).addTo(markerLayer).bringToBack();
+
         var rect = L.rectangle(bounds, {color: "grey", weight: 5});
         rect.name = objdoc.body.name;
         rect.coord = objdoc.target.bounds;
@@ -280,6 +308,9 @@ DBcategory.allDocs({
             var bounds = [[latlng[0], latlng[1]], [latlng[2], latlng[3]]];
             console.log(bounds);
     // add rectangle passing bounds and some basic styles
+    var bounds_logo = L.latLngBounds([[latlng[0], latlng[1]], [latlng[2], latlng[3]]]);
+    var logo = L.imageOverlay('js/leaflet/images/baseline-category-24px.svg', bounds_logo, {opacity:0.2}).addTo(markerLayer).bringToBack();
+
         var rect = L.rectangle(bounds, {color: "blue", weight: 5});
         rect.name = objdoc.body.name;
         rect.coord = objdoc.target.bounds;
@@ -316,6 +347,10 @@ DBads.allDocs({
             var bounds = [[latlng[0], latlng[1]], [latlng[2], latlng[3]]];
             console.log(bounds);
     // add rectangle passing bounds and some basic styles
+    var bounds_logo = L.latLngBounds([[latlng[0], latlng[1]], [latlng[2], latlng[3]]]);
+
+    var logo = L.imageOverlay('js/leaflet/images/baseline-format_paint-24px.svg', bounds_logo, {opacity:0.2}).addTo(markerLayer).bringToBack();
+
         var rect = L.rectangle(bounds, {color: "black", weight: 5});
         rect.name = objdoc.body.name;
         rect.coord = objdoc.target.bounds;
@@ -350,13 +385,23 @@ DBimage.allDocs({
             var latlng = objdoc.target.coord.value.split("=");
             latlng = latlng[1].split(",");
             var bounds = [[latlng[0], latlng[1]], [latlng[2], latlng[3]]];
-            var bounds_logo = L.latLngBounds([[latlng[0], latlng[1]], [latlng[2], latlng[3]]]);
-            bounds_logo.pad(-1);
+            //bounds_logo.pad(-1);
             console.log(bounds_logo);
             console.log(bounds);
     // add rectangle passing bounds and some basic styles
         var rect = L.rectangle(bounds, {color: "white", weight: 5});
-        var logo = L.imageOverlay('js/leaflet/images/baseline_image_white_36dp.png', bounds_logo, {opacity:0.5}).addTo(markerLayer);
+        var bounds_logo = L.latLngBounds([[latlng[0], latlng[1]], [latlng[2], latlng[3]]]);
+        if(objdoc.body.type != undefined){
+          if(objdoc.body.type === "photo"){
+            var logo = L.imageOverlay('js/leaflet/images/baseline-camera_roll-24px.svg', bounds_logo, {opacity:0.2}).addTo(markerLayer).bringToBack();
+          }else if (objdoc.body.type === "draw"){
+            var logo = L.imageOverlay('js/leaflet/images/baseline-border_color-24px.svg', bounds_logo, {opacity:0.2}).addTo(markerLayer).bringToBack();
+          }else if (objdoc.body.type === "ornament"){
+            var logo = L.imageOverlay('js/leaflet/images/baseline-polymer-24px.svg', bounds_logo, {opacity:0.2}).addTo(markerLayer).bringToBack();
+          }else if (objdoc.body.type === "other"){
+            var logo = L.imageOverlay('js/leaflet/images/baseline-device_unknown-24px.svg', bounds_logo, {opacity:0.2}).addTo(markerLayer).bringToBack();
+          }
+        }
         rect.name = objdoc.body.name;
         rect.coord = objdoc.target.bounds;
         rect.id = objdoc._id;
@@ -364,7 +409,6 @@ DBimage.allDocs({
 
         rect.on('click', showAnnotationInfoDialog);
         rect.addTo(markerLayer);
-        logo.bringToBack();
         markerLayer.anno = true;
         map_iiif.anno = true;
           }
