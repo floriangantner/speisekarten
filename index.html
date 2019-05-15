@@ -107,9 +107,10 @@
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
       </div>
       <div class="demo-card__secondary mdc-typography mdc-typography--body2">
-        <p id="tutorial-help-list">
+        <h4>Hilfethemen:</h4>
+        <div id="tutorial-help-list">
           Zeige links zu allen Popups die der User bereits besucht hat.
-        </p>
+        </div>
         <p>
             Technisches:
 
@@ -808,7 +809,7 @@
 
 <!-- Popups -->
 
-<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+<div class="maindialog mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="help-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
@@ -834,7 +835,7 @@
 <div class="mdc-dialog__scrim"></div>
 </div>
 
-<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+<div class="maindialog mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="annotation-info-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
@@ -861,7 +862,7 @@
 <div class="mdc-dialog__scrim"></div>
 </div>
 
-<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+<div class="maindialog mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="rate-dishes-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
@@ -920,7 +921,7 @@
 </div>
 
 
-<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+<div class="maindialog mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="map-info-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
@@ -950,7 +951,7 @@
 <div class="mdc-dialog__scrim"></div>
 </div>
 
-<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+<div class="maindialog mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="dialog-complete">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
@@ -994,7 +995,7 @@
 </div>
 
 
-<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+<div class="maindialog mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="annotation-open-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
@@ -1033,7 +1034,7 @@
 <div class="mdc-dialog__scrim"></div>
 </div>
 
-<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+<div class="maindialog mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="annotation-ads-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
@@ -1085,7 +1086,7 @@
 </div>
 
 
-<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+<div class="maindialog mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="annotation-image-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
@@ -1159,7 +1160,7 @@
 </div>
 
 
-<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+<div class="maindialog mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="annotation-geolocation-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
@@ -1168,7 +1169,8 @@
       <h2 class="mdc-dialog__title" id="annotation-geolocation-title"><!--
      -->Georeferenzierung<!--
    --></h2>
-      <div class="mdc-dialog__content">   <div class="mdc-text-field mdc-text-field--outlined" id="dialog-geolocation-street">
+      <div class="mdc-dialog__content">
+        <div class="mdc-text-field mdc-text-field--outlined" id="dialog-geolocation-street">
       <input class="mdc-text-field__input" geo-street>
       <div class="mdc-notched-outline">
       <div class="mdc-notched-outline__leading"></div>
@@ -1234,7 +1236,7 @@
     <div class="mdc-notched-outline__trailing"></div>
     </div>
     </div>
-    <div class="mdc-text-field mdc-text-field--textarea" id="dialog-geolocation-comment">
+    <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--outlined" id="dialog-geolocation-comment">
     <div class="mdc-text-field-character-counter">0 / 140</div>
     <textarea id="textarea" class="mdc-text-field__input" rows="4" cols="40" maxlength="400" geo-comment></textarea>
     <div class="mdc-notched-outline">
@@ -1262,7 +1264,7 @@
 <div class="mdc-dialog__scrim"></div>
 </div>
 
-<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+<div class="maindialog mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="annotation-category-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
@@ -1307,7 +1309,7 @@
 <div class="mdc-dialog__scrim"></div>
 </div>
 
-<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+<div class="maindialog mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="annotation-other-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
@@ -1348,7 +1350,7 @@
 <div class="mdc-dialog__scrim"></div>
 </div>
 
-<div class="mdc-dialog" role="alertdialog" aria-modal="true"
+<div class="maindialog mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="rate-dishes-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
@@ -1405,7 +1407,7 @@
   <div class="mdc-dialog__scrim"></div>
 </div>
 
-<div class="mdc-dialog" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
+<div class="maindialog mdc-dialog" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
      aria-describedby="my-dialog-content" id="annotation-dishes-popup">
   <div class="mdc-dialog__container">
     <div class="mdc-dialog__surface">
@@ -1593,12 +1595,41 @@ const menu_tabbar_indicator = new mdc.tabIndicator.MDCTabIndicator(document.quer
 
 const progress_loader = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#progress-loader'));
 const progress_identify_face = new mdc.linearProgress.MDCLinearProgress(document.querySelector('#progress-identify-face'));
-
+const notchedOutline = new mdc.notchedOutline.MDCNotchedOutline(document.querySelector('.mdc-notched-outline'));
 //const map_pubinfo_dialog = new mdc.dialog.MDCDialog(document.querySelector('#map-showpubinfo-popup'));
 const map_pubinfo_dialog = new mdc.dialog.MDCDialog(document.querySelector('#map-info-popup'));
 //const annotation_info_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-help3-popup'));
 const annotation_info_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-info-popup'));
 const help_dialog = new mdc.dialog.MDCDialog(document.querySelector('#help-popup'));
+
+help_dialog.listen('MDCDialog:opening', function() {
+  if(app_state.helppage === false){
+  //prerender View in Background
+  if(app_state.afteraction != null){
+    if(app_state.afteractiontyp === "card"){
+      $(app_state.afteraction).show();
+    }else if(app_state.afteractiontyp === "map"){
+      $(app_state.afteraction).show();
+      map.invalidateSize();
+    }
+  }
+  console.log("Background Action on opening Dialog");
+  }
+});
+help_dialog.listen('MDCDialog:closing', function() {
+  if(app_state.helppage === false){
+  if(app_state.afteraction != null){
+    if(app_state.afteractiontyp === "dialog"){
+      app_state.afteraction.open();
+
+    }else if(app_state.afteractiontyp === "menu"){
+        app_state.afteraction.open = true;
+
+      }
+  }
+  console.log("Background Action on closing Dialog");
+  }
+});
 
 var search_textField4 = new mdc.textField.MDCTextField(document.querySelector('#pubs-search'));
 var search_textField5 = new mdc.textField.MDCTextField(document.querySelector('#dishes-search'));
@@ -1619,20 +1650,45 @@ const dishes_radioset = new mdc.formField.MDCFormField(document.querySelector('#
 dishes_radioset.input = dishes_radio1;
 dishes_radioset.input = dishes_radio2;
 dishes_radioset.input = dishes_radio3;
+annotation_dishes_dialog.listen('MDCDialog:opened', () => {
+dishes_textField.layout();
+dishes_textField2.layout();
+dishes_textField3.layout();
+dishes_textField4.layout();
+dishes_textField5.layout();
+dishes_selectField3.layout();
+});
+
 
 const annotation_category_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-category-popup'));
 var category_selectField1 = new mdc.select.MDCSelect(document.querySelector('#annotation-category-select-upper'));
 var category_textField2 = new mdc.textField.MDCTextField(document.querySelector('#annotation-category-name'));
+annotation_category_dialog.listen('MDCDialog:opened', () => {
+category_selectField1.layout();
+category_textField2.layout();
+});
+
 
 const annotation_open_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-open-popup'));
 var open_textField1 = new mdc.textField.MDCTextField(document.querySelector('#annotation-open-comment'));
+annotation_open_dialog.listen('MDCDialog:opened', () => {
+open_textField1.layout();
+});
 
 const annotation_other_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-other-popup'));
 var other_textField1 = new mdc.textField.MDCTextField(document.querySelector('#annotation-other-comment'));
+annotation_other_dialog.listen('MDCDialog:opened', () => {
+other_textField1.layout();
+});
 
 const annotation_ads_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-ads-popup'));
 var textField_ads_comment = new mdc.textField.MDCTextField(document.querySelector('#annotation-ads-comment'));
 var textField_ads_brand = new mdc.textField.MDCTextField(document.querySelector('#annotation-ads-brand'));
+annotation_ads_dialog.listen('MDCDialog:opened', () => {
+textField_ads_comment.layout();
+textField_ads_brand.layout();
+});
+
 
 const annotation_image_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-image-popup'));
 var textField_image_comment = new mdc.textField.MDCTextField(document.querySelector('#annotation-image-comment'));
@@ -1645,6 +1701,14 @@ image_radioset.input = image_radio1;
 image_radioset.input = image_radio2;
 image_radioset.input = image_radio3;
 image_radioset.input = image_radio4;
+annotation_image_dialog.listen('MDCDialog:opened', () => {
+textField_image_comment.layout();
+image_radioset.layout();
+image_radio1.layout();
+image_radio2.layout();
+image_radio3.layout();
+image_radio4.layout();
+});
 
 const annotation_geolocation_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-geolocation-popup'));
 var geo_textField1 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-street'));
@@ -1655,6 +1719,16 @@ var geo_textField5 = new mdc.textField.MDCTextField(document.querySelector('#dia
 var geo_textField6 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-comment'));
 var geo_textField11 = new mdc.textField.MDCTextField(document.querySelector('#dialog-geolocation-zip'));
 
+annotation_geolocation_dialog.listen('MDCDialog:opened', () => {
+  geo_textField1.layout();
+  geo_textField2.layout();
+  geo_textField3.layout();
+  geo_textField4.layout();
+  geo_textField5.layout();
+  geo_textField6.layout();
+  geo_textField11.layout();
+});
+
 //annotation_category_dialog.listen('MDCDialog:opened', () => {
 //  annotation_category_select.layout();
 //});
@@ -1662,14 +1736,26 @@ const rate_dishes_dialog = new mdc.dialog.MDCDialog(document.querySelector('#rat
 var rate_textField9 = new mdc.textField.MDCTextField(document.querySelector('#dialog-rate-dishes-comment'));
 var rate_textField10 = new mdc.textField.MDCTextField(document.querySelector('#dialog-rate-dishes-stars'));
 //var textFields = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));
+rate_dishes_dialog.listen('MDCDialog:opened', () => {
+rate_textField9.layout();
+rate_textField10.layout();
+});
+
+
 
 const complete_dialog = new mdc.dialog.MDCDialog(document.querySelector('#dialog-complete'));
 var complete_comment = new mdc.textField.MDCTextField(document.querySelector('#dialog-complete-input'));
-
+complete_dialog.listen('MDCDialog:opened', () => {
+complete_comment.layout();
+});
 
 const Ratingslider = new mdc.slider.MDCSlider(document.querySelector('#rating-stars-slider'));
 Ratingslider.listen('MDCSlider:change', function(evt){
 $("#dishes-rating-slider-stars").html('').append(visualizeRating(Ratingslider.value));
+});
+
+rate_dishes_dialog.listen('MDCDialog:opened', () => {
+  Ratingslider.layout();
 });
 
 
