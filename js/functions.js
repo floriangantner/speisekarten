@@ -62,41 +62,28 @@ console.log(data.length + " Pubs written to PubsList");
 }
 
 function showHelp(topic, helppage, afteraction, afteractiontyp){
-  help_dialog.open();
-
-//const help_dialog = new mdc.dialog.MDCDialog(document.querySelector('#help-popup'));
+//help_dialog.open();
+const help_dialog = new mdc.dialog.MDCDialog(document.querySelector('#help-popup'));
 app_state.helppage = helppage;
 app_state.afteraction = afteraction;
 app_state.afteractiontyp = afteractiontyp;
 var helpAlreadyShown = checkHelp(topic);
-if(helppage === false && helpAlreadyShown === false){
-redrawHelp(topic);
-user_state.help.push(topic);
-}else if(helppage === true){
-  redrawHelp(topic);
-}else{
-  console.log("Other");
-}
-if(helpAlreadyShown === true && helppage === false){
-console.log("Topic closed");
+if(helpAlreadyShown === false){
+  if(helppage === false){
+    redrawHelp(topic);
+    user_state.help.push(topic);
+  }else if(helppage === true){
+    redrawHelp(topic);
+  }
+  help_dialog.open();
+}else if(helpAlreadyShown === true && helppage === false){
+console.log("Topic closed, already shown");
+help_dialog.open();
 help_dialog.close();
+}else if(helpAlreadyShown === true && helppage === true){
+console.log("Topic stays open, helppage");
+help_dialog.open();
 }
-
-//help_dialog.open();
-console.log("Closing Dialog Opened");
-//closing action, perform afteraction, show element
-
-  //if(app_state.helppage === false){
-  //  app_state.afteraction.show();
-  //}
-  /*
-if(app_state.helppage === false && app_state.afteraction != undefined && app_state.afteraction != null){
-  //perform afteraction on closing the helppage // f.e. open another dialog or show card
-  $(app_state.afteraction).show();
-}else if(app_state.helppage === true){
-  //show Text on helppage, no afterction
-}
-*/
 }
 
 function checkHelp(topic){
@@ -105,9 +92,7 @@ function checkHelp(topic){
   if(user_state.help.includes(topic)){
     return true;
   }else{
-
     return false;
-
   }
 }
 
@@ -126,7 +111,7 @@ $("#help-content").html(`Add to Home Screen <i class="material-icons">add_to_hom
 
 }else if(topic === "NavMap"){
   $("#help-title").html(`<i class="material-icons">map</i> Karte`);
-  $("#help-content").html(`Die Karte zeigt die die bekannten Positionen der Gasthäuser <i class="material-icons">home</i>`);
+  $("#help-content").html(`Die Karte zeigt dir die bekannten Positionen der Gasthäuser <i class="material-icons">home</i>`);
 
 }else if(topic === "NavDash"){
   $("#help-title").html(`<i class="material-icons">dash</i> Gerüchteküche`);
@@ -140,6 +125,9 @@ $("#help-content").html(`Add to Home Screen <i class="material-icons">add_to_hom
   $("#help-title").html(`<i class="material-icons">rate_review</i> Bewertung hinterlassen`);
   $("#help-content").html(`Du findest dieses Gericht sehr skurill? Hinterlasse hier deinen Senf und gebe ein paar Sterne ab.`);
 
+}else if(topic === "addAnnoMap"){
+  $("#help-title").html(`<i class="material-icons">comment</i> Annotation hinterlassen`);
+  $("#help-content").html(`Hinterlasse eine Annotation zu dieser Speisekarte. Wähle dazu einen Bereich aus und klick danach darauf oder auf den grünen Annotationsbutton`);
 }
 
 }

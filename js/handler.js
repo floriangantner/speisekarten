@@ -736,7 +736,8 @@ var data = {
 })
 
 $("#anno-add-button").click(function(evt){
-anno_menu.open = true;
+showHelp("addAnnoMap", false, anno_menu, "menu");  
+//anno_menu.open = true;
 
 });
 

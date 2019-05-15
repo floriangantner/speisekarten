@@ -105,6 +105,10 @@ background-color: #FAFAD2;
   z-index:8;
 }
 
+.mdc-text-field--outlined {
+  margin-top : 8px; /* padding for form-fields and notched outlines */
+}
+
 /* stylelint-disable
 CSS
 TODO: Adapt, if needed. Else delete
