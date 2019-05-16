@@ -13,7 +13,7 @@ Gastrograntler läuft zurzeit nur offline, da uns die Kapazitäten für einen Se
 **Ausführen: **     
 index.html aufrufen.
 
-Für ein zufriedenstellendes Benutzerlebnis ist ein lokaler IIIF-Server zur Anzeige der Bilder notwendig.  
+Für ein zufriedenstellendes Benutzererlebnis ist daher ein lokaler IIIF-Server zur Anzeige der Bilder notwendig.  
 
 <img src="docs/Architektur.png" width="33%">
 
@@ -32,8 +32,9 @@ Ein Sync der lokal gespeicherte Browserdaten mit einer zentralen Datenbank kann 
 
 
 Einige Browser (Chrome) brauchen den Aufruf von einen Webserver für Funktionalitäten des ServiceWorkers (Add to Homescreen, Push Notifications):  
-- python -m http.server,
-- dann localhost:8000
+- python -m http.server,  
+- dann localhost:8000  
+
 
 Screens:
 <p>
