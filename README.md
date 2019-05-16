@@ -3,6 +3,7 @@
 Speisekarten App  
 Cod1ng da V1nc1 Süd 2019  
 <img src="screens/gastrograntler_intro.PNG" width="33%">
+
 Installationsanleitung:  
 Gastrograntler läuft zurzeit nur offline, da uns die Kapazitäten für einen Serverbetrieb (> 10 GB Speicherplatz für die Bilder) fehlen.  
 
@@ -28,44 +29,46 @@ Einige Browser (Chrome) brauchen den Aufruf von einen Webserver für Funktionali
 - dann localhost:8000
 
 Screens:
+<p>
 Suchfunktion in der Liste der Wirtshäuser:
 <img src="screens/pubs-list-search.PNG" width="33%">
-
+</p><p>
 Detailansicht des Wirtshaus Augustiner:
-<img src="screens/pubs-detail.PNG" width="33%">
-
+<img src="screens/pubs-detail.PNG" width="33%">  
+</p><p>
 Detailansicht der Speisekarten des Wirtshaus Augustiner:
-<img src="screens/pubs-menu-list.PNG" width="33%">
-
+<img src="screens/pubs-menu-list.PNG" width="33%">  
+</p><p>
 Detailansicht einer eingezoomten Speisekartenseite:
-<img src="screens/pubs-menupage-detail.PNG" width="33%">
-
+<img src="screens/pubs-menupage-detail.PNG" width="33%">  
+</p><p>
 Auswählen einer Kategorie nach dem Zeichnen einer Fläche
-<img src="screens/pubs-menupage-anno-select.PNG" width="33%">
-
+<img src="screens/pubs-menupage-anno-select.PNG" width="33%">  
+</p><p>
 Info-Dialog zu Kategorie ausfüllen
-<img src="screens/pubs-menupage-add-category.PNG" width="33%">
-
+<img src="screens/pubs-menupage-add-category.PNG" width="33%">  
+</p><p>
 Info-Dialog zu Gericht ausfüllen
-<img src="screens/pubs-dishes-add.PNG" width="33%">
-
+<img src="screens/pubs-dishes-add.PNG" width="33%">  
+</p><p>
 Anzeige der Info aus einer Annotation
-<img src="screens/pubs-menupage-showinfo.PNG" width="33%">
-
+<img src="screens/pubs-menupage-showinfo.PNG" width="33%">  
+</p><p>
 Stadtplan mit ausgewähltem Wirtshaus
-<img src="screens/map-info.PNG" width="33%">
-
+<img src="screens/map-info.PNG" width="33%">  
+</p><p>
 Deine Bewertungen und Annotationen
-<img src="screens/your-ratings.PNG" width="33%">
-
+<img src="screens/your-ratings.PNG" width="33%">  
+</p><p>
 Alle Gerichte eines Gasthauses anzeigen
-<img src="screens/pubs-list-detail.PNG" width="33%">
-
+<img src="screens/pubs-list-detail.PNG" width="33%">  
+</p><p>
 Bewertung zu einem Gericht hinterlassen
-<img src="screens/pubs-dish-rating.PNG" width="33%">
-
+<img src="screens/pubs-dish-rating.PNG" width="33%">  
+</p><p>
 Bewertungen zu einem Gericht anzeigen
-<img src="screens/pubs-dishes-rating-show.PNG" width="33%">
-
+<img src="screens/pubs-dishes-rating-show.PNG" width="33%">  
+</p><p>
 Offenes Menü:
-<img src="screens/menu.PNG" width="33%">
+<img src="screens/menu.PNG" width="33%">  
+</p>
