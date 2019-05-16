@@ -235,7 +235,7 @@ DBopeninghours.allDocs({
             var bounds = [[latlng[0], latlng[1]], [latlng[2], latlng[3]]];
             console.log(bounds);
             var bounds_logo = L.latLngBounds([[latlng[0], latlng[1]], [latlng[2], latlng[3]]]);
-            var logo = L.imageOverlay('js/leaflet/images/alarm_add-24px.svg', bounds_logo, {opacity:0.2}).addTo(markerLayer).bringToBack();
+            var logo = L.imageOverlay('js/leaflet/images/baseline-alarm_add-24px.svg', bounds_logo, {opacity:0.2}).addTo(markerLayer).bringToBack();
     // add rectangle passing bounds and some basic styles
         var rect = L.rectangle(bounds, {color: "orange", weight: 5});
         rect.name = objdoc.body.name;

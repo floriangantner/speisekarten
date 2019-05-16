@@ -520,6 +520,36 @@ Menu TeaserInfo ->
 	"motivation" : "commenting"
 	}
 
+Guestbook ->
 
+Menu TeaserInfo ->
+	{
+	"@context" : "http://www.w3.org/ns/anno.jsonld",
+	"id" : "",
+	"_id" : "",
+	"type" : "Info",
+	"annotype" : "Guestbook",
+	"body" : {
+		"type" : " comment",
+		"comment" : "",
+	},
+	"target" : {
+		"pubid":"p1",
+		"menu" : "",
+		"menupage": "",
+		"selector": null
+			"coord" : null
+	},
+	"creator" : {
+		"id" : "",
+		"name" : "",
+		"identity" : ""
+	},
+	"generator" : {
+		"name" : "tripadviswurst"
+	},
+	"created" : "timestamp",
+	"motivation" : "commenting"
+	}
 
 //##############################################################################

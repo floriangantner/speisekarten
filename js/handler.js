@@ -1591,3 +1591,46 @@ $("#nav-gastro-about").click(function(evt){
 $("#tutorial-help-list").on("click", ".mdc-chip", function(evt){
   showHelp($(this).attr("data-id"), true, null, null);
 })
+
+$("#guestbook-list").click(function(evt){
+  redrawGuestBook(app_state.pubid);
+
+  guestbook_dialog.open();
+})
+
+$("#guestbook_add_entry").click(function(evt){
+var data = {
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"type" : "Annotation",
+"annotype" : "Guestbook",
+"body" : {
+  "type" : "comment",
+  "name" : $("#guestbook-popup-comment").find("textarea").val(),
+
+},
+"target" : {
+	"pubid":app_state.pubs,
+  "menu" : app_state.menu,
+	"menupage": app_state.menupage,
+  "selector": null,
+  "coord" : null,
+},
+"creator" : {
+	"id" : user_state.timestamp,
+	"name" : user_state.name,
+	"identity" : user_state.identity
+},
+"generator" : {
+	"name" : "tripadviswurst"
+},
+"created" : JSON.stringify(Date.now()),
+"motivation" : "commenting"
+};
+
+showTextOnSnackbar("Gästebucheintrag hinterlegt!", 5000);
+
+
+
+DBaddnew(data, DBguestbook)
+console.log(data);
+})

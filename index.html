@@ -352,6 +352,14 @@
     <!--<div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>-->
     <div class="demo-card__secondary mdc-typography mdc-typography--body2"></div>
     <span teaser-info-ext></span>
+    <ul class="mdc-list" id="guestbook-list" >
+      <li class="mdc-list-item">
+        <span class="mdc-list-item__graphic">
+        <button class="mdc-icon-button material-icons" title="Gästebuch" data-mdc-ripple-is-unbounded="true" >book</button>
+        </span>
+        <span class="mdc-list-item__text">Gästebuch</span>
+      </li>
+    </ul>
     <ul class="mdc-list" id="pubs-adress-list" >
       <li class="mdc-list-item">
         <span class="mdc-list-item__graphic">
@@ -853,11 +861,11 @@
 <div class="maindialog mdc-dialog" role="alertdialog" aria-modal="true"
      aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="help-popup">
   <div class="mdc-dialog__container">
-    <div class="mdc-dialo g__surface">
+    <div class="mdc-dialog__surface">
       <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
 
       <h2 class="mdc-dialog__title" id="help-title"><!--
-     -->Hilfefenster mit Hinweisen zur Benutzung.<!--
+     -->Hilfefenster mit  Hinweisen zur Benutzung.<!--
    --></h2>
       <div class="mdc-dialog__content" id="help-content">
 </div>
@@ -1061,7 +1069,7 @@
 </div>
 </div>
 <footer class="mdc-dialog__actions">
-  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close" onclick="alert(Osterei!);">
+  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
     <span class="mdc-button__label">Abbrechen</span>
     <i class="material-icons mdc-icon-button__icon">clear</i>
   </button>
@@ -1112,7 +1120,7 @@
 </div>
 </div>
 <footer class="mdc-dialog__actions">
-  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close" onclick="alert(Osterei!);">
+  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
     <span class="mdc-button__label">Abbrechen</span>
     <i class="material-icons mdc-icon-button__icon">clear</i>
   </button>
@@ -1188,7 +1196,7 @@
 </div>
 </div>
 <footer class="mdc-dialog__actions">
-  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close" onclick="alert(Osterei!);">
+  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
     <span class="mdc-button__label">Abbrechen </span><i class="material-icons mdc-icon-button__icon">clear</i>
   </button>
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
@@ -1368,7 +1376,7 @@
 		<div class="mdc-notched-outline">
        <div class="mdc-notched-outline__leading"></div>
        <div class="mdc-notched-outline__notch">
-         <label for="textarea" class="mdc-floating-label" onclick="alert("Osterei!");">Dein Kommentar</label>
+         <label for="textarea" class="mdc-floating-label">Dein Kommentar</label>
 
        <!--<div class="mdc-notched-outline__trailing"></div>--></div>
      </div>
@@ -1575,6 +1583,49 @@ noch nicht gepflegt
     </div>
   </div>
   <div class="mdc-dialog__scrim"></div>
+</div>
+
+<div class="maindialog mdc-dialog" role="alertdialog" aria-modal="true"
+     aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="guestbook-popup">
+  <div class="mdc-dialog__container">
+    <div class="mdc-dialog__surface">
+      <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
+
+      <h2 class="mdc-dialog__title" id="guestbook-popup-title"><!--
+     -->Gästebuch <span <!--
+   --></h2>
+      <div class="mdc-dialog__content"><div class="mdc-text-field mdc-text-field--textarea mdc-text-field--with-trailing-icon" id="guestbook-popup-comment">
+        <div class="mdc-text-field-character-counter">0 / 400</div>
+        <i class="material-icons mdc-text-field__icon" tabindex="0" role="" id="guestbook_add_entry">rate_review</i>
+        <textarea class="mdc-text-field__input" rows="2" cols="30" required minlength="5" maxlength="400" guestbook-comment></textarea>
+        <div class="mdc-notched-outline">
+          <div class="mdc-notched-outline__leading"></div>
+          <div class="mdc-notched-outline__notch">
+            <label for="textarea" class="mdc-floating-label">Dein Gästebucheintrag</label>
+          </div>
+          <div class="mdc-notched-outline__trailing"></div>
+        </div>
+      </div>
+      <div class="mdc-text-field-helper-line">
+  <div class="mdc-text-field-helper-text"></div>
+</div>
+<div>
+<ul id="guestbook_entries"><li>Noch keine Gästebucheinträge. Hinterlasse den ersten Kommentar.</li></ul>
+</div>
+</div>
+<footer class="mdc-dialog__actions">
+  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
+    <span class="mdc-button__label">Schließen</span>
+    <i class="material-icons mdc-icon-button__icon">clear</i>
+  </button><!--
+  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
+    <span class="mdc-button__label">Okay</span>
+    <i class="material-icons mdc-icon-button__icon">check_circle</i>
+  </button> -->
+</footer>
+</div>
+</div>
+<div class="mdc-dialog__scrim"></div>
 </div>
 
 <!--  Snackbar -->
@@ -1788,6 +1839,12 @@ complete_comment.layout();
 const Ratingslider = new mdc.slider.MDCSlider(document.querySelector('#rating-stars-slider'));
 Ratingslider.listen('MDCSlider:change', function(evt){
 $("#dishes-rating-slider-stars").html('').append(visualizeRating(Ratingslider.value));
+});
+
+const guestbook_dialog = new mdc.dialog.MDCDialog(document.querySelector('#guestbook-popup'));
+var guestbook_comment = new mdc.textField.MDCTextField(document.querySelector('#guestbook-popup-comment'));
+guestbook_dialog.listen('MDCDialog:opened', () => {
+guestbook_comment.layout();
 });
 
 rate_dishes_dialog.listen('MDCDialog:opened', () => {

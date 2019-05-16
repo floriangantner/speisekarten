@@ -1729,3 +1729,43 @@ drawTutorialHelpList($("#tutorial-help-list"));
      redrawPlayerInfo(playerid, $("#card-about-other"));
      $( "#card-about-other" ).show();
    })
+
+function redrawGuestBook(elem){
+  console.log("Liste mit Gästebucheinträgen geschrieben.")
+  $(elem).html();
+  DBguestbook.find({
+    selector: {'target.pubid' : app_state._id}
+  }).then(function (result){
+    console.log(result);
+    $("#guestbook_entries").html('');
+    for(var it = 0; it < result.docs.length; it++){
+      var doc = result.docs[it];
+      drawPersonShortInfo(doc.creator, doc.created).then(function(result2){
+        var list = newGuestbookElement(doc, result2);
+      $(elem).prepend(list);
+
+    });
+      }
+  }).catch(function(err){
+    console.log(err);
+  });
+  }
+
+  function newGuestbookElement (data, result2){
+    var card_html = '';
+   //$.each(data, function (index, value) {
+   var value = data;
+     if(value.language != "query"){
+     console.log(value)
+     drawPersonShortInfo(value.creator, value.created);
+     card_html += `<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value._id}">
+       <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true"></span>
+       <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.body.comment}</span>
+       <span class="mdc-list-item__secondary-text">${result2}</span></span>
+       <span class="mdc-list-item__meta" aria-hidden="true"> </span>
+     </li>`;
+   }
+   //});
+   return card_html;
+
+  };
