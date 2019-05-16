@@ -75,7 +75,7 @@ $("#nav-about-you").click(function(evt){
    showTextOnSnackbar("Keine Identität ausgewählt!", 5000);
   $("#button-identity-confirm").attr("disabled", false);
   $("#button-identity-confirm").hide();
-  $("#card-identity").show();
+    showHelp("Identity", false, $("#card-identity"), "card");
   }else{
   redrawAboutYou();
   $( "#card-about-you" ).show();
@@ -127,16 +127,20 @@ $("#button-intro-go").click(function(evt){
   drawer.open = false;
   //TODO: add check for data loaded
   //show menu
-  $("#menu").show();
   //TODO: Check, if Person was selected
-  if(user_state.account_created == false || user_state.account_created === undefined){
+  if(user_state.account_created === false || user_state.account_created === undefined){
   $("#button-identity-confirm").hide();
-  $( "#card-identity" ).show();
-
+  $("#card-intro2").show();
 }else{
-  $( "#card-tutorial" ).show();
+  $("#menu").show();
+  $( "#card-dash" ).show();
 }
 });
+
+$("#button-intro2-go").click(function(evt){
+  $("#card-intro2").hide()
+  showHelp("Identity", false, $("#card-identity"), "card");
+})
 
 $("#button-identity-go").click(function(evt){
   evt.preventDefault();
@@ -534,7 +538,9 @@ $("#button-identity-confirm").click(function(evt){
 $("#card-identity").hide();
   //destroy overlay
   //@registerPlayer(); done from end of Cropping-Function
-$("#card-tutorial").show();
+$("#menu").show();
+drawer.open = true;
+//$("#card-dashboard").show();
 });
 
 $("#button-identity-random").click(function(evt){
@@ -1605,13 +1611,13 @@ var data = {
 "annotype" : "Guestbook",
 "body" : {
   "type" : "comment",
-  "name" : $("#guestbook-popup-comment").find("textarea").val(),
+  "name" : guestbook_comment.value,
 
 },
 "target" : {
 	"pubid":app_state.pubs,
-  "menu" : app_state.menu,
-	"menupage": app_state.menupage,
+  "menu" : null,
+	"menupage": null,
   "selector": null,
   "coord" : null,
 },
@@ -1629,8 +1635,15 @@ var data = {
 
 showTextOnSnackbar("Gästebucheintrag hinterlegt!", 5000);
 
-
-
 DBaddnew(data, DBguestbook)
 console.log(data);
+redrawGuestBook($("#guestbook_entries"));
 })
+
+$("#dash-sync-help").click(function(evt){
+//showHelp
+showHelp("Sync", false, null, null)
+$("#dash-sync-up").removeAttr("disabled");
+$("#dash-sync-down").removeAttr("disabled");
+
+});

@@ -25,7 +25,7 @@ Ein Sync der lokal gespeicherte Browserdaten mit einer zentralen Datenbank kann 
 **Ausführen: **     
 index.html aufrufen.
 
-Einige Browser (Chrome) brauchen den Aufruf von einen Webserver für Funktionalitäten des ServiceWorkers:  
+Einige Browser (Chrome) brauchen den Aufruf von einen Webserver für Funktionalitäten des ServiceWorkers (Add to Homescreen, Push Notifications):  
 - python -m http.server,
 - dann localhost:8000
 
@@ -70,3 +70,6 @@ Bewertung zu einem Gericht hinterlassen
 Bewertungen zu einem Gericht anzeigen
 ![Bewertung zu einem Gericht anzeigen](screens/pubs-dishes-rating-show.PNG)
 
+
+Menü:
+![Menü](screens/menu.PNG)

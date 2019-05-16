@@ -93,7 +93,27 @@
     </div>
     <div class="mdc-card__actions">
       <div class="mdc-card__action-buttons">
-        <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-intro-go">Leinen los <i class="material-icons mdc-icon-button__icon" aria-hidden="true">rowing</i></a></button>
+        <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-intro-go">Los! <!--<i class="material-icons mdc-icon-button__icon" aria-hidden="true">rowing</i>--></a></button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<main class="maincard" id="card-intro2">
+  <div class="mdc-card demo-card">
+    <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+      <!--<div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;assets/p66_m1_ima11.jpg&quot;);"></div>-->
+      <div class="demo-card__primary">
+        <h2 class="demo-card__title mdc-typography mdc-typography--headline6"></h2>
+        <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
+      </div>
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Willkommen bei
+        Gastrograntler, deinem Kraut Saußing-Tool zum Entdecken neuer, skuriller und alltäglicher Gerichte aus fernen Zeiten.
+        Wähle zunächst eine Identität aus und begib dich dann in die Gasthäuser.</div>
+    </div>
+    <div class="mdc-card__actions">
+      <div class="mdc-card__action-buttons">
+        <button class="mdc-button mdc-card__action mdc-card__action--button" id="button-intro2-go">Weiter <i class="material-icons mdc-icon-button__icon" aria-hidden="true">rowing</i></a></button>
       </div>
     </div>
   </div>
@@ -141,7 +161,20 @@
 <main class="maincard" id="card-dash">
   <div class="mdc-card demo-card">
     <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
-      <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;sample-data/p66_m1_ima11.jpg&quot;);"></div>
+      <div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;assets/p48_m2_ima1.jpg&quot;);">
+
+        <div class="demo-card__secondary mdc-typography mdc-typography--body2"></div>
+        <p class="dash-overlay-button">
+        <button class="mdc-button" id="dash-menu-random">Zufällige Menüseite<i class="material-icons mdc-icon-button__icon" aria-hidden="true">shuffle</i></button>
+      </p>
+      <p class="dash-overlay-button">
+        <button class="mdc-button mdc-card__action mdc-card__action--button" id="dash-sync-help">Der Restaurantführer <i class="material-icons mdc-icon-button__icon" aria-hidden="true">library_books</i></button>
+        <button class="mdc-button mdc-card__action mdc-card__action--button" id="dash-sync-up" disabled="true" disabled>Notizen dem Restaurantführer melden <i class="material-icons mdc-icon-button__icon" aria-hidden="true">cloud_upload</i></button>
+        <button class="mdc-button mdc-card__action mdc-card__action--button" id="dash-sync-down" disabled="true" disabled>Neueste Auflage des Restaurantführers bezogen! <i class="material-icons mdc-icon-button__icon" aria-hidden="true"> cloud_download</i></button>
+      </p>
+      </div>
+    </div>
+    <!--
       <div class="demo-card__primary">
         <h2 class="demo-card__title mdc-typography mdc-typography--headline6"></h2>
         <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
@@ -155,7 +188,7 @@
       <button class="mdc-button" id="dash-sync-up">Notizen dem Restaurantführer melden <i class="material-icons mdc-icon-button__icon" aria-hidden="true">cloud_upload</i></button>
       <button class="mdc-button" id="dash-sync-down">Neueste Auflage des Restaurantführers bezogen! <i class="material-icons mdc-icon-button__icon" aria-hidden="true"> cloud_download</i></button>
     </p>
-    </div>
+  </div>-->
     <div class="mdc-card__actions">
       <div class="mdc-card__action-buttons">
         <!--<button class="mdc-button mdc-card__action mdc-card__action--button">Leinen los <i class="material-icons" aria-hidden="true">rowing</i></a></button>-->
@@ -1596,7 +1629,6 @@ noch nicht gepflegt
    --></h2>
       <div class="mdc-dialog__content"><div class="mdc-text-field mdc-text-field--textarea mdc-text-field--with-trailing-icon" id="guestbook-popup-comment">
         <div class="mdc-text-field-character-counter">0 / 400</div>
-        <i class="material-icons mdc-text-field__icon" tabindex="0" role="" id="guestbook_add_entry">rate_review</i>
         <textarea class="mdc-text-field__input" rows="2" cols="30" required minlength="5" maxlength="400" guestbook-comment></textarea>
         <div class="mdc-notched-outline">
           <div class="mdc-notched-outline__leading"></div>
@@ -1610,13 +1642,17 @@ noch nicht gepflegt
   <div class="mdc-text-field-helper-text"></div>
 </div>
 <div>
-<ul id="guestbook_entries"><li>Noch keine Gästebucheinträge. Hinterlasse den ersten Kommentar.</li></ul>
+<ul id="guestbook_entries" class="mdc-list"><li>Noch keine Gästebucheinträge. Hinterlasse den ersten Kommentar.</li></ul>
 </div>
 </div>
 <footer class="mdc-dialog__actions">
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
     <span class="mdc-button__label">Schließen</span>
     <i class="material-icons mdc-icon-button__icon">clear</i>
+  </button>
+  <button type="button" class="mdc-button" id="guestbook_add_entry">
+    <span class="mdc-button__label">Hinzufügen</span>
+    <i class="material-icons mdc-icon-button__icon">note_add</i>
   </button><!--
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
     <span class="mdc-button__label">Okay</span>
