@@ -153,6 +153,12 @@ background-color: #b57d29;
   z-index: 100;
 }
 
+.dash-overlay-button {
+  background: #fff;
+  opacity:0.9;
+
+}
+
 /* stylelint-disable
 CSS
 TODO: Adapt, if needed. Else delete

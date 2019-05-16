@@ -105,30 +105,36 @@ $("#help-content").html(`Add to Home Screen <i class="material-icons">add_to_hom
 }else if(topic === "NavPubsList"){
   $("#help-title").html(`<i class="material-icons">list</i> Branchenverzeichnis`);
   $("#help-content").html(`Das Branchenverzeichnis verzeichnet alle bekannten Wirtshäuser <i class="material-icons">home</i>`);
-
-}else if(topic === "ServerSync"){
-  $("#help-title").html(`<i class="mateiral-icons">help</i> Geolokalisierung hinterlegen`);
-  $("#help-content").html(`Tausche Infos mit dem Server und mit anderen Spielern und hole von diesen Infos ab <i class="material-icons">sync</i> `);
-
+}else if(topic === "Sync"){
+  $("#help-title").html(`<i class="material-icons">help</i> Restaurantführer`);
+  $("#help-content").html(`Der Restaurantführer verzeichnet alle aktuellen Kommentare. Melde dem Restaurantführer deine Notizen und hole dir regelmäßig die aktuelleste Auflage. <i class="material-icons">sync</i> `);
 }else if(topic === "NavMap"){
   $("#help-title").html(`<i class="material-icons">map</i> Karte`);
   $("#help-content").html(`Die Karte zeigt dir die bekannten Positionen der Gasthäuser <i class="material-icons">home</i>`);
-
 }else if(topic === "NavDash"){
   $("#help-title").html(`<i class="material-icons">dash</i> Gerüchteküche`);
   $("#help-content").html(`Hier wird gemunkelt und geschunkelt. Hole dir die neuesten Gerüche und Gerüchte aus der Küche und entdecke neues.`);
-
 }else if(topic === "addGeo"){
   $("#help-title").html(`<i class="material-icons">location</i> Standort hinterlegen`);
   $("#help-content").html(`Hinterlege Infos zu einen Standort, wie die Adresse, zu einem Wirtshaus. Wenn du Koordinaten angibst, erscheint das Wirtshaus auch auf der Karte`);
-
 }else if(topic === "addRate"){
   $("#help-title").html(`<i class="material-icons">rate_review</i> Bewertung hinterlassen`);
   $("#help-content").html(`Du findest dieses Gericht sehr skurill? Hinterlasse hier deinen Senf und gebe ein paar Sterne ab.`);
-
 }else if(topic === "addAnnoMap"){
   $("#help-title").html(`<i class="material-icons">comment</i> Annotation hinterlassen`);
-  $("#help-content").html(`Hinterlasse eine Annotation zu dieser Speisekarte. Wähle dazu einen Bereich aus und klick danach darauf oder auf den grünen Annotationsbutton`);
+  $("#help-content").html(`
+    Über den unteren Button wählst du einen Bereich aus<br>
+    <img src="screens/help_anno_1.PNG" width="300px">
+    Ein Klick darauf oder auf den braunen Button und das Menü öffnet sich.<br>
+    <img src="screens/help_anno_2.PNG" width="300px">
+    Der obere Button zeigt dir vorhandene Annotationen an.<br>
+    <img src="screens/help_anno_3.PNG" width="300px">
+
+    `);
+}else if(topic === "Identity"){
+  $("#help-title").html(`<i class="material-icons">face</i> Wähle eine Identität aus.`);
+  $("#help-content").html(`Ziehe eine zufällige Identität oder mach ein Foto und wir ermitteln, wer dir ähnlich sieht. Ziehe dann ein Rechteck um den Kopf für dein Profilbild.
+    <img src="screens/help_1.PNG" width="300px"> `);
 }
 
 }
@@ -867,21 +873,30 @@ return new Promise(function(resolve, rejected){
   }else if(data.id === user_state.timestamp ){
     creator_name = "Du";
   }
-  /*
+/*
   DBplayer.find({
-    selector: {'_id' : data.creator.id},
-  }).then(function(result){
-        return */
-        var imagename = data._id + "_" + data.identity + ".jpeg"
-        console.log(data);
-        DBplayer.getAttachment(data.id, imagename).then(function(result2){
+    selector: {'_id' : data.id},
+  }).then(function(result1){
+  */
+        var imagename = data.id + "_" + data.identity + ".jpeg"
+        console.log(imagename);
+        console.log(data.id);
+      DBplayer.getAttachment(data.id, imagename).then(function(result2){
+          console.log(result2);
+        if(result2 != undefined && result2 != null){
         var url = URL.createObjectURL(result2);
-        console.log(result2);
-        resolve(`<span class="playerinfo" data-id="${data.id}"><img src="${url}" width="64px" height="auto" alt=":-(" /> ${creator_name} , `+timeDifference(Date.now(), timestamp) + `:</span>`);
-  }).catch(function(error){
-    //if(data.id === ""){
+
+        resolve(`<span class="playerinfo" data-id="${data.id}"><img src="${url}" width="32px" height="auto" alt=":-(" /> ${creator_name} , `+timeDifference(Date.now(), timestamp) + `:</span>`);
+      }else{
+
+        resolve(`<span class="playerinfo"> ${creator_name} , `+timeDifference(Date.now(), timestamp) + `:</span>`);
+
+      }
+
+      }).catch(function(error){
+    if(data.id === ""){
       resolve(`<span class="playerinfo"> ${creator_name} , `+timeDifference(Date.now(), timestamp) + `:</span>`);
-    //}
+    }
     console.log(error);
   })
 });
@@ -1635,12 +1650,25 @@ drawTutorialHelpList($("#tutorial-help-list"));
        html += `<div class="mdc-chip" data-id="${user_state.help[help]}">
   <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">list</i>
   <div class="mdc-chip__text">Branchenverzeichnis</div></div>`;
-     }
-     if(user_state.help[help] === "NavMap"){
+}else if(user_state.help[help] === "NavMap"){
        html += `<div class="mdc-chip" data-id="${user_state.help[help]}">
   <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">map</i>
   <div class="mdc-chip__text">Stadtplan</div></div>`;
+}else if(user_state.help[help] === "Sync"){
+       html += `<div class="mdc-chip" data-id="${user_state.help[help]}">
+  <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">sync</i>
+  <div class="mdc-chip__text">Restaurantführer</div></div>`;
      }
+     else if(user_state.help[help] === "addAnnoMap"){
+            html += `<div class="mdc-chip" data-id="${user_state.help[help]}">
+       <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">comment</i>
+       <div class="mdc-chip__text">Annotation hinterlegen</div></div>`;
+          }
+          else if(user_state.help[help] === "addRate"){
+                 html += `<div class="mdc-chip" data-id="${user_state.help[help]}">
+            <i class="material-icons mdc-chip__icon mdc-chip__icon--leading">rate_review</i>
+            <div class="mdc-chip__text">Bewertungen</div></div>`;
+               }
    }
    list.html(html);
    }
@@ -1734,7 +1762,7 @@ function redrawGuestBook(elem){
   console.log("Liste mit Gästebucheinträgen geschrieben.")
   $(elem).html();
   DBguestbook.find({
-    selector: {'target.pubid' : app_state._id}
+    selector: {'target.pubid' : app_state.pubs}
   }).then(function (result){
     console.log(result);
     $("#guestbook_entries").html('');
@@ -1758,11 +1786,10 @@ function redrawGuestBook(elem){
      if(value.language != "query"){
      console.log(value)
      drawPersonShortInfo(value.creator, value.created);
-     card_html += `<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value._id}">
-       <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true"></span>
-       <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.body.name}</span>
+     card_html += `<li class="list-item mdc-ripple-upgraded" tabindex="0" data-id="${value._id}">
+      <p>${value.body.name}</p>
+       <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text"></span>
        <span class="mdc-list-item__secondary-text">${result2}</span></span>
-       <span class="mdc-list-item__meta" aria-hidden="true"> </span>
      </li>`;
    }
    //});
