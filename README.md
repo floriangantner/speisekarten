@@ -1,4 +1,6 @@
-**Gastrograntler**
+<h2><img src="assets/logo/app_72x72.png">Gastrograntler</h2>
+
+
 
 Speisekarten App  
 Cod1ng da V1nc1 Süd 2019
