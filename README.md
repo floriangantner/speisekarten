@@ -1,7 +1,10 @@
 **Gastrograntler**
 
 Speisekarten App  
-Cod1ng da V1nc1 Süd 2019  
+Cod1ng da V1nc1 Süd 2019
+
+*Warnhinweis : Zurzeit (16.5 13:09) kommt es noch zu Änderungen der Inhalte. Gerade werden die Texte noch redigiert. Abgesehen davon ist die Anwendung aber schon funktionstüchtig*
+
 <img src="screens/gastrograntler_intro.PNG" width="33%">
 
 Installationsanleitung:  
@@ -11,6 +14,9 @@ Gastrograntler läuft zurzeit nur offline, da uns die Kapazitäten für einen Se
 index.html aufrufen.
 
 Für ein zufriedenstellendes Benutzerlebnis ist ein lokaler IIIF-Server zur Anzeige der Bilder notwendig.  
+
+<img src="docs/Architektur.png" width="33%">
+
 
 IIIF-Server:  
 - Cantaloupe 4.0.3 (https://cantaloupe-project.github.io/) installieren und Installationsanleitung befolgen  
