@@ -7,6 +7,9 @@ Cod1ng da V1nc1 Süd 2019
 Installationsanleitung:  
 Gastrograntler läuft zurzeit nur offline, da uns die Kapazitäten für einen Serverbetrieb (> 10 GB Speicherplatz für die Bilder) fehlen.  
 
+**Ausführen: **     
+index.html aufrufen.
+
 Für ein zufriedenstellendes Benutzerlebnis ist ein lokaler IIIF-Server zur Anzeige der Bilder notwendig.  
 
 IIIF-Server:  
@@ -21,8 +24,6 @@ Ein Sync der lokal gespeicherte Browserdaten mit einer zentralen Datenbank kann 
 - Optional: unter js/data/data_config.js config.couchDB den Aufrufpfad (Url/port/Ordner/) zur CouchDB-Server ändern. Defaultmäßig ist dieser http://localhost:5984/  
 
 
-**Ausführen: **     
-index.html aufrufen.
 
 Einige Browser (Chrome) brauchen den Aufruf von einen Webserver für Funktionalitäten des ServiceWorkers (Add to Homescreen, Push Notifications):  
 - python -m http.server,
