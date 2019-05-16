@@ -1593,7 +1593,7 @@ $("#tutorial-help-list").on("click", ".mdc-chip", function(evt){
 })
 
 $("#guestbook-list").click(function(evt){
-  redrawGuestBook(app_state.pubid);
+  redrawGuestBook($("#guestbook_entries"));
 
   guestbook_dialog.open();
 })

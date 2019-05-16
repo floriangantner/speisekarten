@@ -1760,7 +1760,7 @@ function redrawGuestBook(elem){
      drawPersonShortInfo(value.creator, value.created);
      card_html += `<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value._id}">
        <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true"></span>
-       <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.body.comment}</span>
+       <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.body.name}</span>
        <span class="mdc-list-item__secondary-text">${result2}</span></span>
        <span class="mdc-list-item__meta" aria-hidden="true"> </span>
      </li>`;
