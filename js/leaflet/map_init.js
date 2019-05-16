@@ -51,6 +51,12 @@ var osmLayer = new L.TileLayer(osmUrl, {
 		attributionControl: false
 	});
 	L.control.attribution({position: 'bottomleft'}).addTo(map);
+	osmLayer.on('tileerror', function(error, tile) {
+      console.log(error);
+      console.log(tile);
+      showTextOnSnackbar("Keine Verbindung zur Karte!", "5003");
+  });
+
 	//add Tile Layer to map
 	map.addLayer(osmLayer);
 

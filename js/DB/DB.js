@@ -34,6 +34,7 @@ const DBcategory = new PouchDB('category');
 const DBpersons_head = new PouchDB('person_head');
 const DBads = new PouchDB('ads');
 const DBimage = new PouchDB('image');
+const DBguestbook = new PouchDB('guestbook');
 
 var doc;
 

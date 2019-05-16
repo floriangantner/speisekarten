@@ -82,6 +82,7 @@ help_dialog.open();
 help_dialog.close();
 }else if(helpAlreadyShown === true && helppage === true){
 console.log("Topic stays open, helppage");
+redrawHelp(topic);
 help_dialog.open();
 }
 }
@@ -709,13 +710,19 @@ function redrawPlayerInfo(id, elem){
 //redraw Infos from this Player to elem
 app_state.player = id;
 DBplayer.get(id).then(function(result){
-  $(elem).find("[player-content]").html(JSON.stringify(result));
+  //$(elem).find("[player-content]").html(JSON.stringify(result));
   return DBhist_persons.get(result.identity);
 }).then(function(result2){
-  $("#card-about-other").find("[player-name]").html(`${doc.name}`);
-  $("#card-about-other").find("[player-job]").html(`${doc.job[0]}`);
-  $("#card-about-other").find(`[player-status]`).append(` (${doc.birthdate} - ${doc.deathdate})`);
-  $(elem).append(JSON.stringify(result2));
+  $("#card-about-other").find("[player-name]").html(`${result2.name}`);
+  $("#card-about-other").find("[player-job]").html(`${result2.job[0]}`);
+  $("#card-about-other").find(`[player-status]`).html(` (${result2.birthdate} - ${result2.deathdate}) <br> Motto: ${result2.motto}`);
+  $("#card-about-other").find("[player-pic]").attr("src", "").attr("src", "assets/"+result2.file).attr("width", "100%");
+console.log(result2.file);
+  //for(val in result.doc._attachments){
+  //  var url = URL.createObjectURL(value.doc._attachments[val].data);
+  //}
+
+  //$(elem).append(JSON.stringify(result2));
 }).catch(function(err){
   console.log(err);
 })
@@ -1061,12 +1068,12 @@ function identity_check(){
               user_state.name = result.name;
               var text = 'Willkommen zurück: ' + result.name ;
               showTextOnSnackbar(text , 4500, "OK");
-              var path = user_state.timestamp+'_'+user_state.identity+'.jpg';
+              var path = user_state.timestamp+'_'+user_state.identity+'.jpeg';
               //redrawUserImage(docs[0]._attachments[0].data);
               console.log(path);
               $("#card-about-you > div > div > img[user-image]").attr('src', 'assets/'+result.file).attr('width', '50%').attr('height','auto%');
                 redrawUserInfo();
-
+                console.log(docs[0]._id);
               return DBuser.getAttachment(docs[0]._id, path);
             }).then(function(blob){
               console.log(blob);
@@ -1503,25 +1510,30 @@ DBmenu_status.find({
   selector: {'target.menupage': menupage},
 }).then(function(result){
   //only one entry should exist
+
   if(result.docs.length > 0){
-    var result = result.docs[0];
 console.log(result);
+var result = result.docs[0];
+
 
 $("#dialog-complete-title").html('<i class="material-icons">done_all</i> Seite ist komplett!');
 $("#dialog-complete").find("#dialog-complete-input").hide();
 $("#dialog-complete").find('[data-mdc-dialog-action="accept"]').attr("disabled", "true");
 $("#dialog-complete").find("[complete-not-yet]").hide();
 $("#dialog-complete-title").html();
+comment1 = result.body.comment;
 
 }else{
+  var result = null;
+
   $("#dialog-complete-title").html('<i class="material-icons">info</i> Seite komplett?');
 $("#dialog-complete").find("[complete-anno-status]").hide();
 $("#dialog-complete").find("[complete-not-yet]").show();
 
 $("#dialog-complete").find("#dialog-complete-input").show();
 $("#dialog-complete").find('[data-mdc-dialog-action="accept"]').removeAttr("disabled");
+comment1 = '';
 }
-comment1 = result.body.comment;
 return drawPersonShortInfo(result.creator, result.created);
 }).then(function(result2){
 var html_out = `<div><p>`+result2+`</p><p>Kommentar: ${comment1}</p></div>`;
@@ -1656,3 +1668,104 @@ drawTutorialHelpList($("#tutorial-help-list"));
        console.log(err);
      });
    }
+
+   function RedrawPlayerList(){
+     //draws List of all Persons
+     DBplayer.allDocs({
+         include_docs: true,
+         attachments : true,
+         binary : true
+       },function(err, doc){
+         elem = $("#player-all-list");
+         elem.html('');
+         drawPlayerList(doc.rows, elem);
+
+   })
+ }
+
+   function drawPlayerList(data, elem){
+     //generated Code for Entry.
+    var card_html = '';
+   $.each(data, function (index, value) {
+     for(val in value.doc._attachments){
+       var url = URL.createObjectURL(value.doc._attachments[val].data);
+     }
+     //
+     console.log(value.doc.identity);
+     DBhist_persons.get(value.doc.identity).then(function(result){
+       console.log(result);
+                card_html = `<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.id}" data-identity="${value.doc.identity}">
+                <img src="${url}" height="100px" />
+                  <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${result.name}</span>
+                  <span class="mdc-list-item__secondary-text"></span></span>
+                  <span class="mdc-list-item__meta" aria-hidden="true"><i class="material-icons">explore</i></span>
+                </li>`;
+                elem.append(card_html);
+     }).catch(function(err){
+       console.log(err);
+     })
+     /*
+     DBplayer.getAttachment(data.id, imagename).then(function(result2){
+     var url = URL.createObjectURL(result2);*/
+     //you ? get Person Data
+
+     //var url = URL.createObjectURL(value.doc._attachments[0]);
+
+       })
+       if(data.length === 0){
+       if($.trim($(elem).html()) === ''){
+         elem.html('Es wurden keine Grantler gefunden :( )');
+       };
+     }
+
+   console.log(data.length + " Player written to PlayerList");
+   }
+
+   $("#player-all-list").on("click", ".mdc-list-item", function(evt){
+     var identity = $(this).attr("data-identity");
+     var playerid = $(this).attr("data-id");
+     evt.preventDefault();
+     $( "main" ).hide();
+     redrawPlayerInfo(playerid, $("#card-about-other"));
+     $( "#card-about-other" ).show();
+   })
+
+function redrawGuestBook(elem){
+  console.log("Liste mit Gästebucheinträgen geschrieben.")
+  $(elem).html();
+  DBguestbook.find({
+    selector: {'target.pubid' : app_state._id}
+  }).then(function (result){
+    console.log(result);
+    $("#guestbook_entries").html('');
+    for(var it = 0; it < result.docs.length; it++){
+      var doc = result.docs[it];
+      drawPersonShortInfo(doc.creator, doc.created).then(function(result2){
+        var list = newGuestbookElement(doc, result2);
+      $(elem).prepend(list);
+
+    });
+      }
+  }).catch(function(err){
+    console.log(err);
+  });
+  }
+
+  function newGuestbookElement (data, result2){
+    var card_html = '';
+   //$.each(data, function (index, value) {
+   var value = data;
+     if(value.language != "query"){
+     console.log(value)
+     drawPersonShortInfo(value.creator, value.created);
+     card_html += `<li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value._id}">
+       <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true"></span>
+       <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.body.name}</span>
+       <span class="mdc-list-item__secondary-text">${result2}</span></span>
+       <span class="mdc-list-item__meta" aria-hidden="true"> </span>
+     </li>`;
+   }
+   //});
+   return card_html;
+
+  };

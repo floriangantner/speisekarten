@@ -51,7 +51,8 @@
 
         <hr class="mdc-list-divider">
         <h6 class="mdc-list-group__subheader"></h6>
-        <a class="mdc-list-item" href="#" tabindex="-1" id="nav-about-you"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">face</i>Personas</a>
+        <a class="mdc-list-item" href="#" tabindex="-1" id="nav-about-you"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">face</i>Über dich</a>
+        <a class="mdc-list-item" href="#" tabindex="-1" id="nav-player-all"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">group</i>Personen</a>
         <a class="mdc-list-item" href="#" tabindex="-1" id="nav-anno-you"><i class="material-icons mdc-list-item__graphic" aria-hidden="true">local_dining</i>Von dir entdeckt</a>
         <a class="mdc-list-item" href="#" tabindex="-1" id="nav-about-us">
           <i class="material-icons mdc-list-item__graphic" aria-hidden="true" >info</i>Über uns</a>
@@ -351,6 +352,14 @@
     <!--<div class="mdc-card__media mdc-card__media--16-9 demo-card__media" style="background-image: url(&quot;https://material-components.github.io/material-components-web-catalog/static/media/photos/3x2/2.jpg&quot;);"></div>-->
     <div class="demo-card__secondary mdc-typography mdc-typography--body2"></div>
     <span teaser-info-ext></span>
+    <ul class="mdc-list" id="guestbook-list" >
+      <li class="mdc-list-item">
+        <span class="mdc-list-item__graphic">
+        <button class="mdc-icon-button material-icons" title="Gästebuch" data-mdc-ripple-is-unbounded="true" >book</button>
+        </span>
+        <span class="mdc-list-item__text">Gästebuch</span>
+      </li>
+    </ul>
     <ul class="mdc-list" id="pubs-adress-list" >
       <li class="mdc-list-item">
         <span class="mdc-list-item__graphic">
@@ -652,12 +661,12 @@
 <main class="maincard" id="card-about-you">
   <div class="mdc-card demo-card demo-basic-with-header">
     <div class="demo-card__primary">
-      <h2 class="demo-card__title mdc-typography mdc-typography--headline6" user-name>Über dich</h2>
-      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2" user-status>Name, Vorname, Portrait</h3>
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6" user-name></h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2" user-status></h3>
     </div>
     <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
       <img src="" user-image></img>
-      <div class="demo-card__secondary mdc-typography mdc-typography--body2">Infos aus der GND und anderen Datenbanken</div>
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2"></div>
     </div>
   </div>
 </main>
@@ -665,12 +674,13 @@
 <main class="maincard" id="card-about-other">
   <div class="mdc-card demo-card demo-basic-with-header">
     <div class="demo-card__primary">
-      <h2 class="demo-card__title mdc-typography mdc-typography--headline6" player-name>Über andere Personen</h2>
-      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2" player-job>Name, Vorname, Portrait</h3>
-      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2" player-status>Name, Vorname, Portrait</h3>
+      <img src="" player-pic />
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6" player-name></h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2" player-job></h3>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2" player-status></h3>
     </div>
     <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
-      <div class="demo-card__secondary mdc-typography mdc-typography--body2" player-content>Was haben andere Personen bewertet oder besucht?</div>
+      <div class="demo-card__secondary mdc-typography mdc-typography--body2" player-content></div>
     </div>
   </div>
 </main>
@@ -807,6 +817,45 @@
 </div>
 </main>
 
+
+<main class="maincard" id="card-player-all">
+<div class="mdc-card demo-card">
+  <div class="mdc-card__primary-action demo-card__primary-action" tabindex="0">
+    <div class="demo-card__primary">
+      <h2 class="demo-card__title mdc-typography mdc-typography--headline6">Alle Grantler!</h2>
+      <h3 class="demo-card__subtitle mdc-typography mdc-typography--subtitle2"></h3>
+    </div>
+    <div class="demo-card__secondary mdc-typography mdc-typography--body2">
+      <div class="filter-sort">
+      <div class="filter-buttons">
+        <div class="mdc-text-field" id="player-search">
+    <input class="mdc-text-field__input">
+    <div class="mdc-line-ripple"></div>
+    <label class="mdc-floating-label">Suche</label>
+      </div>
+
+      <button class="mdc-button mdc-ripple-upgraded" id="player-list-sort-atoz">
+      <i class="material-icons-outlined mdc-button__icon">sort_by_alpha</i>
+      <span class="mdc-button__label"></span>
+      </button>
+      </div>
+        <div class="filter-category-options">
+
+      </div>
+      <ul class="mdc-list anno-list mdc-list--two-line mdc-list--avatar-list dishes-list" id="player-all-list">
+        <li class="mdc-list-item mdc-ripple-upgraded" tabindex="0" data-id="${value.id}">
+          <span class="mdc-list-item__graphic material-icons-outlined" aria-hidden="true">${logo}</span>
+          <span class="mdc-list-item__text"><span class="mdc-list-item__primary-text">${value.body.name}</span>
+          <span class="mdc-list-item__secondary-text">${value.body.description}</span></span>
+          <span class="mdc-list-item__meta" aria-hidden="true">${value.body.price} ${value.body.price_currency}</span>
+        </li>
+      </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
 <!-- Popups -->
 
 <div class="maindialog mdc-dialog" role="alertdialog" aria-modal="true"
@@ -816,7 +865,7 @@
       <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
 
       <h2 class="mdc-dialog__title" id="help-title"><!--
-     -->Hilfefenster mit Hinweisen zur Benutzung.<!--
+     -->Hilfefenster mit  Hinweisen zur Benutzung.<!--
    --></h2>
       <div class="mdc-dialog__content" id="help-content">
 </div>
@@ -1020,7 +1069,7 @@
 </div>
 </div>
 <footer class="mdc-dialog__actions">
-  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close" onclick="alert(Osterei!);">
+  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
     <span class="mdc-button__label">Abbrechen</span>
     <i class="material-icons mdc-icon-button__icon">clear</i>
   </button>
@@ -1071,7 +1120,7 @@
 </div>
 </div>
 <footer class="mdc-dialog__actions">
-  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close" onclick="alert(Osterei!);">
+  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
     <span class="mdc-button__label">Abbrechen</span>
     <i class="material-icons mdc-icon-button__icon">clear</i>
   </button>
@@ -1147,7 +1196,7 @@
 </div>
 </div>
 <footer class="mdc-dialog__actions">
-  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close" onclick="alert(Osterei!);">
+  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
     <span class="mdc-button__label">Abbrechen </span><i class="material-icons mdc-icon-button__icon">clear</i>
   </button>
   <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
@@ -1327,7 +1376,7 @@
 		<div class="mdc-notched-outline">
        <div class="mdc-notched-outline__leading"></div>
        <div class="mdc-notched-outline__notch">
-         <label for="textarea" class="mdc-floating-label" onclick="alert("Osterei!");">Dein Kommentar</label>
+         <label for="textarea" class="mdc-floating-label">Dein Kommentar</label>
 
        <!--<div class="mdc-notched-outline__trailing"></div>--></div>
      </div>
@@ -1536,6 +1585,49 @@ noch nicht gepflegt
   <div class="mdc-dialog__scrim"></div>
 </div>
 
+<div class="maindialog mdc-dialog" role="alertdialog" aria-modal="true"
+     aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content" id="guestbook-popup">
+  <div class="mdc-dialog__container">
+    <div class="mdc-dialog__surface">
+      <!-- Title cannot contain leading whites  pace due to mdc-typography-baseline-top() -->
+
+      <h2 class="mdc-dialog__title" id="guestbook-popup-title"><!--
+     -->Gästebuch <span <!--
+   --></h2>
+      <div class="mdc-dialog__content"><div class="mdc-text-field mdc-text-field--textarea mdc-text-field--with-trailing-icon" id="guestbook-popup-comment">
+        <div class="mdc-text-field-character-counter">0 / 400</div>
+        <i class="material-icons mdc-text-field__icon" tabindex="0" role="" id="guestbook_add_entry">rate_review</i>
+        <textarea class="mdc-text-field__input" rows="2" cols="30" required minlength="5" maxlength="400" guestbook-comment></textarea>
+        <div class="mdc-notched-outline">
+          <div class="mdc-notched-outline__leading"></div>
+          <div class="mdc-notched-outline__notch">
+            <label for="textarea" class="mdc-floating-label">Dein Gästebucheintrag</label>
+          </div>
+          <div class="mdc-notched-outline__trailing"></div>
+        </div>
+      </div>
+      <div class="mdc-text-field-helper-line">
+  <div class="mdc-text-field-helper-text"></div>
+</div>
+<div>
+<ul id="guestbook_entries"><li>Noch keine Gästebucheinträge. Hinterlasse den ersten Kommentar.</li></ul>
+</div>
+</div>
+<footer class="mdc-dialog__actions">
+  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
+    <span class="mdc-button__label">Schließen</span>
+    <i class="material-icons mdc-icon-button__icon">clear</i>
+  </button><!--
+  <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept">
+    <span class="mdc-button__label">Okay</span>
+    <i class="material-icons mdc-icon-button__icon">check_circle</i>
+  </button> -->
+</footer>
+</div>
+</div>
+<div class="mdc-dialog__scrim"></div>
+</div>
+
 <!--  Snackbar -->
 <div class="mdc-snackbar" id="snackbar">
   <div class="mdc-snackbar__surface">
@@ -1703,11 +1795,6 @@ image_radioset.input = image_radio3;
 image_radioset.input = image_radio4;
 annotation_image_dialog.listen('MDCDialog:opened', () => {
 textField_image_comment.layout();
-image_radioset.layout();
-image_radio1.layout();
-image_radio2.layout();
-image_radio3.layout();
-image_radio4.layout();
 });
 
 const annotation_geolocation_dialog = new mdc.dialog.MDCDialog(document.querySelector('#annotation-geolocation-popup'));
@@ -1752,6 +1839,12 @@ complete_comment.layout();
 const Ratingslider = new mdc.slider.MDCSlider(document.querySelector('#rating-stars-slider'));
 Ratingslider.listen('MDCSlider:change', function(evt){
 $("#dishes-rating-slider-stars").html('').append(visualizeRating(Ratingslider.value));
+});
+
+const guestbook_dialog = new mdc.dialog.MDCDialog(document.querySelector('#guestbook-popup'));
+var guestbook_comment = new mdc.textField.MDCTextField(document.querySelector('#guestbook-popup-comment'));
+guestbook_dialog.listen('MDCDialog:opened', () => {
+guestbook_comment.layout();
 });
 
 rate_dishes_dialog.listen('MDCDialog:opened', () => {

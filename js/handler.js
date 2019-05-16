@@ -88,7 +88,8 @@ $("#nav-about-us").click(function(evt){
   evt.preventDefault();
   $( "main" ).hide();
   drawer.open = false;
-  showHelp("A2HS", false, $( "#card-about-us" ));
+
+  $( "#card-about-us" ).show();
 });
 
 $("#nav-tutorial").click(function(evt){
@@ -97,6 +98,14 @@ $("#nav-tutorial").click(function(evt){
   drawer.open = false;
   redrawTutorial();
   $( "#card-tutorial" ).show();
+});
+
+$("#nav-player-all").click(function(evt){
+  evt.preventDefault();
+  $( "main" ).hide();
+  RedrawPlayerList();
+  drawer.open = false;
+  $( "#card-player-all" ).show();
 });
 
 $("#dash-menu-random").click(function(evt){
@@ -736,7 +745,7 @@ var data = {
 })
 
 $("#anno-add-button").click(function(evt){
-showHelp("addAnnoMap", false, anno_menu, "menu");  
+showHelp("addAnnoMap", false, anno_menu, "menu");
 //anno_menu.open = true;
 
 });
@@ -1474,7 +1483,10 @@ window.addEventListener('beforeinstallprompt', (e) => {
   deferredPrompt = e;
   // Update UI to notify the user they can add to home screen
   $("#tutorial-serviceworker-a2hs-button").show();
+
+
   $("#tutorial-serviceworker-a2hs-button").click(function(evt){
+    showHelp("A2HS", true , null , null);
 
     // Show the prompt
     deferredPrompt.prompt();
@@ -1578,4 +1590,47 @@ $("#nav-gastro-about").click(function(evt){
 
 $("#tutorial-help-list").on("click", ".mdc-chip", function(evt){
   showHelp($(this).attr("data-id"), true, null, null);
+})
+
+$("#guestbook-list").click(function(evt){
+  redrawGuestBook($("#guestbook_entries"));
+
+  guestbook_dialog.open();
+})
+
+$("#guestbook_add_entry").click(function(evt){
+var data = {
+"@context" : "http://www.w3.org/ns/anno.jsonld",
+"type" : "Annotation",
+"annotype" : "Guestbook",
+"body" : {
+  "type" : "comment",
+  "name" : $("#guestbook-popup-comment").find("textarea").val(),
+
+},
+"target" : {
+	"pubid":app_state.pubs,
+  "menu" : app_state.menu,
+	"menupage": app_state.menupage,
+  "selector": null,
+  "coord" : null,
+},
+"creator" : {
+	"id" : user_state.timestamp,
+	"name" : user_state.name,
+	"identity" : user_state.identity
+},
+"generator" : {
+	"name" : "tripadviswurst"
+},
+"created" : JSON.stringify(Date.now()),
+"motivation" : "commenting"
+};
+
+showTextOnSnackbar("Gästebucheintrag hinterlegt!", 5000);
+
+
+
+DBaddnew(data, DBguestbook)
+console.log(data);
 })
