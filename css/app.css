@@ -1,17 +1,19 @@
 /*  */
+
+
 #mapid {
-  width: 80%;
+  width: 95%;
   height: 80%;
-  min-width: 300px;
-  min-height:300px;
+  min-width: 600px;
+  min-height:500px;
   }
 
   #iiifmap {
-    width:300px;
-    height:400px;
+    width:600px;
+    height:600px;
     min-width: 300px;
     min-height:300px;
-    max-width:80%;
+    max-width:95%;
     min-width:75%
     }
 
@@ -116,6 +118,7 @@ background-color: #b57d29;
   --mdc-theme-primary: #076394;
   --mdc-theme-secondary: #b57d29;
 
+
 }
 .maindialog {
   --mdc-theme-primary: #b57d29;
@@ -153,11 +156,23 @@ background-color: #b57d29;
   z-index: 100;
 }
 
+
 .dash-overlay-button {
   background: #fff;
   opacity:0.9;
 
 }
+
+.mdc-card__media--16-9 .demo-card__media {
+
+}
+
+html, body {
+}
+
+
+main {
+      }
 
 /* stylelint-disable
 CSS
@@ -207,6 +222,11 @@ html, body {
   padding-bottom: 10px;
   background-color: white;
 }
+.dialog-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
 .app-content-card__image {
   padding-bottom: 10px;
