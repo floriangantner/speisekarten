@@ -1,0 +1,65 @@
+##grobe Strukturierung
+- in der index.html befinden sich alle Components (Cards, Dialogs, Topbar, Drawer)
+- über jquery-events in der handler.js werden die Components (un)sichtbar geschalten und weitere ausgelöst
+- die weiteren Events (Neues Rendern der Componenten) sind meist in der functions.js verzeichnet.
+
+## Layout
+- nutzt das Material Components for the Web
+- Elemente werden in der index.html definiert und beim Fertigladen der Seite dann initialisiert
+Verwendet werden u.a.:
+- topappbar (mit Name)
+- drawer (seitliches Menü)
+- cards (Menü-Seiten)
+- dialogs ()
+- snackbar (Leiste unten)
+- Formfields und andere Elemente
+
+##Objekte:
+POJO / Struktur sind in js/data/data_structure verzeichnet.
+Unterscheidet (und im Code entsprechend benannt) sind:
+Pubs -> ein Wirtshaus
+Menu -> eine Speisekarte
+Menupage -> eine Speiekartenseite
+
+Player -> ein Spieler
+Hist Person -> eine historische person
+User -> der aktuelle Spieler
+
+Geo -> Der Standort eines Pubs
+Guestbook -> Gästebuch eines Pubs  
+
+Dishes -> ein Gericht auf einer Speisekartenseite
+Category -> Kategorie auf einer Speisekarte
+OpeningHours -> eine Öffnungszeit auf einer Speisekartenseite
+Image -> ein Bild auf einer Speisekartenseite
+Ad -> eine Werbeanzeige auf einer Speisekartenseite
+Other -> eine weitere Information auf einer Speisekartenseite
+menu_info -> Status, ob eine Speiskartenseite bereits abgeschlossen ist
+
+Rating -> Bewertung einer Annotation (mit Kommentar oder Daumen)
+teaser_info -> Zusätzliche Information zu Wirtshäusern in Form von Bildern oder Texten.
+
+entsprechend sind auch die Datenbanken benannt (Vgl. js/DB/DB.js)
+
+##Datenstand
+wird beim Laden der Seite überprüft. Wenn eine festgelegte PouchDB keine Einträge enthält, 
+werden die Demo Daten geladen und die PouchDB geschrieben (vgl. js/data/data_consistency.js).
+Ansonsten werden die Daten aus der PouchDB geladen.
+
+##globale Variablen:
+config = allgemeine Infos (Version, Pfade). Alles, was konfigurierbar ist. 
+user_state = Informationen über den aktuellen User
+app_state = Informationen über den aktuellen App-Stand, 
+welche id gerade auf welcher card oder welchem dialog angezeigt wird.
+
+daneben sind auch andere definierte Variablen global
+
+##Weitere Infos: 
+- user-id vergabe: erfolgt fortlaufend über den timestamp.  
+- annotations-id-Vergabe: erfolgt ebenfalls fortlaufend über den timestamp.
+- Problem wird toleriert: es könnten zum genau gleichen Zeitpunkt Objekte erstellt werden
+
+##leaflet:
+- Karten und zugehörige Funktionen werden in zwei Dateien separat definier  
+- Geokarte: map_init.js 
+- IIIF: iiif_init.js mit dem Leafler-IIIf Plugin
