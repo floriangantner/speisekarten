@@ -99,27 +99,8 @@ function checkHelp(topic){
 
 function redrawHelp(topic){
 if(topic === "A2HS"){
-$("#help-title").html(`<i class="material-icons">help</i> Zum Startbildschirm hinzufügen`);
-$("#help-content").html(`Add to Home Screen <i class="material-icons">add_to_home_screen</i> -
-Über das Menü deines Browsers kannst du diese Webseite direkt auf deinem Startbildschirm ablegen.<br>`);
-}else if(topic === "NavPubsList"){
-  $("#help-title").html(`<i class="material-icons">list</i> Branchenverzeichnis`);
-  $("#help-content").html(`Das Branchenverzeichnis verzeichnet alle bekannten Wirtshäuser <i class="material-icons">home</i>`);
-}else if(topic === "Sync"){
-  $("#help-title").html(`<i class="material-icons">help</i> Restaurantführer`);
-  $("#help-content").html(`Der Restaurantführer verzeichnet alle aktuellen Kommentare. Melde dem Restaurantführer deine Notizen und hole dir regelmäßig die aktuelleste Auflage. <i class="material-icons">sync</i> `);
-}else if(topic === "NavMap"){
-  $("#help-title").html(`<i class="material-icons">map</i> Karte`);
-  $("#help-content").html(`Die Karte zeigt dir die bekannten Positionen der Gasthäuser <i class="material-icons">home</i>`);
-}else if(topic === "NavDash"){
-  $("#help-title").html(`<i class="material-icons">dash</i> Gerüchteküche`);
-  $("#help-content").html(`Hier wird gemunkelt und geschunkelt. Hole dir die neuesten Gerüche und Gerüchte aus der Küche und entdecke neues.`);
-}else if(topic === "addGeo"){
-  $("#help-title").html(`<i class="material-icons">location</i> Standort hinterlegen`);
-  $("#help-content").html(`Hinterlege Infos zu einen Standort, wie die Adresse, zu einem Wirtshaus. Wenn du Koordinaten angibst, erscheint das Wirtshaus auch auf der Karte`);
-}else if(topic === "addRate"){
-  $("#help-title").html(`<i class="material-icons">rate_review</i> Bewertung hinterlassen`);
-  $("#help-content").html(`Du findest dieses Gericht sehr skurill? Hinterlasse hier deinen Senf und gebe ein paar Sterne ab.`);
+
+
 }else if(topic === "addAnnoMap"){
   $("#help-title").html(`<i class="material-icons">comment</i> Annotation hinterlassen`);
   $("#help-content").html(`
