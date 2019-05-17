@@ -722,7 +722,7 @@ DBplayer.get(id).then(function(result){
 }).then(function(result2){
   $("#card-about-other").find("[player-name]").html(`${result2.name}`);
   $("#card-about-other").find("[player-job]").html(`${result2.job[0]}`);
-  $("#card-about-other").find(`[player-status]`).html(` (${result2.birthdate} - ${result2.deathdate}) <br> Motto: ${result2.motto}`);
+  $("#card-about-other").find(`[player-status]`).html(` (${result2.birthdate} - ${result2.deathdate}) <br> Biografie: ${result2.Bio}`);
   $("#card-about-other").find("[player-pic]").attr("src", "").attr("src", "assets/"+result2.file).attr("width", "100%");
 console.log(result2.file);
   //for(val in result.doc._attachments){
@@ -1027,8 +1027,11 @@ function redrawMapPubDialog(latlng, infos){
 
       $("#map-info-title").html(`${doc.name}`);
       $("#map-info-content").html(`<div>
-        <p>${addressinfo.street} ${addressinfo.number}, ${addressinfo.zip} ${addressinfo.city}</p>
-        <p>${addressinfo.comment}</p></div>`);
+        <p>${addressinfo.street} ${addressinfo.number}</p> 
+        <p>${addressinfo.phone}</p> 
+        <p>${addressinfo.city}</p>
+        <p>${addressinfo.comment}</p>
+        </div>`);
  return drawPersonShortInfo(infos.creator, infos.created);
 }).then(function(result){
   console.log(result);
