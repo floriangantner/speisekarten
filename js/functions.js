@@ -723,7 +723,7 @@ DBplayer.get(id).then(function(result){
   $("#card-about-other").find("[player-name]").html(`${result2.name}`);
   $("#card-about-other").find("[player-job]").html(`${result2.job[0]}`);
   $("#card-about-other").find(`[player-status]`).html(` (${result2.birthdate} - ${result2.deathdate}) <br> Biografie: ${result2.Bio}`);
-  $("#card-about-other").find("[player-pic]").attr("src", "").attr("src", "assets/"+result2.file).attr("width", "100%");
+  $("#card-about-other").find("[player-pic]").attr("src", "").attr("src", "assets/portraits/"+result2.file).attr("width", "100%");
 console.log(result2.file);
   //for(val in result.doc._attachments){
   //  var url = URL.createObjectURL(value.doc._attachments[val].data);
@@ -747,7 +747,7 @@ function newIdentityInfo(data){
   }else{
 
     if(!data[0].file.startsWith("http")){
-      data[0].file = "assets/" + data[0].file;
+      data[0].file = "assets/portraits/" + data[0].file;
     }
     $("#person-selector > div > h2").html("");
 
@@ -1056,8 +1056,8 @@ function redrawAboutYou(){
 function redrawUserInfo(){
     DBhist_persons.get(user_state.identity).then(function(doc){
       $("[user-name]").html(`${doc.name}`);
-      $("[user-status]").html(`${doc.job[0]}`);
-      $("#card-about-you").find(`[user-status]`).append(` (${doc.birthdate} - ${doc.deathdate}) <br>Motto: ${doc.motto}`);
+      $("[user-status]").html(`${doc.job}`);
+      $("#card-about-you").find(`[user-status]`).append(` <br> Bio: ${doc.bio}`);
       user_state.name = doc.name; // set display name
     });
 
@@ -1090,7 +1090,7 @@ function identity_check(){
               var path = user_state.timestamp+'_'+user_state.identity+'.jpeg';
               //redrawUserImage(docs[0]._attachments[0].data);
               console.log(path);
-              $("#card-about-you > div > div > img[user-image]").attr('src', 'assets/'+result.file).attr('width', '50%').attr('height','auto%');
+              $("#card-about-you > div > div > img[user-image]").attr('src', 'assets/portraits/'+result.file).attr('width', '50%').attr('height','auto%');
                 redrawUserInfo();
                 console.log(docs[0]._id);
               return DBuser.getAttachment(docs[0]._id, path);
