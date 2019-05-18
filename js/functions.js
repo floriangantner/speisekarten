@@ -104,7 +104,7 @@ $("#help-content").html(`Add to Home Screen <i class="material-icons">add_to_hom
 Über das Menü deines Browsers kannst du diese Webseite direkt auf deinem Startbildschirm ablegen.<br>`);
 }else if(topic === "NavPubsList"){
   $("#help-title").html(`Alt-Münchner Beisl-Katalog`);
-  $("#help-content").html(`Nachweis aller Wirtshäuser. Nachweis aller Wirtshäuser. Deine ganz persönliche Bierhumpen-Bestenliste – gut Grant!
+  $("#help-content").html(`Nachweis aller Wirtshäuser. Deine ganz persönliche Bierhumpen-Bestenliste – gut Grant!
 `);
 }else if(topic === "Sync"){
   $("#help-title").html(`<i class="material-icons">help</i> Restaurantführer`);
@@ -258,7 +258,7 @@ function newAdressListElement(data){
            <span class="mdc-list-item__graphic">
            <button class="mdc-icon-button material-icons" title="Geolocate" data-mdc-ripple-is-unbounded="true" >map</button>
            </span>
-           <span class="mdc-list-item__text">${data.body.street} ${data.body.number},  ${data.body.zip} ${data.body.city}</span>
+           <span class="mdc-list-item__text">${data.body.street} ${data.body.number} ${data.body.zip} ${data.body.city}</span>
          </li>`;
   return card_html;
 }
@@ -721,8 +721,8 @@ DBplayer.get(id).then(function(result){
   return DBhist_persons.get(result.identity);
 }).then(function(result2){
   $("#card-about-other").find("[player-name]").html(`${result2.name}`);
-  $("#card-about-other").find("[player-job]").html(`${result2.job[0]}`);
-  $("#card-about-other").find(`[player-status]`).html(` (${result2.birthdate} - ${result2.deathdate}) <br> Biografie: ${result2.Bio}`);
+  $("#card-about-other").find("[player-job]").html(`${result2.job}`);
+  $("#card-about-other").find(`[player-status]`).html(` <br><br> Bio: ${result2.bio} <br><br> GND: ${result2.gnd}<br>XML: ${result2.xmlfile}`);
   $("#card-about-other").find("[player-pic]").attr("src", "").attr("src", "assets/portraits/"+result2.file).attr("width", "100%");
 console.log(result2.file);
   //for(val in result.doc._attachments){
@@ -1057,7 +1057,7 @@ function redrawUserInfo(){
     DBhist_persons.get(user_state.identity).then(function(doc){
       $("[user-name]").html(`${doc.name}`);
       $("[user-status]").html(`${doc.job}`);
-      $("#card-about-you").find(`[user-status]`).append(` <br> Bio: ${doc.bio}`);
+      $("#card-about-you").find(`[user-status]`).append(` <br><br> Bio: ${doc.bio} <br><br> GND: ${doc.gnd}<br>XML: ${doc.xmlfile}`);
       user_state.name = doc.name; // set display name
     });
 
